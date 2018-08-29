@@ -25,8 +25,8 @@ SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
     input:
-        "multigenome_test_V5/hsap.full.SCE.Robj",
-        "multigenome_test_V5/mmus.full.SCE.Robj"
+        "multigenome_MARSseq/hsap.full.SCE.Robj",
+        "multigenome_MARSseq/mmus.full.SCE.Robj"
 
 rule zUMI_run:
     input:
@@ -34,27 +34,27 @@ rule zUMI_run:
         fastq_R2=fastq_path+'/{sample}_2.fq.gz',
         #sample_id='{sample}'
     output:
-        dir='multigenome_test_V5/{sample}_human/'+protocol+'.aligned.sorted.bam',
-        dir_file1='multigenome_test_V5/{sample}_human/zUMIs_output/stats/'+protocol+'.readspercell.txt',
-        dir_file11='multigenome_test_V5/{sample}_human/'+protocol+'.barcodelist.filtered.sort.sam',
-        dir_file111='multigenome_test_V5/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
-        dir2='multigenome_test_V5/{sample}_mouse/'+protocol+'.aligned.sorted.bam',
-        dir_file2='multigenome_test_V5/{sample}_mouse/zUMIs_output/stats/'+protocol+'.readspercell.txt',
-        dir_file22='multigenome_test_V5/{sample}_mouse/'+protocol+'.barcodelist.filtered.sort.sam',
-        dir_file222='multigenome_test_V5/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
-        dir3='multigenome_test_V5/{sample}_mixed/'+protocol+'.aligned.sorted.bam',
-        dir_file3='multigenome_test_V5/{sample}_mixed/zUMIs_output/stats/'+protocol+'.readspercell.txt',
-        dir_file33='multigenome_test_V5/{sample}_mixed/'+protocol+'.barcodelist.filtered.sort.sam'
+        dir='multigenome_MARSseq/{sample}_human/'+protocol+'.aligned.sorted.bam',
+        dir_file1='multigenome_MARSseq/{sample}_human/zUMIs_output/stats/'+protocol+'.readspercell.txt',
+        dir_file11='multigenome_MARSseq/{sample}_human/'+protocol+'.barcodelist.filtered.sort.sam',
+        dir_file111='multigenome_MARSseq/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
+        dir2='multigenome_MARSseq/{sample}_mouse/'+protocol+'.aligned.sorted.bam',
+        dir_file2='multigenome_MARSseq/{sample}_mouse/zUMIs_output/stats/'+protocol+'.readspercell.txt',
+        dir_file22='multigenome_MARSseq/{sample}_mouse/'+protocol+'.barcodelist.filtered.sort.sam',
+        dir_file222='multigenome_MARSseq/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
+        dir3='multigenome_MARSseq/{sample}_mixed/'+protocol+'.aligned.sorted.bam',
+        dir_file3='multigenome_MARSseq/{sample}_mixed/zUMIs_output/stats/'+protocol+'.readspercell.txt',
+        dir_file33='multigenome_MARSseq/{sample}_mixed/'+protocol+'.barcodelist.filtered.sort.sam'
 
     shell:
         """
-        mkdir multigenome_test_V5/{wildcards.sample}_human
-        mkdir multigenome_test_V5/{wildcards.sample}_mouse
-        mkdir multigenome_test_V5/{wildcards.sample}_mixed
+        mkdir multigenome_MARSseq/{wildcards.sample}_human
+        mkdir multigenome_MARSseq/{wildcards.sample}_mouse
+        mkdir multigenome_MARSseq/{wildcards.sample}_mixed
 
-        bash {zUMI_path}/zUMIs-master.sh -f {input.fastq_R2} -r {input.fastq_R1} -c 1-6 -m 7-14 -l 52 -g {human_STAR_genome} -a {human_gtf} -n {protocol} -p 8 -b {bc_list2} -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o multigenome_test_V5/{wildcards.sample}_human   
-        bash {zUMI_path}/zUMIs-master.sh -f {input.fastq_R2} -r {input.fastq_R1} -c 1-6 -m 7-14 -l 52 -g {mouse_STAR_genome} -a {mouse_gtf} -n {protocol} -p 8 -b {bc_list2} -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o multigenome_test_V5/{wildcards.sample}_mouse
-        bash {zUMI_path}/zUMIs-master.sh -f {input.fastq_R2} -r {input.fastq_R1} -c 1-6 -m 7-14 -l 52 -g {mixed_STAR_genome} -a {mixed_gtf} -n {protocol} -p 8 -b {bc_list2} -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o multigenome_test_V5/{wildcards.sample}_mixed
+        bash {zUMI_path}/zUMIs-master.sh -f {input.fastq_R2} -r {input.fastq_R1} -c 1-6 -m 7-14 -l 52 -g {human_STAR_genome} -a {human_gtf} -n {protocol} -p 8 -b {bc_list2} -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o multigenome_MARSseq/{wildcards.sample}_human   
+        bash {zUMI_path}/zUMIs-master.sh -f {input.fastq_R2} -r {input.fastq_R1} -c 1-6 -m 7-14 -l 52 -g {mouse_STAR_genome} -a {mouse_gtf} -n {protocol} -p 8 -b {bc_list2} -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o multigenome_MARSseq/{wildcards.sample}_mouse
+        bash {zUMI_path}/zUMIs-master.sh -f {input.fastq_R2} -r {input.fastq_R1} -c 1-6 -m 7-14 -l 52 -g {mixed_STAR_genome} -a {mixed_gtf} -n {protocol} -p 8 -b {bc_list2} -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o multigenome_MARSseq/{wildcards.sample}_mixed
         """
         
 # So far by zUMI_run rule, we would have STAR alignment bam files, as well as quantifications and everything!
@@ -64,20 +64,20 @@ rule zUMI_run:
 #So for each protocol I will need to adjust the ranges 
 rule cellBC_tag_bam:
     input:
-        bam= 'multigenome_test_V5/{sample}_mixed/'+protocol+'.aligned.sorted.bam',
-        bclist= 'multigenome_test_V5/{sample}_mixed/'+protocol+'.barcodelist.filtered.sort.sam'
+        bam= 'multigenome_MARSseq/{sample}_mixed/'+protocol+'.aligned.sorted.bam',
+        bclist= 'multigenome_MARSseq/{sample}_mixed/'+protocol+'.barcodelist.filtered.sort.sam'
     output:
-        'multigenome_test_V5/{sample}_mixed/'+protocol+'.demuxready.bam'
+        'multigenome_MARSseq/{sample}_mixed/'+protocol+'.demuxready.bam'
     shell:
         """
-        rm multigenome_test_V5/{wildcards.sample}_mixed/MARSseq.Log.final.out
-        rm multigenome_test_V5/{wildcards.sample}_mixed/MARSseq.Log.out
-        rm multigenome_test_V5/{wildcards.sample}_mixed/MARSseq.Log.progress.out
-        rm multigenome_test_V5/{wildcards.sample}_mixed/MARSseq.SJ.out.tab
-        rm multigenome_test_V5/{wildcards.sample}_mixed/MARSseq.aligned.sorted.bam.ex.featureCounts
-        rm multigenome_test_V5/{wildcards.sample}_mixed/MARSseq.aligned.sorted.bam.in.featureCounts
-        rm - r multigenome_test_V5/{wildcards.sample}_mixed/MARSseq._STARgenome
-        rm - r multigenome_test_V5/{wildcards.sample}_mixed/MARSseq._STARpass1
+        rm multigenome_MARSseq/{wildcards.sample}_mixed/MARSseq.Log.final.out
+        rm multigenome_MARSseq/{wildcards.sample}_mixed/MARSseq.Log.out
+        rm multigenome_MARSseq/{wildcards.sample}_mixed/MARSseq.Log.progress.out
+        rm multigenome_MARSseq/{wildcards.sample}_mixed/MARSseq.SJ.out.tab
+        rm multigenome_MARSseq/{wildcards.sample}_mixed/MARSseq.aligned.sorted.bam.ex.featureCounts
+        rm multigenome_MARSseq/{wildcards.sample}_mixed/MARSseq.aligned.sorted.bam.in.featureCounts
+        rm - r multigenome_MARSseq/{wildcards.sample}_mixed/MARSseq._STARgenome
+        rm - r multigenome_MARSseq/{wildcards.sample}_mixed/MARSseq._STARpass1
 
         cat <(samtools view -H {input.bam}) <(paste <(samtools view {input.bam} ) <(tail -n+2 {input.bclist} | awk 'BEGIN{{FS="\t";OFS="\t";}}{{if($0!~/^@/){{xc=substr($10,1,6);xm=substr($10,7,14);xcq=substr($11,1,6);xmq=substr($11,7,14);print "XC:Z:"xc"\tXM:Z:"xm"\tXI:Z:"xcq"\tXJ:Z:"xmq}}else{{print;}}}}' ) ) | samtools view -b -@ 2 -o {output}
         """
@@ -85,19 +85,19 @@ rule cellBC_tag_bam:
 # Here im getting the cell barcodes from readspercell.txt in zUMI_output/stats (It may be redundant I can combine it later)
 rule cellBC_detected:
     input:
-        reads_per_cell= 'multigenome_test_V5/{sample}_mixed/zUMIs_output/stats/'+protocol+'.readspercell.txt'
+        reads_per_cell= 'multigenome_MARSseq/{sample}_mixed/zUMIs_output/stats/'+protocol+'.readspercell.txt'
     output:
-        'multigenome_test_V5/{sample}_mixed/cell_barcodes.txt'
+        'multigenome_MARSseq/{sample}_mixed/cell_barcodes.txt'
     shell:
         """
         cat {input.reads_per_cell} | cut -f1 | sed 's/\"//g' > {output}
         """
 rule demux_cells:
     input:
-        tagged_bam= 'multigenome_test_V5/{sample}_mixed/'+protocol+'.demuxready.bam',
-        detected_BC= 'multigenome_test_V5/{sample}_mixed/cell_barcodes.txt'
+        tagged_bam= 'multigenome_MARSseq/{sample}_mixed/'+protocol+'.demuxready.bam',
+        detected_BC= 'multigenome_MARSseq/{sample}_mixed/cell_barcodes.txt'
     output:
-        demux_dir= 'multigenome_test_V5/{sample}_mixed/demuxed_cells_sam'
+        demux_dir= 'multigenome_MARSseq/{sample}_mixed/demuxed_cells_sam'
     shell:
          """
         mkdir {output.demux_dir}
@@ -107,9 +107,9 @@ rule demux_cells:
          """
 rule demux_sam2bam:
     input:
-        demux_dir_sam= 'multigenome_test_V5/{sample}_mixed/demuxed_cells_sam'
+        demux_dir_sam= 'multigenome_MARSseq/{sample}_mixed/demuxed_cells_sam'
     output:
-        demux_dir_bam= 'multigenome_test_V5/{sample}_mixed/demuxed_cells_sorted_bam'
+        demux_dir_bam= 'multigenome_MARSseq/{sample}_mixed/demuxed_cells_sorted_bam'
     shell: 
         """
         mkdir {output.demux_dir_bam}
@@ -120,14 +120,14 @@ rule demux_sam2bam:
         """
 rule doublet_species:
     input:
-        demux_dir= 'multigenome_test_V5/{sample}_mixed/demuxed_cells_sam'
+        demux_dir= 'multigenome_MARSseq/{sample}_mixed/demuxed_cells_sam'
     output:
-        out1= 'multigenome_test_V5/{sample}_mixed/doublet_species/doublet_table.txt',
-        out2= 'multigenome_test_V5/{sample}_mixed/doublet_species/doublet_table_reads.txt',
-        out3= 'multigenome_test_V5/{sample}_mixed/doublet_species/Only_human_cell_IDs.txt',
-        out4= 'multigenome_test_V5/{sample}_mixed/doublet_species/Only_mouse_cell_IDs.txt',
-        out5= 'multigenome_test_V5/{sample}_mixed/doublet_species/Only_dog_cell_IDs.txt',
-        out6= 'multigenome_test_V5/{sample}_mixed/doublet_species/Only_human_cell_IDs_BAMs.txt'
+        out1= 'multigenome_MARSseq/{sample}_mixed/doublet_species/doublet_table.txt',
+        out2= 'multigenome_MARSseq/{sample}_mixed/doublet_species/doublet_table_reads.txt',
+        out3= 'multigenome_MARSseq/{sample}_mixed/doublet_species/Only_human_cell_IDs.txt',
+        out4= 'multigenome_MARSseq/{sample}_mixed/doublet_species/Only_mouse_cell_IDs.txt',
+        out5= 'multigenome_MARSseq/{sample}_mixed/doublet_species/Only_dog_cell_IDs.txt',
+        out6= 'multigenome_MARSseq/{sample}_mixed/doublet_species/Only_human_cell_IDs_BAMs.txt'
 
     shell:
         """
@@ -136,11 +136,11 @@ rule doublet_species:
         """
 rule BAMlist_input:
     input:
-        hcellsBAMs='multigenome_test_V5/{sample}_mixed/doublet_species/Only_human_cell_IDs_BAMs.txt',
-        BAMsDir= 'multigenome_test_V5/{sample}_mixed/demuxed_cells_sorted_bam'
+        hcellsBAMs='multigenome_MARSseq/{sample}_mixed/doublet_species/Only_human_cell_IDs_BAMs.txt',
+        BAMsDir= 'multigenome_MARSseq/{sample}_mixed/demuxed_cells_sorted_bam'
     
     output:
-        BAMSadd='multigenome_test_V5/{sample}_mixed/doublet_species/Only_human_cell_IDs_BAMs_fulladress.txt',
+        BAMSadd='multigenome_MARSseq/{sample}_mixed/doublet_species/Only_human_cell_IDs_BAMs_fulladress.txt',
 
     shell:
         """
@@ -149,7 +149,7 @@ rule BAMlist_input:
         """
 rule call_variant:
     input:
-        hcellsBAMs='multigenome_test_V5/{sample}_mixed/doublet_species/Only_human_cell_IDs_BAMs_fulladress.txt',
+        hcellsBAMs='multigenome_MARSseq/{sample}_mixed/doublet_species/Only_human_cell_IDs_BAMs_fulladress.txt',
         #snps='/project/devel/alafzi/ref_genomes/gnomad_data/gnomad.exomes.r2.0.2.sites.filtered.MAF05.chradded.vcf.bgz',
         snps='/project/devel/alafzi/ref_genomes/gnomad_data/liftover_to_GRCh38/gnomad.exomes.r2.0.2.sites.GRCh38.unmapRem.sorted.filtered.MAF01.weirdChrRem.vcf.bgz',
         fasta='/project/devel/alafzi/ref_genomes/human/hsa_GRCh38.primary_assembly.genome.fa'
@@ -171,18 +171,18 @@ rule call_variant:
         """
 rule prepare_R_inputs:
     input:
-        hsap_Exprs= expand('multigenome_test_V5/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES),
-        mmus_Exprs= expand('multigenome_test_V5/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES),
-        n_Reads= expand('multigenome_test_V5/{sample}_mixed/zUMIs_output/stats/'+protocol+'.readspercell.txt',sample=SAMPLES),
-        species_info= expand('multigenome_test_V5/{sample}_mixed/doublet_species/doublet_table_reads.txt',sample=SAMPLES),
+        hsap_Exprs= expand('multigenome_MARSseq/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES),
+        mmus_Exprs= expand('multigenome_MARSseq/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES),
+        n_Reads= expand('multigenome_MARSseq/{sample}_mixed/zUMIs_output/stats/'+protocol+'.readspercell.txt',sample=SAMPLES),
+        species_info= expand('multigenome_MARSseq/{sample}_mixed/doublet_species/doublet_table_reads.txt',sample=SAMPLES),
         VCF_file= expand('mpileup_trial/{sample}.mpileup.full.vcf.gz',sample=SAMPLES)
     
     output:
-        hsapExp_list="multigenome_test_V5/"+protocol+'_Hsap_expression_list.txt',
-        mmusExp_list="multigenome_test_V5/"+protocol+'_Mmus_expression_list.txt',
-        nReads_list="multigenome_test_V5/"+protocol+'_NumberOfReads_list.txt',
-        species_list="multigenome_test_V5/"+protocol+'_Species_info_list.txt',
-        vcfs_list="multigenome_test_V5/"+protocol+'_VCFs_list.txt'
+        hsapExp_list="multigenome_MARSseq/"+protocol+'_Hsap_expression_list.txt',
+        mmusExp_list="multigenome_MARSseq/"+protocol+'_Mmus_expression_list.txt',
+        nReads_list="multigenome_MARSseq/"+protocol+'_NumberOfReads_list.txt',
+        species_list="multigenome_MARSseq/"+protocol+'_Species_info_list.txt',
+        vcfs_list="multigenome_MARSseq/"+protocol+'_VCFs_list.txt'
 
     shell:
         """
@@ -194,13 +194,13 @@ rule prepare_R_inputs:
         """
 rule R_wrapper:
     input:
-        hE_list="multigenome_test_V5/"+protocol+'_Hsap_expression_list.txt',
-        mE_list="multigenome_test_V5/"+protocol+'_Mmus_expression_list.txt',
-        nR_list="multigenome_test_V5/"+protocol+'_NumberOfReads_list.txt',
-        spec_list="multigenome_test_V5/"+protocol+'_Species_info_list.txt',
-        vcf_list="multigenome_test_V5/"+protocol+'_VCFs_list.txt'
+        hE_list="multigenome_MARSseq/"+protocol+'_Hsap_expression_list.txt',
+        mE_list="multigenome_MARSseq/"+protocol+'_Mmus_expression_list.txt',
+        nR_list="multigenome_MARSseq/"+protocol+'_NumberOfReads_list.txt',
+        spec_list="multigenome_MARSseq/"+protocol+'_Species_info_list.txt',
+        vcf_list="multigenome_MARSseq/"+protocol+'_VCFs_list.txt'
     output:
-        hsap_Robj= "multigenome_test_V5/hsap.full.SCE.Robj",
-        mmus_Robj= "multigenome_test_V5/mmus.full.SCE.Robj"
+        hsap_Robj= "multigenome_MARSseq/hsap.full.SCE.Robj",
+        mmus_Robj= "multigenome_MARSseq/mmus.full.SCE.Robj"
     shell:
-        "Rscript wrapper_Robj_V2.R --hsapExp {input.hE_list} --mmusExp {input.mE_list} --nReads {input.nR_list} --species {input.spec_list} --vcfs {input.vcf_list} --output_SCEobj ./multigenome_test_V5 --technology MARSseq"
+        "Rscript wrapper_Robj_V2.R --hsapExp {input.hE_list} --mmusExp {input.mE_list} --nReads {input.nR_list} --species {input.spec_list} --vcfs {input.vcf_list} --output_SCEobj ./multigenome_MARSseq --technology MARSseq"
