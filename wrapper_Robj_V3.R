@@ -18,15 +18,6 @@ Options:
 
 " -> doc
 
-ng_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/GeneNumber_list.txt", what="", sep=" ")
-nUMI_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/UMINumber_list.txt", what="", sep=" ")
-nread_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/ReadNumber_list.txt", what="", sep=" ")
-species_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/species_list.txt", what="", sep=" ")
-mixedExp_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/Mixed_expression_list.txt", what="", sep=" ")
-hsapExp_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/Hsap_expression_list.txt", what="", sep=" ")
-mmusExp_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/Mmus_expression_list.txt", what="", sep=" ")
-vcf_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/VCF_list.txt", what="", sep=" ")
-
 suppressPackageStartupMessages(library(scater))
 suppressPackageStartupMessages(library(vcfR))
 suppressPackageStartupMessages(library(plyr))
@@ -42,6 +33,7 @@ main <- function(hsapExp,mmusExp,nReads, species,
   #mmusExp_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/Mmus_expression_list.txt", what="", sep="\n")
   #vcf_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/VCF_list.txt", what="", sep="\n")
   
+  print("Wrapping starts")
   hsapExp_list <- scan(hsapExp, what="", sep=" ")
   mmusExp_list <- scan(mmusExp, what="", sep=" ")
   nread_list <- scan(nReads, what="", sep=" ")
@@ -63,7 +55,8 @@ main <- function(hsapExp,mmusExp,nReads, species,
     sample.mmusExp.obj <- readRDS(mmusExp_list[sample])
     #sample.vcf <- read.vcfR(vcf_list[sample])
     sample.vcf <- read_vcf(vcf_list[sample], genome = "GRCh38")
-    sample.ID <- unlist(strsplit(unlist(strsplit(nread_list[sample], "/"))[6],"_"))[1]
+    sample.ID.pre <- unlist(strsplit(unlist(strsplit(nread_list[sample], "/"))[6],"_"))
+    sample.ID <- paste(sample.ID.pre[-length(sample.ID.pre)], collapse = "_")
     
     #sample.ng <- as.data.frame(sample.ng.file[which(sample.ng.file$featureType == "exons"), "Count"], row.names = create_cell_IDs(sample.ng.file[which(sample.ng.file$featureType == "exons"), "SampleID"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)); colnames(sample.ng) <- "nGenes"
     #sample.nUMI <- as.data.frame(sample.nUMI.file[which(sample.nUMI.file$featureType == "exons"), "Count"], row.names = create_cell_IDs(sample.nUMI.file[which(sample.nUMI.file$featureType == "exons"), "SampleID"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)); colnames(sample.nUMI) <- "nUMIs"
@@ -171,7 +164,7 @@ main <- function(hsapExp,mmusExp,nReads, species,
 #colData(all.sce)
 #rowData(all.sce)
 
-create_cell_IDs <- function(cell.IDs, id.type = "standard", tech = "MARSseq", lib = "5568AA"){
+create_cell_IDs <- function(cell.IDs, id.type = "standard", tech = technology, lib = "5568AA"){
   if (id.type == "standard"){
     pre.ids <- as.character(cell.IDs[,1])
     IDs.parts <- lapply(pre.ids, function(x) unlist(strsplit(x, split = ".", fixed = T)))
