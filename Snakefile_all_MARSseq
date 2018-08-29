@@ -155,18 +155,18 @@ rule call_variant:
         fasta='/project/devel/alafzi/ref_genomes/human/hsa_GRCh38.primary_assembly.genome.fa'
     
     output:
-        mpi=temp('mpileup_trial/{sample}.filtered.full.bcf.gz'),
-        midx=temp('mpileup_trial/{sample}.filtered.full.bcf.gz.csi'),
-        vcf='mpileup_trial/{sample}.mpileup.full.vcf.gz',
-        csi='mpileup_trial/{sample}.mpileup.full.vcf.gz.csi'
+        mpi=temp('multigenome_MARSseq/mpileup/{sample}.filtered.full.bcf.gz'),
+        midx=temp('multigenome_MARSseq/mpileup/{sample}.filtered.full.bcf.gz.csi'),
+        vcf='multigenome_MARSseq/mpileup/{sample}.mpileup.full.vcf.gz',
+        csi='multigenome_MARSseq/mpileup/{sample}.mpileup.full.vcf.gz.csi'
     shell:
         """
-        mkdir tmp_trial/tmp-{wildcards.sample}
+        mkdir tmp/tmp-{wildcards.sample}
         bcftools mpileup -E -Ob --skip-indels -R {input.snps} -f {input.fasta} --annotate AD,DP,SP,INFO/AD -o {output.mpi} -b {input.hcellsBAMs}
         bcftools index {output.mpi}
         bcftools call -R {input.snps} -m -Ou {output.mpi} | \
         bcftools filter -Ou -i'DP>3 && QUAL>20' | \
-        bcftools sort -T tmp_trial/tmp-{wildcards.sample} --max-mem 15G -Oz -o {output.vcf}
+        bcftools sort -T tmp/tmp-{wildcards.sample} --max-mem 15G -Oz -o {output.vcf}
         bcftools index {output.vcf}
         """
 rule prepare_R_inputs:
@@ -175,7 +175,7 @@ rule prepare_R_inputs:
         mmus_Exprs= expand('multigenome_MARSseq/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES),
         n_Reads= expand('multigenome_MARSseq/{sample}_mixed/zUMIs_output/stats/'+protocol+'.readspercell.txt',sample=SAMPLES),
         species_info= expand('multigenome_MARSseq/{sample}_mixed/doublet_species/doublet_table_reads.txt',sample=SAMPLES),
-        VCF_file= expand('mpileup_trial/{sample}.mpileup.full.vcf.gz',sample=SAMPLES)
+        VCF_file= expand('multigenome_MARSseq/mpileup/{sample}.mpileup.full.vcf.gz',sample=SAMPLES)
     
     output:
         hsapExp_list="multigenome_MARSseq/"+protocol+'_Hsap_expression_list.txt',
@@ -203,4 +203,4 @@ rule R_wrapper:
         hsap_Robj= "multigenome_MARSseq/hsap.full.SCE.Robj",
         mmus_Robj= "multigenome_MARSseq/mmus.full.SCE.Robj"
     shell:
-        "Rscript wrapper_Robj_V2.R --hsapExp {input.hE_list} --mmusExp {input.mE_list} --nReads {input.nR_list} --species {input.spec_list} --vcfs {input.vcf_list} --output_SCEobj ./multigenome_MARSseq --technology MARSseq"
+        "Rscript wrapper_Robj_V3.R --hsapExp {input.hE_list} --mmusExp {input.mE_list} --nReads {input.nR_list} --species {input.spec_list} --vcfs {input.vcf_list} --output_SCEobj ./multigenome_MARSseq --technology MARSseq"
