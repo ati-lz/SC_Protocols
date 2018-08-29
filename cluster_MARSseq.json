@@ -1,0 +1,11 @@
+{
+    
+    "__default__" :
+    {
+        "cpus_per_task" : 18,
+        "job_name" : "MARSseq.{wildcards}",
+        "output" : "mnout/MARSseq_{wildcards}.out",
+        "error" : "mnout/MARSseq_{wildcards}.err"
+    }
+
+}
