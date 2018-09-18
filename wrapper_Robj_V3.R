@@ -21,6 +21,7 @@ Options:
 suppressPackageStartupMessages(library(scater))
 suppressPackageStartupMessages(library(vcfR))
 suppressPackageStartupMessages(library(plyr))
+suppressPackageStartupMessages(library(cardelino))
 
 main <- function(hsapExp,mmusExp,nReads, species, 
                  vcfs, output_SCEobj, technology) {
