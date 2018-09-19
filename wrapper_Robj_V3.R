@@ -56,7 +56,7 @@ main <- function(hsapExp,mmusExp,nReads, species,
     sample.mmusExp.obj <- readRDS(mmusExp_list[sample])
     #sample.vcf <- read.vcfR(vcf_list[sample])
     sample.vcf <- read_vcf(vcf_list[sample], genome = "GRCh38")
-    sample.ID.pre <- unlist(strsplit(unlist(strsplit(nread_list[sample], "/"))[6],"_"))
+    sample.ID.pre <- unlist(strsplit(unlist(strsplit(nread_list[sample], "/"))[2],"_"))
     sample.ID <- paste(sample.ID.pre[-length(sample.ID.pre)], collapse = "_")
     
     #sample.ng <- as.data.frame(sample.ng.file[which(sample.ng.file$featureType == "exons"), "Count"], row.names = create_cell_IDs(sample.ng.file[which(sample.ng.file$featureType == "exons"), "SampleID"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)); colnames(sample.ng) <- "nGenes"
@@ -165,7 +165,7 @@ main <- function(hsapExp,mmusExp,nReads, species,
 #colData(all.sce)
 #rowData(all.sce)
 
-create_cell_IDs <- function(cell.IDs, id.type = "standard", tech = technology, lib = "5568AA"){
+create_cell_IDs <- function(cell.IDs, id.type = "standard", tech = technology, lib = sample.ID){
   if (id.type == "standard"){
     pre.ids <- as.character(cell.IDs[,1])
     IDs.parts <- lapply(pre.ids, function(x) unlist(strsplit(x, split = ".", fixed = T)))
