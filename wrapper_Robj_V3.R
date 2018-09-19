@@ -150,8 +150,8 @@ main <- function(hsapExp,mmusExp,nReads, species,
   
   print(dim(all.metadata))
   print(dim(all.hsapExp))
-  print(rownames(all.metadata))
-  print(colnames(all.hsapExp))
+  #print(rownames(all.metadata))
+  #print(colnames(all.hsapExp))
   extra.col = setdiff(rownames(all.metadata), colnames(all.hsapExp))
   print(extra.col)
   full.SCE.hsap <- SingleCellExperiment(assays = list(counts = as.matrix(all.hsapExp)), colData = all.metadata[,])
