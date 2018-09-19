@@ -125,7 +125,9 @@ main <- function(hsapExp,mmusExp,nReads, species,
   }
   print("loop is done")
   all.hsapExp <- join_all(hsap.ExpsMat.list, by = "rn", type = 'full')
+  print("we reached line 128")
   rownames(all.hsapExp) <- all.hsapExp$rn
+  print("we reached line 130")
   all.hsapExp <- all.hsapExp[,!(names(all.hsapExp) %in% c("rn"))]
   all.hsapExp[is.na(all.hsapExp)] <- 0
   
@@ -134,10 +136,11 @@ main <- function(hsapExp,mmusExp,nReads, species,
   all.mmusExp <- all.mmusExp[,!(names(all.mmusExp) %in% c("rn"))]
   all.mmusExp[is.na(all.mmusExp)] <- 0
   
+  print("we reached line 139")
   all.metadata <- do.call("rbind", metadata.list)
   rownames(all.metadata) <- lapply(rownames(all.metadata), function (x) unlist(strsplit(x, "[.]"))[2])
   
-  print("we reached line 140")
+  print("we reached line 143")
   full.SCE.hsap <- SingleCellExperiment(assays = list(counts = as.matrix(all.hsapExp)), colData = all.metadata)
   full.SCE.hsap <- calculateQCMetrics(full.SCE.hsap)
   libsize.drop.hsap <- isOutlier(full.SCE.hsap$total_counts, nmads=3, type="lower", log=TRUE)
