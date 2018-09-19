@@ -141,7 +141,10 @@ main <- function(hsapExp,mmusExp,nReads, species,
   rownames(all.metadata) <- lapply(rownames(all.metadata), function (x) unlist(strsplit(x, "[.]"))[2])
   
   print("we reached line 143")
-  print(dim(all.metadata), dim(all.hsapExp), colnames(all.hsapExp)[1:5], rownames(all.metadata)[1:5])
+  print(dim(all.metadata))
+  print(dim(all.hsapExp))
+  print(colnames(all.hsapExp)[1:5]) 
+  print(rownames(all.metadata)[1:5])
   full.SCE.hsap <- SingleCellExperiment(assays = list(counts = as.matrix(all.hsapExp)), colData = all.metadata)
   full.SCE.hsap <- calculateQCMetrics(full.SCE.hsap)
   libsize.drop.hsap <- isOutlier(full.SCE.hsap$total_counts, nmads=3, type="lower", log=TRUE)
