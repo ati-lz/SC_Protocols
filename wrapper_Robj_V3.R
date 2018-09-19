@@ -105,13 +105,19 @@ main <- function(hsapExp,mmusExp,nReads, species,
     metadata.list[[sample.ID]] <- sample.metadata
     vcfs.list[[sample.ID]] <- sample.vcf
     
-    sample.hsapExp <- as.data.frame(as.matrix(sample.hsapExp.obj$exons$umicounts))
+    sample.hsapExp <- as.data.frame(as.matrix(sample.hsapExp.obj$intron.exon$umicounts))
     colnames(sample.hsapExp) <- create_cell_IDs(colnames(sample.hsapExp), id.type = "cell_Barcode",tech = technology, lib = sample.ID)
     sample.hsapExp$rn <- rownames(sample.hsapExp)
     hsap.ExpsMat.list[[sample.ID]] <- sample.hsapExp
     #sample.hsapMetadata <- as.data.frame(cbind(nGenes=sample.nread, nUMIs=sample.nUMI, nReads=sample.nread, species=sample.species, library=rep(sample.ID, nrow(sample.nread))))
+    if (sample.ID == "5570AA"){
+      print("here some statistics about 5570AA:")
+      print(dim(sample.nread))
+      print(dim(sample.species))
+      print(dim(sample.hsapExp.obj$intron.exon$umicounts))
+    }
     
-    sample.mmusExp <- as.data.frame(as.matrix(sample.mmusExp.obj$exons$umicounts))
+    sample.mmusExp <- as.data.frame(as.matrix(sample.mmusExp.obj$intron.exon$umicounts))
     colnames(sample.mmusExp) <- create_cell_IDs(colnames(sample.mmusExp), id.type = "cell_Barcode",tech = technology, lib = sample.ID)
     sample.mmusExp$rn <- rownames(sample.mmusExp)
     mmus.ExpsMat.list[[sample.ID]] <- sample.mmusExp
@@ -148,7 +154,7 @@ main <- function(hsapExp,mmusExp,nReads, species,
   print(colnames(all.hsapExp))
   extra.col = setdiff(rownames(all.metadata), colnames(all.hsapExp))
   print(extra.col)
-  full.SCE.hsap <- SingleCellExperiment(assays = list(counts = as.matrix(all.hsapExp)), colData = all.metadata)
+  full.SCE.hsap <- SingleCellExperiment(assays = list(counts = as.matrix(all.hsapExp)), colData = all.metadata[,])
   full.SCE.hsap <- calculateQCMetrics(full.SCE.hsap)
   libsize.drop.hsap <- isOutlier(full.SCE.hsap$total_counts, nmads=3, type="lower", log=TRUE)
   feature.drop.hsap <- isOutlier(full.SCE.hsap$total_features, nmads=3, type="lower", log=TRUE)
