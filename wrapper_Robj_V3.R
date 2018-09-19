@@ -56,7 +56,7 @@ main <- function(hsapExp,mmusExp,nReads, species,
     sample.mmusExp.obj <- readRDS(mmusExp_list[sample])
     #sample.vcf <- read.vcfR(vcf_list[sample])
     sample.vcf <- read_vcf(vcf_list[sample], genome = "GRCh38")
-    sample.ID.pre <- unlist(strsplit(unlist(strsplit(nread_list[sample], "/"))[2],"_"))
+    sample.ID.pre <- unlist(strsplit(unlist(strsplit(nread_list[sample], "/"))[6],"_"))
     sample.ID <- paste(sample.ID.pre[-length(sample.ID.pre)], collapse = "_")
     
     #sample.ng <- as.data.frame(sample.ng.file[which(sample.ng.file$featureType == "exons"), "Count"], row.names = create_cell_IDs(sample.ng.file[which(sample.ng.file$featureType == "exons"), "SampleID"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)); colnames(sample.ng) <- "nGenes"
@@ -137,7 +137,7 @@ main <- function(hsapExp,mmusExp,nReads, species,
   all.metadata <- do.call("rbind", metadata.list)
   rownames(all.metadata) <- lapply(rownames(all.metadata), function (x) unlist(strsplit(x, "[.]"))[2])
   
-  
+  print("we reached line 140")
   full.SCE.hsap <- SingleCellExperiment(assays = list(counts = as.matrix(all.hsapExp)), colData = all.metadata)
   full.SCE.hsap <- calculateQCMetrics(full.SCE.hsap)
   libsize.drop.hsap <- isOutlier(full.SCE.hsap$total_counts, nmads=3, type="lower", log=TRUE)
