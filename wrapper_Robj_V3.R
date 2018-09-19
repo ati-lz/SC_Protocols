@@ -144,8 +144,8 @@ main <- function(hsapExp,mmusExp,nReads, species,
   
   print(dim(all.metadata))
   print(dim(all.hsapExp))
-  print(colnames(all.hsapExp)[1:5]) 
-  print(rownames(all.metadata)[1:5])
+  print(rownames(all.metadata))
+  print(colnames(all.hsapExp)) 
   full.SCE.hsap <- SingleCellExperiment(assays = list(counts = as.matrix(all.hsapExp)), colData = all.metadata)
   full.SCE.hsap <- calculateQCMetrics(full.SCE.hsap)
   libsize.drop.hsap <- isOutlier(full.SCE.hsap$total_counts, nmads=3, type="lower", log=TRUE)
