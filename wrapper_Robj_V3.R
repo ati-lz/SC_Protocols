@@ -141,6 +141,7 @@ main <- function(hsapExp,mmusExp,nReads, species,
   rownames(all.metadata) <- lapply(rownames(all.metadata), function (x) unlist(strsplit(x, "[.]"))[2])
   
   print("we reached line 143")
+  
   print(dim(all.metadata))
   print(dim(all.hsapExp))
   print(colnames(all.hsapExp)[1:5]) 
