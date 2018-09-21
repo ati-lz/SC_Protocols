@@ -1,0 +1,206 @@
+from os import listdir
+
+#Path to sample fastq files
+fastq_path = '/project/devel/HCA/DKFZ/Dropseq'
+human_gtf = '/project/devel/alafzi/ref_genomes/human/hsa_gencode.v28.annotation.gtf'
+human_STAR_genome= '/project/devel/alafzi/ref_genomes/human/STARgenome'
+mouse_gtf = '/project/devel/alafzi/ref_genomes/mouse/mmu_gencode.vM17.primary_assembly.annotation.gtf'
+mouse_STAR_genome= '/project/devel/alafzi/ref_genomes/mouse/STARgenome'
+mixed_gtf = '/project/devel/alafzi/ref_genomes/mixed/hsap_mmus_can_combined_gtf.gtf'
+mixed_STAR_genome= '/project/devel/alafzi/ref_genomes/mixed/STARgenome'
+
+zUMI_path='/apps/ZUMIS/0.0.6'
+#bc_list2= '/scratch/devel/alafzi/HCA_04/bc_list2'
+protocol= 'Dropseq'
+
+#Loading modules
+#shell.executable("!/usr/bin/env bash")
+shell.prefix("module unload gcc/latest; module load gcc/6.3.0; module load XZ/5.2.2; module load CONDA/4.3.11_PYTHON3; module load java/latest; module load SAMTOOLS/1.6; module load BAMTOOLS/2.3.0 ; module load STAR/2.6.0c; module load R/3.5.0; module load hdf5/1.10.1; module load PIGZ/2.3.3; module load ZUMIS/0.0.6; ")
+
+#Samples
+sample_files = listdir(fastq_path)
+SAMPLES = list(set(i.split("_")[0] for i in sample_files))
+#SAMPLES = ["5568AA", "5571AA"]
+SPECIES = ["human", "mouse", "mixed"]
+
+rule all:
+    input:
+        "multigenome_Dropseq/hsap.full.SCE.Robj",
+        "multigenome_Dropseq/mmus.full.SCE.Robj"
+
+rule zUMI_run:
+    input:
+        fastq_R1=fastq_path+'/{sample}_R1.fastq.gz',
+        fastq_R2=fastq_path+'/{sample}_R2.fastq.gz'
+        #sample_id='{sample}'
+    output:
+        dir='multigenome_Dropseq/{sample}_human/'+protocol+'.aligned.sorted.bam',
+        dir_file1='multigenome_Dropseq/{sample}_human/zUMIs_output/stats/'+protocol+'.readspercell.txt',
+        dir_file11='multigenome_Dropseq/{sample}_human/'+protocol+'.barcodelist.filtered.sort.sam',
+        dir_file111='multigenome_Dropseq/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
+        dir2='multigenome_Dropseq/{sample}_mouse/'+protocol+'.aligned.sorted.bam',
+        dir_file2='multigenome_Dropseq/{sample}_mouse/zUMIs_output/stats/'+protocol+'.readspercell.txt',
+        dir_file22='multigenome_Dropseq/{sample}_mouse/'+protocol+'.barcodelist.filtered.sort.sam',
+        dir_file222='multigenome_Dropseq/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
+        dir3='multigenome_Dropseq/{sample}_mixed/'+protocol+'.aligned.sorted.bam',
+        dir_file3='multigenome_Dropseq/{sample}_mixed/zUMIs_output/stats/'+protocol+'.readspercell.txt',
+        dir_file33='multigenome_Dropseq/{sample}_mixed/'+protocol+'.barcodelist.filtered.sort.sam'
+
+    shell:
+        """
+        mkdir multigenome_Dropseq/{wildcards.sample}_human
+        mkdir multigenome_Dropseq/{wildcards.sample}_mouse
+        mkdir multigenome_Dropseq/{wildcards.sample}_mixed
+
+        bash {zUMI_path}/zUMIs-master.sh -f {input.fastq_R1} -r {input.fastq_R2} -c 1-12 -m 13-20 -l 76 -g {human_STAR_genome} -a {human_gtf} -n {protocol} -p 8 -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o multigenome_Dropseq/{wildcards.sample}_human   
+        bash {zUMI_path}/zUMIs-master.sh -f {input.fastq_R1} -r {input.fastq_R2} -c 1-12 -m 13-20 -l 76 -g {mouse_STAR_genome} -a {mouse_gtf} -n {protocol} -p 8 -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o multigenome_Dropseq/{wildcards.sample}_mouse
+        bash {zUMI_path}/zUMIs-master.sh -f {input.fastq_R1} -r {input.fastq_R2} -c 1-12 -m 13-20 -l 76 -g {mixed_STAR_genome} -a {mixed_gtf} -n {protocol} -p 8 -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o multigenome_Dropseq/{wildcards.sample}_mixed
+        """
+        
+# So far by zUMI_run rule, we would have STAR alignment bam files, as well as quantifications and everything!
+# For the next step we want to demultiplex bam files of the mixed species
+
+# This rule combines the aligned.sorted.bam with the barcode information from hca04.barcodelist.filtered.sort.sam ! Basically, I split the barcode sequence into tags that get added to the aligned bam file.
+#So for each protocol I will need to adjust the ranges 
+rule cellBC_tag_bam:
+    input:
+        bam= 'multigenome_Dropseq/{sample}_mixed/'+protocol+'.aligned.sorted.bam',
+        bclist= 'multigenome_Dropseq/{sample}_mixed/'+protocol+'.barcodelist.filtered.sort.sam'
+    output:
+        'multigenome_Dropseq/{sample}_mixed/'+protocol+'.demuxready.bam'
+    shell:
+        """
+        rm multigenome_Dropseq/{wildcards.sample}_mixed/Dropseq.Log.final.out
+        rm multigenome_Dropseq/{wildcards.sample}_mixed/Dropseq.Log.out
+        rm multigenome_Dropseq/{wildcards.sample}_mixed/Dropseq.Log.progress.out
+        rm multigenome_Dropseq/{wildcards.sample}_mixed/Dropseq.SJ.out.tab
+        rm multigenome_Dropseq/{wildcards.sample}_mixed/Dropseq.aligned.sorted.bam.ex.featureCounts
+        rm multigenome_Dropseq/{wildcards.sample}_mixed/Dropseq.aligned.sorted.bam.in.featureCounts
+        rm - r multigenome_Dropseq/{wildcards.sample}_mixed/Dropseq._STARgenome
+        rm - r multigenome_Dropseq/{wildcards.sample}_mixed/Dropseq._STARpass1
+
+        cat <(samtools view -H {input.bam}) <(paste <(samtools view {input.bam} ) <(tail -n+2 {input.bclist} | awk 'BEGIN{{FS="\t";OFS="\t";}}{{if($0!~/^@/){{xc=substr($10,1,6);xm=substr($10,7,14);xcq=substr($11,1,6);xmq=substr($11,7,14);print "XC:Z:"xc"\tXM:Z:"xm"\tXI:Z:"xcq"\tXJ:Z:"xmq}}else{{print;}}}}' ) ) | samtools view -b -@ 2 -o {output}
+        """
+
+# Here im getting the cell barcodes from readspercell.txt in zUMI_output/stats (It may be redundant I can combine it later)
+rule cellBC_detected:
+    input:
+        reads_per_cell= 'multigenome_Dropseq/{sample}_mixed/zUMIs_output/stats/'+protocol+'.readspercell.txt'
+    output:
+        'multigenome_Dropseq/{sample}_mixed/cell_barcodes.txt'
+    shell:
+        """
+        cat {input.reads_per_cell} | cut -f1 | sed 's/\"//g' > {output}
+        """
+rule demux_cells:
+    input:
+        tagged_bam= 'multigenome_Dropseq/{sample}_mixed/'+protocol+'.demuxready.bam',
+        detected_BC= 'multigenome_Dropseq/{sample}_mixed/cell_barcodes.txt'
+    output:
+        demux_dir= 'multigenome_Dropseq/{sample}_mixed/demuxed_cells_sam'
+    shell:
+         """
+        mkdir {output.demux_dir}
+        for i in `cat {input.detected_BC}`; do 
+        bamtools filter -in {input.tagged_bam}  -tag XC:$i | bamtools convert -format sam -out {output.demux_dir}/{protocol}.mixed.{wildcards.sample}.$i.sam
+        done
+         """
+rule demux_sam2bam:
+    input:
+        demux_dir_sam= 'multigenome_Dropseq/{sample}_mixed/demuxed_cells_sam'
+    output:
+        demux_dir_bam= 'multigenome_Dropseq/{sample}_mixed/demuxed_cells_sorted_bam'
+    shell: 
+        """
+        mkdir {output.demux_dir_bam}
+        cp {input.demux_dir_sam}/* {output.demux_dir_bam}
+        cd {output.demux_dir_bam}
+        for i in ./*; do  sed '/can_/d' $i | sed '/mmus_/d' | sed 's/hsap_/''/g' | samtools view -bS | samtools sort -o ./$i.sorted.bam && echo $i "bam sorted" && samtools index ./$i.sorted.bam; done
+        cd ../../..
+        """
+rule doublet_species:
+    input:
+        demux_dir= 'multigenome_Dropseq/{sample}_mixed/demuxed_cells_sam'
+    output:
+        out1= 'multigenome_Dropseq/{sample}_mixed/doublet_species/doublet_table.txt',
+        out2= 'multigenome_Dropseq/{sample}_mixed/doublet_species/doublet_table_reads.txt',
+        out3= 'multigenome_Dropseq/{sample}_mixed/doublet_species/Only_human_cell_IDs.txt',
+        out4= 'multigenome_Dropseq/{sample}_mixed/doublet_species/Only_mouse_cell_IDs.txt',
+        out5= 'multigenome_Dropseq/{sample}_mixed/doublet_species/Only_dog_cell_IDs.txt',
+        out6= 'multigenome_Dropseq/{sample}_mixed/doublet_species/Only_human_cell_IDs_BAMs.txt'
+
+    shell:
+        """
+        python doublet_rate_V2.py {input.demux_dir} {output.out1} {output.out2} {output.out3} {output.out4} {output.out5} {output.out6}
+
+        """
+rule BAMlist_input:
+    input:
+        hcellsBAMs='multigenome_Dropseq/{sample}_mixed/doublet_species/Only_human_cell_IDs_BAMs.txt',
+        BAMsDir= 'multigenome_Dropseq/{sample}_mixed/demuxed_cells_sorted_bam'
+    
+    output:
+        BAMSadd='multigenome_Dropseq/{sample}_mixed/doublet_species/Only_human_cell_IDs_BAMs_fulladress.txt',
+
+    shell:
+        """
+        awk '{{print "{input.BAMsDir}/" $0}}' {input.hcellsBAMs} > {output.BAMSadd}
+
+        """
+rule call_variant:
+    input:
+        hcellsBAMs='multigenome_Dropseq/{sample}_mixed/doublet_species/Only_human_cell_IDs_BAMs_fulladress.txt',
+        #snps='/project/devel/alafzi/ref_genomes/gnomad_data/gnomad.exomes.r2.0.2.sites.filtered.MAF05.chradded.vcf.bgz',
+        snps='/project/devel/alafzi/ref_genomes/gnomad_data/liftover_to_GRCh38/gnomad.exomes.r2.0.2.sites.GRCh38.unmapRem.sorted.filtered.MAF01.weirdChrRem.vcf.bgz',
+        fasta='/project/devel/alafzi/ref_genomes/human/hsa_GRCh38.primary_assembly.genome.fa'
+    
+    output:
+        mpi=temp('multigenome_Dropseq/mpileup/{sample}.filtered.full.bcf.gz'),
+        midx=temp('multigenome_Dropseq/mpileup/{sample}.filtered.full.bcf.gz.csi'),
+        vcf='multigenome_Dropseq/mpileup/{sample}.mpileup.full.vcf.gz',
+        csi='multigenome_Dropseq/mpileup/{sample}.mpileup.full.vcf.gz.csi'
+    shell:
+        """
+        mkdir tmp/tmp-{wildcards.sample}
+        bcftools mpileup -E -Ob --skip-indels -R {input.snps} -f {input.fasta} --annotate AD,DP,SP,INFO/AD -o {output.mpi} -b {input.hcellsBAMs}
+        bcftools index {output.mpi}
+        bcftools call -R {input.snps} -m -Ou {output.mpi} | \
+        bcftools filter -Ou -i'DP>3 && QUAL>20' | \
+        bcftools sort -T tmp/tmp-{wildcards.sample} --max-mem 15G -Oz -o {output.vcf}
+        bcftools index {output.vcf}
+        """
+rule prepare_R_inputs:
+    input:
+        hsap_Exprs= expand('multigenome_Dropseq/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES),
+        mmus_Exprs= expand('multigenome_Dropseq/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES),
+        n_Reads= expand('multigenome_Dropseq/{sample}_mixed/zUMIs_output/stats/'+protocol+'.readspercell.txt',sample=SAMPLES),
+        species_info= expand('multigenome_Dropseq/{sample}_mixed/doublet_species/doublet_table_reads.txt',sample=SAMPLES),
+        VCF_file= expand('multigenome_Dropseq/mpileup/{sample}.mpileup.full.vcf.gz',sample=SAMPLES)
+    
+    output:
+        hsapExp_list="multigenome_Dropseq/"+protocol+'_Hsap_expression_list.txt',
+        mmusExp_list="multigenome_Dropseq/"+protocol+'_Mmus_expression_list.txt',
+        nReads_list="multigenome_Dropseq/"+protocol+'_NumberOfReads_list.txt',
+        species_list="multigenome_Dropseq/"+protocol+'_Species_info_list.txt',
+        vcfs_list="multigenome_Dropseq/"+protocol+'_VCFs_list.txt'
+
+    shell:
+        """
+        echo -e "{input.hsap_Exprs}" >> {output.hsapExp_list}
+        echo -e "{input.mmus_Exprs}" >> {output.mmusExp_list}
+        echo -e "{input.n_Reads}" >> {output.nReads_list}
+        echo -e "{input.species_info}" >> {output.species_list}
+        echo -e "{input.VCF_file}" >> {output.vcfs_list}
+        """
+rule R_wrapper:
+    input:
+        hE_list="multigenome_Dropseq/"+protocol+'_Hsap_expression_list.txt',
+        mE_list="multigenome_Dropseq/"+protocol+'_Mmus_expression_list.txt',
+        nR_list="multigenome_Dropseq/"+protocol+'_NumberOfReads_list.txt',
+        spec_list="multigenome_Dropseq/"+protocol+'_Species_info_list.txt',
+        vcf_list="multigenome_Dropseq/"+protocol+'_VCFs_list.txt'
+    output:
+        hsap_Robj= "multigenome_Dropseq/hsap.full.SCE.Robj",
+        mmus_Robj= "multigenome_Dropseq/mmus.full.SCE.Robj"
+    shell:
+        "Rscript wrapper_Robj_V3.R --hsapExp {input.hE_list} --mmusExp {input.mE_list} --nReads {input.nR_list} --species {input.spec_list} --vcfs {input.vcf_list} --output_SCEobj ./multigenome_Dropseq --technology Dropseq"
