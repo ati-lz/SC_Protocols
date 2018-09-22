@@ -33,11 +33,22 @@ main <- function(hsapExp,mmusExp,nReads, species,
   #hsapExp_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/Hsap_expression_list.txt", what="", sep=" ")
   #mmusExp_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/Mmus_expression_list.txt", what="", sep="\n")
   #vcf_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/VCF_list.txt", what="", sep="\n")
+  hsapExp = "/Volumes/Ati-Archive/HCA/donor_id/Hsap_expression_list.txt"
+  mmusExp = "/Volumes/Ati-Archive/HCA/donor_id/Mmus_expression_list.txt"
+  nReads = "/Volumes/Ati-Archive/HCA/donor_id/ReadNumber_list.txt"
+  nUMI = "/Volumes/Ati-Archive/HCA/donor_id/UMINumber_list.txt"
+  nGene = "/Volumes/Ati-Archive/HCA/donor_id/GeneNumber_list.txt"
+  nFeatures = "/Volumes/Ati-Archive/HCA/donor_id/Features_list.txt"
+  species = "/Volumes/Ati-Archive/HCA/donor_id/species_list.txt"
+  vcfs = "/Volumes/Ati-Archive/HCA/donor_id/VCF_list.txt"
   
   print("Wrapping starts")
   hsapExp_list <- scan(hsapExp, what="", sep=" ")
   mmusExp_list <- scan(mmusExp, what="", sep=" ")
   nread_list <- scan(nReads, what="", sep=" ")
+  nUMI_list <- scan(nUMI, what="", sep=" ")
+  nGene_list <- scan(nGene, what="", sep=" ")
+  nFeatures_list <- scan(nFeatures, what="", sep=" ")
   species_list <- scan(species, what="", sep=" ")
   vcf_list <- scan(vcfs, what="", sep=" ")
   number_of_samples <- length(hsapExp_list)
@@ -48,9 +59,10 @@ main <- function(hsapExp,mmusExp,nReads, species,
   metadata.list <- list()
   vcfs.list <- list()
   for (sample in 1:number_of_samples){
-    #sample.ng.file <- read.table(ng_list[sample], header = T)
-    #sample.nUMI.file <- read.table(nUMI_list[sample], header = T)
+    sample.ng.file <- read.table(nGene_list[sample], header = T)
+    sample.nUMI.file <- read.table(nUMI_list[sample], header = T)
     sample.nread.file <- read.table(nread_list[sample], header = T)
+    sample.features.file <- read.table(nFeatures_list[sample], header = T)
     sample.species.file <- read.table(species_list[sample])
     sample.hsapExp.obj <- readRDS(hsapExp_list[sample])
     sample.mmusExp.obj <- readRDS(mmusExp_list[sample])
@@ -59,12 +71,29 @@ main <- function(hsapExp,mmusExp,nReads, species,
     sample.ID.pre <- unlist(strsplit(unlist(strsplit(nread_list[sample], "/"))[2],"_")) #for local 6
     sample.ID <- paste(sample.ID.pre[-length(sample.ID.pre)], collapse = "_")
     
-    #sample.ng <- as.data.frame(sample.ng.file[which(sample.ng.file$featureType == "exons"), "Count"], row.names = create_cell_IDs(sample.ng.file[which(sample.ng.file$featureType == "exons"), "SampleID"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)); colnames(sample.ng) <- "nGenes"
-    #sample.nUMI <- as.data.frame(sample.nUMI.file[which(sample.nUMI.file$featureType == "exons"), "Count"], row.names = create_cell_IDs(sample.nUMI.file[which(sample.nUMI.file$featureType == "exons"), "SampleID"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)); colnames(sample.nUMI) <- "nUMIs"
-    sample.nread <- as.data.frame(sample.nread.file$Total, row.names = create_cell_IDs(sample.nread.file$XC, id.type = "cell_Barcode",tech = technology, lib = sample.ID)); colnames(sample.nread) <- "nReads"
-    sample.species <- as.data.frame(sample.species.file[,2], row.names = create_cell_IDs(sample.species.file, id.type = "standard"), col.names = c("species")); colnames(sample.species) <- "species"
-    sample.species <- as.data.frame(sample.species[rownames(sample.nread),],row.names = rownames(sample.nread)); colnames(sample.species) <- "Species"
+    #sample.exon.reads <- as.data.frame(sample.features.file[which(sample.features.file$AssignmentType == "exon"), "NumberOfReads"], row.names = create_cell_IDs(sample.features.file[which(sample.features.file$AssignmentType == "exon"), "XC"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)); colnames(sample.exon.reads) <- "nExonReads" 
+    #sample.intron.reads <- as.data.frame(sample.features.file[which(sample.features.file$AssignmentType == "intron"), "NumberOfReads"], row.names = create_cell_IDs(sample.features.file[which(sample.features.file$AssignmentType == "intron"), "XC"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)); colnames(sample.exon.reads) <- "nIntronReads" 
+    #sample.intergenic.reads <- as.data.frame(sample.features.file[which(sample.features.file$AssignmentType == "Intergenic"), "NumberOfReads"], row.names = create_cell_IDs(sample.features.file[which(sample.features.file$AssignmentType == "Intergenic"), "XC"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)); colnames(sample.exon.reads) <- "nIntergenicReads" 
+    #sample.Unmapped.reads <- as.data.frame(sample.features.file[which(sample.features.file$AssignmentType == "Unmapped"), "NumberOfReads"], row.names = create_cell_IDs(sample.features.file[which(sample.features.file$AssignmentType == "Unmapped"), "XC"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)); colnames(sample.exon.reads) <- "nUnmappedReads" 
+    #sample.Ambiguity.reads <- as.data.frame(sample.features.file[which(sample.features.file$AssignmentType == "Ambiguity"), "NumberOfReads"], row.names = create_cell_IDs(sample.features.file[which(sample.features.file$AssignmentType == "Ambiguity"), "XC"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)); colnames(sample.exon.reads) <- "nAmbiguityReads" 
+    #sample.ng <- as.data.frame(sample.ng.file[which(sample.ng.file$featureType == "intron.exon"), "Count"], row.names = create_cell_IDs(sample.ng.file[which(sample.ng.file$featureType == "intron.exon"), "SampleID"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)); colnames(sample.ng) <- "nGenes"
+    #sample.nUMI <- as.data.frame(sample.nUMI.file[which(sample.nUMI.file$featureType == "intron.exon"), "Count"], row.names = create_cell_IDs(sample.nUMI.file[which(sample.nUMI.file$featureType == "intron.exon"), "SampleID"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)); colnames(sample.nUMI) <- "nUMIs"
+    #sample.nread <- as.data.frame(sample.nread.file$Total, row.names = create_cell_IDs(sample.nread.file$XC, id.type = "cell_Barcode",tech = technology, lib = sample.ID)); colnames(sample.nread) <- "nReads"
+    #sample.species <- as.data.frame(sample.species.file[,2], row.names = create_cell_IDs(sample.species.file, id.type = "standard"), col.names = c("species")); colnames(sample.species) <- "species"
+    #sample.species <- as.data.frame(sample.species[rownames(sample.nread),],row.names = rownames(sample.nread)); colnames(sample.species) <- "Species"
     
+    sample.exon.reads <- data.frame(nExonReads=sample.features.file[which(sample.features.file$AssignmentType == "exon"), "NumberOfReads"], cellID=create_cell_IDs(sample.features.file[which(sample.features.file$AssignmentType == "exon"), "XC"], id.type = "cell_Barcode",tech = technology, lib = sample.ID))#; colnames(sample.exon.reads) <- "nExonReads" 
+    sample.intron.reads <- data.frame(nIntronReads=sample.features.file[which(sample.features.file$AssignmentType == "intron"), "NumberOfReads"], cellID = create_cell_IDs(sample.features.file[which(sample.features.file$AssignmentType == "intron"), "XC"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)) 
+    sample.intergenic.reads <- data.frame(nIntergenicReads=sample.features.file[which(sample.features.file$AssignmentType == "Intergenic"), "NumberOfReads"], cellID = create_cell_IDs(sample.features.file[which(sample.features.file$AssignmentType == "Intergenic"), "XC"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)) 
+    sample.Unmapped.reads <- data.frame(nUnmappedReads=sample.features.file[which(sample.features.file$AssignmentType == "Unmapped"), "NumberOfReads"], cellID = create_cell_IDs(sample.features.file[which(sample.features.file$AssignmentType == "Unmapped"), "XC"], id.type = "cell_Barcode",tech = technology, lib = sample.ID))
+    sample.Ambiguity.reads <- data.frame(nAmbiguityReads=sample.features.file[which(sample.features.file$AssignmentType == "Ambiguity"), "NumberOfReads"], cellID = create_cell_IDs(sample.features.file[which(sample.features.file$AssignmentType == "Ambiguity"), "XC"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)) 
+    sample.ng <- data.frame(nGenes=sample.ng.file[which(sample.ng.file$featureType == "intron.exon"), "Count"], cellID = create_cell_IDs(sample.ng.file[which(sample.ng.file$featureType == "intron.exon"), "SampleID"], id.type = "cell_Barcode",tech = technology, lib = sample.ID))
+    sample.nUMI <- data.frame(nUMIs=sample.nUMI.file[which(sample.nUMI.file$featureType == "intron.exon"), "Count"], cellID = create_cell_IDs(sample.nUMI.file[which(sample.nUMI.file$featureType == "intron.exon"), "SampleID"], id.type = "cell_Barcode",tech = technology, lib = sample.ID))
+    sample.nread <- data.frame(nTReads=sample.nread.file$Total, cellID = create_cell_IDs(sample.nread.file$XC, id.type = "cell_Barcode",tech = technology, lib = sample.ID))
+    sample.species <- data.frame(Species=sample.species.file[,2], cellID = create_cell_IDs(sample.species.file, id.type = "standard",tech = technology, lib = sample.ID))
+    sample.species <- sample.species[rownames(sample.nread),]
+    
+        
     ids <- donor_id(sample.vcf, n_donor= 4, n_vars_threshold = 5)
     #table(ids$assigned$donor_id)
     #head(ids$assigned)
@@ -75,13 +104,17 @@ main <- function(hsapExp,mmusExp,nReads, species,
     s.ProbMat <- ids$prob
     rownames(s.ProbMat) <- create_cell_IDs(rownames(s.ProbMat), id.type = "vcf_id", tech = technology, lib = sample.ID)
     donor.assigned= rep("Not_human", nrow(sample.nread))
-    names(donor.assigned) <- rownames(sample.nread)
+    names(donor.assigned) <- sample.nread$cellID
     for (cellBC in rownames(s.ProbMat)){
       donorID = "unassigned"
       for (donor in colnames(s.ProbMat)){
         if (s.ProbMat[cellBC, donor] > 0.5){
           donorID = donor}
         donor.assigned[cellBC] <- donorID}}
+    sample.donor = data.frame(Donor=donor.assigned, cellID= sample.nread$cellID)
+    sample.library=data.frame(Library=rep(sample.ID, nrow(sample.nread)), cellID=sample.nread$cellID)
+    sample.nVars= data.frame(nVars=rep(NA, nrow(sample.nread)), cellID=sample.nread$cellID, row.names = sample.nread$cellID)
+    sample.nVars[names(nvars.per.cell), "nVars"] <- nvars.per.cell
 
     #prob_mat = s.ProbMat
     #hc <- hclust(dist(prob_mat))
@@ -101,7 +134,15 @@ main <- function(hsapExp,mmusExp,nReads, species,
     #theme(axis.title.y = element_text(size = 20), legend.position = "bottom",
     #      legend.text = element_text(size = 12), legend.key.size = unit(0.05, "npc"))
     
-    sample.metadata <- as.data.frame(cbind(nReads=sample.nread, species=sample.species, library=rep(sample.ID, nrow(sample.nread)), donor_assigned=donor.assigned[rownames(sample.nread)], nVar=nvars.per.cell[rownames(sample.nread)]))
+#    sample.metadata <- as.data.frame(cbind(TotalnReads=sample.nread, nExonReads=sample.exon.reads, nIntronReads=sample.intron.reads, 
+#                                           nIntergenicReads=sample.intergenic.reads, nUnmappedReads=sample.Unmapped.reads, nAmbiguityReads=sample.Ambiguity.reads,
+#                                           nUMI=sample.nUMI, nGenes=sample.ng, Species=sample.species, library=rep(sample.ID, nrow(sample.nread)), donor_assigned=donor.assigned[rownames(sample.nread)], nVar=nvars.per.cell[rownames(sample.nread)]))
+    
+    sample.metadata <- join_all(list(sample.nread, sample.exon.reads,sample.intron.reads, 
+                                           sample.intergenic.reads, sample.Unmapped.reads, sample.Ambiguity.reads,
+                                           sample.nUMI, sample.ng, sample.species, sample.library, sample.donor, nVar=sample.nVars), by = "cellID", type = 'full')
+    rownames(sample.metadata) <- sample.metadata$cellID
+    sample.metadata <- sample.metadata[,-2]
     metadata.list[[sample.ID]] <- sample.metadata
     vcfs.list[[sample.ID]] <- sample.vcf
     
@@ -121,7 +162,6 @@ main <- function(hsapExp,mmusExp,nReads, species,
     #SCEobj.list[[sample]] <- sample.sce
     #names(SCEobj.list)[sample] <- sample.ID
     
-
   }
   print("loop is done")
   all.hsapExp <- join_all(hsap.ExpsMat.list, by = "rn", type = 'full')
@@ -138,14 +178,14 @@ main <- function(hsapExp,mmusExp,nReads, species,
   rownames(all.metadata) <- lapply(rownames(all.metadata), function (x) unlist(strsplit(x, "[.]"))[2])
   
   print("Making the SingleCellExperiment Objects")
-  full.SCE.hsap <- SingleCellExperiment(assays = list(counts = as.matrix(all.hsapExp)), colData = all.metadata)
+  full.SCE.hsap <- SingleCellExperiment(assays = list(counts = as.matrix(all.hsapExp)), colData = all.metadata[colnames(all.hsapExp),])
   full.SCE.hsap <- calculateQCMetrics(full.SCE.hsap)
   libsize.drop.hsap <- isOutlier(full.SCE.hsap$total_counts, nmads=3, type="lower", log=TRUE)
   feature.drop.hsap <- isOutlier(full.SCE.hsap$total_features, nmads=3, type="lower", log=TRUE)
   full.SCE.filterred.hsap <- full.SCE.hsap[,!(libsize.drop.hsap | feature.drop.hsap)]
   data.frame(ByLibSize=sum(libsize.drop.hsap), ByFeature=sum(feature.drop.hsap), Remaining=ncol(full.SCE.filterred.hsap))
   
-  full.SCE.mmus <- SingleCellExperiment(assays = list(counts = as.matrix(all.mmusExp)), colData = all.metadata)
+  full.SCE.mmus <- SingleCellExperiment(assays = list(counts = as.matrix(all.mmusExp)), colData = all.metadata[colnames(all.hsapExp),])
   full.SCE.mmus <- calculateQCMetrics(full.SCE.mmus)
   libsize.drop.mmus <- isOutlier(full.SCE.mmus$total_counts, nmads=3, type="lower", log=TRUE)
   feature.drop.mmus <- isOutlier(full.SCE.mmus$total_features, nmads=3, type="lower", log=TRUE)
