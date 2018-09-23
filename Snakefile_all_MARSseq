@@ -174,6 +174,9 @@ rule prepare_R_inputs:
         hsap_Exprs= expand('multigenome_MARSseq/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES),
         mmus_Exprs= expand('multigenome_MARSseq/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES),
         n_Reads= expand('multigenome_MARSseq/{sample}_mixed/zUMIs_output/stats/'+protocol+'.readspercell.txt',sample=SAMPLES),
+        n_Genes= expand('multigenome_MARSseq/{sample}_mixed/zUMIs_output/stats/'+protocol+'.genecounts.txt',sample=SAMPLES),
+        n_UMIs= expand('multigenome_MARSseq/{sample}_mixed/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',sample=SAMPLES),
+        n_Features= expand('multigenome_MARSseq/{sample}_mixed/zUMIs_output/stats/'+protocol+'.features.txt',sample=SAMPLES),
         species_info= expand('multigenome_MARSseq/{sample}_mixed/doublet_species/doublet_table_reads.txt',sample=SAMPLES),
         VCF_file= expand('multigenome_MARSseq/mpileup/{sample}.mpileup.full.vcf.gz',sample=SAMPLES)
     
@@ -181,6 +184,9 @@ rule prepare_R_inputs:
         hsapExp_list="multigenome_MARSseq/"+protocol+'_Hsap_expression_list.txt',
         mmusExp_list="multigenome_MARSseq/"+protocol+'_Mmus_expression_list.txt',
         nReads_list="multigenome_MARSseq/"+protocol+'_NumberOfReads_list.txt',
+        nUMIs_list="multigenome_MARSseq/"+protocol+'_NumberOfUMIs_list.txt',
+        nGenes_list="multigenome_MARSseq/"+protocol+'_NumberOfGenes_list.txt',
+        nFeatures_list="multigenome_MARSseq/"+protocol+'_NumberOfFeatures_list.txt',
         species_list="multigenome_MARSseq/"+protocol+'_Species_info_list.txt',
         vcfs_list="multigenome_MARSseq/"+protocol+'_VCFs_list.txt'
 
@@ -189,6 +195,9 @@ rule prepare_R_inputs:
         echo -e "{input.hsap_Exprs}" >> {output.hsapExp_list}
         echo -e "{input.mmus_Exprs}" >> {output.mmusExp_list}
         echo -e "{input.n_Reads}" >> {output.nReads_list}
+        echo -e "{input.n_Genes}" >> {output.nGenes_list}
+        echo -e "{input.n_UMIs}" >> {output.nUMIs_list}
+        echo -e "{input.n_Features}" >> {output.nFeatures_list}
         echo -e "{input.species_info}" >> {output.species_list}
         echo -e "{input.VCF_file}" >> {output.vcfs_list}
         """
@@ -197,10 +206,13 @@ rule R_wrapper:
         hE_list="multigenome_MARSseq/"+protocol+'_Hsap_expression_list.txt',
         mE_list="multigenome_MARSseq/"+protocol+'_Mmus_expression_list.txt',
         nR_list="multigenome_MARSseq/"+protocol+'_NumberOfReads_list.txt',
+        nU_list="multigenome_MARSseq/"+protocol+'_NumberOfUMIs_list.txt',
+        nG_list="multigenome_MARSseq/"+protocol+'_NumberOfGenes_list.txt',
+        nF_list="multigenome_MARSseq/"+protocol+'_NumberOfFeatures_list.txt',
         spec_list="multigenome_MARSseq/"+protocol+'_Species_info_list.txt',
         vcf_list="multigenome_MARSseq/"+protocol+'_VCFs_list.txt'
     output:
         hsap_Robj= "multigenome_MARSseq/hsap.full.SCE.Robj",
         mmus_Robj= "multigenome_MARSseq/mmus.full.SCE.Robj"
     shell:
-        "Rscript wrapper_Robj_V3.R --hsapExp {input.hE_list} --mmusExp {input.mE_list} --nReads {input.nR_list} --species {input.spec_list} --vcfs {input.vcf_list} --output_SCEobj ./multigenome_MARSseq --technology MARSseq"
+        "Rscript wrapper_Robj_V3.R --hsapExp {input.hE_list} --mmusExp {input.mE_list} --nReads {input.nR_list} --nUMI {input.nU_list} --nGene {input.nG_list} --nFeatures {input.nF_list} --species {input.spec_list} --vcfs {input.vcf_list} --output_SCEobj ./multigenome_MARSseq --technology MARSseq"

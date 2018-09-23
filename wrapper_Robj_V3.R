@@ -3,12 +3,15 @@
 Wrap all the output from previous steps of the pipline and produce a single SCE object for each sc technology
 
 Usage:
-Robject_wrapper.R --hsapExp <DATA_IN> --mmusExp <DATA_IN> --nReads <DATA_IN> --species <DATA_IN> --vcfs <DATA_IN> --output_SCEobj <FILE_OUT> [--technology <sc_technology> ]
+Robject_wrapper.R --hsapExp <DATA_IN> --mmusExp <DATA_IN> --nReads <DATA_IN> --nUMI <DATA_IN> --nGene <DATA_IN> --nFeatures <DATA_IN> --species <DATA_IN> --vcfs <DATA_IN> --output_SCEobj <FILE_OUT> [--technology <sc_technology> ]
 
 Options:
 -hsapExp --hsapExp <DATA_IN>                list of expression object from Human mapping for all pools
 -mmusExp --mmusExp <DATA_IN>                list of expression object from Mouse mapping for all pools
 -nReads --nReads <DATA_IN>                  list of Number of read files for all pools
+-nUMI --nUMI <DATA_IN>                      list of Number of UMIs files for all pools
+-nGene --nGene <DATA_IN>                    list of Number of genes files for all pools
+-nFeatures --nFeatures <DATA_IN>            list of Number of features files for all pools
 -species --species <DATA_IN>                list of species infor from species deconvolution step from mixed mapping for all pools
 -vcfs --vcfs <DATA_IN>                      list of VCF files for all pools
 -Output --output_SCEobj <FILE_OUT>          The output location for A R SCE object that has expression data mapped to human ref
@@ -23,7 +26,7 @@ suppressPackageStartupMessages(library(vcfR))
 suppressPackageStartupMessages(library(plyr))
 suppressPackageStartupMessages(library(cardelino))
 
-main <- function(hsapExp,mmusExp,nReads, species, 
+main <- function(hsapExp,mmusExp,nReads,nUMI,nGene,nFeatures, species, 
                  vcfs, output_SCEobj, technology) {
   
   #ng_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/GeneNumber_list.txt", what="", sep="\n")
@@ -33,14 +36,15 @@ main <- function(hsapExp,mmusExp,nReads, species,
   #hsapExp_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/Hsap_expression_list.txt", what="", sep=" ")
   #mmusExp_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/Mmus_expression_list.txt", what="", sep="\n")
   #vcf_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/VCF_list.txt", what="", sep="\n")
-  hsapExp = "/Volumes/Ati-Archive/HCA/donor_id/Hsap_expression_list.txt"
-  mmusExp = "/Volumes/Ati-Archive/HCA/donor_id/Mmus_expression_list.txt"
-  nReads = "/Volumes/Ati-Archive/HCA/donor_id/ReadNumber_list.txt"
-  nUMI = "/Volumes/Ati-Archive/HCA/donor_id/UMINumber_list.txt"
-  nGene = "/Volumes/Ati-Archive/HCA/donor_id/GeneNumber_list.txt"
-  nFeatures = "/Volumes/Ati-Archive/HCA/donor_id/Features_list.txt"
-  species = "/Volumes/Ati-Archive/HCA/donor_id/species_list.txt"
-  vcfs = "/Volumes/Ati-Archive/HCA/donor_id/VCF_list.txt"
+  
+  #hsapExp = "/Volumes/Ati-Archive/HCA/donor_id/Hsap_expression_list.txt"
+  #mmusExp = "/Volumes/Ati-Archive/HCA/donor_id/Mmus_expression_list.txt"
+  #nReads = "/Volumes/Ati-Archive/HCA/donor_id/ReadNumber_list.txt"
+  #nUMI = "/Volumes/Ati-Archive/HCA/donor_id/UMINumber_list.txt"
+  #nGene = "/Volumes/Ati-Archive/HCA/donor_id/GeneNumber_list.txt"
+  #nFeatures = "/Volumes/Ati-Archive/HCA/donor_id/Features_list.txt"
+  #species = "/Volumes/Ati-Archive/HCA/donor_id/species_list.txt"
+  #vcfs = "/Volumes/Ati-Archive/HCA/donor_id/VCF_list.txt"
   
   print("Wrapping starts")
   hsapExp_list <- scan(hsapExp, what="", sep=" ")
@@ -94,7 +98,7 @@ main <- function(hsapExp,mmusExp,nReads, species,
     sample.species <- sample.species[rownames(sample.nread),]
     
         
-    ids <- donor_id(sample.vcf, n_donor= 4, n_vars_threshold = 5)
+    ids <- donor_id(sample.vcf, n_donor= 5, n_vars_threshold = 5)
     #table(ids$assigned$donor_id)
     #head(ids$assigned)
     #donor.assigned <- ids$assigned$donor_id
@@ -233,5 +237,5 @@ opt <- docopt::docopt(doc, version = "version 0.0.1\n")
 
 
 ## Run main function
-main(opt$hsapExp, opt$mmusExp, opt$nReads, opt$species, 
+main(opt$hsapExp, opt$mmusExp, opt$nReads, opt$nUMI, opt$nGene, opt$nFeatures, opt$species, 
      opt$vcfs, opt$output_SCEobj, opt$technology)
