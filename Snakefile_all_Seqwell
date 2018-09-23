@@ -44,7 +44,10 @@ rule zUMI_run:
         dir_file222='multigenome_Seqwell/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
         dir3='multigenome_Seqwell/{sample}_mixed/'+protocol+'.aligned.sorted.bam',
         dir_file3='multigenome_Seqwell/{sample}_mixed/zUMIs_output/stats/'+protocol+'.readspercell.txt',
-        dir_file33='multigenome_Seqwell/{sample}_mixed/'+protocol+'.barcodelist.filtered.sort.sam'
+        dir_file33='multigenome_Seqwell/{sample}_mixed/'+protocol+'.barcodelist.filtered.sort.sam',
+        dir_file333= 'multigenome_Seqwell/{sample}_mixed/zUMIs_output/stats/'+protocol+'.genecounts.txt',
+        dir_file3333= 'multigenome_Seqwell/{sample}_mixed/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
+        dir_file33333= 'multigenome_Seqwell/{sample}_mixed/zUMIs_output/stats/'+protocol+'.features.txt'
 
     shell:
         """
