@@ -83,14 +83,14 @@ for root,dirs,files in os.walk(samfiles_path):
         #allcells_hsap.append(hsap_per)
         #allcells_mmus.append(mmus_per)
         #allcells_hsap_mmus.append((hsap_per, mmus_per))
-        if hsap_per >= 80:
+        if hsap_per >= 70:
             fout3.write(cell_name + '\n')
             fout6.write(cell_name_bam + '\n')
             species = "Human"
-        elif mmus_per >= 80:
+        elif mmus_per >= 70:
             fout4.write(cell_name + '\n')
             species = "Mouse"
-        elif can_per >= 80:
+        elif can_per >= 70:
             fout5.write(cell_name + '\n')
             species = "Dog"
         else:
