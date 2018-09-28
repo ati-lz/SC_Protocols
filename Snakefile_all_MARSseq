@@ -35,23 +35,23 @@ rule zUMI_run:
         fastq_R2=fastq_path+'/{sample}_2.fq.gz',
         #sample_id='{sample}'
     output:
-        h_align= 'multigenome_MARSseq/{sample}_human/'+protocol+'.aligned.sorted.bam',
-        h_nR= 'multigenome_MARSseq/{sample}_human/zUMIs_output/stats/'+protocol+'.readspercell.txt',
-        h_nG= 'multigenome_MARSseq/{sample}_human/zUMIs_output/stats/'+protocol+'.genecounts.txt',
-        h_nU= 'multigenome_MARSseq/{sample}_human/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
-        h_nF= 'multigenome_MARSseq/{sample}_human/zUMIs_output/stats/'+protocol+'.features.txt'
-        h_BC= 'multigenome_MARSseq/{sample}_human/'+protocol+'.barcodelist.filtered.sort.sam',
+        h_align='multigenome_MARSseq/{sample}_human/'+protocol+'.aligned.sorted.bam',
+        h_nR='multigenome_MARSseq/{sample}_human/zUMIs_output/stats/'+protocol+'.readspercell.txt',
+        h_nG='multigenome_MARSseq/{sample}_human/zUMIs_output/stats/'+protocol+'.genecounts.txt',
+        h_nU='multigenome_MARSseq/{sample}_human/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
+        h_nF='multigenome_MARSseq/{sample}_human/zUMIs_output/stats/'+protocol+'.features.txt'
+        h_BC='multigenome_MARSseq/{sample}_human/'+protocol+'.barcodelist.filtered.sort.sam',
         h_countmat='multigenome_MARSseq/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
-        m_align= 'multigenome_MARSseq/{sample}_mouse/'+protocol+'.aligned.sorted.bam',
-        m_nR= 'multigenome_MARSseq/{sample}_mouse/zUMIs_output/stats/'+protocol+'.readspercell.txt',
-        m_nG= 'multigenome_MARSseq/{sample}_mouse/zUMIs_output/stats/'+protocol+'.genecounts.txt',
-        m_nU= 'multigenome_MARSseq/{sample}_mouse/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
-        m_nF= 'multigenome_MARSseq/{sample}_mouse/zUMIs_output/stats/'+protocol+'.features.txt'
-        m_BC= 'multigenome_MARSseq/{sample}_mouse/'+protocol+'.barcodelist.filtered.sort.sam',
-        m_countmat= 'multigenome_MARSseq/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
-        mix_align= 'multigenome_MARSseq/{sample}_mixed/'+protocol+'.aligned.sorted.bam',
-        mix_nR= 'multigenome_MARSseq/{sample}_mixed/zUMIs_output/stats/'+protocol+'.readspercell.txt',
-        mix_BC= 'multigenome_MARSseq/{sample}_mixed/'+protocol+'.barcodelist.filtered.sort.sam'
+        m_align='multigenome_MARSseq/{sample}_mouse/'+protocol+'.aligned.sorted.bam',
+        m_nR='multigenome_MARSseq/{sample}_mouse/zUMIs_output/stats/'+protocol+'.readspercell.txt',
+        m_nG='multigenome_MARSseq/{sample}_mouse/zUMIs_output/stats/'+protocol+'.genecounts.txt',
+        m_nU='multigenome_MARSseq/{sample}_mouse/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
+        m_nF='multigenome_MARSseq/{sample}_mouse/zUMIs_output/stats/'+protocol+'.features.txt'
+        m_BC='multigenome_MARSseq/{sample}_mouse/'+protocol+'.barcodelist.filtered.sort.sam',
+        m_countmat='multigenome_MARSseq/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
+        mix_align='multigenome_MARSseq/{sample}_mixed/'+protocol+'.aligned.sorted.bam',
+        mix_nR='multigenome_MARSseq/{sample}_mixed/zUMIs_output/stats/'+protocol+'.readspercell.txt',
+        mix_BC='multigenome_MARSseq/{sample}_mixed/'+protocol+'.barcodelist.filtered.sort.sam'
 
     shell:
         """
