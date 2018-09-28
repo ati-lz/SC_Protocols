@@ -185,7 +185,7 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
                                           sample.mmus.nUMI, sample.mmus.ng, sample.species, sample.library, sample.donor, nVar=sample.nVars), by = "cellID", type = 'full')
     rownames(sample.mmus.metadata) <- sample.mmus.metadata$cellID
     sample.mmus.metadata <- sample.mmus.metadata[,-2]
-    mmus.metadata.list[[sample.ID]] <- sample.hsap.metadata
+    mmus.metadata.list[[sample.ID]] <- sample.mmus.metadata
     
     vcfs.list[[sample.ID]] <- sample.vcf
     
