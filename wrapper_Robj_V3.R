@@ -126,7 +126,7 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
     sample.mmus.nread <- data.frame(nTReads=sample.mnread.file$Total, cellID = create_cell_IDs(sample.mnread.file$XC, id.type = "cell_Barcode",tech = technology, lib = sample.ID))
     
     sample.species <- data.frame(Species=sample.species.file[,2], cellID = create_cell_IDs(sample.species.file, id.type = "standard",tech = technology, lib = sample.ID))
-    sample.species <- sample.species[rownames(sample.nread),]
+    sample.species <- sample.species[rownames(sample.hsap.nread),]
     
         
     ids <- donor_id(sample.vcf, n_donor= 5, n_vars_threshold = 5)
@@ -138,17 +138,17 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
     names(nvars.per.cell) <- create_cell_IDs(ids$assigned$cell, id.type = "vcf_id", tech = technology, lib = sample.ID)
     s.ProbMat <- ids$prob
     rownames(s.ProbMat) <- create_cell_IDs(rownames(s.ProbMat), id.type = "vcf_id", tech = technology, lib = sample.ID)
-    donor.assigned= rep("Not_human", nrow(sample.nread))
-    names(donor.assigned) <- sample.nread$cellID
+    donor.assigned= rep("Not_human", nrow(sample.hsap.nread))
+    names(donor.assigned) <- sample.hsap.nread$cellID
     for (cellBC in rownames(s.ProbMat)){
       donorID = "unassigned"
       for (donor in colnames(s.ProbMat)){
         if (s.ProbMat[cellBC, donor] > 0.5){
           donorID = donor}
         donor.assigned[cellBC] <- donorID}}
-    sample.donor = data.frame(Donor=donor.assigned, cellID= sample.nread$cellID)
-    sample.library=data.frame(Library=rep(sample.ID, nrow(sample.nread)), cellID=sample.nread$cellID)
-    sample.nVars= data.frame(nVars=rep(NA, nrow(sample.nread)), cellID=sample.nread$cellID, row.names = sample.nread$cellID)
+    sample.donor = data.frame(Donor=donor.assigned, cellID= sample.hsap.nread$cellID)
+    sample.library=data.frame(Library=rep(sample.ID, nrow(sample.hsap.nread)), cellID=sample.hsap.nread$cellID)
+    sample.nVars= data.frame(nVars=rep(NA, nrow(sample.hsap.nread)), cellID=sample.hsap.nread$cellID, row.names = sample.hsap.nread$cellID)
     sample.nVars[names(nvars.per.cell), "nVars"] <- nvars.per.cell
 
     #prob_mat = s.ProbMat
