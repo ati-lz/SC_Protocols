@@ -174,14 +174,14 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
 #                                           nUMI=sample.nUMI, nGenes=sample.ng, Species=sample.species, library=rep(sample.ID, nrow(sample.nread)), donor_assigned=donor.assigned[rownames(sample.nread)], nVar=nvars.per.cell[rownames(sample.nread)]))
     
     sample.hsap.metadata <- join_all(list(sample.hsap.nread, sample.hsap.exon.reads,sample.hsap.intron.reads, 
-                                           sample.hsap.intergenic.reads, sample.hsap.Unmapped.reads, hsap.sample.Ambiguity.reads, sample.hsap.Multimap.reads,
+                                           sample.hsap.intergenic.reads, sample.hsap.Unmapped.reads, sample.hsap.Ambiguity.reads, sample.hsap.Multimap.reads,
                                            sample.hsap.nUMI, sample.hsap.ng, sample.species, sample.library, sample.donor, nVar=sample.nVars), by = "cellID", type = 'full')
     rownames(sample.hsap.metadata) <- sample.hsap.metadata$cellID
     sample.hsap.metadata <- sample.hsap.metadata[,-2]
     hsap.metadata.list[[sample.ID]] <- sample.hsap.metadata
     
     sample.mmus.metadata <- join_all(list(sample.mmus.nread, sample.mmus.exon.reads,sample.mmus.intron.reads, 
-                                          sample.mmus.intergenic.reads, sample.mmus.Unmapped.reads, mmus.sample.Ambiguity.reads, sample.mmus.Multimap.reads,
+                                          sample.mmus.intergenic.reads, sample.mmus.Unmapped.reads, sample.mmus.Ambiguity.reads, sample.mmus.Multimap.reads,
                                           sample.mmus.nUMI, sample.mmus.ng, sample.species, sample.library, sample.donor, nVar=sample.nVars), by = "cellID", type = 'full')
     rownames(sample.mmus.metadata) <- sample.mmus.metadata$cellID
     sample.mmus.metadata <- sample.mmus.metadata[,-2]
