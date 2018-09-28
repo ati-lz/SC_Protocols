@@ -20,7 +20,7 @@ shell.prefix("module unload gcc/latest; module load gcc/6.3.0; module load XZ/5.
 #Samples
 sample_files = listdir(fastq_path)
 SAMPLES = list(set(i.split("_")[1] for i in sample_files))
-#SAMPLES = ["5568AA", "5571AA"]
+#SAMPLES = ["5568AA", "5571AA"]ls -l 
 SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
@@ -38,16 +38,19 @@ rule zUMI_run:
         dir_file1='multigenome_Seqwell/{sample}_human/zUMIs_output/stats/'+protocol+'.readspercell.txt',
         dir_file11='multigenome_Seqwell/{sample}_human/'+protocol+'.barcodelist.filtered.sort.sam',
         dir_file111='multigenome_Seqwell/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
+        dir_file1111='multigenome_Seqwell/{sample}_human/zUMIs_output/stats/'+protocol+'.genecounts.txt',
+        dir_file11111='multigenome_Seqwell/{sample}_human/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
+        dir_file111111='multigenome_Seqwell/{sample}_human/zUMIs_output/stats/'+protocol+'.features.txt',
         dir2='multigenome_Seqwell/{sample}_mouse/'+protocol+'.aligned.sorted.bam',
         dir_file2='multigenome_Seqwell/{sample}_mouse/zUMIs_output/stats/'+protocol+'.readspercell.txt',
         dir_file22='multigenome_Seqwell/{sample}_mouse/'+protocol+'.barcodelist.filtered.sort.sam',
         dir_file222='multigenome_Seqwell/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
+        dir_file2222='multigenome_Seqwell/{sample}_mouse/zUMIs_output/stats/'+protocol+'.genecounts.txt',
+        dir_file22222='multigenome_Seqwell/{sample}_mouse/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
+        dir_file222222='multigenome_Seqwell/{sample}_mouse/zUMIs_output/stats/'+protocol+'.features.txt',
         dir3='multigenome_Seqwell/{sample}_mixed/'+protocol+'.aligned.sorted.bam',
         dir_file3='multigenome_Seqwell/{sample}_mixed/zUMIs_output/stats/'+protocol+'.readspercell.txt',
-        dir_file33='multigenome_Seqwell/{sample}_mixed/'+protocol+'.barcodelist.filtered.sort.sam',
-        dir_file333= 'multigenome_Seqwell/{sample}_mixed/zUMIs_output/stats/'+protocol+'.genecounts.txt',
-        dir_file3333= 'multigenome_Seqwell/{sample}_mixed/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
-        dir_file33333= 'multigenome_Seqwell/{sample}_mixed/zUMIs_output/stats/'+protocol+'.features.txt'
+        dir_file33='multigenome_Seqwell/{sample}_mixed/'+protocol+'.barcodelist.filtered.sort.sam'
 
     shell:
         """
@@ -176,20 +179,28 @@ rule prepare_R_inputs:
     input:
         hsap_Exprs= expand('multigenome_Seqwell/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES),
         mmus_Exprs= expand('multigenome_Seqwell/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES),
-        n_Reads= expand('multigenome_Seqwell/{sample}_mixed/zUMIs_output/stats/'+protocol+'.readspercell.txt',sample=SAMPLES),
-        n_Genes= expand('multigenome_Seqwell/{sample}_mixed/zUMIs_output/stats/'+protocol+'.genecounts.txt',sample=SAMPLES),
-        n_UMIs= expand('multigenome_Seqwell/{sample}_mixed/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',sample=SAMPLES),
-        n_Features= expand('multigenome_Seqwell/{sample}_mixed/zUMIs_output/stats/'+protocol+'.features.txt',sample=SAMPLES),
+        hsap_n_Reads= expand('multigenome_Seqwell/{sample}_human/zUMIs_output/stats/'+protocol+'.readspercell.txt',sample=SAMPLES),
+        hsap_n_Genes= expand('multigenome_Seqwell/{sample}_human/zUMIs_output/stats/'+protocol+'.genecounts.txt',sample=SAMPLES),
+        hsap_n_UMIs= expand('multigenome_Seqwell/{sample}_human/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',sample=SAMPLES),
+        hsap_n_Features= expand('multigenome_Seqwell/{sample}_human/zUMIs_output/stats/'+protocol+'.features.txt',sample=SAMPLES),
+        mmus_n_Reads= expand('multigenome_Seqwell/{sample}_mouse/zUMIs_output/stats/'+protocol+'.readspercell.txt',sample=SAMPLES),
+        mmus_n_Genes= expand('multigenome_Seqwell/{sample}_mouse/zUMIs_output/stats/'+protocol+'.genecounts.txt',sample=SAMPLES),
+        mmus_n_UMIs= expand('multigenome_Seqwell/{sample}_mouse/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',sample=SAMPLES),
+        mmus_n_Features= expand('multigenome_Seqwell/{sample}_mouse/zUMIs_output/stats/'+protocol+'.features.txt',sample=SAMPLES),
         species_info= expand('multigenome_Seqwell/{sample}_mixed/doublet_species/doublet_table_reads.txt',sample=SAMPLES),
         VCF_file= expand('multigenome_Seqwell/mpileup/{sample}.mpileup.full.vcf.gz',sample=SAMPLES)
     
     output:
         hsapExp_list="multigenome_Seqwell/"+protocol+'_Hsap_expression_list.txt',
         mmusExp_list="multigenome_Seqwell/"+protocol+'_Mmus_expression_list.txt',
-        nReads_list="multigenome_Seqwell/"+protocol+'_NumberOfReads_list.txt',
-        nUMIs_list="multigenome_Seqwell/"+protocol+'_NumberOfUMIs_list.txt',
-        nGenes_list="multigenome_Seqwell/"+protocol+'_NumberOfGenes_list.txt',
-        nFeatures_list="multigenome_Seqwell/"+protocol+'_NumberOfFeatures_list.txt',
+        hsap_nReads_list="multigenome_Seqwell/"+protocol+'_Hsap_NumberOfReads_list.txt',
+        hsap_nUMIs_list="multigenome_Seqwell/"+protocol+'_Hsap_NumberOfUMIs_list.txt',
+        hsap_nGenes_list="multigenome_Seqwell/"+protocol+'_Hsap_NumberOfGenes_list.txt',
+        hsap_nFeatures_list="multigenome_Seqwell/"+protocol+'_Hsap_NumberOfFeatures_list.txt',
+        mmus_nReads_list="multigenome_Seqwell/"+protocol+'_Mmus_NumberOfReads_list.txt',
+        mmus_nUMIs_list="multigenome_Seqwell/"+protocol+'_Mmus_NumberOfUMIs_list.txt',
+        mmus_nGenes_list="multigenome_Seqwell/"+protocol+'_Mmus_NumberOfGenes_list.txt',
+        mmus_nFeatures_list="multigenome_Seqwell/"+protocol+'_Mmus_NumberOfFeatures_list.txt',
         species_list="multigenome_Seqwell/"+protocol+'_Species_info_list.txt',
         vcfs_list="multigenome_Seqwell/"+protocol+'_VCFs_list.txt'
 
@@ -197,10 +208,14 @@ rule prepare_R_inputs:
         """
         echo -e "{input.hsap_Exprs}" >> {output.hsapExp_list}
         echo -e "{input.mmus_Exprs}" >> {output.mmusExp_list}
-        echo -e "{input.n_Reads}" >> {output.nReads_list}
-        echo -e "{input.n_Genes}" >> {output.nGenes_list}
-        echo -e "{input.n_UMIs}" >> {output.nUMIs_list}
-        echo -e "{input.n_Features}" >> {output.nFeatures_list}
+        echo -e "{input.hsap_n_Reads}" >> {output.hsap_nReads_list}
+        echo -e "{input.hsap_n_Genes}" >> {output.hsap_nGenes_list}
+        echo -e "{input.hsap_n_UMIs}" >> {output.hsap_nUMIs_list}
+        echo -e "{input.hsap_n_Features}" >> {output.hsap_nFeatures_list}
+        echo -e "{input.mmus_n_Reads}" >> {output.mmus_nReads_list}
+        echo -e "{input.mmus_n_Genes}" >> {output.mmus_nGenes_list}
+        echo -e "{input.mmus_n_UMIs}" >> {output.mmus_nUMIs_list}
+        echo -e "{input.mmus_n_Features}" >> {output.mmus_nFeatures_list}
         echo -e "{input.species_info}" >> {output.species_list}
         echo -e "{input.VCF_file}" >> {output.vcfs_list}
         """
@@ -208,14 +223,18 @@ rule R_wrapper:
     input:
         hE_list="multigenome_Seqwell/"+protocol+'_Hsap_expression_list.txt',
         mE_list="multigenome_Seqwell/"+protocol+'_Mmus_expression_list.txt',
-        nR_list="multigenome_Seqwell/"+protocol+'_NumberOfReads_list.txt',
-        nU_list="multigenome_Seqwell/"+protocol+'_NumberOfUMIs_list.txt',
-        nG_list="multigenome_Seqwell/"+protocol+'_NumberOfGenes_list.txt',
-        nF_list="multigenome_Seqwell/"+protocol+'_NumberOfFeatures_list.txt',
+        h_nR_list="multigenome_Seqwell/"+protocol+'_Hsap_NumberOfReads_list.txt',
+        h_nU_list="multigenome_Seqwell/"+protocol+'_Hsap_NumberOfUMIs_list.txt',
+        h_nG_list="multigenome_Seqwell/"+protocol+'_Hsap_NumberOfGenes_list.txt',
+        h_nF_list="multigenome_Seqwell/"+protocol+'_Hsap_NumberOfFeatures_list.txt',
+        m_nR_list="multigenome_Seqwell/"+protocol+'_Mmus_NumberOfReads_list.txt',
+        m_nU_list="multigenome_Seqwell/"+protocol+'_Mmus_NumberOfUMIs_list.txt',
+        m_nG_list="multigenome_Seqwell/"+protocol+'_Mmus_NumberOfGenes_list.txt',
+        m_nF_list="multigenome_Seqwell/"+protocol+'_Mmus_NumberOfFeatures_list.txt',
         spec_list="multigenome_Seqwell/"+protocol+'_Species_info_list.txt',
         vcf_list="multigenome_Seqwell/"+protocol+'_VCFs_list.txt'
     output:
         hsap_Robj= "multigenome_Seqwell/hsap.full.SCE.Robj",
         mmus_Robj= "multigenome_Seqwell/mmus.full.SCE.Robj"
     shell:
-        "Rscript wrapper_Robj_V3.R --hsapExp {input.hE_list} --mmusExp {input.mE_list} --nReads {input.nR_list} --nUMI {input.nU_list} --nGene {input.nG_list} --nFeatures {input.nF_list} --species {input.spec_list} --vcfs {input.vcf_list} --output_SCEobj ./multigenome_Seqwell --technology Seqwell"
+        "Rscript wrapper_Robj_V3.R --hsapExp {input.hE_list} --mmusExp {input.mE_list} --hnReads {input.h_nR_list} --hnUMI {input.h_nU_list} --hnGene {input.h_nG_list} --hnFeatures {input.h_nF_list} --mnReads {input.m_nR_list} --mnUMI {input.m_nU_list} --mnGene {input.m_nG_list} --mnFeatures {input.m_nF_list} --species {input.spec_list} --vcfs {input.vcf_list} --output_SCEobj ./multigenome_Seqwell --technology Seqwell"
