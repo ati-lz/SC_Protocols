@@ -25,6 +25,30 @@ SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
     input:
+        'multigenome_Dropseq/{sample}_human/'+protocol+'.aligned.sorted.bam',
+        'multigenome_Dropseq/{sample}_human/zUMIs_output/stats/'+protocol+'.readspercell.txt',
+        'multigenome_Dropseq/{sample}_human/'+protocol+'.barcodelist.filtered.sort.sam',
+        'multigenome_Dropseq/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
+        'multigenome_Dropseq/{sample}_human/zUMIs_output/stats/'+protocol+'.genecounts.txt',
+        'multigenome_Dropseq/{sample}_human/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
+        'multigenome_Dropseq/{sample}_human/zUMIs_output/stats/'+protocol+'.features.txt',
+        'multigenome_Dropseq/{sample}_mouse/'+protocol+'.aligned.sorted.bam',
+        'multigenome_Dropseq/{sample}_mouse/zUMIs_output/stats/'+protocol+'.readspercell.txt',
+        'multigenome_Dropseq/{sample}_mouse/'+protocol+'.barcodelist.filtered.sort.sam',
+        'multigenome_Dropseq/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
+        'multigenome_Dropseq/{sample}_mouse/zUMIs_output/stats/'+protocol+'.genecounts.txt',
+        'multigenome_Dropseq/{sample}_mouse/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
+        'multigenome_Dropseq/{sample}_mouse/zUMIs_output/stats/'+protocol+'.features.txt',
+        'multigenome_Dropseq/{sample}_mixed/'+protocol+'.aligned.sorted.bam',
+        'multigenome_Dropseq/{sample}_mixed/zUMIs_output/stats/'+protocol+'.readspercell.txt',
+        'multigenome_Dropseq/{sample}_mixed/'+protocol+'.barcodelist.filtered.sort.sam'
+
+rule zUMI_run:
+    input:
+        fastq_R1=fastq_path+'/{sample}_R1.fastq.gz',
+        fastq_R2=fastq_path+'/{sample}_R2.fastq.gz'
+        #sample_id='{sample}'
+    output:
         expand('multigenome_Dropseq/{sample}_human/'+protocol+'.aligned.sorted.bam', sample = SAMPLES),
         expand('multigenome_Dropseq/{sample}_human/zUMIs_output/stats/'+protocol+'.readspercell.txt',sample = SAMPLES),
         expand('multigenome_Dropseq/{sample}_human/'+protocol+'.barcodelist.filtered.sort.sam',sample = SAMPLES),
@@ -43,29 +67,6 @@ rule all:
         expand('multigenome_Dropseq/{sample}_mixed/zUMIs_output/stats/'+protocol+'.readspercell.txt',sample = SAMPLES),
         expand('multigenome_Dropseq/{sample}_mixed/'+protocol+'.barcodelist.filtered.sort.sam',sample = SAMPLES)
 
-rule zUMI_run:
-    input:
-        fastq_R1=fastq_path+'/{sample}_R1.fastq.gz',
-        fastq_R2=fastq_path+'/{sample}_R2.fastq.gz'
-        #sample_id='{sample}'
-    output:
-        dir='multigenome_Dropseq/{sample}_human/'+protocol+'.aligned.sorted.bam',
-        dir_file1='multigenome_Dropseq/{sample}_human/zUMIs_output/stats/'+protocol+'.readspercell.txt',
-        dir_file11='multigenome_Dropseq/{sample}_human/'+protocol+'.barcodelist.filtered.sort.sam',
-        dir_file111='multigenome_Dropseq/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
-        dir_file1111='multigenome_Dropseq/{sample}_human/zUMIs_output/stats/'+protocol+'.genecounts.txt',
-        dir_file11111='multigenome_Dropseq/{sample}_human/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
-        dir_file111111='multigenome_Dropseq/{sample}_human/zUMIs_output/stats/'+protocol+'.features.txt',
-        dir2='multigenome_Dropseq/{sample}_mouse/'+protocol+'.aligned.sorted.bam',
-        dir_file2='multigenome_Dropseq/{sample}_mouse/zUMIs_output/stats/'+protocol+'.readspercell.txt',
-        dir_file22='multigenome_Dropseq/{sample}_mouse/'+protocol+'.barcodelist.filtered.sort.sam',
-        dir_file222='multigenome_Dropseq/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
-        dir_file2222='multigenome_Dropseq/{sample}_mouse/zUMIs_output/stats/'+protocol+'.genecounts.txt',
-        dir_file22222='multigenome_Dropseq/{sample}_mouse/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
-        dir_file222222='multigenome_Dropseq/{sample}_mouse/zUMIs_output/stats/'+protocol+'.features.txt',
-        dir3='multigenome_Dropseq/{sample}_mixed/'+protocol+'.aligned.sorted.bam',
-        dir_file3='multigenome_Dropseq/{sample}_mixed/zUMIs_output/stats/'+protocol+'.readspercell.txt',
-        dir_file33='multigenome_Dropseq/{sample}_mixed/'+protocol+'.barcodelist.filtered.sort.sam'
 
     shell:
         """
