@@ -60,13 +60,13 @@ rule zUMI_run:
 
         cd multigenome_Dropseq/{wildcards.sample}_human
         pwd
-        bash {zUMI_path}/zUMIs-master.sh -f {input.fastq_R1} -r {input.fastq_R2} -c 1-12 -m 13-20 -l 76 -g {human_STAR_genome} -a {human_gtf} -n {protocol} -p 8 -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o multigenome_Dropseq/{wildcards.sample}_human   
+        bash {zUMI_path}/zUMIs-master.sh -f {input.fastq_R1} -r {input.fastq_R2} -c 1-12 -m 13-20 -l 76 -g {human_STAR_genome} -a {human_gtf} -n {protocol} -p 8 -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o .   
         cd ../{wildcards.sample}_mouse
         pwd
-        bash {zUMI_path}/zUMIs-master.sh -f {input.fastq_R1} -r {input.fastq_R2} -c 1-12 -m 13-20 -l 76 -g {mouse_STAR_genome} -a {mouse_gtf} -n {protocol} -p 8 -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o multigenome_Dropseq/{wildcards.sample}_mouse
+        bash {zUMI_path}/zUMIs-master.sh -f {input.fastq_R1} -r {input.fastq_R2} -c 1-12 -m 13-20 -l 76 -g {mouse_STAR_genome} -a {mouse_gtf} -n {protocol} -p 8 -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o .
         cd ../{wildcards.sample}_mixed
         pwd
-        bash {zUMI_path}/zUMIs-master.sh -f {input.fastq_R1} -r {input.fastq_R2} -c 1-12 -m 13-20 -l 76 -g {mixed_STAR_genome} -a {mixed_gtf} -n {protocol} -p 8 -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o multigenome_Dropseq/{wildcards.sample}_mixed
+        bash {zUMI_path}/zUMIs-master.sh -f {input.fastq_R1} -r {input.fastq_R2} -c 1-12 -m 13-20 -l 76 -g {mixed_STAR_genome} -a {mixed_gtf} -n {protocol} -p 8 -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o .
         cd ../..
         """
         
