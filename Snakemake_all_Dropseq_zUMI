@@ -25,23 +25,23 @@ SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
     input:
-        expand('multigenome_Dropseq/{sample}_human/'+protocol+'.aligned.sorted.bam', sample = SAMPLE),
-        expand('multigenome_Dropseq/{sample}_human/zUMIs_output/stats/'+protocol+'.readspercell.txt',sample = SAMPLE),
-        expand('multigenome_Dropseq/{sample}_human/'+protocol+'.barcodelist.filtered.sort.sam',sample = SAMPLE),
-        expand('multigenome_Dropseq/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample = SAMPLE),
-        expand('multigenome_Dropseq/{sample}_human/zUMIs_output/stats/'+protocol+'.genecounts.txt',sample = SAMPLE),
-        expand('multigenome_Dropseq/{sample}_human/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',sample = SAMPLE),
-        expand('multigenome_Dropseq/{sample}_human/zUMIs_output/stats/'+protocol+'.features.txt',sample = SAMPLE),
-        expand('multigenome_Dropseq/{sample}_mouse/'+protocol+'.aligned.sorted.bam',sample = SAMPLE),
-        expand('multigenome_Dropseq/{sample}_mouse/zUMIs_output/stats/'+protocol+'.readspercell.txt',sample = SAMPLE),
-        expand('multigenome_Dropseq/{sample}_mouse/'+protocol+'.barcodelist.filtered.sort.sam',sample = SAMPLE),
-        expand('multigenome_Dropseq/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample = SAMPLE),
-        expand('multigenome_Dropseq/{sample}_mouse/zUMIs_output/stats/'+protocol+'.genecounts.txt',sample = SAMPLE),
-        expand('multigenome_Dropseq/{sample}_mouse/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',sample = SAMPLE),
-        expand('multigenome_Dropseq/{sample}_mouse/zUMIs_output/stats/'+protocol+'.features.txt',sample = SAMPLE),
-        expand('multigenome_Dropseq/{sample}_mixed/'+protocol+'.aligned.sorted.bam',sample = SAMPLE),
-        expand('multigenome_Dropseq/{sample}_mixed/zUMIs_output/stats/'+protocol+'.readspercell.txt',sample = SAMPLE),
-        expand('multigenome_Dropseq/{sample}_mixed/'+protocol+'.barcodelist.filtered.sort.sam',sample = SAMPLE)
+        expand('multigenome_Dropseq/{sample}_human/'+protocol+'.aligned.sorted.bam', sample = SAMPLES),
+        expand('multigenome_Dropseq/{sample}_human/zUMIs_output/stats/'+protocol+'.readspercell.txt',sample = SAMPLES),
+        expand('multigenome_Dropseq/{sample}_human/'+protocol+'.barcodelist.filtered.sort.sam',sample = SAMPLES),
+        expand('multigenome_Dropseq/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample = SAMPLES),
+        expand('multigenome_Dropseq/{sample}_human/zUMIs_output/stats/'+protocol+'.genecounts.txt',sample = SAMPLES),
+        expand('multigenome_Dropseq/{sample}_human/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',sample = SAMPLES),
+        expand('multigenome_Dropseq/{sample}_human/zUMIs_output/stats/'+protocol+'.features.txt',sample = SAMPLES),
+        expand('multigenome_Dropseq/{sample}_mouse/'+protocol+'.aligned.sorted.bam',sample = SAMPLES),
+        expand('multigenome_Dropseq/{sample}_mouse/zUMIs_output/stats/'+protocol+'.readspercell.txt',sample = SAMPLES),
+        expand('multigenome_Dropseq/{sample}_mouse/'+protocol+'.barcodelist.filtered.sort.sam',sample = SAMPLES),
+        expand('multigenome_Dropseq/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample = SAMPLES),
+        expand('multigenome_Dropseq/{sample}_mouse/zUMIs_output/stats/'+protocol+'.genecounts.txt',sample = SAMPLES),
+        expand('multigenome_Dropseq/{sample}_mouse/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',sample = SAMPLES),
+        expand('multigenome_Dropseq/{sample}_mouse/zUMIs_output/stats/'+protocol+'.features.txt',sample = SAMPLES),
+        expand('multigenome_Dropseq/{sample}_mixed/'+protocol+'.aligned.sorted.bam',sample = SAMPLES),
+        expand('multigenome_Dropseq/{sample}_mixed/zUMIs_output/stats/'+protocol+'.readspercell.txt',sample = SAMPLES),
+        expand('multigenome_Dropseq/{sample}_mixed/'+protocol+'.barcodelist.filtered.sort.sam',sample = SAMPLES)
 
 rule zUMI_run:
     input:
