@@ -77,7 +77,7 @@ rule cellBC_tag_bam:
         bam= 'multigenome_Seqwell/{sample}_mixed/'+protocol+'.aligned.sorted.bam',
         bclist= 'multigenome_Seqwell/{sample}_mixed/'+protocol+'.barcodelist.filtered.sort.sam'
     output:
-        out.bam='multigenome_Seqwell/{sample}_mixed/'+protocol+'.demuxready.bam'
+        'multigenome_Seqwell/{sample}_mixed/'+protocol+'.demuxready.bam'
 
     shell:
         """
