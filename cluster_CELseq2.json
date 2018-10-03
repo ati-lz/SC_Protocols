@@ -1,0 +1,11 @@
+{
+    
+    "__default__" :
+    {
+        "cpus_per_task" : 18,
+        "job_name" : "CELseq2.{wildcards}",
+        "output" : "mnout/CELseq2_{wildcards}.out",
+        "error" : "mnout/CELseq2_{wildcards}.err"
+    }
+
+}

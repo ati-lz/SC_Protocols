@@ -1,0 +1,11 @@
+{
+    
+    "__default__" :
+    {
+        "cpus_per_task" : 18,
+        "job_name" : "QUARTZseq.{wildcards}",
+        "output" : "mnout/QUARTZseq_{wildcards}.out",
+        "error" : "mnout/QUARTZseq_{wildcards}.err"
+    }
+
+}
