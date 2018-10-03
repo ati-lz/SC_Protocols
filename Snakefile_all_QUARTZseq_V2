@@ -60,9 +60,9 @@ rule zUMI_run:
 
         cd multigenome_QUARTZseq/{wildcards.sample}_human
         bash {zUMI_path}/zUMIs-master.sh -f {input.fastq_R1} -r {input.fastq_R2} -c 1-15 -m 16-23 -l 62 -g {human_STAR_genome} -a {human_gtf} -n {protocol} -p 8 -b {bc_list2} -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o .
-        cd ../multigenome_QUARTZseq/{wildcards.sample}_mouse
+        cd ../{wildcards.sample}_mouse
         bash {zUMI_path}/zUMIs-master.sh -f {input.fastq_R1} -r {input.fastq_R2} -c 1-15 -m 16-23 -l 62 -g {mouse_STAR_genome} -a {mouse_gtf} -n {protocol} -p 8 -b {bc_list2} -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o .
-        cd ../multigenome_QUARTZseq/{wildcards.sample}_mixed
+        cd ../{wildcards.sample}_mixed
         bash {zUMI_path}/zUMIs-master.sh -f {input.fastq_R1} -r {input.fastq_R2} -c 1-15 -m 16-23 -l 62 -g {mixed_STAR_genome} -a {mixed_gtf} -n {protocol} -p 8 -b {bc_list2} -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o .
         cd ../..
         """
