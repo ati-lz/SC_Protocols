@@ -89,7 +89,7 @@ rule cellBC_tag_bam:
         rm - r multigenome_Dropseq/{wildcards.sample}_mixed/Dropseq._STARgenome
         rm - r multigenome_Dropseq/{wildcards.sample}_mixed/Dropseq._STARpass1
 
-        cat <(samtools view -H {input.bam}) <(paste <(samtools view {input.bam} ) <(tail -n+2 {input.bclist} | awk 'BEGIN{{FS="\t";OFS="\t";}}{{if($0!~/^@/){{xc=substr($10,1,12);xm=substr($10,13,20);xcq=substr($11,1,12);xmq=substr($11,13,20);print "XC:Z:"xc"\tXM:Z:"xm"\tXI:Z:"xcq"\tXJ:Z:"xmq}}else{{print;}}}}' ) ) | samtools view -b -@ 2 -o {output}
+        cat <(samtools view -H {input.bam}) <(paste <(samtools view {input.bam} ) <(tail -n+2 {input.bclist} | awk 'BEGIN{{FS="\t";OFS="\t";}}{{if($0!~/^@/){{xc=substr($10,1,12);xm=substr($10,13,8);xcq=substr($11,1,12);xmq=substr($11,13,8);print "XC:Z:"xc"\tXM:Z:"xm"\tXI:Z:"xcq"\tXJ:Z:"xmq}}else{{print;}}}}' ) ) | samtools view -b -@ 2 -o {output}
         """
 rule Big_Bam_to_SAM:
     input: 

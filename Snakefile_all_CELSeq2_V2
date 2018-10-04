@@ -90,7 +90,7 @@ rule cellBC_tag_bam:
         rm - r multigenome_CELseq2/{wildcards.sample}_mixed/CELseq2._STARgenome
         rm - r multigenome_CELseq2/{wildcards.sample}_mixed/CELseq2._STARpass1
 
-        cat <(samtools view -H {input.bam}) <(paste <(samtools view {input.bam} ) <(tail -n+2 {input.bclist} | awk 'BEGIN{{FS="\t";OFS="\t";}}{{if($0!~/^@/){{xc=substr($10,7,12);xm=substr($10,1,6);xcq=substr($11,7,12);xmq=substr($11,1,6);print "XC:Z:"xc"\tXM:Z:"xm"\tXI:Z:"xcq"\tXJ:Z:"xmq}}else{{print;}}}}' ) ) | samtools view -b -@ 2 -o {output}
+        cat <(samtools view -H {input.bam}) <(paste <(samtools view {input.bam} ) <(tail -n+2 {input.bclist} | awk 'BEGIN{{FS="\t";OFS="\t";}}{{if($0!~/^@/){{xc=substr($10,7,6);xm=substr($10,1,6);xcq=substr($11,7,6);xmq=substr($11,1,6);print "XC:Z:"xc"\tXM:Z:"xm"\tXI:Z:"xcq"\tXJ:Z:"xmq}}else{{print;}}}}' ) ) | samtools view -b -@ 2 -o {output}
 
         """
 rule Big_Bam_to_SAM:
