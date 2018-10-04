@@ -118,6 +118,7 @@ rule demux_cells:
         demux_dir= 'multigenome_Dropseq/{sample}_mixed/demuxed_cells_sam'
     shell:
          """
+         mkdir {output.demux_dir}
          python SAM_cellBC_demultiplexing.py {input.tagged_sam} {input.detected_BC} {protocol} {wildcards.sample} {output.demux_dir}
          """
 rule demux_sam2bam:
