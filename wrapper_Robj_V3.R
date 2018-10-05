@@ -233,8 +233,8 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
   
   print(length(colnames(all.mmusExp)))
   print(colnames(all.mmusExp)[1:10])
-  print(length(rownames(all.mmusExp)))
-  print(rownames(all.mmusExp)[1:10])
+  print(length(rownames(all.mmus.metadata)))
+  print(rownames(all.mmus.metadata)[1:10])
   full.SCE.mmus <- SingleCellExperiment(assays = list(counts = as.matrix(all.mmusExp)), colData = all.mmus.metadata[colnames(all.hsapExp),])
   full.SCE.mmus <- calculateQCMetrics(full.SCE.mmus)
   libsize.drop.mmus <- isOutlier(full.SCE.mmus$total_counts, nmads=3, type="lower", log=TRUE)
