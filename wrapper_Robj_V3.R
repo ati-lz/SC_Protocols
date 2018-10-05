@@ -231,6 +231,10 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
   full.SCE.filterred.hsap <- full.SCE.hsap[,!(libsize.drop.hsap | feature.drop.hsap)]
   data.frame(ByLibSize=sum(libsize.drop.hsap), ByFeature=sum(feature.drop.hsap), Remaining=ncol(full.SCE.filterred.hsap))
   
+  print(length(colnames(all.mmusExp)))
+  print(colnames(all.mmusExp)[1:10])
+  print(length(rownames(all.mmusExp)))
+  print(rownames(all.mmusExp)[1:10])
   full.SCE.mmus <- SingleCellExperiment(assays = list(counts = as.matrix(all.mmusExp)), colData = all.mmus.metadata[colnames(all.hsapExp),])
   full.SCE.mmus <- calculateQCMetrics(full.SCE.mmus)
   libsize.drop.mmus <- isOutlier(full.SCE.mmus$total_counts, nmads=3, type="lower", log=TRUE)
