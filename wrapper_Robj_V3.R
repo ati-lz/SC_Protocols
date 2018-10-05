@@ -224,6 +224,10 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
   rownames(all.mmus.metadata) <- lapply(rownames(all.mmus.metadata), function (x) unlist(strsplit(x, "[.]"))[2])
   
   print("Making the SingleCellExperiment Objects")
+  print(length(colnames(all.hsapExp)))
+  print(colnames(all.hsapExp)[1:10])
+  print(length(rownames(all.hsap.metadata)))
+  print(rownames(all.hsap.metadata)[1:10])
   full.SCE.hsap <- SingleCellExperiment(assays = list(counts = as.matrix(all.hsapExp)), colData = all.hsap.metadata[colnames(all.hsapExp),])
   full.SCE.hsap <- calculateQCMetrics(full.SCE.hsap)
   libsize.drop.hsap <- isOutlier(full.SCE.hsap$total_counts, nmads=3, type="lower", log=TRUE)
