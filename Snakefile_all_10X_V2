@@ -19,8 +19,11 @@ shell.prefix("module unload gcc/latest; module load gcc/6.3.0; module load XZ/5.
 
 #Samples
 sample_files = listdir(fastq_path)
-SAMPLES = list(set(i.split("_")[0] for i in sample_files))
-#SAMPLES = ["5568AA", "5571AA"]
+SAMPLES_1 = list(set(i.split("_")[0] for i in sample_files))
+SAMPLES = []
+for Sid in SAMPLES_1:
+    if "7" in Sid:
+        SAMPLES.append(Sid)
 SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
