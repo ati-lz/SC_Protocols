@@ -30,8 +30,8 @@ rule all:
 
 rule zUMI_run:
     input:
-        fastq_R1=fastq_path+'/{sample}_1.fastq.gz',
-        fastq_R2=fastq_path+'/{sample}_2.fastq.gz'
+        fastq_R1=fastq_path+'/{sample}_R1.fastq.gz',
+        fastq_R2=fastq_path+'/{sample}_R2.fastq.gz'
         #sample_id='{sample}'
     output:
         dir='multigenome_10X/{sample}_human/'+protocol+'.aligned.sorted.bam',
