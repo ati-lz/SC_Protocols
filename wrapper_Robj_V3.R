@@ -33,13 +33,13 @@ suppressPackageStartupMessages(library(cardelino))
 main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,mnGene,mnFeatures, species, 
                  vcfs, output_SCEobj, technology) {
   
-  #ng_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/GeneNumber_list.txt", what="", sep="\n")
-  #nUMI_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/UMINumber_list.txt", what="", sep="\n")
-  #nread_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/ReadNumber_list.txt", what="", sep="\n")
-  #species_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/species_list.txt", what="", sep="\n")
+  #ng_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/GeneNumber_list.txt", what="", sep=" ")
+  #nUMI_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/UMINumber_list.txt", what="", sep=" ")
+  #nread_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/ReadNumber_list.txt", what="", sep=" ")
+  #species_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/species_list.txt", what="", sep=" ")
   #hsapExp_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/Hsap_expression_list.txt", what="", sep=" ")
-  #mmusExp_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/Mmus_expression_list.txt", what="", sep="\n")
-  #vcf_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/VCF_list.txt", what="", sep="\n")
+  #mmusExp_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/Mmus_expression_list.txt", what="", sep=" ")
+  #vcf_list <- scan("/Volumes/Ati-Archive/HCA/donor_id/VCF_list.txt", what="", sep=" ")
   
   #hsapExp = "/Volumes/Ati-Archive/HCA/donor_id/Hsap_expression_list.txt"
   #mmusExp = "/Volumes/Ati-Archive/HCA/donor_id/Mmus_expression_list.txt"
@@ -126,7 +126,8 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
     sample.mmus.nread <- data.frame(nTReads=sample.mnread.file$Total, cellID = create_cell_IDs(sample.mnread.file$XC, id.type = "cell_Barcode",tech = technology, lib = sample.ID))
     
     sample.species <- data.frame(Species=sample.species.file[,2], cellID = create_cell_IDs(sample.species.file, id.type = "standard",tech = technology, lib = sample.ID))
-    sample.species <- sample.species[rownames(sample.hsap.nread),]
+    sample.species <- sample.species[which(sample.species$cellID %in% sample.hsap.nread$cellID),]
+    sample.species$cellID <- droplevels(sample.species$cellID)
     
         
     ids <- donor_id(sample.vcf, n_donor= 5, n_vars_threshold = 5)
