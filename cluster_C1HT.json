@@ -1,0 +1,11 @@
+{
+    
+    "__default__" :
+    {
+        "cpus_per_task" : 18,
+        "job_name" : "C1HT.{wildcards}",
+        "output" : "mnout/C1HT_{wildcards}.out",
+        "error" : "mnout/C1HT_{wildcards}.err"
+    }
+
+}
