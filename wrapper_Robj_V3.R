@@ -29,6 +29,24 @@ suppressPackageStartupMessages(library(scater))
 suppressPackageStartupMessages(library(vcfR))
 suppressPackageStartupMessages(library(plyr))
 suppressPackageStartupMessages(library(cardelino))
+suppressPackageStartupMessages(library(biomaRt))
+suppressPackageStartupMessages(library(data.table))
+
+hsap.mart <- useDataset("hsapiens_gene_ensembl", useMart("ensembl"))
+hsap.GID.mapping <- getBM(attributes= c("ensembl_gene_id","hgnc_symbol"),mart= hsap.mart)
+hsap.GID.mapping <- hsap.GID.mapping[which(hsap.GID.mapping$hgnc_symbol != ""),]
+hsap.GID.mapping.uniq <- hsap.GID.mapping[!duplicated(hsap.GID.mapping$ensembl_gene_id),]
+rownames(hsap.GID.mapping.uniq) <- hsap.GID.mapping.uniq$ensembl_gene_id
+hsap.GID.mapping.uniq$hgnc_symbol <- make.unique(hsap.GID.mapping.uniq$hgnc_symbol)
+hsap.GID.mapping.final <- hsap.GID.mapping.uniq
+
+mmus.mart <- useDataset("mmusculus_gene_ensembl", useMart("ensembl"))
+mmus.GID.mapping <- getBM(attributes= c("ensembl_gene_id","mgi_symbol"),mart= mmus.mart)
+mmus.GID.mapping <- mmus.GID.mapping[which(mmus.GID.mapping$mgi_symbol != ""),]
+mmus.GID.mapping.uniq <- mmus.GID.mapping[!duplicated(mmus.GID.mapping$ensembl_gene_id),]
+rownames(mmus.GID.mapping.uniq) <- mmus.GID.mapping.uniq$ensembl_gene_id
+mmus.GID.mapping.uniq$mgi_symbol <- make.unique(mmus.GID.mapping.uniq$mgi_symbol)
+mmus.GID.mapping.final <- mmus.GID.mapping.uniq
 
 main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,mnGene,mnFeatures, species, 
                  vcfs, output_SCEobj, technology) {
@@ -78,7 +96,7 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
     sample.hfeatures.file <- read.table(hsap_nFeatures_list[sample], header = T)
     if (NA %in% sample.hfeatures.file$AssignmentType){
       sample.hfeatures.file$AssignmentType <- factor(sample.hfeatures.file$AssignmentType, levels = levels(addNA(sample.hfeatures.file$AssignmentType)), labels = c(levels(sample.hfeatures.file$AssignmentType), "Multimapping"), exclude = NULL)}
-
+    
     sample.mng.file <- read.table(mmus_nGene_list[sample], header = T)
     sample.mnUMI.file <- read.table(mmus_nUMI_list[sample], header = T)
     sample.mnread.file <- read.table(mmus_nread_list[sample], header = T)
@@ -114,7 +132,7 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
     sample.hsap.ng <- data.frame(nGenes=sample.hng.file[which(sample.hng.file$featureType == "intron.exon"), "Count"], cellID = create_cell_IDs(sample.hng.file[which(sample.hng.file$featureType == "intron.exon"), "SampleID"], id.type = "cell_Barcode",tech = technology, lib = sample.ID))
     sample.hsap.nUMI <- data.frame(nUMIs=sample.hnUMI.file[which(sample.hnUMI.file$featureType == "intron.exon"), "Count"], cellID = create_cell_IDs(sample.hnUMI.file[which(sample.hnUMI.file$featureType == "intron.exon"), "SampleID"], id.type = "cell_Barcode",tech = technology, lib = sample.ID))
     sample.hsap.nread <- data.frame(nTReads=sample.hnread.file$Total, cellID = create_cell_IDs(sample.hnread.file$XC, id.type = "cell_Barcode",tech = technology, lib = sample.ID))
-
+    
     sample.mmus.exon.reads <- data.frame(nExonReads=sample.mfeatures.file[which(sample.mfeatures.file$AssignmentType == "exon"), "NumberOfReads"], cellID=create_cell_IDs(sample.mfeatures.file[which(sample.mfeatures.file$AssignmentType == "exon"), "XC"], id.type = "cell_Barcode",tech = technology, lib = sample.ID))#; colnames(sample.exon.reads) <- "nExonReads" 
     sample.mmus.intron.reads <- data.frame(nIntronReads=sample.mfeatures.file[which(sample.mfeatures.file$AssignmentType == "intron"), "NumberOfReads"], cellID = create_cell_IDs(sample.mfeatures.file[which(sample.mfeatures.file$AssignmentType == "intron"), "XC"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)) 
     sample.mmus.intergenic.reads <- data.frame(nIntergenicReads=sample.mfeatures.file[which(sample.mfeatures.file$AssignmentType == "Intergenic"), "NumberOfReads"], cellID = create_cell_IDs(sample.mfeatures.file[which(sample.mfeatures.file$AssignmentType == "Intergenic"), "XC"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)) 
@@ -129,7 +147,7 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
     sample.species <- sample.species[which(sample.species$cellID %in% sample.hsap.nread$cellID),]
     sample.species$cellID <- droplevels(sample.species$cellID)
     
-        
+    
     ids <- donor_id(sample.vcf, n_donor= 5, n_vars_threshold = 5)
     #table(ids$assigned$donor_id)
     #head(ids$assigned)
@@ -151,7 +169,7 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
     sample.library=data.frame(Library=rep(sample.ID, nrow(sample.hsap.nread)), cellID=sample.hsap.nread$cellID)
     sample.nVars= data.frame(nVars=rep(NA, nrow(sample.hsap.nread)), cellID=sample.hsap.nread$cellID, row.names = sample.hsap.nread$cellID)
     sample.nVars[names(nvars.per.cell), "nVars"] <- nvars.per.cell
-
+    
     #prob_mat = s.ProbMat
     #hc <- hclust(dist(prob_mat))
     #nba.m <- as_data_frame(prob_mat[hc$order,]) %>%
@@ -170,13 +188,13 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
     #theme(axis.title.y = element_text(size = 20), legend.position = "bottom",
     #      legend.text = element_text(size = 12), legend.key.size = unit(0.05, "npc"))
     
-#    sample.metadata <- as.data.frame(cbind(TotalnReads=sample.nread, nExonReads=sample.exon.reads, nIntronReads=sample.intron.reads, 
-#                                           nIntergenicReads=sample.intergenic.reads, nUnmappedReads=sample.Unmapped.reads, nAmbiguityReads=sample.Ambiguity.reads,
-#                                           nUMI=sample.nUMI, nGenes=sample.ng, Species=sample.species, library=rep(sample.ID, nrow(sample.nread)), donor_assigned=donor.assigned[rownames(sample.nread)], nVar=nvars.per.cell[rownames(sample.nread)]))
+    #    sample.metadata <- as.data.frame(cbind(TotalnReads=sample.nread, nExonReads=sample.exon.reads, nIntronReads=sample.intron.reads, 
+    #                                           nIntergenicReads=sample.intergenic.reads, nUnmappedReads=sample.Unmapped.reads, nAmbiguityReads=sample.Ambiguity.reads,
+    #                                           nUMI=sample.nUMI, nGenes=sample.ng, Species=sample.species, library=rep(sample.ID, nrow(sample.nread)), donor_assigned=donor.assigned[rownames(sample.nread)], nVar=nvars.per.cell[rownames(sample.nread)]))
     
     sample.hsap.metadata <- join_all(list(sample.hsap.nread, sample.hsap.exon.reads,sample.hsap.intron.reads, 
-                                           sample.hsap.intergenic.reads, sample.hsap.Unmapped.reads, sample.hsap.Ambiguity.reads, sample.hsap.Multimap.reads,
-                                           sample.hsap.nUMI, sample.hsap.ng, sample.species, sample.library, sample.donor, nVar=sample.nVars), by = "cellID", type = 'full')
+                                          sample.hsap.intergenic.reads, sample.hsap.Unmapped.reads, sample.hsap.Ambiguity.reads, sample.hsap.Multimap.reads,
+                                          sample.hsap.nUMI, sample.hsap.ng, sample.species, sample.library, sample.donor, nVar=sample.nVars), by = "cellID", type = 'full')
     rownames(sample.hsap.metadata) <- sample.hsap.metadata$cellID
     sample.hsap.metadata <- sample.hsap.metadata[,-2]
     hsap.metadata.list[[sample.ID]] <- sample.hsap.metadata
@@ -195,7 +213,7 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
     sample.hsapExp$rn <- rownames(sample.hsapExp)
     hsap.ExpsMat.list[[sample.ID]] <- sample.hsapExp
     #sample.hsapMetadata <- as.data.frame(cbind(nGenes=sample.nread, nUMIs=sample.nUMI, nReads=sample.nread, species=sample.species, library=rep(sample.ID, nrow(sample.nread))))
-
+    
     sample.mmusExp <- as.data.frame(as.matrix(sample.mmusExp.obj$intron.exon$umicounts))
     colnames(sample.mmusExp) <- create_cell_IDs(colnames(sample.mmusExp), id.type = "cell_Barcode",tech = technology, lib = sample.ID)
     sample.mmusExp$rn <- rownames(sample.mmusExp)
@@ -212,11 +230,37 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
   rownames(all.hsapExp) <- all.hsapExp$rn
   all.hsapExp <- all.hsapExp[,!(names(all.hsapExp) %in% c("rn"))]
   all.hsapExp[is.na(all.hsapExp)] <- 0
+  hsap.rownames <- as.character(lapply(rownames(all.hsapExp), function (x) unlist(strsplit(x, split = ".", fixed = T))[1]))
+  hsap.dup.rows <- which(duplicated(hsap.rownames))
+  if (length(hsap.dup.rows) != 0){
+    hsap.rownames <- hsap.rownames[-hsap.dup.rows]
+    all.mmusExp <- all.mmusExp[-hsap.dup.rows,]
+  }
+  hsap.rownames <- hsap.rownames[-hsap.dup.rows]
+  all.hsapExp <- all.hsapExp[-hsap.dup.rows,]
+  rownames(all.hsapExp) <- hsap.rownames
+  hsap.genes.with.ids <- intersect(rownames(all.hsapExp), rownames(hsap.GID.mapping.final))
+  hsap.rownames.mapped <- rownames(all.hsapExp)
+  names(hsap.rownames.mapped) <- hsap.rownames.mapped
+  hsap.rownames.mapped[hsap.genes.with.ids] <- hsap.GID.mapping.final[hsap.genes.with.ids, "hgnc_symbol"]
+  rownames(all.hsapExp) <- hsap.rownames.mapped
   
   all.mmusExp <- join_all(mmus.ExpsMat.list, by = "rn", type = 'full')
   rownames(all.mmusExp) <- all.mmusExp$rn
   all.mmusExp <- all.mmusExp[,!(names(all.mmusExp) %in% c("rn"))]
   all.mmusExp[is.na(all.mmusExp)] <- 0
+  mmus.rownames <- as.character(lapply(rownames(all.mmusExp), function (x) unlist(strsplit(x, split = ".", fixed = T))[1]))
+  mmus.dup.rows <- which(duplicated(mmus.rownames))
+  if (length(mmus.dup.rows) != 0){
+    mmus.rownames <- mmus.rownames[-mmus.dup.rows]
+    all.mmusExp <- all.mmusExp[-mmus.dup.rows,]
+  }
+  rownames(all.mmusExp) <- mmus.rownames
+  mmus.genes.with.ids <- intersect(rownames(all.mmusExp), rownames(mmus.GID.mapping.final))
+  mmus.rownames.mapped <- rownames(all.mmusExp)
+  names(mmus.rownames.mapped) <- mmus.rownames.mapped
+  mmus.rownames.mapped[mmus.genes.with.ids] <- mmus.GID.mapping.final[mmus.genes.with.ids, "mgi_symbol"]
+  rownames(all.mmusExp) <- mmus.rownames.mapped
   
   all.hsap.metadata <- do.call("rbind", hsap.metadata.list)
   rownames(all.hsap.metadata) <- lapply(rownames(all.hsap.metadata), function (x) unlist(strsplit(x, "[.]"))[2])
