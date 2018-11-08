@@ -25,20 +25,19 @@ SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
     input:
-        expand('multigenome_QUARTZseq/{sample}_human/downsampling1/zUMIs_output/expression/'+protocol+'.dgecounts.rds', sample=SAMPLES)
+        expand('multigenome_QUARTZseq/{sample}_human/zUMIs_output_downsampled1/expression/'+protocol+'.dgecounts.rds', sample=SAMPLES)
 
 rule zUMI_run:
     input:
         fastq_R1=fastq_path+'/{sample}_1.fastq.gz',
         fastq_R2=fastq_path+'/{sample}_2.fastq.gz'
     output:
-        dir_file111='multigenome_QUARTZseq/{sample}_human/downsampling1/zUMIs_output/expression/'+protocol+'.dgecounts.rds'
+        dir_file111='multigenome_QUARTZseq/{sample}_human/zUMIs_output_downsampled1/expression/'+protocol+'.dgecounts.rds'
 
     shell:
         """
-        mkdir multigenome_QUARTZseq/{wildcards.sample}_human/downsampling1
 
         cd multigenome_QUARTZseq/{wildcards.sample}_human
-        bash {zUMI_path}/zUMIs-master.sh -w Counting -f {input.fastq_R1} -r {input.fastq_R2} -c 1-15 -m 16-23 -l 62 -g {human_STAR_genome} -a {human_gtf} -n {protocol} -p 8 -b {bc_list2} -d 15000 -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o ./downsampling1
+        bash {zUMI_path}/zUMIs-master.sh -w Counting -f {input.fastq_R1} -r {input.fastq_R2} -c 1-15 -m 16-23 -l 62 -g {human_STAR_genome} -a {human_gtf} -n {protocol} -p 8 -b {bc_list2} -d 15000 -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o .
         cd ../..
         """
