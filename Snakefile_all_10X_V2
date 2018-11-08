@@ -26,6 +26,7 @@ for Sid in SAMPLES_1:
         SAMPLES.append(Sid)
 SPECIES = ["human", "mouse", "mixed"]
 
+
 rule all:
     input:
         "multigenome_10X/hsap.full.SCE.Robj",
