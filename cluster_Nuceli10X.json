@@ -1,0 +1,11 @@
+{
+    
+    "__default__" :
+    {
+        "cpus_per_task" : 18,
+        "job_name" : "Nuclei.{wildcards}",
+        "output" : "mnout/Nuclei_{wildcards}.out",
+        "error" : "mnout/Nuclei_{wildcards}.err"
+    }
+
+}
