@@ -25,7 +25,7 @@ SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
     input:
-        expand('multigenome_QUARTZseq/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds', sample=SAMPLES)
+        expand('multigenome_QUARTZseq/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds', sample=SAMPLES),
         expand('multigenome_QUARTZseq/{sample}_human/zUMIs_output_downsampled', sample=SAMPLES)
 
 rule zUMI_run:
