@@ -32,7 +32,7 @@ rule zUMI_run:
         fastq_R1=expand(fastq_path+'/{sample}_1.fastq.gz', sample=SAMPLES),
         fastq_R2=expand(fastq_path+'/{sample}_2.fastq.gz', sample=SAMPLES)
     output:
-        dir_file111= expand('multigenome_QUARTZseq/{sample}_human/downsampling1/zUMIs_output/expression/'+protocol+'.dgecounts.rds', sample=SAMPLES)
+        dir_file111='multigenome_QUARTZseq/{sample}_human/downsampling1/zUMIs_output/expression/'+protocol+'.dgecounts.rds'
 
     shell:
         """
