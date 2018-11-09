@@ -27,7 +27,8 @@ SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
     input:
-        expand('multigenome_QUARTZseq/{sample}_human/zUMIs_output_downsampled/expression/'+protocol+'.dgecounts.rds', sample=SAMPLES)
+        expand('multigenome_QUARTZseq/{sample}_human/zUMIs_output_downsampled_15000/expression/'+protocol+'.dgecounts.rds', sample=SAMPLES)
+        expand('multigenome_QUARTZseq/{sample}_human/zUMIs_output_downsampled_10000/expression/'+protocol+'.dgecounts.rds', sample=SAMPLES)
         #expand('multigenome_QUARTZseq/{sample}_human/zUMIs_output_downsampled', sample=SAMPLES)
 
 rule zUMI_run:
@@ -35,13 +36,15 @@ rule zUMI_run:
         fastq_R1=fastq_path+'/{sample}_1.fastq.gz',
         fastq_R2=fastq_path+'/{sample}_2.fastq.gz'
     output:
-        dir_file111='multigenome_QUARTZseq/{sample}_human/zUMIs_output_downsampled/expression/'+protocol+'.dgecounts.rds'
+        dir_file111='multigenome_QUARTZseq/{sample}_human/zUMIs_output_downsampled_15000/expression/'+protocol+'.dgecounts.rds'
+        dir_file222='multigenome_QUARTZseq/{sample}_human/zUMIs_output_downsampled_10000/expression/'+protocol+'.dgecounts.rds'
+
 
     shell:
         """
         cd multigenome_QUARTZseq/{wildcards.sample}_human
         mv zUMIs_output zUMIs_output_Base
-        bash {zUMI_path}/zUMIs-master.sh -w Counting -f {input.fastq_R1} -r {input.fastq_R2} -c 1-15 -m 16-23 -l 62 -g {human_STAR_genome} -a {human_gtf} -n {protocol} -p 8 -b {bc_list2} -d 15000 -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o .
-        mv zUMIs_output zUMIs_output_downsampled
+        bash {zUMI_path}/zUMIs-master.sh -w Counting -f {input.fastq_R1} -r {input.fastq_R2} -c 1-15 -m 16-23 -l 62 -g {human_STAR_genome} -a {human_gtf} -n {protocol} -p 8 -b {bc_list2} -d 15000 -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o zUMIs_output_downsampled_15000
+        bash {zUMI_path}/zUMIs-master.sh -w Counting -f {input.fastq_R1} -r {input.fastq_R2} -c 1-15 -m 16-23 -l 62 -g {human_STAR_genome} -a {human_gtf} -n {protocol} -p 8 -b {bc_list2} -d 10000 -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o zUMIs_output_downsampled_10000
         cd ../..
         """
