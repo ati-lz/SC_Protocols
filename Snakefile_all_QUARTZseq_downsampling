@@ -27,7 +27,7 @@ SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
     input:
-        expand('multigenome_QUARTZseq/{sample}_human/zUMIs_output_downsampled_15000/expression/'+protocol+'.dgecounts.rds', sample=SAMPLES)
+        expand('multigenome_QUARTZseq/{sample}_human/zUMIs_output_downsampled_15000/expression/'+protocol+'.dgecounts.rds', sample=SAMPLES),
         expand('multigenome_QUARTZseq/{sample}_human/zUMIs_output_downsampled_10000/expression/'+protocol+'.dgecounts.rds', sample=SAMPLES)
         #expand('multigenome_QUARTZseq/{sample}_human/zUMIs_output_downsampled', sample=SAMPLES)
 
@@ -36,7 +36,7 @@ rule zUMI_run:
         fastq_R1=fastq_path+'/{sample}_1.fastq.gz',
         fastq_R2=fastq_path+'/{sample}_2.fastq.gz'
     output:
-        dir_file111='multigenome_QUARTZseq/{sample}_human/zUMIs_output_downsampled_15000/expression/'+protocol+'.dgecounts.rds'
+        dir_file111='multigenome_QUARTZseq/{sample}_human/zUMIs_output_downsampled_15000/expression/'+protocol+'.dgecounts.rds',
         dir_file222='multigenome_QUARTZseq/{sample}_human/zUMIs_output_downsampled_10000/expression/'+protocol+'.dgecounts.rds'
 
 
