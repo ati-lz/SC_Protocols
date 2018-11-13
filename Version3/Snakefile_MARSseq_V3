@@ -26,18 +26,18 @@ SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
     input:
-        expand(protocol + "hsap_{sample}.yaml", sample=SAMPLES),
-        expand(protocol + "mmus_{sample}.yaml", sample=SAMPLES),
-        expand(protocol + "mixed_{sample}.yaml", sample=SAMPLES)
+        expand(protocol + "_hsap_{sample}.yaml", sample=SAMPLES),
+        expand(protocol + "_mmus_{sample}.yaml", sample=SAMPLES),
+        expand(protocol + "_mixed_{sample}.yaml", sample=SAMPLES)
 
 
 rule create_yaml:
     input:
         yaml= "pipeline_general.yaml"
     output:
-        yamlOut_hsap=protocol + "hsap_{sample}.yaml",
-        yamlOut_mmus=protocol + "mmus_{sample}.yaml",
-        yamlOut_mixed=protocol + "mixed_{sample}.yaml"
+        yamlOut_hsap=protocol + "_hsap_{sample}.yaml",
+        yamlOut_mmus=protocol + "_mmus_{sample}.yaml",
+        yamlOut_mixed=protocol + "_mixed_{sample}.yaml"
     run:
         #fname = input
 
