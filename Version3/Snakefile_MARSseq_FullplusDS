@@ -48,7 +48,7 @@ rule zUMI_run:
         """
         cd multigenome_MARSseq/{wildcards.sample}_human
         bash {zUMI_path}/zUMIs-master.sh -f {input.fastq_R2} -r {input.fastq_R1} -c 1-6 -m 7-14 -l 52 -g {human_STAR_genome} -a {human_gtf} -n {protocol} -p 8 -b {bc_list2} -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o .
-        bash {zUMI_path}/zUMIs-master.sh -f {input.fastq_R2} -r {input.fastq_R1} -c 1-6 -m 7-14 -l 52 -g {human_STAR_genome} -a {human_gtf} -n {protocol} -p 8 -b {bc_list2} -d 15000 -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o zUMIs_output_downsampled
+        bash {zUMI_path}/zUMIs-master.sh -w Counting -f {input.fastq_R2} -r {input.fastq_R1} -c 1-6 -m 7-14 -l 52 -g {human_STAR_genome} -a {human_gtf} -n {protocol} -p 8 -b {bc_list2} -d 15000 -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o zUMIs_output_downsampled
 
 
         """
