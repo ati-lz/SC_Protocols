@@ -41,11 +41,11 @@ rule create_yaml:
         data = yaml.load(stream)
 
         data['project'] = protocol
-        data['sequence_files']['file1']['name'] = fastq_path+ wilecards.sample +'_2.fq.gz'
+        data['sequence_files']['file1']['name'] = fastq_path+ wildcards.sample +'_2.fq.gz'
         data['sequence_files']['file1']['base_definition'][0] = 1-6
         data['sequence_files']['file1']['base_definition'][1] = 7-14
 
-        data['sequence_files']['file2']['name'] = fastq_path+ wilecards.sample +'_1.fq.gz'
+        data['sequence_files']['file2']['name'] = fastq_path+ wildcards.sample +'_1.fq.gz'
         data['sequence_files']['file1']['base_definition'][0] = 1-52
 
         with open(output.yamlOut, 'w') as out:
