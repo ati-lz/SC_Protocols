@@ -5,7 +5,7 @@
 ###########################################
 
 #define a project name that will be used to name output files
-project:
+project: MARSseq
 
 #Sequencing File Inputs:
 #For each input file, make one list object & define path and barcode ranges

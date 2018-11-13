@@ -1,0 +1,60 @@
+from os import listdir
+
+#Path to sample fastq files
+fastq_path = '/project/devel/HCA/CNAG/MARSseq'
+human_gtf = '/project/devel/alafzi/ref_genomes/human/hsa_gencode.v28.annotation.gtf'
+human_STAR_genome= '/project/devel/alafzi/ref_genomes/human/STARgenome'
+mouse_gtf = '/project/devel/alafzi/ref_genomes/mouse/mmu_gencode.vM17.primary_assembly.annotation.gtf'
+mouse_STAR_genome= '/project/devel/alafzi/ref_genomes/mouse/STARgenome'
+mixed_gtf = '/project/devel/alafzi/ref_genomes/mixed/hsap_mmus_can_combined_gtf.gtf'
+mixed_STAR_genome= '/project/devel/alafzi/ref_genomes/mixed/STARgenome'
+
+zUMI_path='/apps/ZUMIS/0.0.6'
+bc_list2= '/scratch/devel/alafzi/HCA_04/bc_list2'
+protocol= 'MARSseq'
+
+#Loading modules
+#shell.executable("!/usr/bin/env bash")
+shell.prefix("module unload gcc/latest; module load gcc/6.3.0; module load XZ/5.2.2; module load CONDA/4.3.11_PYTHON3; module load java/latest; module load SAMTOOLS/1.6; module load BAMTOOLS/2.3.0 ; module load STAR/2.6.0c; module load R/3.5.0; module load hdf5/1.10.1; module load PIGZ/2.3.3; module load ZUMIS/0.0.6; ")
+
+#Samples
+sample_files = listdir(fastq_path)
+SAMPLES = list(set(i.split("_")[0] for i in sample_files))
+#SAMPLES = ["5568AA", "5571AA"]
+SPECIES = ["human", "mouse", "mixed"]
+
+rule all:
+    input:
+        expand('multigenome_MARSseq/{sample}_human/zUMIs_output/stats/'+protocol+'.features.txt', sample=SAMPLES),
+        expand('multigenome_MARSseq/{sample}_human/zUMIs_output_downsampled/expression/'+protocol+'.dgecounts.rds', sample=SAMPLES)
+
+
+rule zUMI_run:
+    input:
+        fastq_R1=fastq_path+'/{sample}_1.fq.gz',
+        fastq_R2=fastq_path+'/{sample}_2.fq.gz'
+        #sample_id='{sample}'
+    output:
+        dir='multigenome_MARSseq/{sample}_human/'+protocol+'.aligned.sorted.bam',
+        dir_file1='multigenome_MARSseq/{sample}_human/zUMIs_output/stats/'+protocol+'.readspercell.txt',
+        dir_file11='multigenome_MARSseq/{sample}_human/'+protocol+'.barcodelist.filtered.sort.sam',
+        dir_file111='multigenome_MARSseq/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
+        dir_file1111='multigenome_MARSseq/{sample}_human/zUMIs_output/stats/'+protocol+'.genecounts.txt',
+        dir_file11111='multigenome_MARSseq/{sample}_human/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
+        dir_file111111='multigenome_MARSseq/{sample}_human/zUMIs_output/stats/'+protocol+'.features.txt',
+        dir_file22='multigenome_MARSseq/{sample}_human/zUMIs_output_downsampled/expression/'+protocol+'.dgecounts.rds'
+
+    shell:
+        """
+        cd multigenome_MARSseq/{wildcards.sample}_human
+        bash {zUMI_path}/zUMIs-master.sh -f {input.fastq_R2} -r {input.fastq_R1} -c 1-6 -m 7-14 -l 52 -g {human_STAR_genome} -a {human_gtf} -n {protocol} -p 8 -b {bc_list2} -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o .
+        bash {zUMI_path}/zUMIs-master.sh -f {input.fastq_R2} -r {input.fastq_R1} -c 1-6 -m 7-14 -l 52 -g {human_STAR_genome} -a {human_gtf} -n {protocol} -p 8 -b {bc_list2} -d 15000 -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o zUMIs_output_downsampled
+
+
+        """
+        
+# So far by zUMI_run rule, we would have STAR alignment bam files, as well as quantifications and everything!
+# For the next step we want to demultiplex bam files of the mixed species
+
+# This rule combines the aligned.sorted.bam with the barcode information from hca04.barcodelist.filtered.sort.sam ! Basically, I split the barcode sequence into tags that get added to the aligned bam file.
+#So for each protocol I will need to adjust the ranges 
