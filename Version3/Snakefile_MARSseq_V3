@@ -31,9 +31,9 @@ rule all:
 
 rule create_yaml:
     input:
-        source.yaml.file = "MARSseq.yaml"
+        "MARSseq.yaml"
     output:
-        output.yaml = protocol + "_{sample}.yaml"
+        protocol + "_{sample}.yaml"
     run:
         fname = input
 
