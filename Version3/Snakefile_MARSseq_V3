@@ -33,7 +33,7 @@ rule create_yaml:
     input:
         yaml= "MARSseq.yaml"
     output:
-        protocol + "_{sample}.yaml"
+        yamlOut=protocol + "_{sample}.yaml"
     run:
         #fname = input
 
@@ -48,5 +48,5 @@ rule create_yaml:
         data['sequence_files']['file2']['name'] = fastq_path+'/{sample}_1.fq.gz'
         data['sequence_files']['file1']['base_definition'][0] = 1-52
 
-        with open(output, 'w') as out:
+        with open(output.yamlOut, 'w') as out:
             out.write( yaml.dump(data, default_flow_style=False))
