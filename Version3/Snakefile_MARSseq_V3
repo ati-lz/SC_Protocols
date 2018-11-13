@@ -26,7 +26,9 @@ SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
     input:
-        expand(protocol + "_{sample}.yaml", sample=SAMPLES)
+        expand(protocol + "hsap_{sample}.yaml", sample=SAMPLES),
+        expand(protocol + "mmus_{sample}.yaml", sample=SAMPLES),
+        expand(protocol + "mixed_{sample}.yaml", sample=SAMPLES)
 
 
 rule create_yaml:
