@@ -49,4 +49,4 @@ rule create_yaml:
         data['sequence_files']['file1']['base_definitio'][0] = 1-52
 
         with open(output, 'w') as out:
-        out.write( yaml.dump(data, default_flow_style=False))
+            out.write( yaml.dump(data, default_flow_style=False))
