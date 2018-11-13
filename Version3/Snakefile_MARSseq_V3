@@ -35,7 +35,7 @@ rule create_yaml:
     output:
         output.yaml = protocol + "_{sample}.yaml"
     run:
-        fname = "some.yaml"
+        fname = input
 
         stream = open(fname, 'r')
         data = yaml.load(stream)
@@ -48,5 +48,5 @@ rule create_yaml:
         data['sequence_files']['file2']['name'] = fastq_path+'/{sample}_1.fq.gz'
         data['sequence_files']['file1']['base_definitio'][0] = 1-52
 
-        with open(fname, 'w') as yaml_file:
-        output.yaml.write( yaml.dump(data, default_flow_style=False))
+        with open(output, 'w') as out:
+        out.write( yaml.dump(data, default_flow_style=False))
