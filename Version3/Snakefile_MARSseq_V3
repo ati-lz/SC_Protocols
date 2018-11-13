@@ -31,13 +31,13 @@ rule all:
 
 rule create_yaml:
     input:
-        "MARSseq.yaml"
+        yaml= "MARSseq.yaml"
     output:
         protocol + "_{sample}.yaml"
     run:
-        fname = input
+        #fname = input
 
-        stream = open(fname, 'r')
+        stream = open(input.yaml, 'r')
         data = yaml.load(stream)
 
         data['project'] = protocol
