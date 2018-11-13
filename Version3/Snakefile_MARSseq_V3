@@ -66,6 +66,6 @@ rule create_yaml:
         data_mixed['reference']['GTF_file'] = '/project/devel/alafzi/ref_genomes/mixed/hsap_mmus_can_combined_gtf.gtf'
         with open(output.yamlOut_mixed, 'w') as out_mixed:
             out_mixed.write( yaml.dump(data_mixed, default_flow_style=False))
-        output.yamlOut_hsap.close()
-        output.yamlOut_mmus.close()
-        output.yamlOut_mixed.close()
+        out_hsap.close()
+        out_mmus.close()
+        out_mixed.close()
