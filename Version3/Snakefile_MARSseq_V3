@@ -21,7 +21,7 @@ shell.prefix("module unload gcc/latest; module load gcc/6.3.0; module load XZ/5.
 #Samples
 sample_files = listdir(fastq_path)
 SAMPLES = list(set(i.split("_")[0] for i in sample_files))
-#SAMPLES = ["5568AA", "5571AA"]
+SAMPLES = ["5568AA", "5571AA"]
 SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
@@ -42,11 +42,11 @@ rule create_yaml:
 
         data['project'] = protocol
         data['sequence_files']['file1']['name'] = fastq_path+'/{sample}_2.fq.gz'
-        data['sequence_files']['file1']['base_definitio'][0] = 1-6
-        data['sequence_files']['file1']['base_definitio'][1] = 7-14
+        data['sequence_files']['file1']['base_definition'][0] = 1-6
+        data['sequence_files']['file1']['base_definition'][1] = 7-14
 
         data['sequence_files']['file2']['name'] = fastq_path+'/{sample}_1.fq.gz'
-        data['sequence_files']['file1']['base_definitio'][0] = 1-52
+        data['sequence_files']['file1']['base_definition'][0] = 1-52
 
         with open(output, 'w') as out:
             out.write( yaml.dump(data, default_flow_style=False))
