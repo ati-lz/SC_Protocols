@@ -26,9 +26,7 @@ SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
     input:
-        expand("YAMLs/"+protocol + "_hsap_{sample}.yaml", sample=SAMPLES),
-        expand("YAMLs/"+protocol + "_mmus_{sample}.yaml", sample=SAMPLES),
-        expand("YAMLs/"+protocol + "_mixed_{sample}.yaml", sample=SAMPLES)
+        expand('multigenome_yamlMAR/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds', sample=SAMPLES)
 
 
 rule create_yaml:
@@ -86,25 +84,11 @@ rule zUMI_run:
         dir_file111='multigenome_yamlMAR/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
         dir_file1111='multigenome_yamlMAR/{sample}_human/zUMIs_output/stats/'+protocol+'.genecounts.txt',
         dir_file11111='multigenome_yamlMAR/{sample}_human/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
-        dir_file111111='multigenome_yamlMAR/{sample}_human/zUMIs_output/stats/'+protocol+'.features.txt',
-        dir2='multigenome_yamlMAR/{sample}_mouse/'+protocol+'.aligned.sorted.bam',
-        dir_file2='multigenome_yamlMAR/{sample}_mouse/zUMIs_output/stats/'+protocol+'.readspercell.txt',
-        dir_file22='multigenome_yamlMAR/{sample}_mouse/'+protocol+'.barcodelist.filtered.sort.sam',
-        dir_file222='multigenome_yamlMAR/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
-        dir_file2222='multigenome_yamlMAR/{sample}_mouse/zUMIs_output/stats/'+protocol+'.genecounts.txt',
-        dir_file22222='multigenome_yamlMAR/{sample}_mouse/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
-        dir_file222222='multigenome_yamlMAR/{sample}_mouse/zUMIs_output/stats/'+protocol+'.features.txt',
-        dir3='multigenome_yamlMAR/{sample}_mixed/'+protocol+'.aligned.sorted.bam',
-        dir_file3='multigenome_yamlMAR/{sample}_mixed/zUMIs_output/stats/'+protocol+'.readspercell.txt',
-        dir_file33='multigenome_yamlMAR/{sample}_mixed/'+protocol+'.barcodelist.filtered.sort.sam'
+        dir_file111111='multigenome_yamlMAR/{sample}_human/zUMIs_output/stats/'+protocol+'.features.txt'
 
     shell:
         """
         cd multigenome_yamlMAR/{wildcards.sample}_human
         bash {zUMI_path}/zUMIs-master.sh -y {input.yaml_hsap}
-        cd ../{wildcards.sample}_mouse
-        bash {zUMI_path}/zUMIs-master.sh -y {input.yaml_mmus}
-        cd ../{wildcards.sample}_mixed
-        bash {zUMI_path}/zUMIs-master.sh -y {input.yaml_mixed}
         cd ../..
        """
