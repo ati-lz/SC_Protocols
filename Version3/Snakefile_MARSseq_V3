@@ -79,7 +79,7 @@ rule zUMI_run:
         yaml_hsap="YAMLs/"+protocol + "_hsap_{sample}.yaml",
         yaml_mmus="YAMLs/"+protocol + "_mmus_{sample}.yaml",
         yaml_mixed="YAMLs/"+protocol + "_mixed_{sample}.yaml"
-        #sample_id='{sample}'
+
     output:
         dir='multigenome_yamlMAR/{sample}_human/'+protocol+'.aligned.sorted.bam',
         dir_file1='multigenome_yamlMAR/{sample}_human/zUMIs_output/stats/'+protocol+'.readspercell.txt',
