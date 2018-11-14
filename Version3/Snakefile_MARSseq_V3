@@ -89,5 +89,7 @@ rule zUMI_run:
 
     shell:
         """
-        bash {zUMI_path}/zUMIs-master.sh -y {input.yaml_hsap}
+        cd multigenome_yamlMAR/{wildcards.sample}_human
+        bash {zUMI_path}/zUMIs-master.sh -y ../../{input.yaml_hsap}
+        cd ../..
        """
