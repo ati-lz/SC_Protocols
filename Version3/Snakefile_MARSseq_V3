@@ -10,13 +10,13 @@ mouse_STAR_genome= '/project/devel/alafzi/ref_genomes/mouse/STARgenome'
 mixed_gtf = '/project/devel/alafzi/ref_genomes/mixed/hsap_mmus_can_combined_gtf.gtf'
 mixed_STAR_genome= '/project/devel/alafzi/ref_genomes/mixed/STARgenome'
 
-zUMI_path='/apps/ZUMIS/0.0.6'
+zUMI_path='/apps/ZUMIS/2.2'
 bc_list2= '/scratch/devel/alafzi/HCA_04/bc_list2'
 protocol= 'MARSseq'
 
 #Loading modules
 #shell.executable("!/usr/bin/env bash")
-shell.prefix("module unload gcc/latest; module load gcc/6.3.0; module load XZ/5.2.2; module load CONDA/4.3.11_PYTHON3; module load java/latest; module load SAMTOOLS/1.6; module load BAMTOOLS/2.3.0 ; module load STAR/2.6.0c; module load R/3.5.0; module load hdf5/1.10.1; module load PIGZ/2.3.3; module load ZUMIS/0.0.6; ")
+shell.prefix("module unload gcc/latest; module load gcc/6.3.0; module load XZ/5.2.2; module load CONDA/4.3.11_PYTHON3; module load java/latest; module load SAMTOOLS/1.6; module load BAMTOOLS/2.3.0 ; module load STAR/2.6.0c; module load R/3.5.0; module load hdf5/1.10.1; module load PIGZ/2.3.3; module load ZUMIS/2.2; ")
 
 #Samples
 sample_files = listdir(fastq_path)
@@ -26,18 +26,18 @@ SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
     input:
-        expand(protocol + "_hsap_{sample}.yaml", sample=SAMPLES),
-        expand(protocol + "_mmus_{sample}.yaml", sample=SAMPLES),
-        expand(protocol + "_mixed_{sample}.yaml", sample=SAMPLES)
+        expand("YAMLs/"+protocol + "_hsap_{sample}.yaml", sample=SAMPLES),
+        expand("YAMLs/"+protocol + "_mmus_{sample}.yaml", sample=SAMPLES),
+        expand("YAMLs/"+protocol + "_mixed_{sample}.yaml", sample=SAMPLES)
 
 
 rule create_yaml:
     input:
         yaml= "pipeline_general.yaml"
     output:
-        yamlOut_hsap=protocol + "_hsap_{sample}.yaml",
-        yamlOut_mmus=protocol + "_mmus_{sample}.yaml",
-        yamlOut_mixed=protocol + "_mixed_{sample}.yaml"
+        yamlOut_hsap="YAMLs/"+protocol + "_hsap_{sample}.yaml",
+        yamlOut_mmus="YAMLs/"+protocol + "_mmus_{sample}.yaml",
+        yamlOut_mixed="YAMLs/"+protocol + "_mixed_{sample}.yaml"
     run:
         #fname = input
 
@@ -50,6 +50,8 @@ rule create_yaml:
         data_hsap['sequence_files']['file1']['base_definition'][1] = 'UMI(7-14)'
         data_hsap['sequence_files']['file2']['name'] = fastq_path+ wildcards.sample +'_1.fq.gz'
         data_hsap['sequence_files']['file2']['base_definition'][0] = 'cDNA(1-52)'
+        data_hsap['barcodes']['barcode_file'] = bc_list2
+        data_hsap['barcodes']['barcode_num'] = 'null'
         data_hsap['reference']['STAR_index'] = '/project/devel/alafzi/ref_genomes/human/STARgenome'
         data_hsap['reference']['GTF_file'] = '/project/devel/alafzi/ref_genomes/human/hsa_gencode.v28.annotation.gtf'
         data_hsap['reference']['additional_STAR_params'] = '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000'
@@ -69,3 +71,40 @@ rule create_yaml:
         out_hsap.close()
         out_mmus.close()
         out_mixed.close()
+
+
+rule zUMI_run:
+    input:
+        yaml_hsap="YAMLs/"+protocol + "_hsap_{sample}.yaml",
+        yaml_mmus="YAMLs/"+protocol + "_mmus_{sample}.yaml",
+        yaml_mixed="YAMLs/"+protocol + "_mixed_{sample}.yaml"
+        #sample_id='{sample}'
+    output:
+        dir='multigenome_yamlMAR/{sample}_human/'+protocol+'.aligned.sorted.bam',
+        dir_file1='multigenome_yamlMAR/{sample}_human/zUMIs_output/stats/'+protocol+'.readspercell.txt',
+        dir_file11='multigenome_yamlMAR/{sample}_human/'+protocol+'.barcodelist.filtered.sort.sam',
+        dir_file111='multigenome_yamlMAR/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
+        dir_file1111='multigenome_yamlMAR/{sample}_human/zUMIs_output/stats/'+protocol+'.genecounts.txt',
+        dir_file11111='multigenome_yamlMAR/{sample}_human/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
+        dir_file111111='multigenome_yamlMAR/{sample}_human/zUMIs_output/stats/'+protocol+'.features.txt',
+        dir2='multigenome_yamlMAR/{sample}_mouse/'+protocol+'.aligned.sorted.bam',
+        dir_file2='multigenome_yamlMAR/{sample}_mouse/zUMIs_output/stats/'+protocol+'.readspercell.txt',
+        dir_file22='multigenome_yamlMAR/{sample}_mouse/'+protocol+'.barcodelist.filtered.sort.sam',
+        dir_file222='multigenome_yamlMAR/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
+        dir_file2222='multigenome_yamlMAR/{sample}_mouse/zUMIs_output/stats/'+protocol+'.genecounts.txt',
+        dir_file22222='multigenome_yamlMAR/{sample}_mouse/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
+        dir_file222222='multigenome_yamlMAR/{sample}_mouse/zUMIs_output/stats/'+protocol+'.features.txt',
+        dir3='multigenome_yamlMAR/{sample}_mixed/'+protocol+'.aligned.sorted.bam',
+        dir_file3='multigenome_yamlMAR/{sample}_mixed/zUMIs_output/stats/'+protocol+'.readspercell.txt',
+        dir_file33='multigenome_yamlMAR/{sample}_mixed/'+protocol+'.barcodelist.filtered.sort.sam'
+
+    shell:
+        """
+        cd multigenome_yamlMAR/{wildcards.sample}_human
+        bash {zUMI_path}/zUMIs-master.sh -y {input.yaml_hsap}
+        cd ../{wildcards.sample}_mouse
+        bash {zUMI_path}/zUMIs-master.sh -y {input.yaml_mmus}
+        cd ../{wildcards.sample}_mixed
+        bash {zUMI_path}/zUMIs-master.sh -y {input.yaml_mixed}
+        cd ../..
+       """
