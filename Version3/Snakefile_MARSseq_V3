@@ -33,9 +33,9 @@ rule create_yaml:
     input:
         yaml= "pipeline_general.yaml"
     output:
-        yamlOut_hsap="YAMLs/"+protocol + "_hsap_{sample}.yaml",
-        yamlOut_mmus="YAMLs/"+protocol + "_mmus_{sample}.yaml",
-        yamlOut_mixed="YAMLs/"+protocol + "_mixed_{sample}.yaml"
+        yamlOut_hsap="YAMLs/"+protocol + "_hsap_{sample}_counting.yaml",
+        #yamlOut_mmus="YAMLs/"+protocol + "_mmus_{sample}.yaml",
+        #yamlOut_mixed="YAMLs/"+protocol + "_mixed_{sample}.yaml"
     run:
         #fname = input
 
