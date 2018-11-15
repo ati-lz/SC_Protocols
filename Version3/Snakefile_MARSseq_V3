@@ -65,7 +65,7 @@ rule fix_yaml:
     input: 
         yamlin_hsap="YAMLs/"+protocol+"_hsap_{sample}.yaml"
     output:
-        yamlOutFix_hsap="YAMLs/"+protocol+"_hsap_{sample}_fixed.yaml"
+        yamlOutFix_hsap="YAMLs_fixed/"+protocol+"_hsap_{sample}_fixed.yaml"
     shell:
        "sed 's/make_stats: true/make_stats: yes/g' {input.yamlin_hsap} > {output.yamlOutFix_hsap}"
        
@@ -74,7 +74,7 @@ rule fix_yaml:
 
 rule zUMI_run:
     input:
-        yaml_hsap="YAMLs/"+protocol + "_hsap_{sample}_fixed.yaml"
+        yaml_hsap="YAMLs_fixed/"+protocol + "_hsap_{sample}_fixed.yaml"
         #yaml_mmus="YAMLs/"+protocol + "_mmus_{sample}.yaml",
         #yaml_mixed="YAMLs/"+protocol + "_mixed_{sample}.yaml"
 
