@@ -50,7 +50,7 @@ rule create_yaml:
         data_hsap['sequence_files']['file2']['name'] = fastq_path+ wildcards.sample +'_1.fq.gz'
         data_hsap['sequence_files']['file2']['base_definition'][0] = 'cDNA(1-52)'
         data_hsap['num_threads'] = 8
-        #data_hsap['make_stats'] = "yes"
+        data_hsap['make_stats'] = "yes"
         #data_hsap['which_Stage'] = 'Counting'
         data_hsap['barcodes']['barcode_file'] = bc_list2
         data_hsap['barcodes']['barcode_num'] = 'null'
@@ -61,11 +61,21 @@ rule create_yaml:
         with open(output.yamlOut_hsap, 'w') as out_hsap:
             yaml.dump(data_hsap, out_hsap, default_flow_style=False)
 
+rule_fix_yaml:
+    input: 
+        yamlin_hsap="YAMLs/"+protocol + "_hsap_{sample}.yaml"
+    output:
+        yamlOutFix_hsap="YAMLs/"+protocol + "_hsap_{sample}_fixed.yaml"
+    shell:
+        """
+        sed "s/'//g" {input.yamlin_hsap} > {output.yamlOutFix_hsap} 
+        """
+
 
 
 rule zUMI_run:
     input:
-        yaml_hsap="YAMLs/"+protocol + "_hsap_{sample}.yaml"
+        yaml_hsap="YAMLs/"+protocol + "_hsap_{sample}_fixed.yaml"
         #yaml_mmus="YAMLs/"+protocol + "_mmus_{sample}.yaml",
         #yaml_mixed="YAMLs/"+protocol + "_mixed_{sample}.yaml"
 
