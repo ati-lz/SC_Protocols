@@ -26,7 +26,7 @@ SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
     input:
-        expand('YAMLs/"+protocol + "_hsap_{sample}_counting.yaml', sample=SAMPLES)
+        expand('YAMLs/'+protocol + '_hsap_{sample}_counting.yaml', sample=SAMPLES)
         #expand('multigenome_yamlMAR/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds', sample=SAMPLES)
 
 
