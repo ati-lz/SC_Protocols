@@ -61,7 +61,7 @@ rule create_yaml:
         with open(output.yamlOut_hsap, 'w') as out_hsap:
             yaml.dump(data_hsap, out_hsap, default_flow_style=False)
 
-rule_fix_yaml:
+rule fix_yaml:
     input: 
         yamlin_hsap="YAMLs/"+protocol + "_hsap_{sample}.yaml"
     output:
