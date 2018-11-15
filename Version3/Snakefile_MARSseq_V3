@@ -26,21 +26,21 @@ SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
     input:
-        expand('YAMLs/'+protocol + '_hsap_{sample}_fixed.yaml', sample=SAMPLES)
+        expand('YAMLs/'+protocol+'_hsap_{sample}_fixed.yaml', sample=SAMPLES)
         #expand('multigenome_yamlMAR/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds', sample=SAMPLES)
 
 
 rule create_yaml:
     input:
-        yaml= "pipeline_general.yaml"
+         "pipeline_general.yaml"
     output:
-        yamlOut_hsap="YAMLs/"+protocol + "_hsap_{sample}.yaml",
+        yamlOut_hsap="YAMLs/"+protocol+"_hsap_{sample}.yaml"
         #yamlOut_mmus="YAMLs/"+protocol + "_mmus_{sample}.yaml",
         #yamlOut_mixed="YAMLs/"+protocol + "_mixed_{sample}.yaml"
     run:
         #fname = input
 
-        stream = open(input.yaml, 'r')
+        stream = open(input, 'r')
         data_hsap = yaml.load(stream)
 
         data_hsap['project'] = protocol
@@ -63,9 +63,9 @@ rule create_yaml:
 
 rule fix_yaml:
     input: 
-        yamlin_hsap="YAMLs/"+protocol + "_hsap_{sample}.yaml"
+        yamlin_hsap="YAMLs/"+protocol+"_hsap_{sample}.yaml"
     output:
-        yamlOutFix_hsap="YAMLs/"+protocol + "_hsap_{sample}_fixed.yaml"
+        yamlOutFix_hsap="YAMLs/"+protocol+"_hsap_{sample}_fixed.yaml"
     shell:
        "sed 's/make_stats: true/make_stats: yes/g' {input.yamlin_hsap} > {output.yamlOutFix_hsap}"
        
