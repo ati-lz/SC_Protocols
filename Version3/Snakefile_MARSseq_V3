@@ -81,8 +81,8 @@ rule zUMI_run:
         dir_file111='multigenome_yamlMAR/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
         dir_file1='multigenome_yamlMAR/{sample}_human/zUMIs_output/stats/'+protocol+'.readspercell.txt',
         dir_file1111='multigenome_yamlMAR/{sample}_human/zUMIs_output/stats/'+protocol+'.genecounts.txt',
-        dir_file11111='multigenome_yamlMAR/{sample}_human/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
-        dir_file111111='multigenome_yamlMAR/{sample}_human/zUMIs_output/stats/'+protocol+'.features.txt'
+        dir_file11111='multigenome_yamlMAR/{sample}_human/zUMIs_output/stats/'+protocol+'.UMIcounts.txt'
+        #dir_file111111='multigenome_yamlMAR/{sample}_human/zUMIs_output/stats/'+protocol+'.features.txt'
 
     shell:
         """
