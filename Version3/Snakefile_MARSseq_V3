@@ -60,7 +60,6 @@ rule create_yaml:
         data_hsap['out_dir'] = "/project/devel/alafzi/SC_Protocols/Version3/multigenome_yamlMAR/"+wildcards.sample+"_human"
         with open(output.yamlOut_hsap, 'w') as out_hsap:
             yaml.safe_dump(data_hsap, out_hsap, default_flow_style=False))
-        out_hsap.close()
 
 
 
