@@ -26,7 +26,8 @@ SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
     input:
-        expand('multigenome_yamlMAR/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds', sample=SAMPLES)
+        expand('YAMLs/"+protocol + "_hsap_{sample}_counting.yaml', sample=SAMPLES)
+        #expand('multigenome_yamlMAR/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds', sample=SAMPLES)
 
 
 rule create_yaml:
@@ -49,7 +50,7 @@ rule create_yaml:
         data_hsap['sequence_files']['file2']['name'] = fastq_path+ wildcards.sample +'_1.fq.gz'
         data_hsap['sequence_files']['file2']['base_definition'][0] = 'cDNA(1-52)'
         data_hsap['num_threads'] = 8
-        #data_hsap['make_stats'] = yes
+        data_hsap['make_stats'] = yes
         data_hsap['which_Stage'] = 'Counting'
         data_hsap['barcodes']['barcode_file'] = bc_list2
         data_hsap['barcodes']['barcode_num'] = 'null'
@@ -70,10 +71,10 @@ rule zUMI_run:
         #yaml_mixed="YAMLs/"+protocol + "_mixed_{sample}.yaml"
 
     output:
-        dir='multigenome_yamlMAR/{sample}_human/'+protocol+'.aligned.sorted.bam',
-        dir_file1='multigenome_yamlMAR/{sample}_human/zUMIs_output/stats/'+protocol+'.readspercell.txt',
-        dir_file11='multigenome_yamlMAR/{sample}_human/'+protocol+'.barcodelist.filtered.sort.sam',
+        dir='multigenome_yamlMAR/{sample}_human/'+protocol+'.filtered.tagged.Aligned.out.bam',
+        dir_file11='multigenome_yamlMAR/{sample}_human/'+protocol+'.BCstats.txt',
         dir_file111='multigenome_yamlMAR/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
+        dir_file1='multigenome_yamlMAR/{sample}_human/zUMIs_output/stats/'+protocol+'.readspercell.txt',
         dir_file1111='multigenome_yamlMAR/{sample}_human/zUMIs_output/stats/'+protocol+'.genecounts.txt',
         dir_file11111='multigenome_yamlMAR/{sample}_human/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
         dir_file111111='multigenome_yamlMAR/{sample}_human/zUMIs_output/stats/'+protocol+'.features.txt'
