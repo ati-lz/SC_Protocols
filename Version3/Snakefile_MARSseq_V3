@@ -112,7 +112,8 @@ rule zUMI_run:
         #dir_file222222='multigenome_MARSseq_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.features.txt',
         dir3='multigenome_MARSseq_V3/{sample}_mixed/'+protocol+'.filtered.tagged.Aligned.out.bam',
         dir_file33='multigenome_MARSseq_V3/{sample}_mixed/'+protocol+'.BCstats.txt',
-        dir_file3='multigenome_MARSseq_V3/{sample}_mixed/zUMIs_output/stats/'+protocol+'.readspercell.txt'
+        dir_file3='multigenome_MARSseq_V3/{sample}_mixed/zUMIs_output/stats/'+protocol+'.readspercell.txt',
+        dir_file333='multigenome_MARSseq_V3/{sample}_mixed/zUMIs_output/expression/'+protocol+'.dgecounts.rds'
         
 
     shell:
