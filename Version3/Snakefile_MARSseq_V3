@@ -1,5 +1,5 @@
 from os import listdir
-import yaml
+from ruamel import yaml
 
 #Path to sample fastq files
 fastq_path = '/project/devel/HCA/CNAG/MARSseq/'
@@ -26,8 +26,8 @@ SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
     input:
-        #expand('YAMLs/'+protocol + '_hsap_{sample}_counting.yaml', sample=SAMPLES)
-        expand('multigenome_yamlMAR/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds', sample=SAMPLES)
+        expand('YAMLs/'+protocol + '_hsap_{sample}.yaml', sample=SAMPLES)
+        #expand('multigenome_yamlMAR/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds', sample=SAMPLES)
 
 
 rule create_yaml:
@@ -50,7 +50,7 @@ rule create_yaml:
         data_hsap['sequence_files']['file2']['name'] = fastq_path+ wildcards.sample +'_1.fq.gz'
         data_hsap['sequence_files']['file2']['base_definition'][0] = 'cDNA(1-52)'
         data_hsap['num_threads'] = 8
-        data_hsap['make_stats'] = "yes"
+        #data_hsap['make_stats'] = "yes"
         #data_hsap['which_Stage'] = 'Counting'
         data_hsap['barcodes']['barcode_file'] = bc_list2
         data_hsap['barcodes']['barcode_num'] = 'null'
@@ -59,7 +59,7 @@ rule create_yaml:
         data_hsap['reference']['additional_STAR_params'] = '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000'
         data_hsap['out_dir'] = "/project/devel/alafzi/SC_Protocols/Version3/multigenome_yamlMAR/"+wildcards.sample+"_human"
         with open(output.yamlOut_hsap, 'w') as out_hsap:
-            out_hsap.write( yaml.dump(data_hsap, default_flow_style=False))
+            yaml.safe_dump(data_hsap, out_hsap, default_flow_style=False))
         out_hsap.close()
 
 
