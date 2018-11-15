@@ -26,7 +26,6 @@ SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
     input:
-        #expand('YAMLs_fixed/'+protocol+'_hsap_{sample}_fixed.yaml', sample=SAMPLES)
         expand('multigenome_MARSseq_V3/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds', sample=SAMPLES),
         expand('multigenome_MARSseq_V3/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds', sample=SAMPLES),
         expand('multigenome_MARSseq_V3/{sample}_mixed/zUMIs_output/expression/'+protocol+'.dgecounts.rds', sample=SAMPLES)
@@ -92,8 +91,8 @@ rule fix_yaml:
 rule zUMI_run:
     input:
         yaml_hsap="YAMLs_fixed/"+protocol+"_hsap_{sample}_fixed.yaml",
-        yaml_mmus="YAMLs/"+protocol + "_mmus_{sample}_fixed.yaml",
-        yaml_mixed="YAMLs/"+protocol + "_mixed_{sample}_fixed.yaml"
+        yaml_mmus="YAMLs_fixed/"+protocol + "_mmus_{sample}_fixed.yaml",
+        yaml_mixed="YAMLs_fixed/"+protocol + "_mixed_{sample}_fixed.yaml"
 
     output:
         dir='multigenome_MARSseq_V3/{sample}_human/'+protocol+'.filtered.tagged.Aligned.out.bam',
