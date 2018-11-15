@@ -1,5 +1,5 @@
 from os import listdir
-from ruamel import yaml
+import yaml
 
 #Path to sample fastq files
 fastq_path = '/project/devel/HCA/CNAG/MARSseq/'
@@ -34,7 +34,7 @@ rule create_yaml:
     input:
         yaml= "pipeline_general.yaml"
     output:
-        yamlOut_hsap="YAMLs/"+protocol + "_hsap_{sample}.yaml"
+        yamlOut_hsap="YAMLs/"+protocol + "_hsap_{sample}.yaml",
         #yamlOut_mmus="YAMLs/"+protocol + "_mmus_{sample}.yaml",
         #yamlOut_mixed="YAMLs/"+protocol + "_mixed_{sample}.yaml"
     run:
@@ -59,7 +59,8 @@ rule create_yaml:
         data_hsap['reference']['additional_STAR_params'] = '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000'
         data_hsap['out_dir'] = "/project/devel/alafzi/SC_Protocols/Version3/multigenome_yamlMAR/"+wildcards.sample+"_human"
         with open(output.yamlOut_hsap, 'w') as out_hsap:
-            yaml.safe_dump(data_hsap, out_hsap, default_flow_style=False))
+            out_hsap.write( yaml.dump(data_hsap))
+        out_hsap.close()
 
 
 
