@@ -67,7 +67,7 @@ rule_fix_yaml:
     output:
         yamlOutFix_hsap="YAMLs/"+protocol + "_hsap_{sample}_fixed.yaml"
     shell:
-       "sed \"s/'//g\" {input.yamlin_hsap} > {output.yamlOutFix_hsap}"
+       'sed "s/\'//g" {input.yamlin_hsap} > {output.yamlOutFix_hsap}'
        
 
 
