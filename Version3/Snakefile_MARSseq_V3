@@ -59,7 +59,7 @@ rule create_yaml:
         data_hsap['reference']['additional_STAR_params'] = '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000'
         data_hsap['out_dir'] = "/project/devel/alafzi/SC_Protocols/Version3/multigenome_yamlMAR/"+wildcards.sample+"_human"
         with open(output.yamlOut_hsap, 'w') as out_hsap:
-            out_hsap.write( yaml.dump(data_hsap))
+            yaml.dump(data_hsap, out_hsap, default_flow_style=False))
         out_hsap.close()
 
 
