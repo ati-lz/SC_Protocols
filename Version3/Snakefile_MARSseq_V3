@@ -26,8 +26,8 @@ SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
     input:
-        expand('YAMLs_fixed/'+protocol+'_hsap_{sample}_fixed.yaml', sample=SAMPLES)
-        #expand('multigenome_yamlMAR/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds', sample=SAMPLES)
+        #expand('YAMLs_fixed/'+protocol+'_hsap_{sample}_fixed.yaml', sample=SAMPLES)
+        expand('multigenome_yamlMAR/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds', sample=SAMPLES)
 
 
 rule create_yaml:
@@ -69,12 +69,9 @@ rule fix_yaml:
     shell:
        "sed 's/make_stats: true/make_stats: yes/g' {input.yamlin_hsap} > {output.yamlOutFix_hsap}"
        
-
-
-
 rule zUMI_run:
     input:
-        yaml_hsap="YAMLs_fixed/"+protocol + "_hsap_{sample}_fixed.yaml"
+        yaml_hsap="YAMLs_fixed/"+protocol+"_hsap_{sample}_fixed.yaml"
         #yaml_mmus="YAMLs/"+protocol + "_mmus_{sample}.yaml",
         #yaml_mixed="YAMLs/"+protocol + "_mixed_{sample}.yaml"
 
