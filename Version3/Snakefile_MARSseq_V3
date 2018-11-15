@@ -65,9 +65,9 @@ rule fix_yaml:
     input: 
         yamlin_hsap="YAMLs/"+protocol + "_hsap_{sample}.yaml"
     output:
-        yamlOutFix_hsap="YAMLs/"+protocol + "_hsap_{sample}_fixed.yaml"
+        yamlOutFix_hsap="YAMLs/"+protocol + "_hsap_{sample}.yaml"
     shell:
-       "sed -i 's/make_stats: true/make_stats: yes/g' {input.yamlin_hsap} > {output.yamlOutFix_hsap}"
+       "sed -i 's/make_stats: true/make_stats: yes/g' {input.yamlin_hsap}"
        
 
 
