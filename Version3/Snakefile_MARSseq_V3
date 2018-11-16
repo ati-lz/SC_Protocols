@@ -54,7 +54,7 @@ rule create_yaml:
         #data_hsap['make_stats'] = "yes"
         #data_hsap['which_Stage'] = 'Counting'
         data_hsap['barcodes']['barcode_file'] = bc_list2
-        data_hsap['barcodes']['barcode_num'] = 'null'
+        #data_hsap['barcodes']['barcode_num'] = 'null'
         data_hsap['reference']['STAR_index'] = '/project/devel/alafzi/ref_genomes/human/STARgenome'
         data_hsap['reference']['GTF_file'] = '/project/devel/alafzi/ref_genomes/human/hsa_gencode.v28.annotation.gtf'
         data_hsap['reference']['additional_STAR_params'] = '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000'
@@ -100,28 +100,12 @@ rule zUMI_run:
         dir_file111='multigenome_MARSseq_V3/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
         dir_file1='multigenome_MARSseq_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.readspercell.txt',
         dir_file1111='multigenome_MARSseq_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.genecounts.txt',
-        dir_file11111='multigenome_MARSseq_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
-        #dir_file111111='multigenome_MARSseq_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.features.txt'
-        dir2='multigenome_MARSseq_V3/{sample}_mouse/'+protocol+'.filtered.tagged.Aligned.out.bam',
-        dir_file22='multigenome_MARSseq_V3/{sample}_mouse/'+protocol+'.BCstats.txt',
-        dir_file222='multigenome_MARSseq_V3/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
-        dir_file2='multigenome_MARSseq_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.readspercell.txt',
-        dir_file2222='multigenome_MARSseq_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.genecounts.txt',
-        dir_file22222='multigenome_MARSseq_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
-        #dir_file222222='multigenome_MARSseq_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.features.txt',
-        dir3='multigenome_MARSseq_V3/{sample}_mixed/'+protocol+'.filtered.tagged.Aligned.out.bam',
-        dir_file33='multigenome_MARSseq_V3/{sample}_mixed/'+protocol+'.BCstats.txt',
-        dir_file3='multigenome_MARSseq_V3/{sample}_mixed/zUMIs_output/stats/'+protocol+'.readspercell.txt',
-        dir_file333='multigenome_MARSseq_V3/{sample}_mixed/zUMIs_output/expression/'+protocol+'.dgecounts.rds'
+        dir_file11111='multigenome_MARSseq_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.UMIcounts.txt'
         
 
     shell:
         """
         cd multigenome_MARSseq_V3/{wildcards.sample}_human
         bash {zUMI_path}/zUMIs-master.sh -y ../../{input.yaml_hsap}
-        cd ../{wildcards.sample}_mouse
-        bash {zUMI_path}/zUMIs-master.sh -y ../../{input.yaml_mmus}
-        cd ../{wildcards.sample}_mixed
-        bash {zUMI_path}/zUMIs-master.sh -y ../../{input.yaml_mixed}
         cd ../..
        """
