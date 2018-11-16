@@ -26,9 +26,7 @@ SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
     input:
-        expand('multigenome_MARSseq_V3/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds', sample=SAMPLES),
-        expand('multigenome_MARSseq_V3/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds', sample=SAMPLES),
-        expand('multigenome_MARSseq_V3/{sample}_mixed/zUMIs_output/expression/'+protocol+'.dgecounts.rds', sample=SAMPLES)
+        expand('multigenome_MARSseq_V3/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds', sample=SAMPLES)
 
 
 rule create_yaml:
