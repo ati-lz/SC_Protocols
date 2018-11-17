@@ -82,9 +82,11 @@ rule fix_yaml:
         yamlOutFix_mmus="YAMLs_fixed/"+protocol+"_mmus_{sample}_fixed.yaml",
         yamlOutFix_mixed="YAMLs_fixed/"+protocol+"_mixed_{sample}_fixed.yaml"
     shell:
-       "sed 's/make_stats: true/make_stats: yes/g' {input.yamlin_hsap} > {output.yamlOutFix_hsap}"
-       "sed 's/make_stats: true/make_stats: yes/g' {input.yamlin_mmus} > {output.yamlOutFix_mmus}"
-       "sed 's/make_stats: true/make_stats: yes/g' {input.yamlin_mixed} > {output.yamlOutFix_mixed}"
+        """
+       sed 's/make_stats: true/make_stats: yes/g' {input.yamlin_hsap} > {output.yamlOutFix_hsap}
+       sed 's/make_stats: true/make_stats: yes/g' {input.yamlin_mmus} > {output.yamlOutFix_mmus}
+       sed 's/make_stats: true/make_stats: yes/g' {input.yamlin_mixed} > {output.yamlOutFix_mixed}
+       """
        
 rule zUMI_run:
     input:
