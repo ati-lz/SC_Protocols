@@ -183,7 +183,7 @@ rule prepare_R_inputs:
         hsap_n_Genes= expand('multigenome_MARSseq_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.genecounts.txt',sample=SAMPLES),
         hsap_n_UMIs= expand('multigenome_MARSseq_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',sample=SAMPLES),
         hsap_n_Features= expand('multigenome_MARSseq_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.bc.READcounts.rds',sample=SAMPLES),
-        mmus_n_Reads= expand('multigenome_MARSseq_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'kept_barcodes.txt',sample=SAMPLES),
+        mmus_n_Reads= expand('multigenome_MARSseq_V3/{sample}_mouse/zUMIs_output/'+protocol+'kept_barcodes.txt',sample=SAMPLES),
         mmus_n_Genes= expand('multigenome_MARSseq_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.genecounts.txt',sample=SAMPLES),
         mmus_n_UMIs= expand('multigenome_MARSseq_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',sample=SAMPLES),
         mmus_n_Features= expand('multigenome_MARSseq_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.bc.READcounts.rds',sample=SAMPLES),
