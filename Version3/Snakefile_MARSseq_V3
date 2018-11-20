@@ -101,7 +101,7 @@ rule zUMI_run:
         dir_file111='multigenome_MARSseq_V3/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
         dir_file1111='multigenome_MARSseq_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.genecounts.txt',
         dir_file11111='multigenome_MARSseq_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
-        dir_file111111='multigenome_MARSseq_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.bc.READcounts.rds'
+        dir_file111111='multigenome_MARSseq_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.bc.READcounts.rds',
         dir2='multigenome_MARSseq_V3/{sample}_mouse/'+protocol+'.filtered.tagged.Aligned.out.bam',
         dir_file22='multigenome_MARSseq_V3/{sample}_mouse/zUMIs_output/'+protocol+'kept_barcodes.txt',
         dir_file222='multigenome_MARSseq_V3/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
