@@ -31,22 +31,6 @@ suppressPackageStartupMessages(library(cardelino))
 suppressPackageStartupMessages(library(biomaRt))
 suppressPackageStartupMessages(library(data.table))
 
-hsap.mart <- useDataset("hsapiens_gene_ensembl", useMart("ensembl"))
-hsap.GID.mapping <- getBM(attributes= c("ensembl_gene_id","hgnc_symbol"),mart= hsap.mart)
-hsap.GID.mapping <- hsap.GID.mapping[which(hsap.GID.mapping$hgnc_symbol != ""),]
-hsap.GID.mapping.uniq <- hsap.GID.mapping[!duplicated(hsap.GID.mapping$ensembl_gene_id),]
-rownames(hsap.GID.mapping.uniq) <- hsap.GID.mapping.uniq$ensembl_gene_id
-hsap.GID.mapping.uniq$hgnc_symbol <- make.unique(hsap.GID.mapping.uniq$hgnc_symbol)
-hsap.GID.mapping.final <- hsap.GID.mapping.uniq
-
-mmus.mart <- useDataset("mmusculus_gene_ensembl", useMart("ensembl"))
-mmus.GID.mapping <- getBM(attributes= c("ensembl_gene_id","mgi_symbol"),mart= mmus.mart)
-mmus.GID.mapping <- mmus.GID.mapping[which(mmus.GID.mapping$mgi_symbol != ""),]
-mmus.GID.mapping.uniq <- mmus.GID.mapping[!duplicated(mmus.GID.mapping$ensembl_gene_id),]
-rownames(mmus.GID.mapping.uniq) <- mmus.GID.mapping.uniq$ensembl_gene_id
-mmus.GID.mapping.uniq$mgi_symbol <- make.unique(mmus.GID.mapping.uniq$mgi_symbol)
-mmus.GID.mapping.final <- mmus.GID.mapping.uniq
-
 main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,mnGene,mnFeatures, species, 
                 output_SCEobj, technology) {
   
