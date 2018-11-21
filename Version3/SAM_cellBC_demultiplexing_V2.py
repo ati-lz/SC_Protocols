@@ -22,7 +22,7 @@ for line in big_sam_file:
         header_list.append(line)
     else:
         line_words = line.split()
-        BC_tag = [i for i in line_words if i.startswith('BC')][0]
+        BC_tag = [i for i in line_words if i.startswith('BC:')][0]
         cellBC = BC_tag.split(":")
         if len(cellBC) != 3:
             print(cellBC)
