@@ -23,9 +23,10 @@ for line in big_sam_file:
     else:
         line_words = line.split()
         BC_tag = [i for i in line_words if i.startswith('BC')][0]
-        if len(BC_tag) != 3:
-            print(BC_tag)
-        cellBC = BC_tag.split(":")[2]
+        cellBC = BC_tag.split(":")
+        if len(cellBC) != 3:
+            print(cellBC)
+        cellBC = cellBC[2]
         if cellBC in dict_demux.keys():
             dict_demux[cellBC].append(line)
             
