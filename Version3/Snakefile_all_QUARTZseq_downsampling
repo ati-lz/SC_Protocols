@@ -32,8 +32,8 @@ rule all:
 
 rule zUMI_run:
     input:
-        fastq_R1=fastq_path+'/{sample}_1.fq.gz',
-        fastq_R2=fastq_path+'/{sample}_2.fq.gz'
+        fastq_R1=fastq_path+'/{sample}_1.fastq.gz',
+        fastq_R2=fastq_path+'/{sample}_2.fastq.gz'
         #sample_id='{sample}'
     output:
         dir_file11='multigenome_QUARTZseq/{sample}_human/zUMIs_output_downsampled_mixed/stats/'+protocol+'.UMIcounts.txt'
