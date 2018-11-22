@@ -88,7 +88,7 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
     sample.hsapExp.obj <- readRDS(hsapExp_list[sample])
     sample.mmusExp.obj <- readRDS(mmusExp_list[sample])
     sample.ID.pre <- unlist(strsplit(unlist(strsplit(hsap_nread_list[sample], "/"))[2],"_")) #for local 6
-    sample.ID <- paste(sample.ID.pre[-length(sample.ID.pre)], collapse = "_")
+    sample.ID <- paste(sample.ID.pre[-length(sample.ID.pre)], collapse = ".")
     
     #sample.exon.reads <- as.data.frame(sample.features.file[which(sample.features.file$type == "exon"), "N"], row.names = create_cell_IDs(sample.features.file[which(sample.features.file$type == "exon"), "RG"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)); colnames(sample.exon.reads) <- "nExonReads" 
     #sample.intron.reads <- as.data.frame(sample.features.file[which(sample.features.file$type == "intron"), "N"], row.names = create_cell_IDs(sample.features.file[which(sample.features.file$type == "intron"), "RG"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)); colnames(sample.exon.reads) <- "nIntronReads" 
@@ -107,8 +107,8 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
     sample.hsap.Unmapped.reads <- data.frame(nUnmappedReads=sample.hfeatures.file[which(sample.hfeatures.file$type == "Unmapped"), "N"], cellID = create_cell_IDs(sample.hfeatures.file[which(sample.hfeatures.file$type == "Unmapped"), "RG"], id.type = "cell_Barcode",tech = technology, lib = sample.ID))
     sample.hsap.Ambiguity.reads <- data.frame(nAmbiguityReads=sample.hfeatures.file[which(sample.hfeatures.file$type == "Ambiguity"), "N"], cellID = create_cell_IDs(sample.hfeatures.file[which(sample.hfeatures.file$type == "Ambiguity"), "RG"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)) 
     #sample.hsap.Multimap.reads <- data.frame(nMultimapReads=sample.hfeatures.file[which(sample.hfeatures.file$type == "Multimapping"), "N"], cellID = create_cell_IDs(sample.hfeatures.file[which(sample.hfeatures.file$type == "Multimapping"), "RG"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)) 
-    sample.hsap.ng <- data.frame(nGenes=sample.hng.file[which(sample.hng.file$featureType == "Intron+Exon"), "Count"], cellID = create_cell_IDs(sample.hng.file[which(sample.hng.file$featureType == "Intron+Exon"), "SampleID"], id.type = "cell_Barcode",tech = technology, lib = sample.ID))
-    sample.hsap.nUMI <- data.frame(nUMIs=sample.hnUMI.file[which(sample.hnUMI.file$featureType == "Intron+Exon"), "Count"], cellID = create_cell_IDs(sample.hnUMI.file[which(sample.hnUMI.file$featureType == "Intron+Exon"), "SampleID"], id.type = "cell_Barcode",tech = technology, lib = sample.ID))
+    sample.hsap.ng <- data.frame(nGenes=sample.hng.file[which(sample.hng.file$type == "Intron+Exon"), "Count"], cellID = create_cell_IDs(sample.hng.file[which(sample.hng.file$type == "Intron+Exon"), "SampleID"], id.type = "cell_Barcode",tech = technology, lib = sample.ID))
+    sample.hsap.nUMI <- data.frame(nUMIs=sample.hnUMI.file[which(sample.hnUMI.file$type == "Intron+Exon"), "Count"], cellID = create_cell_IDs(sample.hnUMI.file[which(sample.hnUMI.file$type == "Intron+Exon"), "SampleID"], id.type = "cell_Barcode",tech = technology, lib = sample.ID))
     sample.hsap.nread <- data.frame(nTReads=sample.hnread.file$n, cellID = create_cell_IDs(sample.hnread.file$XC, id.type = "cell_Barcode",tech = technology, lib = sample.ID))
     
     sample.mmus.exon.reads <- data.frame(nExonReads=sample.mfeatures.file[which(sample.mfeatures.file$type == "Exon"), "N"], cellID=create_cell_IDs(sample.mfeatures.file[which(sample.mfeatures.file$type == "Exon"), "RG"], id.type = "cell_Barcode",tech = technology, lib = sample.ID))#; colnames(sample.exon.reads) <- "nExonReads" 
@@ -117,8 +117,8 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
     sample.mmus.Unmapped.reads <- data.frame(nUnmappedReads=sample.mfeatures.file[which(sample.mfeatures.file$type == "Unmapped"), "N"], cellID = create_cell_IDs(sample.mfeatures.file[which(sample.mfeatures.file$type == "Unmapped"), "RG"], id.type = "cell_Barcode",tech = technology, lib = sample.ID))
     sample.mmus.Ambiguity.reads <- data.frame(nAmbiguityReads=sample.mfeatures.file[which(sample.mfeatures.file$type == "Ambiguity"), "N"], cellID = create_cell_IDs(sample.mfeatures.file[which(sample.mfeatures.file$type == "Ambiguity"), "RG"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)) 
     #sample.mmus.Multimap.reads <- data.frame(nMultimapReads=sample.mfeatures.file[which(sample.mfeatures.file$type == "Multimapping"), "N"], cellID = create_cell_IDs(sample.mfeatures.file[which(sample.mfeatures.file$type == "Multimapping"), "RG"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)) 
-    sample.mmus.ng <- data.frame(nGenes=sample.mng.file[which(sample.mng.file$featureType == "Intron+Exon"), "Count"], cellID = create_cell_IDs(sample.mng.file[which(sample.mng.file$featureType == "Intron+Exon"), "SampleID"], id.type = "cell_Barcode",tech = technology, lib = sample.ID))
-    sample.mmus.nUMI <- data.frame(nUMIs=sample.mnUMI.file[which(sample.mnUMI.file$featureType == "Intron+Exon"), "Count"], cellID = create_cell_IDs(sample.mnUMI.file[which(sample.mnUMI.file$featureType == "Intron+Exon"), "SampleID"], id.type = "cell_Barcode",tech = technology, lib = sample.ID))
+    sample.mmus.ng <- data.frame(nGenes=sample.mng.file[which(sample.mng.file$type == "Intron+Exon"), "Count"], cellID = create_cell_IDs(sample.mng.file[which(sample.mng.file$type == "Intron+Exon"), "SampleID"], id.type = "cell_Barcode",tech = technology, lib = sample.ID))
+    sample.mmus.nUMI <- data.frame(nUMIs=sample.mnUMI.file[which(sample.mnUMI.file$type == "Intron+Exon"), "Count"], cellID = create_cell_IDs(sample.mnUMI.file[which(sample.mnUMI.file$type == "Intron+Exon"), "SampleID"], id.type = "cell_Barcode",tech = technology, lib = sample.ID))
     sample.mmus.nread <- data.frame(nTReads=sample.mnread.file$n, cellID = create_cell_IDs(sample.mnread.file$XC, id.type = "cell_Barcode",tech = technology, lib = sample.ID))
     
     sample.species <- data.frame(Species=sample.species.file[,2], cellID = create_cell_IDs(sample.species.file, id.type = "standard",tech = technology, lib = sample.ID))
@@ -131,9 +131,8 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
                                           sample.hsap.intergenic.reads, sample.hsap.Unmapped.reads, sample.hsap.Ambiguity.reads,
                                           sample.hsap.nUMI, sample.hsap.ng, sample.species, sample.library), by = "cellID", type = 'full')
     print("is the problem here?")
-    print(sample.hsap.metadata$cellID[1:2])
     rownames(sample.hsap.metadata) <- sample.hsap.metadata$cellID
-    sample.hsap.metadata <- sample.hsap.metadata[,-2]
+    sample.hsap.metadata <- sample.hsap.metadata[-nrow(sample.hsap.metadata),-2]
     hsap.metadata.list[[sample.ID]] <- sample.hsap.metadata
     
     print("or here?")
@@ -141,11 +140,12 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
                                           sample.mmus.intergenic.reads, sample.mmus.Unmapped.reads, sample.mmus.Ambiguity.reads,
                                           sample.mmus.nUMI, sample.mmus.ng, sample.species, sample.library), by = "cellID", type = 'full')
     rownames(sample.mmus.metadata) <- sample.mmus.metadata$cellID
-    sample.mmus.metadata <- sample.mmus.metadata[,-2]
+    sample.mmus.metadata <- sample.mmus.metadata[-nrow(sample.mmus.metadata),-2]
     mmus.metadata.list[[sample.ID]] <- sample.mmus.metadata
     
     
-    sample.hsapExp <- as.data.frame(as.matrix(sample.hsapExp.obj$Intron+Exon$umicounts))
+    #sample.hsapExp <- as.data.frame(as.matrix(sample.hsapExp.obj$Intron+Exon$umicounts))
+    sample.hsapExp <- as.data.frame(as.matrix(sample.hsapExp.obj$umicount$inex$all))
     colnames(sample.hsapExp) <- create_cell_IDs(colnames(sample.hsapExp), id.type = "cell_Barcode",tech = technology, lib = sample.ID)
     sample.hsapExp$rn <- rownames(sample.hsapExp)
     hsap.ExpsMat.list[[sample.ID]] <- sample.hsapExp
