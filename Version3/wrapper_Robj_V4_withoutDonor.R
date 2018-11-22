@@ -28,7 +28,7 @@ suppressPackageStartupMessages(library(scater))
 suppressPackageStartupMessages(library(vcfR))
 suppressPackageStartupMessages(library(plyr))
 suppressPackageStartupMessages(library(cardelino))
-suppressPackageStartupMessages(library(biomaRt))
+#suppressPackageStartupMessages(library(biomaRt))
 suppressPackageStartupMessages(library(data.table))
 
 main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,mnGene,mnFeatures, species, 
@@ -137,7 +137,7 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
     print(dim(sample.hfeatures.file))
     print(head(sample.hfeatures.file))
     cellIDtest=create_cell_IDs(sample.hfeatures.file[which(sample.hfeatures.file$type == "Exon"), "RG"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)
-    cellIDtest[1]
+    print(cellIDtest[1])
     
     rownames(sample.hsap.metadata) <- sample.hsap.metadata$cellID
     sample.hsap.metadata <- sample.hsap.metadata[-nrow(sample.hsap.metadata),-2]
