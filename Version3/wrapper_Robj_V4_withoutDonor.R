@@ -136,8 +136,8 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
     print(class(sample.hfeatures.file))
     print(dim(sample.hfeatures.file))
     print(head(sample.hfeatures.file))
-    print(class(sample.hfeatures.file[which(sample.hfeatures.file$type == "Exon"), "RG"]))
-    cellIDtest=create_cell_IDs(sample.hfeatures.file[which(sample.hfeatures.file$type == "Exon"), "RG"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)
+    print(class(as.character(sample.hfeatures.file[which(sample.hfeatures.file$type == "Exon"), "RG"])))
+    cellIDtest=create_cell_IDs(as.character(sample.hfeatures.file[which(sample.hfeatures.file$type == "Exon"), "RG"]), id.type = "cell_Barcode",tech = technology, lib = sample.ID)
     print(cellIDtest[1])
     
     rownames(sample.hsap.metadata) <- sample.hsap.metadata$cellID
