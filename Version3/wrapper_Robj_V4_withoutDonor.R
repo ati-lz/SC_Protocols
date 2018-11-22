@@ -198,10 +198,10 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
   print(rownames(all.hsap.metadata)[1:10])
   full.SCE.hsap <- SingleCellExperiment(assays = list(counts = as.matrix(all.hsapExp)), colData = all.hsap.metadata[colnames(all.hsapExp),])
   full.SCE.hsap <- calculateQCMetrics(full.SCE.hsap)
-  libsize.drop.hsap <- isOutlier(full.SCE.hsap$total_counts, nmads=3, type="lower", log=TRUE)
-  feature.drop.hsap <- isOutlier(full.SCE.hsap$total_features, nmads=3, type="lower", log=TRUE)
-  full.SCE.filterred.hsap <- full.SCE.hsap[,!(libsize.drop.hsap | feature.drop.hsap)]
-  data.frame(ByLibSize=sum(libsize.drop.hsap), ByFeature=sum(feature.drop.hsap), Remaining=ncol(full.SCE.filterred.hsap))
+  #libsize.drop.hsap <- isOutlier(full.SCE.hsap$total_counts, nmads=3, type="lower", log=TRUE)
+  #feature.drop.hsap <- isOutlier(full.SCE.hsap$total_features, nmads=3, type="lower", log=TRUE)
+  #full.SCE.filterred.hsap <- full.SCE.hsap[,!(libsize.drop.hsap | feature.drop.hsap)]
+  #data.frame(ByLibSize=sum(libsize.drop.hsap), ByFeature=sum(feature.drop.hsap), Remaining=ncol(full.SCE.filterred.hsap))
   
   print(length(colnames(all.mmusExp)))
   print(colnames(all.mmusExp)[1:10])
@@ -209,10 +209,10 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
   print(rownames(all.mmus.metadata)[1:10])
   full.SCE.mmus <- SingleCellExperiment(assays = list(counts = as.matrix(all.mmusExp)), colData = all.mmus.metadata[colnames(all.mmusExp),])
   full.SCE.mmus <- calculateQCMetrics(full.SCE.mmus)
-  libsize.drop.mmus <- isOutlier(full.SCE.mmus$total_counts, nmads=3, type="lower", log=TRUE)
-  feature.drop.mmus <- isOutlier(full.SCE.mmus$total_features, nmads=3, type="lower", log=TRUE)
-  full.SCE.filterred.mmus <- full.SCE.mmus[,!(libsize.drop.mmus | feature.drop.mmus)]
-  data.frame(ByLibSize=sum(libsize.drop.mmus), ByFeature=sum(feature.drop.mmus), Remaining=ncol(full.SCE.filterred.mmus))
+  #libsize.drop.mmus <- isOutlier(full.SCE.mmus$total_counts, nmads=3, type="lower", log=TRUE)
+  #feature.drop.mmus <- isOutlier(full.SCE.mmus$total_features, nmads=3, type="lower", log=TRUE)
+  #full.SCE.filterred.mmus <- full.SCE.mmus[,!(libsize.drop.mmus | feature.drop.mmus)]
+  #data.frame(ByLibSize=sum(libsize.drop.mmus), ByFeature=sum(feature.drop.mmus), Remaining=ncol(full.SCE.filterred.mmus))
 
   #save(full.SCE.filterred.hsap, file = paste(output_SCEobj,"/hsap.full.SCE.Robj", sep = ""))
   #save(full.SCE.filterred.mmus, file = paste(output_SCEobj,"/mmus.full.SCE.Robj", sep = ""))
