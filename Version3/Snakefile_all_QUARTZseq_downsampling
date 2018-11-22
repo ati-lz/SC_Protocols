@@ -27,7 +27,7 @@ SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
     input:
-        expand('multigenome_QUARTZseq/{sample}_human/zUMIs_output_downsampled_mixed/stats/'+protocol+'.UMIcounts.txt', sample=SAMPLES)
+        expand('multigenome_QUARTZseq_DS/{sample}_human/'+protocol+'.aligned.sorted.bam', sample=SAMPLES)
 
 
 rule zUMI_run:
@@ -35,18 +35,25 @@ rule zUMI_run:
         fastq_R1=fastq_path+'/{sample}_1.fastq.gz',
         fastq_R2=fastq_path+'/{sample}_2.fastq.gz'
         #sample_id='{sample}'
-    output:
-        dir_file11='multigenome_QUARTZseq/{sample}_human/zUMIs_output_downsampled_mixed/stats/'+protocol+'.UMIcounts.txt'
+   output:
+        dir='multigenome_QUARTZseq_DS/{sample}_human/'+protocol+'.aligned.sorted.bam',
+        dir_file11='multigenome_QUARTZseq_DS/{sample}_human/'+protocol+'.barcodelist.filtered.sort.sam'
 
 
     shell:
         """
-        cd multigenome_QUARTZseq/{wildcards.sample}_human
-        mv -T zUMIs_output zUMIs_output_main
-        bash {zUMI_path}/zUMIs-master.sh -w Counting -f {input.fastq_R2} -r {input.fastq_R1} -c 1-6 -m 7-14 -l 52 -g {human_STAR_genome} -a {human_gtf} -n {protocol} -p 8 -b {bc_list2} -d 20000,5000,10000,15000 -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o .
-        mv -T zUMIs_output zUMIs_output_downsampled_mixed
+        cd multigenome_QUARTZseq_DS/{wildcards.sample}_human
+        bash {zUMI_path}/zUMIs-master.sh -f {input.fastq_R2} -r {input.fastq_R1} -c 1-6 -m 7-14 -l 52 -g {human_STAR_genome} -a {human_gtf} -n {protocol} -p 8 -b {bc_list2} -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o .
+        mv zUMIs_output zUMIs_output_main
+        bash {zUMI_path}/zUMIs-master.sh -w Counting -f {input.fastq_R2} -r {input.fastq_R1} -c 1-6 -m 7-14 -l 52 -g {human_STAR_genome} -a {human_gtf} -n {protocol} -p 8 -b {bc_list2} -d 15000 -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o .
+        mv zUMIs_output zUMIs_output_downsampled_fixed
+        bash {zUMI_path}/zUMIs-master.sh -w Counting -f {input.fastq_R2} -r {input.fastq_R1} -c 1-6 -m 7-14 -l 52 -g {human_STAR_genome} -a {human_gtf} -n {protocol} -p 8 -b {bc_list2} -d 5000-15000 -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o .
+        mv zUMIs_output zUMIs_output_downsampled_range
+        bash {zUMI_path}/zUMIs-master.sh -w Counting -f {input.fastq_R2} -r {input.fastq_R1} -c 1-6 -m 7-14 -l 52 -g {human_STAR_genome} -a {human_gtf} -n {protocol} -p 8 -b {bc_list2} -d 15000,5000-15000,20000 -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o .
+        mv zUMIs_output zUMIs_output_downsampled_mixed
         cd ../..
         """
+    
         
 # So far by zUMI_run rule, we would have STAR alignment bam files, as well as quantifications and everything!
 # For the next step we want to demultiplex bam files of the mixed species
