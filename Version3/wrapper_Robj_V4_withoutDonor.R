@@ -140,6 +140,7 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
     print(dim(sample.mmus.Ambiguity.reads))
     print(dim(sample.mmus.nread))
     print(dim(sample.hsap.metadata))
+    print(head(sample.hsap.metadata))
     rownames(sample.hsap.metadata) <- sample.hsap.metadata$cellID
     sample.hsap.metadata <- sample.hsap.metadata[-nrow(sample.hsap.metadata),-2]
     hsap.metadata.list[[sample.ID]] <- sample.hsap.metadata
