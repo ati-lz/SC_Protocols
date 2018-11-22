@@ -132,7 +132,7 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
                                           sample.hsap.nUMI, sample.hsap.ng, sample.species, sample.library), by = "cellID", type = 'full')
     print("is the problem here?")
     print(length(sample.hsap.metadata$cellID))
-    print(as.character(sample.hsap.metadata$cellID[which(duplicated(sample.hsap.metadata$cellID))]))
+    print(as.character(sample.hsap.metadata$cellID[1]))
     rownames(sample.hsap.metadata) <- sample.hsap.metadata$cellID
     sample.hsap.metadata <- sample.hsap.metadata[-nrow(sample.hsap.metadata),-2]
     hsap.metadata.list[[sample.ID]] <- sample.hsap.metadata
