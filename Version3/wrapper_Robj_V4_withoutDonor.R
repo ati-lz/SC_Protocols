@@ -74,14 +74,14 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
     sample.hng.file <- read.table(hsap_nGene_list[sample], header = T)
     sample.hnUMI.file <- read.table(hsap_nUMI_list[sample], header = T)
     sample.hnread.file <- read.table(hsap_nread_list[sample], header = T, sep = ",")
-    sample.hfeatures.file <- readRDS(hsap_nFeatures_list[sample])
+    sample.hfeatures.file <- as.data.frame(readRDS(hsap_nFeatures_list[sample]))
     if (NA %in% sample.hfeatures.file$type){
       sample.hfeatures.file$type <- factor(sample.hfeatures.file$type, levels = levels(addNA(sample.hfeatures.file$type)), labels = c(levels(sample.hfeatures.file$type), "Multimapping"), eRGlude = NULL)}
     
     sample.mng.file <- read.table(mmus_nGene_list[sample], header = T)
     sample.mnUMI.file <- read.table(mmus_nUMI_list[sample], header = T)
     sample.mnread.file <- read.table(mmus_nread_list[sample], header = T, sep = ",")
-    sample.mfeatures.file <- readRDS(mmus_nFeatures_list[sample])
+    sample.mfeatures.file <- as.data.frame(readRDS(mmus_nFeatures_list[sample]))
     if (NA %in% sample.mfeatures.file$type){
       sample.mfeatures.file$type <- factor(sample.mfeatures.file$type, levels = levels(addNA(sample.mfeatures.file$type)), labels = c(levels(sample.mfeatures.file$type), "Multimapping"), eRGlude = NULL)}
     
@@ -139,6 +139,9 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
     print(class(as.character(sample.hfeatures.file[which(sample.hfeatures.file$type == "Exon"), "RG"])))
     cellIDtest=create_cell_IDs(as.character(sample.hfeatures.file[which(sample.hfeatures.file$type == "Exon"), "RG"]), id.type = "cell_Barcode",tech = technology, lib = sample.ID)
     print(cellIDtest[1])
+    print(as.character(sample.hfeatures.file[which(sample.hfeatures.file$type == "Exon"), "RG"])[1:5])
+    print(tech)
+    print(sample.ID)
     
     rownames(sample.hsap.metadata) <- sample.hsap.metadata$cellID
     sample.hsap.metadata <- sample.hsap.metadata[-nrow(sample.hsap.metadata),-2]
