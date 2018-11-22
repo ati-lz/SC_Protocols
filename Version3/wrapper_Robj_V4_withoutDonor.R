@@ -70,6 +70,7 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
   mmus.ExpsMat.list <- list()
   mmus.metadata.list <- list()
   for (sample in 1:number_of_samples){
+    print ("in the loop")
     sample.hng.file <- read.table(hsap_nGene_list[sample], header = T)
     sample.hnUMI.file <- read.table(hsap_nUMI_list[sample], header = T)
     sample.hnread.file <- read.table(hsap_nread_list[sample], header = T, sep = ",")
@@ -89,6 +90,7 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
     sample.mmusExp.obj <- readRDS(mmusExp_list[sample])
     sample.ID.pre <- unlist(strsplit(unlist(strsplit(hsap_nread_list[sample], "/"))[2],"_")) #for local 6
     sample.ID <- paste(sample.ID.pre[-length(sample.ID.pre)], collapse = ".")
+    print(sample.ID)
     
     #sample.exon.reads <- as.data.frame(sample.features.file[which(sample.features.file$type == "exon"), "N"], row.names = create_cell_IDs(sample.features.file[which(sample.features.file$type == "exon"), "RG"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)); colnames(sample.exon.reads) <- "nExonReads" 
     #sample.intron.reads <- as.data.frame(sample.features.file[which(sample.features.file$type == "intron"), "N"], row.names = create_cell_IDs(sample.features.file[which(sample.features.file$type == "intron"), "RG"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)); colnames(sample.exon.reads) <- "nIntronReads" 
@@ -133,6 +135,11 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
     print("is the problem here?")
     print(length(sample.hsap.metadata$cellID))
     print(as.character(sample.hsap.metadata$cellID[1]))
+    print(dim(sample.hsap.exon.reads))
+    print(dim(sample.hsap.intron.reads))
+    print(dim(sample.mmus.Ambiguity.reads))
+    print(dim(sample.mmus.nread))
+    print(dim(sample.hsap.metadata))
     rownames(sample.hsap.metadata) <- sample.hsap.metadata$cellID
     sample.hsap.metadata <- sample.hsap.metadata[-nrow(sample.hsap.metadata),-2]
     hsap.metadata.list[[sample.ID]] <- sample.hsap.metadata
