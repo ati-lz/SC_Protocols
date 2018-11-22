@@ -35,7 +35,7 @@ rule zUMI_run:
         fastq_R1=fastq_path+'/{sample}_1.fastq.gz',
         fastq_R2=fastq_path+'/{sample}_2.fastq.gz'
         #sample_id='{sample}'
-   output:
+    output:
         dir='multigenome_QUARTZseq_DS/{sample}_human/'+protocol+'.aligned.sorted.bam',
         dir_file11='multigenome_QUARTZseq_DS/{sample}_human/'+protocol+'.barcodelist.filtered.sort.sam'
 
