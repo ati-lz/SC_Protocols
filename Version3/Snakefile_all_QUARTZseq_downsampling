@@ -43,9 +43,9 @@ rule zUMI_run:
     shell:
         """
         cd multigenome_QUARTZseq_DS/{wildcards.sample}_human
-        bash {zUMI_path}/zUMIs-master.sh -f {input.fastq_R2} -r {input.fastq_R1} -c 1-6 -m 7-14 -l 52 -g {human_STAR_genome} -a {human_gtf} -n {protocol} -p 8 -b {bc_list2} -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o .
+        bash {zUMI_path}/zUMIs-master.sh -f {input.fastq_R1} -r {input.fastq_R2} -c 1-15 -m 16-23 -l 62 -g {human_STAR_genome} -a {human_gtf} -n {protocol} -p 8 -b {bc_list2} -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o .
         mv zUMIs_output zUMIs_output_main
-        bash {zUMI_path}/zUMIs-master.sh -w Counting -f {input.fastq_R2} -r {input.fastq_R1} -c 1-6 -m 7-14 -l 52 -g {human_STAR_genome} -a {human_gtf} -n {protocol} -p 8 -b {bc_list2} -d 20000,5000,10000,15000 -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o .
+        bash {zUMI_path}/zUMIs-master.sh -w Counting -f {input.fastq_R1} -r {input.fastq_R2} -c 1-15 -m 16-23 -l 62 -g {human_STAR_genome} -a {human_gtf} -n {protocol} -p 8 -b {bc_list2} -d 20000,5000,10000,15000 -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o .
         mv zUMIs_output zUMIs_output_downsampled
         cd ../..
         """
