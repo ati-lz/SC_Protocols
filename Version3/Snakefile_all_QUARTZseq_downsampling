@@ -27,7 +27,9 @@ SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
     input:
-        expand('multigenome_QUARTZseq_DS/{sample}_human/'+protocol+'.aligned.sorted.bam', sample=SAMPLES)
+        "multigenome_QUARTZseq_DS/"+protocol+".hsap.full.SCE.Robj",
+        "multigenome_QUARTZseq_DS/"+protocol+".mmus.full.SCE.Robj"
+        #expand('multigenome_QUARTZseq_DS/{sample}_human/'+protocol+'.aligned.sorted.bam', sample=SAMPLES)
 
 
 rule zUMI_run:
@@ -37,12 +39,14 @@ rule zUMI_run:
         #sample_id='{sample}'
     output:
         dir='multigenome_QUARTZseq_DS/{sample}_human/'+protocol+'.aligned.sorted.bam',
-        dir_file11='multigenome_QUARTZseq_DS/{sample}_human/'+protocol+'.barcodelist.filtered.sort.sam'
+        dir_file11='multigenome_QUARTZseq_DS/{sample}_human/'+protocol+'.barcodelist.filtered.sort.sam',
+        dir_exp='multigenome_QUARTZseq_DS/{sample}_human/zUMIs_output_downsampled/expression/'+protocol+'.dgecounts.rds'
 
 
     shell:
         """
         cd multigenome_QUARTZseq_DS/{wildcards.sample}_human
+        rm -r zUMIs_output_downsampled
         bash {zUMI_path}/zUMIs-master.sh -f {input.fastq_R1} -r {input.fastq_R2} -c 1-15 -m 16-23 -l 62 -g {human_STAR_genome} -a {human_gtf} -n {protocol} -p 8 -b {bc_list2} -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o .
         mv zUMIs_output zUMIs_output_main
         bash {zUMI_path}/zUMIs-master.sh -w Counting -f {input.fastq_R1} -r {input.fastq_R2} -c 1-15 -m 16-23 -l 62 -g {human_STAR_genome} -a {human_gtf} -n {protocol} -p 8 -b {bc_list2} -d 20000,5000,10000,15000 -x '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000' -i {zUMI_path} -o .
