@@ -79,4 +79,4 @@ rule R_wrapper:
         hsap_Robj= "multigenome_QUARTZseq_DS/"+protocol+".hsap.full.SCE.Robj",
         mmus_Robj= "multigenome_QUARTZseq_DS/"+protocol+".mmus.full.SCE.Robj"
     shell:
-        "Rscript wrapper_Robj_V4_withoutDonor.R --hsapExp {input.hE_list} --mmusExp {input.mE_list} --hnReads {input.h_nR_list} --hnUMI {input.h_nU_list} --hnGene {input.h_nG_list} --hnFeatures {input.h_nF_list} --mnReads {input.m_nR_list} --mnUMI {input.m_nU_list} --mnGene {input.m_nG_list} --mnFeatures {input.m_nF_list} --species {input.spec_list} --output_SCEobj ./multigenome_QUARTZseq_DS --technology QUARTZseq"
+        "Rscript wrapper_Robj_V4_withoutDonor.R --hsapExp {input.hE_list} --output_SCEobj ./multigenome_QUARTZseq_DS --technology QUARTZseq"
