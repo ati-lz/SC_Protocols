@@ -56,3 +56,23 @@ rule zUMI_run:
 
 # This rule combines the aligned.sorted.bam with the barcode information from hca04.barcodelist.filtered.sort.sam ! Basically, I split the barcode sequence into tags that get added to the aligned bam file.
 #So for each protocol I will need to adjust the ranges 
+rule prepare_R_inputs:
+    input:
+        hsap_Exprs= expand('multigenome_QUARTZseq_DS/{sample}_human/zUMIs_output_downsampled/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES)
+    
+    output:
+        hsapExp_list="multigenome_QUARTZseq_DS/"+protocol+'_Hsap_expression_DS_list.txt',
+        #vcfs_list="multigenome_QUARTZseq_DS/"+protocol+'_VCFs_list.txt'
+
+    shell:
+        """
+        echo -e "{input.hsap_Exprs}" >> {output.hsapExp_list}
+        """
+rule R_wrapper:
+    input:
+        hE_list="multigenome_QUARTZseq_DS/"+protocol+"_Hsap_expression_list.txt"
+    output:
+        hsap_Robj= "multigenome_QUARTZseq_DS/"+protocol+".hsap.full.SCE.Robj",
+        mmus_Robj= "multigenome_QUARTZseq_DS/"+protocol+".mmus.full.SCE.Robj"
+    shell:
+        "Rscript wrapper_Robj_V4_withoutDonor.R --hsapExp {input.hE_list} --mmusExp {input.mE_list} --hnReads {input.h_nR_list} --hnUMI {input.h_nU_list} --hnGene {input.h_nG_list} --hnFeatures {input.h_nF_list} --mnReads {input.m_nR_list} --mnUMI {input.m_nU_list} --mnGene {input.m_nG_list} --mnFeatures {input.m_nF_list} --species {input.spec_list} --output_SCEobj ./multigenome_QUARTZseq_DS --technology QUARTZseq"
