@@ -38,9 +38,9 @@ rule zUMI_run:
         fastq_R2=fastq_path+'/{sample}_2.fastq.gz'
         #sample_id='{sample}'
     output:
-        dir=expand('multigenome_QUARTZseq_DS/{sample}_human/'+protocol+'.aligned.sorted.bam',sample=SAMPLES),
-        dir_file11=expand('multigenome_QUARTZseq_DS/{sample}_human/'+protocol+'.barcodelist.filtered.sort.sam',sample=SAMPLES),
-        dir_exp=expand('multigenome_QUARTZseq_DS/{sample}_human/zUMIs_output_downsampled/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES)
+        dir='multigenome_QUARTZseq_DS/{sample}_human/'+protocol+'.aligned.sorted.bam',
+        dir_file11='multigenome_QUARTZseq_DS/{sample}_human/'+protocol+'.barcodelist.filtered.sort.sam',
+        dir_exp='multigenome_QUARTZseq_DS/{sample}_human/zUMIs_output_downsampled/expression/'+protocol+'.dgecounts.rds'
 
 
     shell:
@@ -62,7 +62,7 @@ rule zUMI_run:
 #So for each protocol I will need to adjust the ranges 
 rule prepare_R_inputs:
     input:
-        hsap_Exprs='multigenome_QUARTZseq_DS/{sample}_human/zUMIs_output_downsampled/expression/'+protocol+'.dgecounts.rds'
+        hsap_Exprs= expand('multigenome_QUARTZseq_DS/{sample}_human/zUMIs_output_downsampled/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES)
     
     output:
         hsapExp_list="multigenome_QUARTZseq_DS/"+protocol+'_Hsap_expression_DS_list.txt',
