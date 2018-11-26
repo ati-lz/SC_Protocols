@@ -71,8 +71,8 @@ rule create_yaml:
 
 rule fix_yaml:
     input: 
-        yamlin_hsap="YAMLs/"+protocol+"_hsap_{sample}.yaml",
-        yamlin_DS="YAMLs/"+protocol+"_DS_{sample}.yaml"
+        yamlin_hsap= extend("YAMLs/"+protocol+"_hsap_{sample}.yaml",sample=SAMPLES),
+        yamlin_DS= extend("YAMLs/"+protocol+"_DS_{sample}.yaml",sample=SAMPLES)
     output:
         yamlOutFix_hsap="YAMLs_fixed/"+protocol+"_hsap_{sample}_fixed.yaml",
         yamlOutFix_DS="YAMLs_fixed/"+protocol+"_DS_{sample}_fixed.yaml"
