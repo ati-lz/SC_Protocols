@@ -36,8 +36,9 @@ main <- function(hsapExp, output_SCEobj, technology) {
     print(sample.ID)
     
     for (range in 1:length(DS.ranges)){
-      mat <- sample.hsapExp.obj$intron.exon$downsampled[[range]][[1]]
+      mat <- as.data.frame(sample.hsapExp.obj$intron.exon$downsampled[[range]][[1]])
       colnames(mat) <- create_cell_IDs(colnames(mat), id.type = "cell_Barcode",tech = technology, lib = sample.ID)
+      mat$rn <- rownames(mat)
       hsap.DS.ExpsMat.all[[range]][[sample.ID]] <- c(hsap.DS.ExpsMat.all[[range]][[sample.ID]], mat)#change ds.data.mixed to init.hsapExp.obj
     }
   }
@@ -79,3 +80,13 @@ opt <- docopt::docopt(doc, version = "version 0.0.1\n")
 
 ## Run main function
 main(opt$hsapExp, opt$output_SCEobj, opt$technology)
+
+
+#hsap.DS.ExpsMat.all
+#number_of_samples = names(hsap.DS.ExpsMat.all[[1]])
+#final.list = list()
+#for (DS.range in 1:length(hsap.DS.ExpsMat.all)){
+#  range.number = names(hsap.DS.ExpsMat.all[[DS.range]])
+#  range.all.samples = join_all(hsap.DS.ExpsMat.all[[DS.range]])
+  
+#}
