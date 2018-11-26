@@ -54,7 +54,7 @@ main <- function(hsapExp, output_SCEobj, technology) {
     joint.mat <- joint.mat[,!(names(joint.mat) %in% c("rn"))]
     joint.mat[is.na(joint.mat)] <- 0
     
-    final.sample.merged.mat$ds.name <- joint.mat
+    final.sample.merged.mat[[ds.name]] <- joint.mat
   }
   #save(hsap.DS.ExpsMat.all, file = paste(output_SCEobj,"/", technology,".hsap.full.SCE.Robj", sep = ""))
   save(final.sample.merged.mat, file = paste(output_SCEobj,"/", technology,".hsap.full.SCE.jointDSmat.Robj", sep = ""))
