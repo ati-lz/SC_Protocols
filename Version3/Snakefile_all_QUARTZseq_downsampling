@@ -27,8 +27,7 @@ SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
     input:
-        "multigenome_QUARTZseq_DS/"+protocol+".hsap.full.SCE.Robj",
-        "multigenome_QUARTZseq_DS/"+protocol+".mmus.full.SCE.Robj"
+        "multigenome_QUARTZseq_DS/"+protocol+".hsap.full.SCE.Robj"
         #expand('multigenome_QUARTZseq_DS/{sample}_human/'+protocol+'.aligned.sorted.bam', sample=SAMPLES)
 
 
