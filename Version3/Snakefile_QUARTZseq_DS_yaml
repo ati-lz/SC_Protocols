@@ -29,8 +29,8 @@ rule all:
     input:
         "YAMLs_fixed/"+protocol+"_hsap_{sample}_fixed.yaml",
         "YAMLs_fixed/"+protocol+"_DS_{sample}_fixed.yaml"
-        #"multigenome_QUARTZseq_DS/"+protocol+".hsap.full.SCE.jointDSmat.Robj"
-        #expand('multigenome_QUARTZseq_DS/{sample}_human/'+protocol+'.aligned.sorted.bam', sample=SAMPLES)
+        #"multigenome_QUARTZseq_DS_YAML/"+protocol+".hsap.full.SCE.jointDSmat.Robj"
+        #expand('multigenome_QUARTZseq_DS_YAML/{sample}_human/'+protocol+'.aligned.sorted.bam', sample=SAMPLES)
 
 
 rule create_yaml:
@@ -59,7 +59,7 @@ rule create_yaml:
         data_hsap['reference']['STAR_index'] = '/project/devel/alafzi/ref_genomes/human/STARgenome'
         data_hsap['reference']['GTF_file'] = '/project/devel/alafzi/ref_genomes/human/hsa_gencode.v28.annotation.gtf'
         data_hsap['reference']['additional_STAR_params'] = '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000'
-        data_hsap['out_dir'] = "/project/devel/alafzi/SC_Protocols/Version3/multigenome_QUARTZseq_DS/"+wildcards.sample+"_human"
+        data_hsap['out_dir'] = "/project/devel/alafzi/SC_Protocols/Version3/multigenome_QUARTZseq_DS_YAML/"+wildcards.sample+"_human"
         with open(output.yamlOut_hsap, 'w') as out_hsap:
             yaml.dump(data_hsap, out_hsap, default_flow_style=False)
         data_DS = data_hsap
@@ -89,15 +89,15 @@ rule zUMI_run:
         yaml_DS="YAMLs_fixed/"+protocol + "_DS_{sample}_fixed.yaml"
 
     output:
-        dir='multigenome_QUARTZseq_DS/{sample}_human/'+protocol+'.aligned.sorted.bam',
-        dir_file11='multigenome_QUARTZseq_DS/{sample}_human/zUMIs_output/'+protocol+'.barcodelist.filtered.sort.sam',
-        dir_exp='multigenome_QUARTZseq_DS/{sample}_human/zUMIs_output_downsampled/expression/'+protocol+'.dgecounts.rds'
+        dir='multigenome_QUARTZseq_DS_YAML/{sample}_human/'+protocol+'.aligned.sorted.bam',
+        dir_file11='multigenome_QUARTZseq_DS_YAML/{sample}_human/zUMIs_output/'+protocol+'.barcodelist.filtered.sort.sam',
+        dir_exp='multigenome_QUARTZseq_DS_YAML/{sample}_human/zUMIs_output_downsampled/expression/'+protocol+'.dgecounts.rds'
 
         
 
     shell:
         """
-        cd multigenome_QUARTZseq_DS/{wildcards.sample}_human
+        cd multigenome_QUARTZseq_DS_YAML/{wildcards.sample}_human
         rm -r zUMIs_output_downsampled
         bash {zUMI_path}/zUMIs-master.sh -y ../../{input.yaml_hsap}
         mv zUMIs_output zUMIs_output_main
@@ -114,11 +114,11 @@ rule zUMI_run:
 #So for each protocol I will need to adjust the ranges 
 rule prepare_R_inputs:
     input:
-        hsap_Exprs= expand('multigenome_QUARTZseq_DS/{sample}_human/zUMIs_output_downsampled/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES)
+        hsap_Exprs= expand('multigenome_QUARTZseq_DS_YAML/{sample}_human/zUMIs_output_downsampled/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES)
     
     output:
-        hsapExp_list="multigenome_QUARTZseq_DS/"+protocol+'_Hsap_expression_DS_list.txt',
-        #vcfs_list="multigenome_QUARTZseq_DS/"+protocol+'_VCFs_list.txt'
+        hsapExp_list="multigenome_QUARTZseq_DS_YAML/"+protocol+'_Hsap_expression_DS_list.txt',
+        #vcfs_list="multigenome_QUARTZseq_DS_YAML/"+protocol+'_VCFs_list.txt'
 
     shell:
         """
@@ -126,8 +126,8 @@ rule prepare_R_inputs:
         """
 rule R_wrapper:
     input:
-        hE_list="multigenome_QUARTZseq_DS/"+protocol+"_Hsap_expression_DS_list.txt"
+        hE_list="multigenome_QUARTZseq_DS_YAML/"+protocol+"_Hsap_expression_DS_list.txt"
     output:
-        hsap_Robj= "multigenome_QUARTZseq_DS/"+protocol+".hsap.full.SCE.jointDSmat.Robj"
+        hsap_Robj= "multigenome_QUARTZseq_DS_YAML/"+protocol+".hsap.full.SCE.jointDSmat.Robj"
     shell:
-        "Rscript wrapper_Downsampled_Robj.R --hsapExp {input.hE_list} --output_SCEobj ./multigenome_QUARTZseq_DS --technology QUARTZseq"
+        "Rscript wrapper_Downsampled_Robj.R --hsapExp {input.hE_list} --output_SCEobj ./multigenome_QUARTZseq_DS_YAML --technology QUARTZseq"
