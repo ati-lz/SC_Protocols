@@ -28,9 +28,9 @@ SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
     input:
-        expand("YAMLs/"+protocol+"_hsap_{sample}.yaml",sample=SAMPLES),
-        expand("YAMLs/"+protocol+"_DS_{sample}.yaml",sample=SAMPLES)
-        #"multigenome_QUARTZseq_DS_YAML/"+protocol+".hsap.full.SCE.jointDSmat.Robj"
+        "multigenome_QUARTZseq_DS_YAML/"+protocol+".hsap.full.SCE.jointDSmat.Robj"
+        #expand("YAMLs/"+protocol+"_hsap_{sample}.yaml",sample=SAMPLES),
+        #expand("YAMLs/"+protocol+"_DS_{sample}.yaml",sample=SAMPLES)
         #expand('multigenome_QUARTZseq_DS_YAML/{sample}_human/'+protocol+'.aligned.sorted.bam', sample=SAMPLES)
 
 
