@@ -39,7 +39,8 @@ main <- function(hsapExp, output_SCEobj, technology) {
       mat <- as.data.frame(as.matrix(sample.hsapExp.obj$intron.exon$downsampled[[range]][[1]]))
       colnames(mat) <- create_cell_IDs(colnames(mat), id.type = "cell_Barcode",tech = technology, lib = sample.ID)
       mat$rn <- rownames(mat)
-      hsap.DS.ExpsMat.all[[range]][[sample.ID]] <- c(hsap.DS.ExpsMat.all[[range]][[sample.ID]], list(mat))#change ds.data.mixed to init.hsapExp.obj
+      hsap.DS.ExpsMat.all[[range]][[sample.ID]] <- mat #change ds.data.mixed to init.hsapExp.obj
+      #hsap.DS.ExpsMat.all[[range]][[sample.ID]] <- c(hsap.DS.ExpsMat.all[[range]][[sample.ID]], list(mat))#change ds.data.mixed to init.hsapExp.obj
       #hsap.DS.ExpsMat.all[[range]] <- list(hsap.DS.ExpsMat.all[[range]], mat)#change ds.data.mixed to init.hsapExp.obj
       
     }
@@ -92,3 +93,4 @@ main(opt$hsapExp, opt$output_SCEobj, opt$technology)
 #  range.all.samples = join_all(hsap.DS.ExpsMat.all[[DS.range]])
   
 #}
+#full.test <- join_all(hsap.DS.ExpsMat.all$downsampled_20000, by = "rn", type = 'full')
