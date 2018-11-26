@@ -1,4 +1,5 @@
 from os import listdir
+import yaml
 
 #Path to sample fastq files
 fastq_path = '/project/devel/HCA/Riken/fastq_pool_merged/'
