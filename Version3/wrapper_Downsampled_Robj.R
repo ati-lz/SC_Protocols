@@ -30,7 +30,8 @@ main <- function(hsapExp, output_SCEobj, technology) {
   for (sample in 1:number_of_samples){
     print ("in the loop")
     sample.hsapExp.obj <- readRDS(hsapExp_list[sample])
-    sample.ID.pre <- unlist(strsplit(unlist(strsplit(hsap_nread_list[sample], "/"))[2],"_")) #for local 6
+    sample.ID.pre <- unlist(strsplit(unlist(strsplit(hsapExp_list[sample], "/"))[2],"_")) #for local 6
+    print(sample.ID.pre)
     sample.ID <- paste(sample.ID.pre[-length(sample.ID.pre)], collapse = ".")
     print(sample.ID)
     
