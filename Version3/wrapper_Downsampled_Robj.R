@@ -23,7 +23,7 @@ main <- function(hsapExp, output_SCEobj, technology) {
   hsapExp_list <- scan(hsapExp, what="", sep=" ")
   number_of_samples <- length(hsapExp_list)
   init.hsapExp.obj <- readRDS(hsapExp_list[1])
-  DS.ranges <- names(ds.data.mixed$intron.exon$downsampled) #change ds.data.mixed to init.hsapExp.obj
+  DS.ranges <- names(init.hsapExp.obj$intron.exon$downsampled) #change ds.data.mixed to init.hsapExp.obj
   
   hsap.DS.ExpsMat.all <- vector("list", length(DS.ranges))
   names(hsap.DS.ExpsMat.all) <- DS.ranges
