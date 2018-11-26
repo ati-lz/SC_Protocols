@@ -27,8 +27,8 @@ SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
     input:
-        "YAMLs_fixed/"+protocol+"_hsap_{sample}_fixed.yaml",
-        "YAMLs_fixed/"+protocol+"_DS_{sample}_fixed.yaml"
+        expand("YAMLs/"+protocol+"_hsap_{sample}.yaml",sample=SAMPLES),
+        expand("YAMLs/"+protocol+"_DS_{sample}.yaml",sample=SAMPLES)
         #"multigenome_QUARTZseq_DS_YAML/"+protocol+".hsap.full.SCE.jointDSmat.Robj"
         #expand('multigenome_QUARTZseq_DS_YAML/{sample}_human/'+protocol+'.aligned.sorted.bam', sample=SAMPLES)
 
@@ -71,8 +71,8 @@ rule create_yaml:
 
 rule fix_yaml:
     input: 
-        yamlin_hsap= expand("YAMLs/"+protocol+"_hsap_{sample}.yaml",sample=SAMPLES),
-        yamlin_DS= expand("YAMLs/"+protocol+"_DS_{sample}.yaml",sample=SAMPLES)
+        yamlin_hsap= "YAMLs/"+protocol+"_hsap_{sample}.yaml",
+        yamlin_DS= "YAMLs/"+protocol+"_DS_{sample}.yaml"
     output:
         yamlOutFix_hsap="YAMLs_fixed/"+protocol+"_hsap_{sample}_fixed.yaml",
         yamlOutFix_DS="YAMLs_fixed/"+protocol+"_DS_{sample}_fixed.yaml"
