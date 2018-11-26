@@ -45,8 +45,19 @@ main <- function(hsapExp, output_SCEobj, technology) {
       
     }
   }
-  save(hsap.DS.ExpsMat.all, file = paste(output_SCEobj,"/", technology,".hsap.full.SCE.Robj", sep = ""))
-  #save(full.SCE.hsap, file = paste(output_SCEobj,"/", technology,".hsap.full.SCE.Robj", sep = ""))
+  
+  final.sample.merged.mat <- list()
+  for (i in 1:length(DS.ranges)){
+    ds.name = DS.ranges[i]
+    joint.mat <- join_all(hsap.DS.ExpsMat.all[[i]], by = "rn", type = 'full')
+    rownames(joint.mat) <- joint.mat$rn
+    joint.mat <- joint.mat[,!(names(joint.mat) %in% c("rn"))]
+    joint.mat[is.na(joint.mat)] <- 0
+    
+    final.sample.merged.mat$ds.name <- joint.mat
+  }
+  #save(hsap.DS.ExpsMat.all, file = paste(output_SCEobj,"/", technology,".hsap.full.SCE.Robj", sep = ""))
+  save(final.sample.merged.mat, file = paste(output_SCEobj,"/", technology,".hsap.full.SCE.jointDSmat.Robj", sep = ""))
   #save(full.SCE.mmus, file = paste(output_SCEobj,"/", technology,".mmus.full.SCE.Robj", sep = ""))
   
   return("Done")
@@ -83,14 +94,3 @@ opt <- docopt::docopt(doc, version = "version 0.0.1\n")
 
 ## Run main function
 main(opt$hsapExp, opt$output_SCEobj, opt$technology)
-
-
-#hsap.DS.ExpsMat.all
-#number_of_samples = names(hsap.DS.ExpsMat.all[[1]])
-#final.list = list()
-#for (DS.range in 1:length(hsap.DS.ExpsMat.all)){
-#  range.number = names(hsap.DS.ExpsMat.all[[DS.range]])
-#  range.all.samples = join_all(hsap.DS.ExpsMat.all[[DS.range]])
-  
-#}
-#full.test <- join_all(hsap.DS.ExpsMat.all$downsampled_20000, by = "rn", type = 'full')

@@ -27,7 +27,7 @@ SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
     input:
-        "multigenome_QUARTZseq_DS/"+protocol+".hsap.full.SCE.Robj"
+        "multigenome_QUARTZseq_DS/"+protocol+".hsap.full.SCE.jointDSmat.Robj"
         #expand('multigenome_QUARTZseq_DS/{sample}_human/'+protocol+'.aligned.sorted.bam', sample=SAMPLES)
 
 
@@ -75,6 +75,6 @@ rule R_wrapper:
     input:
         hE_list="multigenome_QUARTZseq_DS/"+protocol+"_Hsap_expression_DS_list.txt"
     output:
-        hsap_Robj= "multigenome_QUARTZseq_DS/"+protocol+".hsap.full.SCE.Robj"
+        hsap_Robj= "multigenome_QUARTZseq_DS/"+protocol+".hsap.full.SCE.jointDSmat.Robj"
     shell:
         "Rscript wrapper_Downsampled_Robj.R --hsapExp {input.hE_list} --output_SCEobj ./multigenome_QUARTZseq_DS --technology QUARTZseq"
