@@ -90,8 +90,8 @@ rule zUMI_run:
         yaml_DS="YAMLs_fixed/"+protocol + "_DS_{sample}_fixed.yaml"
 
     output:
-        dir='multigenome_QUARTZseq_DS_YAML/{sample}_human/'+protocol+'.aligned.sorted.bam',
-        dir_file11='multigenome_QUARTZseq_DS_YAML/{sample}_human/zUMIs_output/'+protocol+'.barcodelist.filtered.sort.sam',
+        dir='multigenome_QUARTZseq_DS_YAML/{sample}_human/'+protocol+'.filtered.tagged.Aligned.out.bam',
+        dir_file11='multigenome_QUARTZseq_DS_YAML/{sample}_human/'+protocol+'.BCstats.txt',
         dir_exp='multigenome_QUARTZseq_DS_YAML/{sample}_human/zUMIs_output_downsampled/expression/'+protocol+'.dgecounts.rds'
 
         
