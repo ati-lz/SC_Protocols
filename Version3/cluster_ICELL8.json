@@ -1,0 +1,11 @@
+{
+    
+    "__default__" :
+    {
+        "cpus_per_task" : 8,
+        "job_name" : "ICELL8.{wildcards}",
+        "output" : "mnout/ICELL8_{wildcards}.out",
+        "error" : "mnout/ICELL8_{wildcards}.err"
+    }
+
+}
