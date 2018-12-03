@@ -1,0 +1,10 @@
+{
+    
+    "__default__" :
+    {
+        "cpus_per_task" : 15,
+        "job_name" : "1CB.{wildcards}",
+        "output" : "mnout/1CB_{wildcards}.out",
+        "error" : "mnout/1CB_{wildcards}.err"
+    }
+
