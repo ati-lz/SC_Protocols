@@ -12,7 +12,7 @@ mixed_STAR_genome= '/project/devel/alafzi/ref_genomes/mixed/STARgenome'
 
 zUMI_path='/apps/ZUMIS/2.2'
 #bc_list2= '/scratch/devel/alafzi/HCA_04/bc_list2'
-protocol= 'SeqwellV2'
+protocol= 'SeqWellV2'
 
 #Loading modules
 #shell.executable("!/usr/bin/env bash")
