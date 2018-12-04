@@ -176,19 +176,25 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
   }
   print("loop is done")
   all.hsapExp <- join_all(hsap.ExpsMat.list, by = "rn", type = 'full')
+  print("hsap join is done")
   rownames(all.hsapExp) <- all.hsapExp$rn
   all.hsapExp <- all.hsapExp[,!(names(all.hsapExp) %in% c("rn"))]
   all.hsapExp[is.na(all.hsapExp)] <- 0
+  print("hsap exp is done")
   
   all.mmusExp <- join_all(mmus.ExpsMat.list, by = "rn", type = 'full')
+  print("mmus join is done")
   rownames(all.mmusExp) <- all.mmusExp$rn
   all.mmusExp <- all.mmusExp[,!(names(all.mmusExp) %in% c("rn"))]
   all.mmusExp[is.na(all.mmusExp)] <- 0
+  print("mmus exp is done")
   
   all.hsap.metadata <- do.call("rbind", hsap.metadata.list)
+  print("hsap rbind metadata is done")
   rownames(all.hsap.metadata) <- lapply(rownames(all.hsap.metadata), function (x) unlist(strsplit(x, "[.]"))[2])
   
   all.mmus.metadata <- do.call("rbind", mmus.metadata.list)
+  print("mmus rbind metadata is done")
   rownames(all.mmus.metadata) <- lapply(rownames(all.mmus.metadata), function (x) unlist(strsplit(x, "[.]"))[2])
   
   print("Making the SingleCellExperiment Objects")
