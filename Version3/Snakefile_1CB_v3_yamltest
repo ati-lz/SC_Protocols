@@ -32,7 +32,7 @@ rule all:
 
 rule create_yaml:
     input:
-         yaml = "pipeline_general.yaml"
+         yaml = "pipeline_InDrop.yaml"
     output:
         yamlOut_hsap="YAMLs/"+protocol+"_hsap_{sample}.yaml",
         yamlOut_mmus="YAMLs/"+protocol+"_mmus_{sample}.yaml",
@@ -46,12 +46,12 @@ rule create_yaml:
         data_hsap['project'] = 'InDropsV2'
         data_hsap['sequence_files']['file1']['name'] = fastq_path+ 'SP021_024015_' + wildcards.sample +'_merged_R1.fastq.gz'
         data_hsap['sequence_files']['file1']['base_definition'][0] = 'cDNA(1-36)'
-        #data_hsap['sequence_files']['file2']['name'] = fastq_path+ 'SP021_024015_' + wildcards.sample +'_merged_I1.fastq.gz'
-        #data_hsap['sequence_files']['file2']['base_definition'][0] = 'BC(1-6)'
-        data_hsap['sequence_files']['file2']['name'] = fastq_path+'SP021_024015_' + wildcards.sample +'_merged_R2.fastq.gz'
-        data_hsap['sequence_files']['file2']['base_definition'][0] = 'BC(1-8,31-38)'
-        data_hsap['sequence_files']['file2']['base_definition'][1] = 'UMI(39-44)'
-        data_hsap['sequence_files']['file2']['correct_frameshift'] = 'GAGTGATTGCTTGTGACGCCTT'
+        data_hsap['sequence_files']['file3']['name'] = fastq_path+ 'SP021_024015_' + wildcards.sample +'_merged_I1.fastq.gz'
+        data_hsap['sequence_files']['file3']['base_definition'][0] = 'BC(1-6)'
+        data_hsap['sequence_files']['file4']['name'] = fastq_path+'SP021_024015_' + wildcards.sample +'_merged_R2.fastq.gz'
+        data_hsap['sequence_files']['file4']['base_definition'][0] = 'BC(1-8,31-38)'
+        data_hsap['sequence_files']['file4']['base_definition'][1] = 'UMI(39-44)'
+        data_hsap['sequence_files']['file4']['correct_frameshift'] = 'GAGTGATTGCTTGTGACGCCTT'
         #data_hsap['num_threads'] = 8
         #data_hsap['make_stats'] = "yes"
         #data_hsap['which_Stage'] = 'Counting'
