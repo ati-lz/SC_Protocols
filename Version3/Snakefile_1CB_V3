@@ -2,7 +2,8 @@ from os import listdir
 import yaml
 
 #Path to sample fastq files
-fastq_path = '/project/devel/HCA/MDC_Berlin/1CellBio/re-demux/1CellBio_redemux_merged/'
+fastq_path = '/project/devel/HCA/MDC_Berlin/1CellBio/re-demux/PXXX/demux2/FASTQ/'
+#fastq_path = '/project/devel/HCA/MDC_Berlin/1CellBio/re-demux/1CellBio_redemux_merged/'
 human_gtf = '/project/devel/alafzi/ref_genomes/human/hsa_gencode.v28.annotation.gtf'
 human_STAR_genome= '/project/devel/alafzi/ref_genomes/human/STARgenome'
 mouse_gtf = '/project/devel/alafzi/ref_genomes/mouse/mmu_gencode.vM17.primary_assembly.annotation.gtf'
@@ -43,11 +44,11 @@ rule create_yaml:
         data_hsap = yaml.load(stream)
 
         data_hsap['project'] = protocol
-        data_hsap['sequence_files']['file1']['name'] = fastq_path+ 'SP021_024015_' + wildcards.sample +'_merged_R1.fastq.gz'
+        data_hsap['sequence_files']['file1']['name'] = fastq_path+ 'SP021_024_' + wildcards.sample +'_R1_001.fastq.gz'
         data_hsap['sequence_files']['file1']['base_definition'][0] = 'cDNA(1-36)'
-        data_hsap['sequence_files']['file3']['name'] = fastq_path+ 'SP021_024015_' + wildcards.sample +'_merged_I1.fastq.gz'
+        data_hsap['sequence_files']['file3']['name'] = fastq_path+ 'SP021_024_' + wildcards.sample +'_I1_001.fastq.gz'
         data_hsap['sequence_files']['file3']['base_definition'][0] = 'BC(1-6)'
-        data_hsap['sequence_files']['file4']['name'] = fastq_path+'SP021_024015_' + wildcards.sample +'_merged_R2.fastq.gz'
+        data_hsap['sequence_files']['file4']['name'] = fastq_path+ 'SP021_024_' + wildcards.sample +'_R2_001.fastq.gz'
         data_hsap['sequence_files']['file4']['base_definition'][0] = 'BC(1-8,31-38)'
         data_hsap['sequence_files']['file4']['base_definition'][1] = 'UMI(39-44)'
         data_hsap['sequence_files']['file4']['correct_frameshift'] = 'GAGTGATTGCTTGTGACGCCTT'
