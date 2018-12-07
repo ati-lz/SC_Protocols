@@ -2,7 +2,7 @@ from os import listdir
 import yaml
 
 #Path to sample fastq files
-fastq_path = '/project/devel/HCA/Stanford/all_runs/rawdata'
+fastq_path = '/project/devel/HCA/Stanford/all_runs/rawdata/'
 human_gtf = '/project/devel/alafzi/ref_genomes/human/hsa_gencode.v28.annotation.gtf'
 human_STAR_genome= '/project/devel/alafzi/ref_genomes/human/STARgenome'
 mouse_gtf = '/project/devel/alafzi/ref_genomes/mouse/mmu_gencode.vM17.primary_assembly.annotation.gtf'
