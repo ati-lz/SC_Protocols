@@ -90,7 +90,7 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
     sample.mmusExp.obj <- readRDS(mmusExp_list[sample])
     sample.ID.pre <- unlist(strsplit(unlist(strsplit(hsap_nread_list[sample], "/"))[2],"_")) #for local 6
     print(sample.ID.pre)
-    sample.ID <- paste(sample.ID.pre[-length(sample.ID.pre)], collapse = ".")
+    sample.ID <- paste(sample.ID.pre[-length(sample.ID.pre)], collapse = "_")
     print(sample.ID)
     
     #sample.exon.reads <- as.data.frame(sample.features.file[which(sample.features.file$type == "exon"), "N"], row.names = create_cell_IDs(sample.features.file[which(sample.features.file$type == "exon"), "RG"], id.type = "cell_Barcode",tech = technology, lib = sample.ID)); colnames(sample.exon.reads) <- "nExonReads" 
