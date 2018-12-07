@@ -89,6 +89,7 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
     sample.hsapExp.obj <- readRDS(hsapExp_list[sample])
     sample.mmusExp.obj <- readRDS(mmusExp_list[sample])
     sample.ID.pre <- unlist(strsplit(unlist(strsplit(hsap_nread_list[sample], "/"))[2],"_")) #for local 6
+    print(sample.ID.pre)
     sample.ID <- paste(sample.ID.pre[-length(sample.ID.pre)], collapse = ".")
     print(sample.ID)
     
@@ -191,6 +192,7 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
   
   all.hsap.metadata <- do.call("rbind", hsap.metadata.list)
   print("hsap rbind metadata is done")
+  print(rownames(all.hsap.metadata)[1:5])
   rownames(all.hsap.metadata) <- lapply(rownames(all.hsap.metadata), function (x) unlist(strsplit(x, "[.]"))[2])
   
   all.mmus.metadata <- do.call("rbind", mmus.metadata.list)
