@@ -2,10 +2,34 @@
     
     "__default__" :
     {
+        "cpus_per_task" : 4,
+        "job_name" : "ddSEQ.{wildcards}",
+        "output" : "mnout/ddSEQ_{wildcards}.out",
+        "error" : "mnout/ddSEQ_{wildcards}.err"
+    },
+
+    "zUMI_run" :
+    {
         "cpus_per_task" : 15,
         "job_name" : "ddSEQ.{wildcards}",
         "output" : "mnout/ddSEQ_{wildcards}.out",
         "error" : "mnout/ddSEQ_{wildcards}.err"
-    }
+    },
 
+    "demux_cells" :
+    {
+        "cpus_per_task" : 8,
+        "job_name" : "ddSEQ.{wildcards}",
+        "output" : "mnout/ddSEQ_{wildcards}.out",
+        "error" : "mnout/ddSEQ_{wildcards}.err"
+    },
+
+    "R_wrapper" :
+    {
+        "cpus_per_task" : 8,
+        "job_name" : "ddSEQ.{wildcards}",
+        "output" : "mnout/ddSEQ_{wildcards}.out",
+        "error" : "mnout/ddSEQ_{wildcards}.err"
+    }
 }
+
