@@ -1,0 +1,29 @@
+{
+    
+    "__default__" :
+    {
+        "cpus_per_task" : 4,
+        "job_name" : "SMARTseq2.{wildcards}",
+        "output" : "mnout/SMARTseq2_{wildcards}.out",
+        "error" : "mnout/SMARTseq2_{wildcards}.err"
+    },
+
+    "zUMI_run" :
+    {
+        "cpus_per_task" : 15,
+        "job_name" : "SMARTseq2.{wildcards}"
+    },
+
+    "demux_cells" :
+    {
+        "cpus_per_task" : 8,
+        "job_name" : "SMARTseq2.{wildcards}"
+    },
+
+    "R_wrapper" :
+    {
+        "cpus_per_task" : 8,
+        "job_name" : "SMARTseq2.{wildcards}"
+    }
+}
+
