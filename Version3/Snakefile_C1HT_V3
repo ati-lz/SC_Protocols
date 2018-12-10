@@ -205,20 +205,44 @@ rule prepare_R_inputs:
         species_list="multigenome_C1HT_V3/"+protocol+'_Species_info_list.txt'
         #vcfs_list="multigenome_C1HT_V3/"+protocol+'_VCFs_list.txt'
 
-    shell:
-        """
-        echo -e "{input.hsap_Exprs}" >> {output.hsapExp_list}
-        echo -e "{input.mmus_Exprs}" >> {output.mmusExp_list}
-        echo -e "{input.hsap_n_Reads}" >> {output.hsap_nReads_list}
-        echo -e "{input.hsap_n_Genes}" >> {output.hsap_nGenes_list}
-        echo -e "{input.hsap_n_UMIs}" >> {output.hsap_nUMIs_list}
-        echo -e "{input.hsap_n_Features}" >> {output.hsap_nFeatures_list}
-        echo -e "{input.mmus_n_Reads}" >> {output.mmus_nReads_list}
-        echo -e "{input.mmus_n_Genes}" >> {output.mmus_nGenes_list}
-        echo -e "{input.mmus_n_UMIs}" >> {output.mmus_nUMIs_list}
-        echo -e "{input.mmus_n_Features}" >> {output.mmus_nFeatures_list}
-        echo -e "{input.species_info}" >> {output.species_list}
-        """
+    run:
+
+        hsapExp_fout= open(output.hsapExp_list, 'w')
+        mmusExp_fout= open(output.mmusExp_list, 'w')
+        hsap_nReads_fout= open(output.hsap_nReads_list, 'w')
+        hsap_nGenes_fout= open(output.hsap_nGenes_list, 'w')
+        hsap_nUMIs_fout= open(output.hsap_nUMIs_list, 'w')
+        hsap_nFeatures_fout= open(output.hsap_nFeatures_list, 'w')
+        mmus_nReads_fout= open(output.mmus_nReads_list, 'w')
+        mmus_nGenes_fout= open(output.mmus_nGenes_list, 'w')
+        mmus_nUMIs_fout= open(output.mmus_nUMIs_list, 'w')
+        mmus_nFeatures_fout= open(output.mmus_nFeatures_list, 'w')
+        info_species_fout= open(output.species_list, 'w')
+
+        hsapExp_fout.write(input.hsap_Exprs + " ")
+        mmusExp_fout.write(input.mmus_Exprs + " ")
+        hsap_nReads_fout.write(input.hsap_n_Reads + " ")
+        hsap_nGenes_fout.write(input.hsap_n_Genes + " ")
+        hsap_nUMIs_fout.write(input.hsap_n_UMIs + " ")
+        hsap_nFeatures_fout.write(input.hsap_n_Features + " ")
+        mmus_nReads_fout.write(input.mmus_n_Reads + " ")
+        mmus_nGenes_fout.write(input.mmus_n_Genes + " ")
+        mmus_nUMIs_fout.write(input.mmus_n_UMIs + " ")
+        mmus_nFeatures_fout.write(input.mmus_n_Features + " ")
+        info_species_fout.write(input.species_info + " ")
+
+        hsapExp_fout.close()
+        mmusExp_fout.close()
+        hsap_nReads_fout.close()
+        hsap_nGenes_fout.close()
+        hsap_nUMIs_fout.close()
+        hsap_nFeatures_fout.close()
+        mmus_nReads_fout.close()
+        mmus_nGenes_fout.close()
+        mmus_nUMIs_fout.close()
+        mmus_nFeatures_fout.close()
+        info_species_fout.close()
+
 rule R_wrapper:
     input:
         hE_list="multigenome_C1HT_V3/"+protocol+'_Hsap_expression_list.txt',
