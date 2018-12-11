@@ -187,6 +187,8 @@ main <- function(hsapExp,mmusExp,hnReads,hnUMI,hnGene,hnFeatures,mnReads,mnUMI,m
   print("mmus join is done")
   rownames(all.mmusExp) <- all.mmusExp$rn
   all.mmusExp <- all.mmusExp[,!(names(all.mmusExp) %in% c("rn"))]
+  print("lets see if I can solve it by changing to matrix") ###### these two lines added for the caught segmentation error
+  all.mmusExp <- as.matrix(all.mmusExp)
   all.mmusExp[is.na(all.mmusExp)] <- 0
   print("mmus exp is done")
   
