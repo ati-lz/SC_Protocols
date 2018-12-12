@@ -17,11 +17,7 @@ sequence_files:
     name: #path to first file
     base_definition:
       - #example: cDNA(1-36)
-  file3:
-    name:  #path to second file
-    base_definition:
-      - #example: BC(1-6)
-  file4:
+  file2:
     name: #path to first file
     base_definition:
       - #example: BC(1-8,31-38)
