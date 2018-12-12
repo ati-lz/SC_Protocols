@@ -1,0 +1,35 @@
+{
+    
+    "__default__" :
+    {
+        "cpus_per_task" : 4,
+        "job_name" : "10XScilife.{wildcards}",
+        "output" : "mnout/10XScilife_{wildcards}.out",
+        "error" : "mnout/10XScilife_{wildcards}.err"
+    },
+
+    "zUMI_run" :
+    {
+        "cpus_per_task" : 15,
+        "job_name" : "10XScilife.{wildcards}",
+        "output" : "mnout/10XScilife_{wildcards}.out",
+        "error" : "mnout/10XScilife_{wildcards}.err"
+    },
+
+    "demux_cells" :
+    {
+        "cpus_per_task" : 8,
+        "job_name" : "10XScilife.{wildcards}",
+        "output" : "mnout/10XScilife_{wildcards}.out",
+        "error" : "mnout/10XScilife_{wildcards}.err"
+    },
+
+    "R_wrapper" :
+    {
+        "cpus_per_task" : 8,
+        "job_name" : "10XScilife.{wildcards}",
+        "output" : "mnout/10XScilife_{wildcards}.out",
+        "error" : "mnout/10XScilife_{wildcards}.err"
+    }
+}
+
