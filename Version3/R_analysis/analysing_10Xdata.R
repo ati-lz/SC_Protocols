@@ -4,7 +4,7 @@ library(biomaRt)
 library(tibble)
 library(data.table)
 
-load("/10X8x10K.hsap.full.SCE.Robj")
+load("../multigenome_10X8x10K_V3/10X8x10K.hsap.full.SCE.Robj")
 X10x8x10K.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
 
