@@ -37,7 +37,7 @@ mapIDs <- function (count.mat, species){
 
 
 # MARSseq hsap Preparation ====
-load("../multigenome_MARSseq_V3/MARSseq.hsap.full.SCE.Robj")
+load("../SCE_Robjects/MARSseq.hsap.full.SCE.Robj")
 MARSseq.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
 
@@ -64,7 +64,7 @@ MARSseq.hsap.fin.metadata <- colData(MARSseq.hsap.final)
 #### end ####
 
 # CELseq2 hsap Preparation ====
-load("../multigenome_CELseq2_V3/CELseq2.hsap.full.SCE.Robj")
+load("../SCE_Robjects/CELseq2.hsap.full.SCE.Robj")
 CELseq2.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
 
@@ -91,7 +91,7 @@ CELseq2.hsap.fin.metadata <- colData(CELseq2.hsap.final)
 #### end ####
 
 # QUARTZseq hsap Preparation ====
-load("../multigenome_QUARTZseq_V3/QUARTZseq.hsap.full.SCE.Robj")
+load("../SCE_Robjects/QUARTZseq.hsap.full.SCE.Robj")
 QUARTZseq.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
 
@@ -118,7 +118,7 @@ QUARTZseq.hsap.fin.metadata <- colData(QUARTZseq.hsap.final)
 #### end ####
 
 # Dropseq hsap Preparation ====
-load("../multigenome_Dropseq_V3/Dropseq.hsap.full.SCE.1000cellsPerPool.Robj")
+load("../SCE_Robjects/Dropseq.hsap.full.SCE.1000cellsPerPool.Robj")
 Dropseq.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
 
@@ -145,7 +145,7 @@ Dropseq.hsap.fin.metadata <- colData(Dropseq.hsap.final)
 #### end ####
 
 # SCRBseq hsap Preparation ====
-load("../multigenome_SCRBseq_V3/SCRBseq.hsap.full.SCE.Robj")
+load("../SCE_Robjects/SCRBseq.hsap.full.SCE.Robj")
 SCRBseq.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
 
@@ -171,7 +171,7 @@ SCRBseq.hsap.fin.metadata <- colData(SCRBseq.hsap.final)
 
 
 # SeqwellV2 hsap Preparation ====
-load("../multigenome_SeqwellV2_V3/SeqwellV2.hsap.full.SCE.Robj")
+load("../SCE_Robjects/SeqwellV2.hsap.full.SCE.Robj")
 SeqwellV2.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
 
@@ -197,7 +197,7 @@ SeqwellV2.hsap.fin.metadata <- colData(SeqwellV2.hsap.final)
 
 
 # SeqwellV1 hsap Preparation ====
-load("../multigenome_SeqwellV1_V3/SeqwellV1.hsap.full.SCE.Robj")
+load("../SCE_Robjects/SeqwellV1.hsap.full.SCE.Robj")
 SeqwellV1.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
 
@@ -223,7 +223,7 @@ SeqwellV1.hsap.fin.metadata <- colData(SeqwellV1.hsap.final)
 
 
 # Nuclei10X hsap Preparation ====
-load("../multigenome_Nuclei10X_V3/Nuclei10X.hsap.full.SCE.Robj")
+load("../SCE_Robjects/Nuclei10X.hsap.full.SCE.Robj")
 Nuclei10X.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
 
@@ -249,7 +249,7 @@ Nuclei10X.hsap.fin.metadata <- colData(Nuclei10X.hsap.final)
 
 
 # ICELL8 hsap Preparation ====
-load("../multigenome_ICELL8_V3/ICELL8.hsap.full.SCE.Robj")
+load("../SCE_Robjects/ICELL8.hsap.full.SCE.Robj")
 ICELL8.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
 
@@ -276,7 +276,7 @@ ICELL8.hsap.fin.metadata <- colData(ICELL8.hsap.final)
 
 
 # ddSEQ hsap Preparation ====
-load("../multigenome_ddSEQ_V3/ddSEQ.hsap.full.SCE.Robj")
+load("../SCE_Robjects/ddSEQ.hsap.full.SCE.Robj")
 ddSEQ.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
 
@@ -301,7 +301,7 @@ ddSEQ.hsap.fin.metadata <- colData(ddSEQ.hsap.final)
 #### end ####
 
 # ddSEQexp1 hsap Preparation ====
-load("../multigenome_ddSEQexp1_V3/ddSEQexp1.hsap.full.SCE.Robj")
+load("../SCE_Robjects/ddSEQexp1.hsap.full.SCE.Robj")
 ddSEQexp1.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
 
@@ -327,7 +327,7 @@ ddSEQexp1.hsap.fin.metadata <- colData(ddSEQexp1.hsap.final)
 
 
 # C1HT hsap Preparation ====
-load("../multigenome_C1HT_V3/C1HT.hsap.full.SCE.Robj")
+load("../SCE_Robjects/C1HT.hsap.full.SCE.Robj")
 C1HT.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
 
@@ -355,7 +355,7 @@ C1HT.hsap.fin.metadata <- colData(C1HT.hsap.final)
 
 
 #10X8x10K hsap Preparation ====
-load("../multigenome_10X8x10K_V3/10X8x10K.hsap.full.SCE.Robj")
+load("../SCE_Robjects/10X8x10K.hsap.full.SCE.Robj")
 X10x8x10K.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
 
@@ -382,7 +382,7 @@ X10x8x10K.hsap.fin.metadata <- colData(X10x8x10K.hsap.final)
 
 
 # X10Scilife hsap Preparation ====
-load("../multigenome_10XScilife_V3/10XScilife.hsap.full.SCE.Robj")
+load("../SCE_Robjects/10XScilife.hsap.full.SCE.Robj")
 X10Scilife.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
 
