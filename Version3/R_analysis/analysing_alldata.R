@@ -37,6 +37,7 @@ mapIDs <- function (count.mat, species){
 
 
 # MARSseq hsap Preparation ====
+print("MARSseq is Running...")
 load("../SCE_Robjects/MARSseq.hsap.full.SCE.Robj")
 MARSseq.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
@@ -64,6 +65,7 @@ MARSseq.hsap.fin.metadata <- colData(MARSseq.hsap.final)
 #### end ####
 
 # CELseq2 hsap Preparation ====
+print("CELseq2 is Running...")
 load("../SCE_Robjects/CELseq2.hsap.full.SCE.Robj")
 CELseq2.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
@@ -91,6 +93,7 @@ CELseq2.hsap.fin.metadata <- colData(CELseq2.hsap.final)
 #### end ####
 
 # QUARTZseq hsap Preparation ====
+print("QUARTZseq is Running...")
 load("../SCE_Robjects/QUARTZseq.hsap.full.SCE.Robj")
 QUARTZseq.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
@@ -118,6 +121,7 @@ QUARTZseq.hsap.fin.metadata <- colData(QUARTZseq.hsap.final)
 #### end ####
 
 # Dropseq hsap Preparation ====
+print("Dropseq is Running...")
 load("../SCE_Robjects/Dropseq.hsap.full.SCE.1000cellsPerPool.Robj")
 Dropseq.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
@@ -145,6 +149,7 @@ Dropseq.hsap.fin.metadata <- colData(Dropseq.hsap.final)
 #### end ####
 
 # SCRBseq hsap Preparation ====
+print("SCRBseq is Running...")
 load("../SCE_Robjects/SCRBseq.hsap.full.SCE.Robj")
 SCRBseq.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
@@ -171,6 +176,7 @@ SCRBseq.hsap.fin.metadata <- colData(SCRBseq.hsap.final)
 
 
 # SeqwellV2 hsap Preparation ====
+print("SeqwellV2 is Running...")
 load("../SCE_Robjects/SeqWellV2.hsap.full.SCE.Robj")
 SeqwellV2.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
@@ -197,6 +203,7 @@ SeqwellV2.hsap.fin.metadata <- colData(SeqwellV2.hsap.final)
 
 
 # SeqwellV1 hsap Preparation ====
+print("SeqwellV1 is Running...")
 load("../SCE_Robjects/SeqWellV1.hsap.full.SCE.Robj")
 SeqwellV1.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
@@ -223,6 +230,7 @@ SeqwellV1.hsap.fin.metadata <- colData(SeqwellV1.hsap.final)
 
 
 # Nuclei10X hsap Preparation ====
+print("Nuclei10X is Running...")
 load("../SCE_Robjects/Nuclei10X.hsap.full.SCE.Robj")
 Nuclei10X.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
@@ -249,6 +257,7 @@ Nuclei10X.hsap.fin.metadata <- colData(Nuclei10X.hsap.final)
 
 
 # ICELL8 hsap Preparation ====
+print("ICELL8 is Running...")
 load("../SCE_Robjects/ICELL8.hsap.full.SCE.Robj")
 ICELL8.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
@@ -276,6 +285,7 @@ ICELL8.hsap.fin.metadata <- colData(ICELL8.hsap.final)
 
 
 # ddSEQ hsap Preparation ====
+print("ddSEQ is Running...")
 load("../SCE_Robjects/ddSEQ.hsap.full.SCE.Robj")
 ddSEQ.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
@@ -301,6 +311,7 @@ ddSEQ.hsap.fin.metadata <- colData(ddSEQ.hsap.final)
 #### end ####
 
 # ddSEQexp1 hsap Preparation ====
+print("ddSEQexp1 is Running...")
 load("../SCE_Robjects/ddSEQexp1.hsap.full.SCE.Robj")
 ddSEQexp1.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
@@ -327,6 +338,7 @@ ddSEQexp1.hsap.fin.metadata <- colData(ddSEQexp1.hsap.final)
 
 
 # C1HT hsap Preparation ====
+print("C1HT is Running...")
 load("../SCE_Robjects/C1HT.hsap.full.SCE.Robj")
 C1HT.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
@@ -355,6 +367,7 @@ C1HT.hsap.fin.metadata <- colData(C1HT.hsap.final)
 
 
 #10X8x10K hsap Preparation ====
+print("10X8x10K is Running...")
 load("../SCE_Robjects/10X8x10K.hsap.full.SCE.Robj")
 X10x8x10K.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
@@ -382,6 +395,7 @@ X10x8x10K.hsap.fin.metadata <- colData(X10x8x10K.hsap.final)
 
 
 # X10Scilife hsap Preparation ====
+print("X10Scilife is Running...")
 load("../SCE_Robjects/10XScilife.hsap.full.SCE.Robj")
 X10Scilife.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
@@ -410,6 +424,7 @@ X10Scilife.hsap.fin.metadata <- colData(X10Scilife.hsap.final)
 
 library(data.table)
 # Read distribution in each sample in each tech ====
+print("Read distribution in each sample in each tech")
 hsap.read.percentages <- data.frame(MARSseq.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("MARSseq", nrow(MARSseq.hsap.fin.metadata)))
 hsap.read.percentages <- rbind(hsap.read.percentages, data.frame(CELseq2.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("CELseq2", nrow(CELseq2.hsap.fin.metadata))))
 hsap.read.percentages <- rbind(hsap.read.percentages, data.frame(QUARTZseq.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("QUARTZseq", nrow(QUARTZseq.hsap.fin.metadata))))
@@ -436,6 +451,7 @@ dev.off()
 
 
 # Total number of reads per tech per lib ====
+print("Total number of reads per tech per lib")
 hsap.total.reads <- data.frame(MARSseq.hsap.fin.metadata[, c("Library", "nTReads")], tech = rep("MARSseq", nrow(MARSseq.hsap.fin.metadata)))
 hsap.total.reads <- rbind(hsap.total.reads, data.frame(CELseq2.hsap.fin.metadata[, c("Library", "nTReads")], tech = rep("CELseq2", nrow(CELseq2.hsap.fin.metadata))))
 hsap.total.reads <- rbind(hsap.total.reads, data.frame(QUARTZseq.hsap.fin.metadata[, c("Library", "nTReads")], tech = rep("QUARTZseq", nrow(QUARTZseq.hsap.fin.metadata))))
@@ -459,6 +475,7 @@ dev.off()
 
 
 #Total number of genes per tech per lib ====
+print("Total number of genes per tech per lib ")
 hsap.total.genes <- data.frame(MARSseq.hsap.fin.metadata[, c("Library", "nGenes")], tech = rep("MARSseq", nrow(MARSseq.hsap.fin.metadata)))
 hsap.total.genes <- rbind(hsap.total.genes, data.frame(CELseq2.hsap.fin.metadata[, c("Library", "nGenes")], tech = rep("CELseq2", nrow(CELseq2.hsap.fin.metadata))))
 hsap.total.genes <- rbind(hsap.total.genes, data.frame(QUARTZseq.hsap.fin.metadata[, c("Library", "nGenes")], tech = rep("QUARTZseq", nrow(QUARTZseq.hsap.fin.metadata))))
@@ -480,6 +497,7 @@ dev.off()
 
 
 # Total number of UMIs per tech per lib ====
+print("Total number of UMIs per tech per lib")
 hsap.total.UMIs <- data.frame(MARSseq.hsap.fin.metadata[, c("Library", "nUMIs")], tech = rep("MARSseq", nrow(MARSseq.hsap.fin.metadata)))
 hsap.total.UMIs <- rbind(hsap.total.UMIs, data.frame(CELseq2.hsap.fin.metadata[, c("Library", "nUMIs")], tech = rep("CELseq2", nrow(CELseq2.hsap.fin.metadata))))
 hsap.total.UMIs <- rbind(hsap.total.UMIs, data.frame(QUARTZseq.hsap.fin.metadata[, c("Library", "nUMIs")], tech = rep("QUARTZseq", nrow(QUARTZseq.hsap.fin.metadata))))
@@ -501,6 +519,7 @@ dev.off()
 
 
 # nTreads vs nUMI curves ====
+print("nTreads vs nUMI curves")
 hsap.nread.numi.df <- data.frame(MARSseq.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("MARSseq", nrow(MARSseq.hsap.fin.metadata)))
 hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(CELseq2.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("CELseq2", nrow(CELseq2.hsap.fin.metadata))))
 hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(QUARTZseq.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("QUARTZseq", nrow(QUARTZseq.hsap.fin.metadata))))
@@ -523,6 +542,7 @@ dev.off()
 
 
 # nTreads vs nGenes curves ====
+print("nTreads vs nGenes curves")
 hsap.nread.ngene.df <- data.frame(MARSseq.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("MARSseq", nrow(MARSseq.hsap.fin.metadata)))
 hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(CELseq2.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("CELseq2", nrow(CELseq2.hsap.fin.metadata))))
 hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(QUARTZseq.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("QUARTZseq", nrow(QUARTZseq.hsap.fin.metadata))))
