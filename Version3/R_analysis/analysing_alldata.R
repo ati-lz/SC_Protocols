@@ -171,7 +171,7 @@ SCRBseq.hsap.fin.metadata <- colData(SCRBseq.hsap.final)
 
 
 # SeqwellV2 hsap Preparation ====
-load("../SCE_Robjects/SeqwellV2.hsap.full.SCE.Robj")
+load("../SCE_Robjects/SeqWellV2.hsap.full.SCE.Robj")
 SeqwellV2.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
 
@@ -197,7 +197,7 @@ SeqwellV2.hsap.fin.metadata <- colData(SeqwellV2.hsap.final)
 
 
 # SeqwellV1 hsap Preparation ====
-load("../SCE_Robjects/SeqwellV1.hsap.full.SCE.Robj")
+load("../SCE_Robjects/SeqWellV1.hsap.full.SCE.Robj")
 SeqwellV1.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
 
