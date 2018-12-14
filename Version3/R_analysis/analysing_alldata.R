@@ -421,7 +421,7 @@ X10Scilife.hsap.fin.metadata <- colData(X10Scilife.hsap.final)
 
 #### end ####
 
-
+'''
 library(data.table)
 # Read distribution in each sample in each tech ====
 print("Read distribution in each sample in each tech")
@@ -445,7 +445,7 @@ pdf("all_techs/hsap_read_distributions_all.pdf")
 #ggplot(data=hsap.melted.read.percentages, aes(Library, value, fill= variable)) + geom_bar(stat = "identity", width = 0.5, position = "stack") + facet_grid(~ tech, scales = "free")+theme (axis.text.x = element_text(angle = 90, hjust = 1))
 ggplot(data=hsap.melted.read.percentages, aes(tech, value, fill= variable)) + geom_bar(stat = "identity", width = 0.5, position = "stack") + facet_grid(~ tech, scales = "free")+theme (axis.text.x = element_text(angle = 90, hjust = 1))
 dev.off()
-
+'''
 
 
 
