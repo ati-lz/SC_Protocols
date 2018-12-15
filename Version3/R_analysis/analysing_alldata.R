@@ -421,31 +421,31 @@ X10Scilife.hsap.fin.metadata <- colData(X10Scilife.hsap.final)
 
 #### end ####
 
-'''
-library(data.table)
+
+#library(data.table)
 # Read distribution in each sample in each tech ====
-print("Read distribution in each sample in each tech")
-hsap.read.percentages <- data.frame(MARSseq.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("MARSseq", nrow(MARSseq.hsap.fin.metadata)))
-hsap.read.percentages <- rbind(hsap.read.percentages, data.frame(CELseq2.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("CELseq2", nrow(CELseq2.hsap.fin.metadata))))
-hsap.read.percentages <- rbind(hsap.read.percentages, data.frame(QUARTZseq.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("QUARTZseq", nrow(QUARTZseq.hsap.fin.metadata))))
-hsap.read.percentages <- rbind(hsap.read.percentages, data.frame(Dropseq.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("Dropseq", nrow(Dropseq.hsap.fin.metadata))))
-hsap.read.percentages <- rbind(hsap.read.percentages, data.frame(SCRBseq.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("SCRBseq", nrow(SCRBseq.hsap.fin.metadata))))
-hsap.read.percentages <- rbind(hsap.read.percentages, data.frame(SeqwellV1.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("SeqwellV2", nrow(SeqwellV2.hsap.fin.metadata))))
-hsap.read.percentages <- rbind(hsap.read.percentages, data.frame(SeqwellV2.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("SeqwellV2", nrow(SeqwellV2.hsap.fin.metadata))))
-hsap.read.percentages <- rbind(hsap.read.percentages, data.frame(Nuclei10X.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("Nuclei10X", nrow(Nuclei10X.hsap.fin.metadata))))
-hsap.read.percentages <- rbind(hsap.read.percentages, data.frame(ICELL8.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("ICELL8", nrow(ICELL8.hsap.fin.metadata))))
-hsap.read.percentages <- rbind(hsap.read.percentages, data.frame(ddSEQ.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("ddSEQ", nrow(ddSEQ.hsap.fin.metadata))))
-hsap.read.percentages <- rbind(hsap.read.percentages, data.frame(ddSEQexp1.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("ddSEQexp1", nrow(ddSEQexp1.hsap.fin.metadata))))
-hsap.read.percentages <- rbind(hsap.read.percentages, data.frame(C1HT.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("C1HT", nrow(C1HT.hsap.fin.metadata))))
-hsap.read.percentages <- rbind(hsap.read.percentages, data.frame(X10x8x10K.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("X10x8x10K", nrow(X10x8x10K.hsap.fin.metadata))))
-hsap.read.percentages <- rbind(hsap.read.percentages, data.frame(X10Scilife.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("X10Scilife", nrow(X10Scilife.hsap.fin.metadata))))
-hsap.melted.read.percentages <- melt(hsap.read.percentages, id = c("Library","tech"), measure = c("nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads"))
-#total.cells <- data.frame(tech=c("MARSseq", "CELseq2", "QUARTZseq"), nCells=c(nrow(MARSseq.metadata),nrow(CELseq2.metadata),nrow(QUARTZseq.metadata)))
-pdf("all_techs/hsap_read_distributions_all.pdf")
+#print("Read distribution in each sample in each tech")
+#hsap.read.percentages <- data.frame(MARSseq.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("MARSseq", nrow(MARSseq.hsap.fin.metadata)))
+#hsap.read.percentages <- rbind(hsap.read.percentages, data.frame(CELseq2.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("CELseq2", nrow(CELseq2.hsap.fin.metadata))))
+#hsap.read.percentages <- rbind(hsap.read.percentages, data.frame(QUARTZseq.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("QUARTZseq", nrow(QUARTZseq.hsap.fin.metadata))))
+#hsap.read.percentages <- rbind(hsap.read.percentages, data.frame(Dropseq.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("Dropseq", nrow(Dropseq.hsap.fin.metadata))))
+#hsap.read.percentages <- rbind(hsap.read.percentages, data.frame(SCRBseq.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("SCRBseq", nrow(SCRBseq.hsap.fin.metadata))))
+#hsap.read.percentages <- rbind(hsap.read.percentages, data.frame(SeqwellV1.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("SeqwellV2", nrow(SeqwellV2.hsap.fin.metadata))))
+#hsap.read.percentages <- rbind(hsap.read.percentages, data.frame(SeqwellV2.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("SeqwellV2", nrow(SeqwellV2.hsap.fin.metadata))))
+#hsap.read.percentages <- rbind(hsap.read.percentages, data.frame(Nuclei10X.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("Nuclei10X", nrow(Nuclei10X.hsap.fin.metadata))))
+#hsap.read.percentages <- rbind(hsap.read.percentages, data.frame(ICELL8.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("ICELL8", nrow(ICELL8.hsap.fin.metadata))))
+#hsap.read.percentages <- rbind(hsap.read.percentages, data.frame(ddSEQ.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("ddSEQ", nrow(ddSEQ.hsap.fin.metadata))))
+#hsap.read.percentages <- rbind(hsap.read.percentages, data.frame(ddSEQexp1.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("ddSEQexp1", nrow(ddSEQexp1.hsap.fin.metadata))))
+#hsap.read.percentages <- rbind(hsap.read.percentages, data.frame(C1HT.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("C1HT", nrow(C1HT.hsap.fin.metadata))))
+#hsap.read.percentages <- rbind(hsap.read.percentages, data.frame(X10x8x10K.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("X10x8x10K", nrow(X10x8x10K.hsap.fin.metadata))))
+#hsap.read.percentages <- rbind(hsap.read.percentages, data.frame(X10Scilife.hsap.fin.metadata[, c("nTReads", "nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads","Library")], tech = rep("X10Scilife", nrow(X10Scilife.hsap.fin.metadata))))
+#hsap.melted.read.percentages <- melt(hsap.read.percentages, id = c("Library","tech"), measure = c("nExonReads", "nIntronReads", "nIntergenicReads", "nUnmappedReads", "nAmbiguityReads", "nMultimapReads"))
+
+#pdf("all_techs/hsap_read_distributions_all.pdf")
 #ggplot(data=hsap.melted.read.percentages, aes(Library, value, fill= variable)) + geom_bar(stat = "identity", width = 0.5, position = "stack") + facet_grid(~ tech, scales = "free")+theme (axis.text.x = element_text(angle = 90, hjust = 1))
-ggplot(data=hsap.melted.read.percentages, aes(tech, value, fill= variable)) + geom_bar(stat = "identity", width = 0.5, position = "stack") + facet_grid(~ tech, scales = "free")+theme (axis.text.x = element_text(angle = 90, hjust = 1))
-dev.off()
-'''
+#ggplot(data=hsap.melted.read.percentages, aes(tech, value, fill= variable)) + geom_bar(stat = "identity", width = 0.5, position = "stack") + facet_grid(~ tech, scales = "free")+theme (axis.text.x = element_text(angle = 90, hjust = 1))
+#dev.off()
+
 
 
 
