@@ -64,7 +64,7 @@ rule create_yaml:
             yaml.dump(data_hsap, out_hsap, default_flow_style=False)
         data_DS = data_hsap
         data_DS['which_Stage'] = 'Counting'
-        data_DS['counting_opts']['downsampling'] = 20000,5000,10000,15000
+        data_DS['counting_opts']['downsampling'] = '20000,5000,10000,15000'
         with open(output.yamlOut_DS, 'w') as out_DS:
             yaml.dump(data_DS, out_DS, default_flow_style=False)
 
