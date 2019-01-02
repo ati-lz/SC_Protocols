@@ -36,8 +36,8 @@ main <- function(hsapExp, output_SCEobj, technology) {
     print(sample.ID)
     
     for (range in 1:length(DS.ranges)){
-      class(sample.hsapExp.obj$intron.exon$downsampled[[range]][[1]])
-      dim(sample.hsapExp.obj$intron.exon$downsampled[[range]][[1]])
+      print(class(sample.hsapExp.obj$intron.exon$downsampled[[range]][[1]]))
+      print(dim(sample.hsapExp.obj$intron.exon$downsampled[[range]][[1]]))
       mat <- as.data.frame(as.matrix(sample.hsapExp.obj$intron.exon$downsampled[[range]][[1]]))
       colnames(mat) <- create_cell_IDs(colnames(mat), id.type = "cell_Barcode",tech = technology, lib = sample.ID)
       mat$rn <- rownames(mat)
