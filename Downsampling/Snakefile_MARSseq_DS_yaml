@@ -33,7 +33,6 @@ rule all:
         #expand("YAMLs/"+protocol+"_DS_{sample}.yaml",sample=SAMPLES)
         #expand('multigenome_MARSseq_DS_YAML/{sample}_human/'+protocol+'.aligned.sorted.bam', sample=SAMPLES)
 
-
 rule create_yaml:
     input:
          yaml = "pipeline_general.yaml"
@@ -111,8 +110,7 @@ rule prepare_R_inputs:
         hsap_Exprs= expand('multigenome_MARSseq_DS_YAML/{sample}_human/zUMIs_output_downsampled/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES)
     
     output:
-        hsapExp_list="multigenome_MARSseq_DS_YAML/"+protocol+'_Hsap_expression_DS_list.txt',
-        #vcfs_list="multigenome_MARSseq_DS_YAML/"+protocol+'_VCFs_list.txt'
+        hsapExp_list="multigenome_MARSseq_DS_YAML/"+protocol+'_Hsap_expression_DS_list.txt'
 
     shell:
         """
