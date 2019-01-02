@@ -23,7 +23,8 @@ main <- function(hsapExp, output_SCEobj, technology) {
   hsapExp_list <- scan(hsapExp, what="", sep=" ")
   number_of_samples <- length(hsapExp_list)
   init.hsapExp.obj <- readRDS(hsapExp_list[1])
-  DS.ranges <- names(init.hsapExp.obj$intron.exon$downsampled) #change ds.data.mixed to init.hsapExp.obj
+  #DS.ranges <- names(init.hsapExp.obj$intron.exon$downsampled) #change ds.data.mixed to init.hsapExp.obj
+  DS.ranges <- names(init.hsapExp.obj$umicount$inex$downsampling) #change ds.data.mixed to init.hsapExp.obj
   
   hsap.DS.ExpsMat.all <- vector("list", length(DS.ranges))
   names(hsap.DS.ExpsMat.all) <- DS.ranges
@@ -36,9 +37,12 @@ main <- function(hsapExp, output_SCEobj, technology) {
     print(sample.ID)
     
     for (range in 1:length(DS.ranges)){
-      print(class(sample.hsapExp.obj$intron.exon$downsampled[[range]][[1]]))
-      print(dim(sample.hsapExp.obj$intron.exon$downsampled[[range]][[1]]))
-      mat <- as.data.frame(as.matrix(sample.hsapExp.obj$intron.exon$downsampled[[range]][[1]]))
+      #print(class(sample.hsapExp.obj$intron.exon$downsampled[[range]][[1]]))
+      #print(dim(sample.hsapExp.obj$intron.exon$downsampled[[range]][[1]]))
+      #mat <- as.data.frame(as.matrix(sample.hsapExp.obj$intron.exon$downsampled[[range]][[1]]))
+      print(class(sample.hsapExp.obj$umicount$inex$downsampling[[range]][[1]]))
+      print(dim(sample.hsapExp.obj$umicount$inex$downsampling[[range]][[1]]))
+      mat <- as.data.frame(as.matrix(sample.hsapExp.obj$umicount$inex$downsampling[[range]][[1]]))
       colnames(mat) <- create_cell_IDs(colnames(mat), id.type = "cell_Barcode",tech = technology, lib = sample.ID)
       mat$rn <- rownames(mat)
       hsap.DS.ExpsMat.all[[range]][[sample.ID]] <- mat #change ds.data.mixed to init.hsapExp.obj
