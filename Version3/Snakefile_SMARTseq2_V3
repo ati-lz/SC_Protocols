@@ -11,7 +11,7 @@ mixed_gtf = '/project/devel/alafzi/ref_genomes/mixed/hsap_mmus_can_combined_gtf.
 mixed_STAR_genome= '/project/devel/alafzi/ref_genomes/mixed/STARgenome'
 
 zUMI_path='/apps/ZUMIS/2.2'
-bc_list2= '/project/devel/HCA/10XGenomics/10X_cellBCs_737K-august-2016.txt'
+#bc_list2= '/project/devel/HCA/10XGenomics/10X_cellBCs_737K-august-2016.txt'
 protocol= 'SMARTseq2'
 
 #Loading modules
@@ -49,7 +49,7 @@ rule create_yaml:
         data_hsap['sequence_files']['file2']['base_definition'][0] = 'cDNA(1-76)'
         data_hsap['sequence_files']['file3']['name'] = fastq_path+ 'SMARTseq_' + wildcards.sample +'_I1.fastq.gz'
         data_hsap['sequence_files']['file3']['base_definition'][0] = 'BC(1-8)'
-        data_hsap['sequence_files']['file3']['base_definition'][1] = 'UMI(1-8)'
+        #data_hsap['sequence_files']['file3']['base_definition'][1] = 'UMI(1-8)'
         data_hsap['sequence_files']['file4']['name'] = fastq_path+ 'SMARTseq_' + wildcards.sample +'_I2.fastq.gz'
         data_hsap['sequence_files']['file4']['base_definition'][0] = 'BC(1-8)'
         data_hsap['num_threads'] = 8

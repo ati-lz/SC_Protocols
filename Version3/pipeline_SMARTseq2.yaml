@@ -25,7 +25,6 @@ sequence_files:
     name: #path to i7 index fastqs
     base_definition:
       - #example: BC(1-8)
-      - #example: UMI(1-8)
   file4:
     name: #path to i5 index fastqs
     base_definition:
