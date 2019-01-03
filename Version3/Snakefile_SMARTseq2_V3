@@ -38,7 +38,6 @@ rule create_yaml:
         yamlOut_mixed="YAMLs/"+protocol+"_mixed_{sample}.yaml"
     run:
         #fname = input
-
         stream = open(input.yaml, 'r')
         data_hsap = yaml.load(stream)
 
