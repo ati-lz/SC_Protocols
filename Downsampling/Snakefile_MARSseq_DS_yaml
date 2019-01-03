@@ -1,5 +1,5 @@
 from os import listdir
-import ruamel.yaml
+import yaml
 
 #Path to sample fastq files
 fastq_path = '/project/devel/HCA/CNAG/MARSseq/'
