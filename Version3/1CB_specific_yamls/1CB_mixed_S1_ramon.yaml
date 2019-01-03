@@ -83,4 +83,3 @@ make_stats: yes
 which_Stage: Filtering
 
 #below, the fqfilter will add a read_layout flag defining SE or PE
-
