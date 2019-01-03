@@ -1,5 +1,5 @@
 from os import listdir
-import yaml
+import ruamel.yaml
 
 #Path to sample fastq files
 fastq_path = '/project/devel/HCA/CNAG/MARSseq/'
@@ -80,6 +80,7 @@ rule fix_yaml:
         """
        sed 's/make_stats: true/make_stats: yes/g' {input.yamlin_hsap} > {output.yamlOutFix_hsap}
        sed 's/make_stats: true/make_stats: yes/g' {input.yamlin_DS} > {output.yamlOutFix_DS}
+       sed 's/downsampling: 20000,5000,10000,15000/downsampling: "20000,5000,10000,15000"/g' {input.yamlin_DS} > {output.yamlOutFix_DS}
        """
        
 
