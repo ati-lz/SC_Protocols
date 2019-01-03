@@ -100,8 +100,10 @@ rule zUMI_run:
         rm -r zUMIs_output_downsampled
         bash {zUMI_path}/zUMIs-master.sh -y ../../{input.yaml_hsap}
         mv zUMIs_output zUMIs_output_main
+        mv MARSseq.postmap.yaml zUMIs_output_main
         bash {zUMI_path}/zUMIs-master.sh -y ../../{input.yaml_DS}
         mv zUMIs_output zUMIs_output_downsampled
+        mv MARSseq.postmap.yaml zUMIs_output_downsampled
         cd ../..
        """
  
