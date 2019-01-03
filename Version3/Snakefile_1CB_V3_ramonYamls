@@ -66,6 +66,7 @@ rule zUMI_run:
         cd ../..
        """
 
+
 rule Big_Bam_to_SAM:
     input: 
         'multigenome_1CB_V3/{sample}_mixed/'+protocol+'.filtered.tagged.Aligned.out.bam'
