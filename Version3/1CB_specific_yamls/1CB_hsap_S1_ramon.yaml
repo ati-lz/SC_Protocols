@@ -42,8 +42,8 @@ out_dir: /project/devel/alafzi/SC_Protocols/Version3/multigenome_1CB_V3/S1_human
 ###########################################
 
 #number of processors to use
-num_threads: 1
-mem_limit: 16 #Memory limit in Gigabytes, null meaning unlimited RAM usage.
+num_threads: 8
+mem_limit: null #Memory limit in Gigabytes, null meaning unlimited RAM usage.
 
 #barcode & UMI filtering options
 #number of bases under the base quality cutoff that should be filtered out.
