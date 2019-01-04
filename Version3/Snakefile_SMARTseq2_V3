@@ -181,28 +181,28 @@ rule prepare_R_inputs:
     input:
         hsap_Exprs= expand('multigenome_SMARTseq2_V3/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES),
         mmus_Exprs= expand('multigenome_SMARTseq2_V3/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES),
-        hsap_n_Reads= expand('multigenome_SMARTseq2_V3/{sample}_human/zUMIs_output/'+protocol+'kept_barcodes.txt',sample=SAMPLES),
-        hsap_n_Genes= expand('multigenome_SMARTseq2_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.genecounts.txt',sample=SAMPLES),
-        hsap_n_UMIs= expand('multigenome_SMARTseq2_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',sample=SAMPLES),
-        hsap_n_Features= expand('multigenome_SMARTseq2_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.bc.READcounts.rds',sample=SAMPLES),
-        mmus_n_Reads= expand('multigenome_SMARTseq2_V3/{sample}_mouse/zUMIs_output/'+protocol+'kept_barcodes.txt',sample=SAMPLES),
-        mmus_n_Genes= expand('multigenome_SMARTseq2_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.genecounts.txt',sample=SAMPLES),
-        mmus_n_UMIs= expand('multigenome_SMARTseq2_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',sample=SAMPLES),
-        mmus_n_Features= expand('multigenome_SMARTseq2_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.bc.READcounts.rds',sample=SAMPLES),
+        #hsap_n_Reads= expand('multigenome_SMARTseq2_V3/{sample}_human/zUMIs_output/'+protocol+'kept_barcodes.txt',sample=SAMPLES),
+        #hsap_n_Genes= expand('multigenome_SMARTseq2_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.genecounts.txt',sample=SAMPLES),
+        #hsap_n_UMIs= expand('multigenome_SMARTseq2_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',sample=SAMPLES),
+        #hsap_n_Features= expand('multigenome_SMARTseq2_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.bc.READcounts.rds',sample=SAMPLES),
+        #mmus_n_Reads= expand('multigenome_SMARTseq2_V3/{sample}_mouse/zUMIs_output/'+protocol+'kept_barcodes.txt',sample=SAMPLES),
+        #mmus_n_Genes= expand('multigenome_SMARTseq2_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.genecounts.txt',sample=SAMPLES),
+        #mmus_n_UMIs= expand('multigenome_SMARTseq2_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',sample=SAMPLES),
+        #mmus_n_Features= expand('multigenome_SMARTseq2_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.bc.READcounts.rds',sample=SAMPLES),
         species_info= expand('multigenome_SMARTseq2_V3/{sample}_mixed/doublet_species/doublet_table_reads.txt',sample=SAMPLES)
         #VCF_file= expand('multigenome_SMARTseq2_V3/mpileup/{sample}.mpileup.full.vcf.gz',sample=SAMPLES)
     
     output:
         hsapExp_list="multigenome_SMARTseq2_V3/"+protocol+'_Hsap_expression_list.txt',
         mmusExp_list="multigenome_SMARTseq2_V3/"+protocol+'_Mmus_expression_list.txt',
-        hsap_nReads_list="multigenome_SMARTseq2_V3/"+protocol+'_Hsap_NumberOfReads_list.txt',
-        hsap_nUMIs_list="multigenome_SMARTseq2_V3/"+protocol+'_Hsap_NumberOfUMIs_list.txt',
-        hsap_nGenes_list="multigenome_SMARTseq2_V3/"+protocol+'_Hsap_NumberOfGenes_list.txt',
-        hsap_nFeatures_list="multigenome_SMARTseq2_V3/"+protocol+'_Hsap_NumberOfFeatures_list.txt',
-        mmus_nReads_list="multigenome_SMARTseq2_V3/"+protocol+'_Mmus_NumberOfReads_list.txt',
-        mmus_nUMIs_list="multigenome_SMARTseq2_V3/"+protocol+'_Mmus_NumberOfUMIs_list.txt',
-        mmus_nGenes_list="multigenome_SMARTseq2_V3/"+protocol+'_Mmus_NumberOfGenes_list.txt',
-        mmus_nFeatures_list="multigenome_SMARTseq2_V3/"+protocol+'_Mmus_NumberOfFeatures_list.txt',
+        #hsap_nReads_list="multigenome_SMARTseq2_V3/"+protocol+'_Hsap_NumberOfReads_list.txt',
+        #hsap_nUMIs_list="multigenome_SMARTseq2_V3/"+protocol+'_Hsap_NumberOfUMIs_list.txt',
+        #hsap_nGenes_list="multigenome_SMARTseq2_V3/"+protocol+'_Hsap_NumberOfGenes_list.txt',
+        #hsap_nFeatures_list="multigenome_SMARTseq2_V3/"+protocol+'_Hsap_NumberOfFeatures_list.txt',
+        #mmus_nReads_list="multigenome_SMARTseq2_V3/"+protocol+'_Mmus_NumberOfReads_list.txt',
+        #mmus_nUMIs_list="multigenome_SMARTseq2_V3/"+protocol+'_Mmus_NumberOfUMIs_list.txt',
+        #mmus_nGenes_list="multigenome_SMARTseq2_V3/"+protocol+'_Mmus_NumberOfGenes_list.txt',
+        #mmus_nFeatures_list="multigenome_SMARTseq2_V3/"+protocol+'_Mmus_NumberOfFeatures_list.txt',
         species_list="multigenome_SMARTseq2_V3/"+protocol+'_Species_info_list.txt'
         #vcfs_list="multigenome_SMARTseq2_V3/"+protocol+'_VCFs_list.txt'
 
@@ -210,28 +210,20 @@ rule prepare_R_inputs:
         """
         echo -e "{input.hsap_Exprs}" >> {output.hsapExp_list}
         echo -e "{input.mmus_Exprs}" >> {output.mmusExp_list}
-        echo -e "{input.hsap_n_Reads}" >> {output.hsap_nReads_list}
-        echo -e "{input.hsap_n_Genes}" >> {output.hsap_nGenes_list}
-        echo -e "{input.hsap_n_UMIs}" >> {output.hsap_nUMIs_list}
-        echo -e "{input.hsap_n_Features}" >> {output.hsap_nFeatures_list}
-        echo -e "{input.mmus_n_Reads}" >> {output.mmus_nReads_list}
-        echo -e "{input.mmus_n_Genes}" >> {output.mmus_nGenes_list}
-        echo -e "{input.mmus_n_UMIs}" >> {output.mmus_nUMIs_list}
-        echo -e "{input.mmus_n_Features}" >> {output.mmus_nFeatures_list}
         echo -e "{input.species_info}" >> {output.species_list}
         """
 rule R_wrapper:
     input:
         hE_list="multigenome_SMARTseq2_V3/"+protocol+'_Hsap_expression_list.txt',
         mE_list="multigenome_SMARTseq2_V3/"+protocol+'_Mmus_expression_list.txt',
-        h_nR_list="multigenome_SMARTseq2_V3/"+protocol+'_Hsap_NumberOfReads_list.txt',
-        h_nU_list="multigenome_SMARTseq2_V3/"+protocol+'_Hsap_NumberOfUMIs_list.txt',
-        h_nG_list="multigenome_SMARTseq2_V3/"+protocol+'_Hsap_NumberOfGenes_list.txt',
-        h_nF_list="multigenome_SMARTseq2_V3/"+protocol+'_Hsap_NumberOfFeatures_list.txt',
-        m_nR_list="multigenome_SMARTseq2_V3/"+protocol+'_Mmus_NumberOfReads_list.txt',
-        m_nU_list="multigenome_SMARTseq2_V3/"+protocol+'_Mmus_NumberOfUMIs_list.txt',
-        m_nG_list="multigenome_SMARTseq2_V3/"+protocol+'_Mmus_NumberOfGenes_list.txt',
-        m_nF_list="multigenome_SMARTseq2_V3/"+protocol+'_Mmus_NumberOfFeatures_list.txt',
+        #h_nR_list="multigenome_SMARTseq2_V3/"+protocol+'_Hsap_NumberOfReads_list.txt',
+        #h_nU_list="multigenome_SMARTseq2_V3/"+protocol+'_Hsap_NumberOfUMIs_list.txt',
+        #h_nG_list="multigenome_SMARTseq2_V3/"+protocol+'_Hsap_NumberOfGenes_list.txt',
+        #h_nF_list="multigenome_SMARTseq2_V3/"+protocol+'_Hsap_NumberOfFeatures_list.txt',
+        #m_nR_list="multigenome_SMARTseq2_V3/"+protocol+'_Mmus_NumberOfReads_list.txt',
+        #m_nU_list="multigenome_SMARTseq2_V3/"+protocol+'_Mmus_NumberOfUMIs_list.txt',
+        #m_nG_list="multigenome_SMARTseq2_V3/"+protocol+'_Mmus_NumberOfGenes_list.txt',
+        #m_nF_list="multigenome_SMARTseq2_V3/"+protocol+'_Mmus_NumberOfFeatures_list.txt',
         spec_list="multigenome_SMARTseq2_V3/"+protocol+'_Species_info_list.txt'
         #vcf_list="multigenome_SMARTseq2_V3/"+protocol+'_VCFs_list.txt'
     output:
