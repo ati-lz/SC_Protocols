@@ -1,0 +1,11 @@
+{
+    
+    "__default__" :
+    {
+        "cpus_per_task" : 8,
+        "job_name" : "DS.SeqwellV2.{wildcards}",
+        "output" : "mnout/DS.SeqwellV2_{wildcards}.out",
+        "error" : "mnout/DS.SeqwellV2_{wildcards}.err"
+    }
+
+}

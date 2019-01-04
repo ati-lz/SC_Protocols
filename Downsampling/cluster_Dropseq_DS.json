@@ -1,0 +1,11 @@
+{
+    
+    "__default__" :
+    {
+        "cpus_per_task" : 8,
+        "job_name" : "DS.Dropseq.{wildcards}",
+        "output" : "mnout/DS.Dropseq_{wildcards}.out",
+        "error" : "mnout/DS.Dropseq_{wildcards}.err"
+    }
+
+}

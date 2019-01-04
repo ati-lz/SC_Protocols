@@ -1,0 +1,11 @@
+{
+    
+    "__default__" :
+    {
+        "cpus_per_task" : 8,
+        "job_name" : "DS.ddSEQexp1.{wildcards}",
+        "output" : "mnout/DS.ddSEQexp1_{wildcards}.out",
+        "error" : "mnout/DS.ddSEQexp1_{wildcards}.err"
+    }
+
+}

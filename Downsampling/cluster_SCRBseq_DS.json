@@ -1,0 +1,11 @@
+{
+    
+    "__default__" :
+    {
+        "cpus_per_task" : 8,
+        "job_name" : "DS.SCRBseq.{wildcards}",
+        "output" : "mnout/DS.SCRBseq_{wildcards}.out",
+        "error" : "mnout/DS.SCRBseq_{wildcards}.err"
+    }
+
+}

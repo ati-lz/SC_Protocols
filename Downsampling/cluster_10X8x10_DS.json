@@ -1,0 +1,11 @@
+{
+    
+    "__default__" :
+    {
+        "cpus_per_task" : 8,
+        "job_name" : "DS.10X8x10.{wildcards}",
+        "output" : "mnout/DS.10X8x10_{wildcards}.out",
+        "error" : "mnout/DS.10X8x10_{wildcards}.err"
+    }
+
+}
