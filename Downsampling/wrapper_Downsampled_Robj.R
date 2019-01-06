@@ -26,8 +26,14 @@ main <- function(hsapExp, output_SCEobj, technology) {
   #DS.ranges <- names(init.hsapExp.obj$intron.exon$downsampled) #change ds.data.mixed to init.hsapExp.obj
   DS.ranges <- names(init.hsapExp.obj$umicount$inex$downsampling) #change ds.data.mixed to init.hsapExp.obj
   
-  hsap.DS.ExpsMat.all <- vector("list", length(DS.ranges))
-  names(hsap.DS.ExpsMat.all) <- DS.ranges
+  hsap.DS.ExpsMat.UMI.all <- vector("list", length(DS.ranges))
+  names(hsap.DS.ExpsMat.UMI.all) <- DS.ranges
+  
+  hsap.DS.ExpsMat.Reads.all <- vector("list", length(DS.ranges))
+  names(hsap.DS.ExpsMat.Reads.all) <- DS.ranges
+  
+  output.readcount.umicount.joint.mats <- list()
+  
   for (sample in 1:number_of_samples){
     print ("in the loop")
     sample.hsapExp.obj <- readRDS(hsapExp_list[sample])
@@ -36,34 +42,55 @@ main <- function(hsapExp, output_SCEobj, technology) {
     sample.ID <- paste(sample.ID.pre[-length(sample.ID.pre)], collapse = ".")
     print(sample.ID)
     
+    # for UMI counts
     for (range in 1:length(DS.ranges)){
-      #print(class(sample.hsapExp.obj$intron.exon$downsampled[[range]][[1]]))
-      #print(dim(sample.hsapExp.obj$intron.exon$downsampled[[range]][[1]]))
-      #mat <- as.data.frame(as.matrix(sample.hsapExp.obj$intron.exon$downsampled[[range]][[1]]))
-      #print(class(sample.hsapExp.obj$umicount$inex$downsampling[[range]][[1]]))
-      #print(dim(sample.hsapExp.obj$umicount$inex$downsampling[[range]][[1]]))
-      mat <- as.data.frame(as.matrix(sample.hsapExp.obj$umicount$inex$downsampling[[range]]))
-      colnames(mat) <- create_cell_IDs(colnames(mat), id.type = "cell_Barcode",tech = technology, lib = sample.ID)
-      mat$rn <- rownames(mat)
-      hsap.DS.ExpsMat.all[[range]][[sample.ID]] <- mat #change ds.data.mixed to init.hsapExp.obj
-      #hsap.DS.ExpsMat.all[[range]][[sample.ID]] <- c(hsap.DS.ExpsMat.all[[range]][[sample.ID]], list(mat))#change ds.data.mixed to init.hsapExp.obj
-      #hsap.DS.ExpsMat.all[[range]] <- list(hsap.DS.ExpsMat.all[[range]], mat)#change ds.data.mixed to init.hsapExp.obj
+      UMI.mat <- as.data.frame(as.matrix(sample.hsapExp.obj$umicount$inex$downsampling[[range]]))
+      colnames(UMI.mat) <- create_cell_IDs(colnames(UMI.mat), id.type = "cell_Barcode",tech = technology, lib = sample.ID)
+      UMI.mat$rn <- rownames(UMI.mat)
+      hsap.DS.ExpsMat.UMI.all[[range]][[sample.ID]] <- UMI.mat #change ds.data.mixed to init.hsapExp.obj
+      #hsap.DS.ExpsMat.UMI.all[[range]][[sample.ID]] <- c(hsap.DS.ExpsMat.UMI.all[[range]][[sample.ID]], list(mat))#change ds.data.mixed to init.hsapExp.obj
+      #hsap.DS.ExpsMat.UMI.all[[range]] <- list(hsap.DS.ExpsMat.UMI.all[[range]], mat)#change ds.data.mixed to init.hsapExp.obj
       
     }
+    
+    #for Read counts
+    for (range in 1:length(DS.ranges)){
+      Reads.mat <- as.data.frame(as.matrix(sample.hsapExp.obj$readcount$inex$downsampling[[range]]))
+      colnames(Reads.mat) <- create_cell_IDs(colnames(Reads.mat), id.type = "cell_Barcode",tech = technology, lib = sample.ID)
+      Reads.mat$rn <- rownames(Reads.mat)
+      hsap.DS.ExpsMat.Reads.all[[range]][[sample.ID]] <- Reads.mat #change ds.data.mixed to init.hsapExp.obj
+      #hsap.DS.ExpsMat.UMI.all[[range]][[sample.ID]] <- c(hsap.DS.ExpsMat.UMI.all[[range]][[sample.ID]], list(mat))#change ds.data.mixed to init.hsapExp.obj
+      #hsap.DS.ExpsMat.UMI.all[[range]] <- list(hsap.DS.ExpsMat.UMI.all[[range]], mat)#change ds.data.mixed to init.hsapExp.obj
+      
+    }
+    
   }
   
-  final.sample.merged.mat <- list()
+  #UMI final
+  final.sample.merged.mat.UMI <- list()
+  final.sample.merged.mat.Reads <- list()
   for (i in 1:length(DS.ranges)){
     ds.name = DS.ranges[i]
-    joint.mat <- join_all(hsap.DS.ExpsMat.all[[i]], by = "rn", type = 'full')
-    rownames(joint.mat) <- joint.mat$rn
-    joint.mat <- joint.mat[,!(names(joint.mat) %in% c("rn"))]
-    joint.mat[is.na(joint.mat)] <- 0
     
-    final.sample.merged.mat[[ds.name]] <- joint.mat
+    #join for UMI mats
+    joint.mat.UMI <- join_all(hsap.DS.ExpsMat.UMI.all[[i]], by = "rn", type = 'full')
+    rownames(joint.mat.UMI) <- joint.mat.UMI$rn
+    joint.mat.UMI <- joint.mat.UMI[,!(names(joint.mat.UMI) %in% c("rn"))]
+    joint.mat.UMI[is.na(joint.mat.UMI)] <- 0
+    final.sample.merged.mat.UMI[[ds.name]] <- joint.mat.UMI
+    
+    #join for UMI mats
+    joint.mat.Reads <- join_all(hsap.DS.ExpsMat.Reads.all[[i]], by = "rn", type = 'full')
+    rownames(joint.mat.Reads) <- joint.mat.Reads$rn
+    joint.mat.Reads <- joint.mat.Reads[,!(names(joint.mat.Reads) %in% c("rn"))]
+    joint.mat.Reads[is.na(joint.mat.Reads)] <- 0
+    final.sample.merged.mat.Reads[[ds.name]] <- joint.mat.Reads
   }
-  #save(hsap.DS.ExpsMat.all, file = paste(output_SCEobj,"/", technology,".hsap.full.SCE.Robj", sep = ""))
-  save(final.sample.merged.mat, file = paste(output_SCEobj,"/", technology,".hsap.full.SCE.jointDSmat.Robj", sep = ""))
+  
+  output.readcount.umicount.joint.mats[["UMI"]] <- final.sample.merged.mat.UMI
+  output.readcount.umicount.joint.mats[["Reads"]] <- final.sample.merged.mat.Reads
+  #save(hsap.DS.ExpsMat.UMI.all, file = paste(output_SCEobj,"/", technology,".hsap.full.SCE.Robj", sep = ""))
+  save(output.readcount.umicount.joint.mats, file = paste(output_SCEobj,"/", technology,".hsap.full.SCE.jointDSmat.Robj", sep = ""))
   #save(full.SCE.mmus, file = paste(output_SCEobj,"/", technology,".mmus.full.SCE.Robj", sep = ""))
   
   return("Done")
