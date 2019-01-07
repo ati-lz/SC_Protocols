@@ -35,7 +35,7 @@ reference:
   additional_STAR_params: #Optional parameter. you may add custom mapping parameters to STAR here
 
 #output directory
-out_dir: /project/devel/alafzi/SC_Protocols/Version3/multigenome_1CB_V3/S1_mouse
+out_dir: /project/devel/alafzi/SC_Protocols/Version3/multigenome_1CBramon_V3/S1_mouse
 
 ###########################################
 #below, you may optionally change default parameters
