@@ -33,9 +33,9 @@ rule all:
        
 rule zUMI_run:
     input:
-        yaml_hsap="1CB_ramon_specific_yamls/"+protocol+"_hsap_{sample}_ramon.yaml",
-        yaml_mmus="1CB_ramon_specific_yamls/"+protocol + "_mmus_{sample}_ramon.yaml",
-        yaml_mixed="1CB_ramon_specific_yamls/"+protocol + "_mixed_{sample}_ramon.yaml"
+        yaml_hsap="1CB_specific_yamls/"+protocol+"_hsap_{sample}_ramon.yaml",
+        yaml_mmus="1CB_specific_yamls/"+protocol + "_mmus_{sample}_ramon.yaml",
+        yaml_mixed="1CB_specific_yamls/"+protocol + "_mixed_{sample}_ramon.yaml"
 
     output:
         dir='multigenome_1CB_ramon_V3/{sample}_human/'+protocol+'.filtered.tagged.Aligned.out.bam',
