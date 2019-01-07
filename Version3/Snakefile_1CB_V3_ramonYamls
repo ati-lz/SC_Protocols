@@ -13,7 +13,7 @@ mixed_STAR_genome= '/project/devel/alafzi/ref_genomes/mixed/STARgenome'
 
 zUMI_path='/apps/ZUMIS/2.2'
 bc_list2= '/project/devel/HCA/10XGenomics/10X_cellBCs_737K-august-2016.txt'
-protocol= '1CB'
+protocol= '1CB_ramon'
 
 #Loading modules
 #shell.executable("!/usr/bin/env bash")
@@ -27,37 +27,37 @@ SAMPLES = list(set(i.split("_")[2] for i in sample_files))
 
 rule all:
     input:
-        "multigenome_1CB_V3/"+protocol+".hsap.full.SCE.Robj",
-        "multigenome_1CB_V3/"+protocol+".mmus.full.SCE.Robj"
+        "multigenome_1CB_ramon_V3/"+protocol+".hsap.full.SCE.Robj",
+        "multigenome_1CB_ramon_V3/"+protocol+".mmus.full.SCE.Robj"
 
        
 rule zUMI_run:
     input:
-        yaml_hsap="1CB_specific_yamls/"+protocol+"_hsap_{sample}_ramon.yaml",
-        yaml_mmus="1CB_specific_yamls/"+protocol + "_mmus_{sample}_ramon.yaml",
-        yaml_mixed="1CB_specific_yamls/"+protocol + "_mixed_{sample}_ramon.yaml"
+        yaml_hsap="1CB_ramon_specific_yamls/"+protocol+"_hsap_{sample}_ramon.yaml",
+        yaml_mmus="1CB_ramon_specific_yamls/"+protocol + "_mmus_{sample}_ramon.yaml",
+        yaml_mixed="1CB_ramon_specific_yamls/"+protocol + "_mixed_{sample}_ramon.yaml"
 
     output:
-        dir='multigenome_1CB_V3/{sample}_human/'+protocol+'.filtered.tagged.Aligned.out.bam',
-        dir_file11='multigenome_1CB_V3/{sample}_human/zUMIs_output/'+protocol+'kept_barcodes.txt',
-        dir_file111='multigenome_1CB_V3/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
-        dir_file1111='multigenome_1CB_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.genecounts.txt',
-        dir_file11111='multigenome_1CB_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
-        dir_file111111='multigenome_1CB_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.bc.READcounts.rds',
-        dir2='multigenome_1CB_V3/{sample}_mouse/'+protocol+'.filtered.tagged.Aligned.out.bam',
-        dir_file22='multigenome_1CB_V3/{sample}_mouse/zUMIs_output/'+protocol+'kept_barcodes.txt',
-        dir_file222='multigenome_1CB_V3/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
-        dir_file2222='multigenome_1CB_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.genecounts.txt',
-        dir_file22222='multigenome_1CB_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
-        dir_file222222='multigenome_1CB_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.bc.READcounts.rds',
-        dir3='multigenome_1CB_V3/{sample}_mixed/'+protocol+'.filtered.tagged.Aligned.out.bam',
-        dir_file33='multigenome_1CB_V3/{sample}_mixed/zUMIs_output/'+protocol+'kept_barcodes.txt',
-        dir_file333='multigenome_1CB_V3/{sample}_mixed/zUMIs_output/expression/'+protocol+'.dgecounts.rds'
+        dir='multigenome_1CB_ramon_V3/{sample}_human/'+protocol+'.filtered.tagged.Aligned.out.bam',
+        dir_file11='multigenome_1CB_ramon_V3/{sample}_human/zUMIs_output/'+protocol+'kept_barcodes.txt',
+        dir_file111='multigenome_1CB_ramon_V3/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
+        dir_file1111='multigenome_1CB_ramon_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.genecounts.txt',
+        dir_file11111='multigenome_1CB_ramon_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
+        dir_file111111='multigenome_1CB_ramon_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.bc.READcounts.rds',
+        dir2='multigenome_1CB_ramon_V3/{sample}_mouse/'+protocol+'.filtered.tagged.Aligned.out.bam',
+        dir_file22='multigenome_1CB_ramon_V3/{sample}_mouse/zUMIs_output/'+protocol+'kept_barcodes.txt',
+        dir_file222='multigenome_1CB_ramon_V3/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
+        dir_file2222='multigenome_1CB_ramon_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.genecounts.txt',
+        dir_file22222='multigenome_1CB_ramon_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
+        dir_file222222='multigenome_1CB_ramon_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.bc.READcounts.rds',
+        dir3='multigenome_1CB_ramon_V3/{sample}_mixed/'+protocol+'.filtered.tagged.Aligned.out.bam',
+        dir_file33='multigenome_1CB_ramon_V3/{sample}_mixed/zUMIs_output/'+protocol+'kept_barcodes.txt',
+        dir_file333='multigenome_1CB_ramon_V3/{sample}_mixed/zUMIs_output/expression/'+protocol+'.dgecounts.rds'
         
 
     shell:
         """
-        cd multigenome_1CB_V3/{wildcards.sample}_human
+        cd multigenome_1CB_ramon_V3/{wildcards.sample}_human
         bash {zUMI_path}/zUMIs-master.sh -y ../../{input.yaml_hsap}
         cd ../{wildcards.sample}_mouse
         bash {zUMI_path}/zUMIs-master.sh -y ../../{input.yaml_mmus}
@@ -69,9 +69,9 @@ rule zUMI_run:
 
 rule Big_Bam_to_SAM:
     input: 
-        'multigenome_1CB_V3/{sample}_mixed/'+protocol+'.filtered.tagged.Aligned.out.bam'
+        'multigenome_1CB_ramon_V3/{sample}_mixed/'+protocol+'.filtered.tagged.Aligned.out.bam'
     output: 
-        'multigenome_1CB_V3/{sample}_mixed/'+protocol+'.demuxready.sam'
+        'multigenome_1CB_ramon_V3/{sample}_mixed/'+protocol+'.demuxready.sam'
     shell:
         """
         samtools view -h {input} > {output}
@@ -80,19 +80,19 @@ rule Big_Bam_to_SAM:
 # Here im getting the cell barcodes from readspercell.txt in zUMI_output/stats (It may be redundant I can combine it later)
 rule cellBC_detected:
     input:
-        reads_per_cell= 'multigenome_1CB_V3/{sample}_mixed/zUMIs_output/'+protocol+'kept_barcodes.txt'
+        reads_per_cell= 'multigenome_1CB_ramon_V3/{sample}_mixed/zUMIs_output/'+protocol+'kept_barcodes.txt'
     output:
-        'multigenome_1CB_V3/{sample}_mixed/cell_barcodes.txt'
+        'multigenome_1CB_ramon_V3/{sample}_mixed/cell_barcodes.txt'
     shell:
         """
         sed '1d' {input.reads_per_cell} | cut -d ',' -f1 > {output}
         """
 rule demux_cells:
     input:
-        tagged_sam= 'multigenome_1CB_V3/{sample}_mixed/'+protocol+'.demuxready.sam',
-        detected_BC= 'multigenome_1CB_V3/{sample}_mixed/cell_barcodes.txt'
+        tagged_sam= 'multigenome_1CB_ramon_V3/{sample}_mixed/'+protocol+'.demuxready.sam',
+        detected_BC= 'multigenome_1CB_ramon_V3/{sample}_mixed/cell_barcodes.txt'
     output:
-        demux_dir= 'multigenome_1CB_V3/{sample}_mixed/demuxed_cells_sam'
+        demux_dir= 'multigenome_1CB_ramon_V3/{sample}_mixed/demuxed_cells_sam'
     shell:
          """
          mkdir {output.demux_dir}
@@ -101,14 +101,14 @@ rule demux_cells:
 
 rule doublet_species:
     input:
-        demux_dir= 'multigenome_1CB_V3/{sample}_mixed/demuxed_cells_sam'
+        demux_dir= 'multigenome_1CB_ramon_V3/{sample}_mixed/demuxed_cells_sam'
     output:
-        out1= 'multigenome_1CB_V3/{sample}_mixed/doublet_species/doublet_table.txt',
-        out2= 'multigenome_1CB_V3/{sample}_mixed/doublet_species/doublet_table_reads.txt',
-        out3= 'multigenome_1CB_V3/{sample}_mixed/doublet_species/Only_human_cell_IDs.txt',
-        out4= 'multigenome_1CB_V3/{sample}_mixed/doublet_species/Only_mouse_cell_IDs.txt',
-        out5= 'multigenome_1CB_V3/{sample}_mixed/doublet_species/Only_dog_cell_IDs.txt',
-        out6= 'multigenome_1CB_V3/{sample}_mixed/doublet_species/Only_human_cell_IDs_BAMs.txt'
+        out1= 'multigenome_1CB_ramon_V3/{sample}_mixed/doublet_species/doublet_table.txt',
+        out2= 'multigenome_1CB_ramon_V3/{sample}_mixed/doublet_species/doublet_table_reads.txt',
+        out3= 'multigenome_1CB_ramon_V3/{sample}_mixed/doublet_species/Only_human_cell_IDs.txt',
+        out4= 'multigenome_1CB_ramon_V3/{sample}_mixed/doublet_species/Only_mouse_cell_IDs.txt',
+        out5= 'multigenome_1CB_ramon_V3/{sample}_mixed/doublet_species/Only_dog_cell_IDs.txt',
+        out6= 'multigenome_1CB_ramon_V3/{sample}_mixed/doublet_species/Only_human_cell_IDs_BAMs.txt'
 
     shell:
         """
@@ -118,32 +118,32 @@ rule doublet_species:
 
 rule prepare_R_inputs:
     input:
-        hsap_Exprs= expand('multigenome_1CB_V3/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES),
-        mmus_Exprs= expand('multigenome_1CB_V3/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES),
-        hsap_n_Reads= expand('multigenome_1CB_V3/{sample}_human/zUMIs_output/'+protocol+'kept_barcodes.txt',sample=SAMPLES),
-        hsap_n_Genes= expand('multigenome_1CB_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.genecounts.txt',sample=SAMPLES),
-        hsap_n_UMIs= expand('multigenome_1CB_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',sample=SAMPLES),
-        hsap_n_Features= expand('multigenome_1CB_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.bc.READcounts.rds',sample=SAMPLES),
-        mmus_n_Reads= expand('multigenome_1CB_V3/{sample}_mouse/zUMIs_output/'+protocol+'kept_barcodes.txt',sample=SAMPLES),
-        mmus_n_Genes= expand('multigenome_1CB_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.genecounts.txt',sample=SAMPLES),
-        mmus_n_UMIs= expand('multigenome_1CB_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',sample=SAMPLES),
-        mmus_n_Features= expand('multigenome_1CB_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.bc.READcounts.rds',sample=SAMPLES),
-        species_info= expand('multigenome_1CB_V3/{sample}_mixed/doublet_species/doublet_table_reads.txt',sample=SAMPLES)
-        #VCF_file= expand('multigenome_1CB_V3/mpileup/{sample}.mpileup.full.vcf.gz',sample=SAMPLES)
+        hsap_Exprs= expand('multigenome_1CB_ramon_V3/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES),
+        mmus_Exprs= expand('multigenome_1CB_ramon_V3/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES),
+        hsap_n_Reads= expand('multigenome_1CB_ramon_V3/{sample}_human/zUMIs_output/'+protocol+'kept_barcodes.txt',sample=SAMPLES),
+        hsap_n_Genes= expand('multigenome_1CB_ramon_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.genecounts.txt',sample=SAMPLES),
+        hsap_n_UMIs= expand('multigenome_1CB_ramon_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',sample=SAMPLES),
+        hsap_n_Features= expand('multigenome_1CB_ramon_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.bc.READcounts.rds',sample=SAMPLES),
+        mmus_n_Reads= expand('multigenome_1CB_ramon_V3/{sample}_mouse/zUMIs_output/'+protocol+'kept_barcodes.txt',sample=SAMPLES),
+        mmus_n_Genes= expand('multigenome_1CB_ramon_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.genecounts.txt',sample=SAMPLES),
+        mmus_n_UMIs= expand('multigenome_1CB_ramon_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',sample=SAMPLES),
+        mmus_n_Features= expand('multigenome_1CB_ramon_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.bc.READcounts.rds',sample=SAMPLES),
+        species_info= expand('multigenome_1CB_ramon_V3/{sample}_mixed/doublet_species/doublet_table_reads.txt',sample=SAMPLES)
+        #VCF_file= expand('multigenome_1CB_ramon_V3/mpileup/{sample}.mpileup.full.vcf.gz',sample=SAMPLES)
     
     output:
-        hsapExp_list="multigenome_1CB_V3/"+protocol+'_Hsap_expression_list.txt',
-        mmusExp_list="multigenome_1CB_V3/"+protocol+'_Mmus_expression_list.txt',
-        hsap_nReads_list="multigenome_1CB_V3/"+protocol+'_Hsap_NumberOfReads_list.txt',
-        hsap_nUMIs_list="multigenome_1CB_V3/"+protocol+'_Hsap_NumberOfUMIs_list.txt',
-        hsap_nGenes_list="multigenome_1CB_V3/"+protocol+'_Hsap_NumberOfGenes_list.txt',
-        hsap_nFeatures_list="multigenome_1CB_V3/"+protocol+'_Hsap_NumberOfFeatures_list.txt',
-        mmus_nReads_list="multigenome_1CB_V3/"+protocol+'_Mmus_NumberOfReads_list.txt',
-        mmus_nUMIs_list="multigenome_1CB_V3/"+protocol+'_Mmus_NumberOfUMIs_list.txt',
-        mmus_nGenes_list="multigenome_1CB_V3/"+protocol+'_Mmus_NumberOfGenes_list.txt',
-        mmus_nFeatures_list="multigenome_1CB_V3/"+protocol+'_Mmus_NumberOfFeatures_list.txt',
-        species_list="multigenome_1CB_V3/"+protocol+'_Species_info_list.txt'
-        #vcfs_list="multigenome_1CB_V3/"+protocol+'_VCFs_list.txt'
+        hsapExp_list="multigenome_1CB_ramon_V3/"+protocol+'_Hsap_expression_list.txt',
+        mmusExp_list="multigenome_1CB_ramon_V3/"+protocol+'_Mmus_expression_list.txt',
+        hsap_nReads_list="multigenome_1CB_ramon_V3/"+protocol+'_Hsap_NumberOfReads_list.txt',
+        hsap_nUMIs_list="multigenome_1CB_ramon_V3/"+protocol+'_Hsap_NumberOfUMIs_list.txt',
+        hsap_nGenes_list="multigenome_1CB_ramon_V3/"+protocol+'_Hsap_NumberOfGenes_list.txt',
+        hsap_nFeatures_list="multigenome_1CB_ramon_V3/"+protocol+'_Hsap_NumberOfFeatures_list.txt',
+        mmus_nReads_list="multigenome_1CB_ramon_V3/"+protocol+'_Mmus_NumberOfReads_list.txt',
+        mmus_nUMIs_list="multigenome_1CB_ramon_V3/"+protocol+'_Mmus_NumberOfUMIs_list.txt',
+        mmus_nGenes_list="multigenome_1CB_ramon_V3/"+protocol+'_Mmus_NumberOfGenes_list.txt',
+        mmus_nFeatures_list="multigenome_1CB_ramon_V3/"+protocol+'_Mmus_NumberOfFeatures_list.txt',
+        species_list="multigenome_1CB_ramon_V3/"+protocol+'_Species_info_list.txt'
+        #vcfs_list="multigenome_1CB_ramon_V3/"+protocol+'_VCFs_list.txt'
 
     shell:
         """
@@ -161,20 +161,20 @@ rule prepare_R_inputs:
         """
 rule R_wrapper:
     input:
-        hE_list="multigenome_1CB_V3/"+protocol+'_Hsap_expression_list.txt',
-        mE_list="multigenome_1CB_V3/"+protocol+'_Mmus_expression_list.txt',
-        h_nR_list="multigenome_1CB_V3/"+protocol+'_Hsap_NumberOfReads_list.txt',
-        h_nU_list="multigenome_1CB_V3/"+protocol+'_Hsap_NumberOfUMIs_list.txt',
-        h_nG_list="multigenome_1CB_V3/"+protocol+'_Hsap_NumberOfGenes_list.txt',
-        h_nF_list="multigenome_1CB_V3/"+protocol+'_Hsap_NumberOfFeatures_list.txt',
-        m_nR_list="multigenome_1CB_V3/"+protocol+'_Mmus_NumberOfReads_list.txt',
-        m_nU_list="multigenome_1CB_V3/"+protocol+'_Mmus_NumberOfUMIs_list.txt',
-        m_nG_list="multigenome_1CB_V3/"+protocol+'_Mmus_NumberOfGenes_list.txt',
-        m_nF_list="multigenome_1CB_V3/"+protocol+'_Mmus_NumberOfFeatures_list.txt',
-        spec_list="multigenome_1CB_V3/"+protocol+'_Species_info_list.txt'
-        #vcf_list="multigenome_1CB_V3/"+protocol+'_VCFs_list.txt'
+        hE_list="multigenome_1CB_ramon_V3/"+protocol+'_Hsap_expression_list.txt',
+        mE_list="multigenome_1CB_ramon_V3/"+protocol+'_Mmus_expression_list.txt',
+        h_nR_list="multigenome_1CB_ramon_V3/"+protocol+'_Hsap_NumberOfReads_list.txt',
+        h_nU_list="multigenome_1CB_ramon_V3/"+protocol+'_Hsap_NumberOfUMIs_list.txt',
+        h_nG_list="multigenome_1CB_ramon_V3/"+protocol+'_Hsap_NumberOfGenes_list.txt',
+        h_nF_list="multigenome_1CB_ramon_V3/"+protocol+'_Hsap_NumberOfFeatures_list.txt',
+        m_nR_list="multigenome_1CB_ramon_V3/"+protocol+'_Mmus_NumberOfReads_list.txt',
+        m_nU_list="multigenome_1CB_ramon_V3/"+protocol+'_Mmus_NumberOfUMIs_list.txt',
+        m_nG_list="multigenome_1CB_ramon_V3/"+protocol+'_Mmus_NumberOfGenes_list.txt',
+        m_nF_list="multigenome_1CB_ramon_V3/"+protocol+'_Mmus_NumberOfFeatures_list.txt',
+        spec_list="multigenome_1CB_ramon_V3/"+protocol+'_Species_info_list.txt'
+        #vcf_list="multigenome_1CB_ramon_V3/"+protocol+'_VCFs_list.txt'
     output:
-        hsap_Robj= "multigenome_1CB_V3/"+protocol+".hsap.full.SCE.Robj",
-        mmus_Robj= "multigenome_1CB_V3/"+protocol+".mmus.full.SCE.Robj"
+        hsap_Robj= "multigenome_1CB_ramon_V3/"+protocol+".hsap.full.SCE.Robj",
+        mmus_Robj= "multigenome_1CB_ramon_V3/"+protocol+".mmus.full.SCE.Robj"
     shell:
-        "Rscript wrapper_Robj_V4_withoutDonor.R --hsapExp {input.hE_list} --mmusExp {input.mE_list} --hnReads {input.h_nR_list} --hnUMI {input.h_nU_list} --hnGene {input.h_nG_list} --hnFeatures {input.h_nF_list} --mnReads {input.m_nR_list} --mnUMI {input.m_nU_list} --mnGene {input.m_nG_list} --mnFeatures {input.m_nF_list} --species {input.spec_list} --output_SCEobj ./multigenome_1CB_V3 --technology 1CB"
+        "Rscript wrapper_Robj_V4_withoutDonor.R --hsapExp {input.hE_list} --mmusExp {input.mE_list} --hnReads {input.h_nR_list} --hnUMI {input.h_nU_list} --hnGene {input.h_nG_list} --hnFeatures {input.h_nF_list} --mnReads {input.m_nR_list} --mnUMI {input.m_nU_list} --mnGene {input.m_nG_list} --mnFeatures {input.m_nF_list} --species {input.spec_list} --output_SCEobj ./multigenome_1CB_ramon_V3 --technology 1CB_ramon"
