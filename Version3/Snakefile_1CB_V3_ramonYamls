@@ -13,7 +13,7 @@ mixed_STAR_genome= '/project/devel/alafzi/ref_genomes/mixed/STARgenome'
 
 zUMI_path='/apps/ZUMIS/2.2'
 bc_list2= '/project/devel/HCA/10XGenomics/10X_cellBCs_737K-august-2016.txt'
-protocol= '1CB_ramon'
+protocol= '1CB'
 
 #Loading modules
 #shell.executable("!/usr/bin/env bash")
