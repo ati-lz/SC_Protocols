@@ -14,14 +14,18 @@ project:
 #you can specify between 1 and 4 input files
 sequence_files:
   file1:
-    name: #path to first file
+    name: #cdnaread.R1.fastq.gz
     base_definition:
-      - #example: cDNA(1-36)
-  file2:
-    name: #path to first file
+      - #cDNA(1-36)
+  file3:
+    name: #librarybc.R2.fastq.gz
     base_definition:
-      - #example: BC(1-8,31-38)
-      - #example: UMI(39-44)
+      - #BC(1-6)
+  file4:
+    name: #barcodeUMIread.R3.fastq.gz
+    base_definition:
+      - #BC(1-8,31-38)
+      - #UMI(39-44)
     correct_frameshift: #AAGGCGTCACAAGCAATCACTC
 
 #reference genome setup
