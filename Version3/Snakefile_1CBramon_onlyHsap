@@ -1,0 +1,50 @@
+from os import listdir
+import yaml
+
+#Path to sample fastq files
+#fastq_path = '/project/devel/HCA/MDC_Berlin/1CellBio/re-demux/PXXX/demux2/FASTQ/'
+fastq_path = 'New_data/fast/CF_Sequencing/demux/181101_SN541_0422_B_CCAR7ACXX/P270/demux_P270_SaS_CF_063_rc/FASTQ/'
+#fastq_path = '/project/devel/HCA/MDC_Berlin/1CellBio/re-demux/1CellBio_redemux_merged/'
+human_gtf = '/project/devel/alafzi/ref_genomes/human/hsa_gencode.v28.annotation.gtf'
+human_STAR_genome= '/project/devel/alafzi/ref_genomes/human/STARgenome'
+mouse_gtf = '/project/devel/alafzi/ref_genomes/mouse/mmu_gencode.vM17.primary_assembly.annotation.gtf'
+mouse_STAR_genome= '/project/devel/alafzi/ref_genomes/mouse/STARgenome'
+mixed_gtf = '/project/devel/alafzi/ref_genomes/mixed/hsap_mmus_can_combined_gtf.gtf'
+mixed_STAR_genome= '/project/devel/alafzi/ref_genomes/mixed/STARgenome'
+
+zUMI_path='/apps/ZUMIS/2.2'
+bc_list2= '/project/devel/HCA/10XGenomics/10X_cellBCs_737K-august-2016.txt'
+protocol= '1CBramon'
+
+#Loading modules
+#shell.executable("!/usr/bin/env bash")
+shell.prefix("module unload gcc/latest; module load gcc/6.3.0; module load XZ/5.2.2; module load COREUTILS/8.21; module load CONDA/4.3.11_PYTHON3; module load java/latest; module load SAMTOOLS/1.9; module load BAMTOOLS/2.3.0 ; module load STAR/2.6.0c; module load R/3.5.0; module load hdf5/1.10.1; module load PIGZ/2.3.3; module load ZUMIS/2.2; ")
+
+#Samples
+sample_files = listdir(fastq_path)
+SAMPLES = list(set(i.split("_")[2] for i in sample_files))
+#SPECIES = ["human", "mouse", "mixed"]
+
+
+rule all:
+    input:
+        'multigenome_1CBramon_onlyHsap/S14_human/'+protocol+'.filtered.tagged.Aligned.out.bam',
+        'multigenome_1CBramon_onlyHsap/S14_human/zUMIs_output/'+protocol+'kept_barcodes.txt',
+        'multigenome_1CBramon_onlyHsap/S14_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds'
+
+       
+rule zUMI_run:
+    input:
+        yaml_hsap="1CB_specific_yamls/Ramon_1CB.onlyHsap.yaml"
+
+    output:
+        dir='multigenome_1CBramon_onlyHsap/S14_human/'+protocol+'.filtered.tagged.Aligned.out.bam',
+        dir_file11='multigenome_1CBramon_onlyHsap/S14_human/zUMIs_output/'+protocol+'kept_barcodes.txt',
+        dir_file111='multigenome_1CBramon_onlyHsap/S14_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds'
+        
+    shell:
+        """
+        cd multigenome_1CBramon_onlyHsap/S14_human
+        bash {zUMI_path}/zUMIs-master.sh -y ../../{input.yaml_hsap}
+        cd ../..
+       """
