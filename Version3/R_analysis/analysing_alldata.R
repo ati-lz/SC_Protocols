@@ -3,7 +3,7 @@ library(ggplot2)
 library(biomaRt)
 library(tibble)
 library(data.table)
-require(minpack.lm)
+#require(minpack.lm)
 
 # Functions ####
 load("Biomart_hsap_mapping_table.RData")
@@ -541,10 +541,11 @@ hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(C1HT.hsap.fin.metadat
 hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(X10x8x10K.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("X10x8x10K", nrow(X10x8x10K.hsap.fin.metadata))))
 hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(X10Scilife.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("X10Scilife", nrow(X10Scilife.hsap.fin.metadata))))
 
-pdf("all_techs/hsap_nReadsVSnUMIs_all_V3nlsLM.pdf")
+pdf("all_techs/hsap_nReadsVSnUMIs_all_V4SSasymp.pdf")
 #ggplot(hsap.nread.numi.df, aes(x=nTReads, y=nUMIs, group=tech)) + geom_smooth(aes(color=tech))+ xlim(0, 2000000)# + geom_line(aes(color=tech))#
 #ggplot(hsap.nread.numi.df, aes(x=nTReads, y=nUMIs, group=tech)) + geom_smooth(method="lm", formula=y~log(x), fill="grey", aes(color=tech))+ xlim(0, 2000000)# + geom_line(aes(color=tech))#
-ggplot(hsap.nread.numi.df, aes(x=nTReads, y=nUMIs, group=tech)) + geom_smooth(method='nlsLM',formula=y ~ a*x^b, se=FALSE, method.args = list(start = list(a=1,b=1)), aes(color=tech))+ xlim(0, 1500000)# + geom_line(aes(color=tech))#
+#ggplot(hsap.nread.numi.df, aes(x=nTReads, y=nUMIs, group=tech)) + geom_smooth(method='nlsLM',formula=y ~ a*x^b, se=FALSE, method.args = list(start = list(a=1,b=1)), aes(color=tech))+ xlim(0, 1500000)# + geom_line(aes(color=tech))#
+ggplot(hsap.nread.numi.df, aes(x=nTReads, y=nUMIs, group=tech)) + geom_smooth(method='nls',formula=y ~ SSasympOff(x, A, lrc, c0), se=FALSE, method.args = list(start = list(a=1,b=1)), aes(color=tech))+ xlim(0, 1500000)# + geom_line(aes(color=tech))#
 
 dev.off()
 
@@ -566,8 +567,9 @@ hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(ddSEQexp1.hsap.fin.
 hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(C1HT.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("C1HT", nrow(C1HT.hsap.fin.metadata))))
 hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(X10x8x10K.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("X10x8x10K", nrow(X10x8x10K.hsap.fin.metadata))))
 hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(X10Scilife.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("X10Scilife", nrow(X10Scilife.hsap.fin.metadata))))
-pdf("all_techs/hsap_nReadsVSnGenes_all_V3nlsLM.pdf")
+pdf("all_techs/hsap_nReadsVSnGenes_all_V4SSasymp.pdf")
 #ggplot(hsap.nread.ngene.df, aes(x=nGenes, y=nTReads, group=tech)) + geom_point(aes(color=tech)) + geom_smooth(aes(color=tech))+ xlim(0, 18000)# + geom_line(aes(color=tech))#
 #ggplot(hsap.nread.ngene.df, aes(x=nTReads, y=nGenes, group=tech)) + geom_smooth(method="lm", formula=y~log(x), fill="grey", aes(color=tech))+ xlim(0, 2000000)# + geom_line(aes(color=tech))#
-ggplot(hsap.nread.ngene.df, aes(x=nTReads, y=nGenes, group=tech)) + geom_smooth(method='nlsLM',formula=y ~ a*x^b, se=FALSE, method.args = list(start = list(a=1,b=1)), aes(color=tech))+ xlim(0, 1500000)# + geom_line(aes(color=tech))#
+#ggplot(hsap.nread.ngene.df, aes(x=nTReads, y=nGenes, group=tech)) + geom_smooth(method='nlsLM',formula=y ~ a*x^b, se=FALSE, method.args = list(start = list(a=1,b=1)), aes(color=tech))+ xlim(0, 1500000)# + geom_line(aes(color=tech))#
+ggplot(hsap.nread.ngene.df, aes(x=nTReads, y=nGenes, group=tech)) + geom_smooth(method='nls',formula=y ~ SSasympOff(x, A, lrc, c0), se=FALSE, method.args = list(start = list(a=1,b=1)), aes(color=tech))+ xlim(0, 1500000)# + geom_line(aes(color=tech))#
 dev.off()
