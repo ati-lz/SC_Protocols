@@ -541,8 +541,9 @@ hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(C1HT.hsap.fin.metadat
 hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(X10x8x10K.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("X10x8x10K", nrow(X10x8x10K.hsap.fin.metadata))))
 hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(X10Scilife.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("X10Scilife", nrow(X10Scilife.hsap.fin.metadata))))
 
-pdf("all_techs/hsap_nReadsVSnUMIs_all.pdf")
-ggplot(hsap.nread.numi.df, aes(x=nTReads, y=nUMIs, group=tech)) + geom_smooth(aes(color=tech))+ xlim(0, 2000000)# + geom_line(aes(color=tech))#
+pdf("all_techs/hsap_nReadsVSnUMIs_all_V2logfit.pdf")
+#ggplot(hsap.nread.numi.df, aes(x=nTReads, y=nUMIs, group=tech)) + geom_smooth(aes(color=tech))+ xlim(0, 2000000)# + geom_line(aes(color=tech))#
+ggplot(hsap.nread.numi.df, aes(x=nTReads, y=nUMIs, group=tech)) + geom_smooth(method="lm", formula=y~log(x), fill="grey", aes(color=tech))+ xlim(0, 2000000)# + geom_line(aes(color=tech))#
 dev.off()
 
 
@@ -563,7 +564,7 @@ hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(ddSEQexp1.hsap.fin.
 hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(C1HT.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("C1HT", nrow(C1HT.hsap.fin.metadata))))
 hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(X10x8x10K.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("X10x8x10K", nrow(X10x8x10K.hsap.fin.metadata))))
 hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(X10Scilife.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("X10Scilife", nrow(X10Scilife.hsap.fin.metadata))))
-pdf("all_techs/hsap_nReadsVSnGenes_all.pdf")
+pdf("all_techs/hsap_nReadsVSnGenes_all_V2logfit.pdf")
 #ggplot(hsap.nread.ngene.df, aes(x=nGenes, y=nTReads, group=tech)) + geom_point(aes(color=tech)) + geom_smooth(aes(color=tech))+ xlim(0, 18000)# + geom_line(aes(color=tech))#
-ggplot(hsap.nread.ngene.df, aes(x=nTReads, y=nGenes, group=tech)) + geom_smooth(aes(color=tech))+ xlim(0, 2000000)# + geom_line(aes(color=tech))#
+ggplot(hsap.nread.ngene.df, aes(x=nTReads, y=nGenes, group=tech)) + geom_smooth(method="lm", formula=y~log(x), fill="grey", aes(color=tech))+ xlim(0, 2000000)# + geom_line(aes(color=tech))#
 dev.off()
