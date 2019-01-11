@@ -27,7 +27,6 @@ rule all:
         'multigenome_1CBramon_onlyHsap/S14_human/'+protocol+'.filtered.tagged.Aligned.out.bam',
         'multigenome_1CBramon_onlyHsap/S14_human/zUMIs_output/'+protocol+'kept_barcodes.txt',
         'multigenome_1CBramon_onlyHsap/S14_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds'
-
        
 rule zUMI_run:
     input:
