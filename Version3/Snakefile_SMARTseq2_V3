@@ -52,6 +52,7 @@ rule create_yaml:
         data_hsap['sequence_files']['file4']['name'] = fastq_path+ 'SMARTseq_' + wildcards.sample +'_I2.fastq.gz'
         data_hsap['sequence_files']['file4']['base_definition'][0] = 'BC(1-8)'
         data_hsap['num_threads'] = 8
+        data_hsap['mem_limit'] = 50
         #data_hsap['make_stats'] = "yes"
         #data_hsap['which_Stage'] = 'Counting'
         #data_hsap['barcodes']['barcode_file'] = bc_list2
@@ -101,19 +102,19 @@ rule zUMI_run:
     output:
         dir='multigenome_SMARTseq2_V3/{sample}_human/'+protocol+'.filtered.tagged.Aligned.out.bam',
         dir_file11='multigenome_SMARTseq2_V3/{sample}_human/zUMIs_output/'+protocol+'kept_barcodes.txt',
-        dir_file111='multigenome_SMARTseq2_V3/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
+        #dir_file111='multigenome_SMARTseq2_V3/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
         #dir_file1111='multigenome_SMARTseq2_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.genecounts.txt',
         #dir_file11111='multigenome_SMARTseq2_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
         #dir_file111111='multigenome_SMARTseq2_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.bc.READcounts.rds',
         dir2='multigenome_SMARTseq2_V3/{sample}_mouse/'+protocol+'.filtered.tagged.Aligned.out.bam',
         dir_file22='multigenome_SMARTseq2_V3/{sample}_mouse/zUMIs_output/'+protocol+'kept_barcodes.txt',
-        dir_file222='multigenome_SMARTseq2_V3/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
+        #dir_file222='multigenome_SMARTseq2_V3/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
         #dir_file2222='multigenome_SMARTseq2_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.genecounts.txt',
         #dir_file22222='multigenome_SMARTseq2_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
         #dir_file222222='multigenome_SMARTseq2_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.bc.READcounts.rds',
         dir3='multigenome_SMARTseq2_V3/{sample}_mixed/'+protocol+'.filtered.tagged.Aligned.out.bam',
-        dir_file33='multigenome_SMARTseq2_V3/{sample}_mixed/zUMIs_output/'+protocol+'kept_barcodes.txt',
-        dir_file333='multigenome_SMARTseq2_V3/{sample}_mixed/zUMIs_output/expression/'+protocol+'.dgecounts.rds'
+        dir_file33='multigenome_SMARTseq2_V3/{sample}_mixed/zUMIs_output/'+protocol+'kept_barcodes.txt'
+        #dir_file333='multigenome_SMARTseq2_V3/{sample}_mixed/zUMIs_output/expression/'+protocol+'.dgecounts.rds'
         
     shell:
         """
