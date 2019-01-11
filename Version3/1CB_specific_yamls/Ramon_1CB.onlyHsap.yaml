@@ -35,7 +35,7 @@ reference:
   additional_STAR_params: #Optional parameter. you may add custom mapping parameters to STAR here
 
 #output directory
-out_dir: /project/devel/alafzi/SC_Protocols/Version3/multigenome_1CBramon_onlyHsap/S14_human
+out_dir: /project/devel/alafzi/SC_Protocols/Version3/multigenome_1CBramon_onlyHsap/S14q_human
 
 ###########################################
 #below, you may optionally change default parameters
@@ -60,7 +60,7 @@ filter_cutoffs:
 #You can give either number of top barcodes to use or give an annotation of cell barcodes.
 #If you leave both barcode_num and barcode_file empty, zUMIs will perform automatic cell barcode selection for you!
 barcodes:
-  barcode_num: null
+  barcode_num: 800
   barcode_file: null
   BarcodeBinning: 0 #Hamming distance binning of close cell barcode sequences. ATTENTION! This option is currently not implemented!
   nReadsperCell: 1000 #Keep only the cell barcodes with atleast n number of reads.
