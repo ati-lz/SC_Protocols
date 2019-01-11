@@ -35,7 +35,7 @@ reference:
   additional_STAR_params: #Optional parameter. you may add custom mapping parameters to STAR here
 
 #output directory
-out_dir: /project/devel/alafzi/SC_Protocols/Version3/multigenome_1CBramon_onlyHsap/S14q_human
+out_dir: /project/devel/alafzi/SC_Protocols/Version3/multigenome_1CBramon_onlyHsap/S14_human
 
 ###########################################
 #below, you may optionally change default parameters
