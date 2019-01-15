@@ -14,11 +14,11 @@ project: 1CBHsap
 #you can specify between 1 and 4 input files
 sequence_files:
   file1:
-    name: /project/devel/HCA/MDC_Berlin/New_data/fast/CF_Sequencing/demux/181101_SN541_0422_B_CCAR7ACXX/P270/demux_P270_SaS_CF_063_rc/FASTQ/SP021_024_S14_R1_001.fastq.gz
+    name: '/project/devel/HCA/MDC_Berlin/1CellBio/re-demux/PXXX/demux2/FASTQ/SP021_024_S1_R1_001.fastq.gz'
     base_definition:
       - cDNA(1-60)
   file2:
-    name: /project/devel/HCA/MDC_Berlin/New_data/fast/CF_Sequencing/demux/181101_SN541_0422_B_CCAR7ACXX/P270/demux_P270_SaS_CF_063_rc/FASTQ/SP021_024_S14_R2_001.fastq.gz
+    name: '/project/devel/HCA/MDC_Berlin/1CellBio/re-demux/PXXX/demux2/FASTQ/SP021_024_S1_R2_001.fastq.gz'
     base_definition:
       - BC(1-8,31-38)
       - UMI(39-44)
@@ -60,8 +60,8 @@ filter_cutoffs:
 #You can give either number of top barcodes to use or give an annotation of cell barcodes.
 #If you leave both barcode_num and barcode_file empty, zUMIs will perform automatic cell barcode selection for you!
 barcodes:
-  barcode_num: 800
-  barcode_file: null
+  barcode_num: null
+  barcode_file: /project/devel/alafzi/SC_Protocols/Version3/Ramon_files/files/1CB_BClits_Ramon.txt
   BarcodeBinning: 0 #Hamming distance binning of close cell barcode sequences. ATTENTION! This option is currently not implemented!
   nReadsperCell: 1000 #Keep only the cell barcodes with atleast n number of reads.
 
