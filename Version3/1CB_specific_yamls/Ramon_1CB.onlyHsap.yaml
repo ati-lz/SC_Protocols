@@ -14,11 +14,11 @@ project: 1CBHsap
 #you can specify between 1 and 4 input files
 sequence_files:
   file1:
-    name: '/project/devel/HCA/MDC_Berlin/1CellBio/re-demux/PXXX/demux2/FASTQ/SP021_024_S1_R1_001.fastq.gz'
+    name: /project/devel/HCA/MDC_Berlin/1CellBio/re-demux/PXXX/demux2/FASTQ/SP021_024_S1_R1_001.fastq.gz
     base_definition:
       - cDNA(1-60)
   file2:
-    name: '/project/devel/HCA/MDC_Berlin/1CellBio/re-demux/PXXX/demux2/FASTQ/SP021_024_S1_R2_001.fastq.gz'
+    name: /project/devel/HCA/MDC_Berlin/1CellBio/re-demux/PXXX/demux2/FASTQ/SP021_024_S1_R2_001.fastq.gz
     base_definition:
       - BC(1-8,31-38)
       - UMI(39-44)
@@ -35,7 +35,7 @@ reference:
   additional_STAR_params: #Optional parameter. you may add custom mapping parameters to STAR here
 
 #output directory
-out_dir: /project/devel/alafzi/SC_Protocols/Version3/multigenome_1CBramon_onlyHsap/S14_human
+out_dir: /project/devel/alafzi/SC_Protocols/Version3/multigenome_1CBramon_onlyHsap/S1_human
 
 ###########################################
 #below, you may optionally change default parameters
