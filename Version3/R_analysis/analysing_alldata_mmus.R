@@ -543,7 +543,7 @@ mmus.nread.numi.df <- rbind(mmus.nread.numi.df, data.frame(X10Scilife.mmus.fin.m
 
 pdf("all_techs/mmus_nReadsVSnUMIs_all_V5.pdf")
 #ggplot(mmus.nread.numi.df, aes(x=nTReads, y=nUMIs, group=tech)) + geom_smooth(aes(color=tech))+ xlim(0, 2000000)# + geom_line(aes(color=tech))#
-ggplot(mmus.nread.numi.df, aes(x=nTReads, y=nUMIs, group=tech)) + geom_line(aes(color=tech))+ xlim(0, 100000)# + geom_line(aes(color=tech))#
+ggplot(mmus.nread.numi.df, aes(x=nTReads, y=nUMIs, group=tech)) + geom_smooth(method="lm", formula=y~x, fill="grey",aes(color=tech))+ xlim(0, 100000)# + geom_line(aes(color=tech))#
 #ggplot(mmus.nread.numi.df, aes(x=nTReads, y=nUMIs, group=tech)) + geom_smooth(method="lm", formula=y~log(x), fill="grey", aes(color=tech))+ xlim(0, 2000000)# + geom_line(aes(color=tech))#
 #ggplot(mmus.nread.numi.df, aes(x=nTReads, y=nUMIs, group=tech)) + geom_smooth(method='nlsLM',formula=y ~ a*x^b, se=FALSE, method.args = list(start = list(a=1,b=1)), aes(color=tech))+ xlim(0, 1500000)# + geom_line(aes(color=tech))#
 #ggplot(mmus.nread.numi.df, aes(x=nTReads, y=nUMIs, group=tech)) + geom_smooth(method='nls',formula=y ~ SSasympOff(x, A, lrc, c0), se=FALSE, aes(color=tech))+ xlim(0, 1500000)# + geom_line(aes(color=tech))#
@@ -570,7 +570,7 @@ mmus.nread.ngene.df <- rbind(mmus.nread.ngene.df, data.frame(X10x8x10K.mmus.fin.
 mmus.nread.ngene.df <- rbind(mmus.nread.ngene.df, data.frame(X10Scilife.mmus.fin.metadata[, c("nTReads", "nGenes")], tech = rep("X10Scilife", nrow(X10Scilife.mmus.fin.metadata))))
 pdf("all_techs/mmus_nReadsVSnGenes_all_V5.pdf")
 #ggplot(mmus.nread.ngene.df, aes(x=nGenes, y=nTReads, group=tech)) + geom_point(aes(color=tech)) + geom_smooth(aes(color=tech))+ xlim(0, 18000)# + geom_line(aes(color=tech))#
-ggplot(mmus.nread.ngene.df, aes(x=nTReads, y=nGenes, group=tech))  + geom_line(aes(color=tech))+ xlim(0, 100000)# + geom_line(aes(color=tech))#
+ggplot(mmus.nread.ngene.df, aes(x=nTReads, y=nGenes, group=tech))  + geom_smooth(method="lm", formula=y~x, fill="grey",aes(color=tech))+ xlim(0, 100000)# + geom_line(aes(color=tech))#
 #ggplot(mmus.nread.ngene.df, aes(x=nTReads, y=nGenes, group=tech)) + geom_smooth(method="lm", formula=y~log(x), fill="grey", aes(color=tech))+ xlim(0, 2000000)# + geom_line(aes(color=tech))#
 #ggplot(mmus.nread.ngene.df, aes(x=nTReads, y=nGenes, group=tech)) + geom_smooth(method='nlsLM',formula=y ~ a*x^b, se=FALSE, method.args = list(start = list(a=1,b=1)), aes(color=tech))+ xlim(0, 1500000)# + geom_line(aes(color=tech))#
 #ggplot(mmus.nread.ngene.df, aes(x=nTReads, y=nGenes, group=tech)) + geom_smooth(method='nls',formula=y ~ SSasympOff(x, A, lrc, c0), se=FALSE, aes(color=tech))+ xlim(0, 1500000)# + geom_line(aes(color=tech))#
