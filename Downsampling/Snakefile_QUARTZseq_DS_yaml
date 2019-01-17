@@ -56,7 +56,7 @@ rule create_yaml:
         #data_DS['which_Stage'] = 'Counting'
         data_DS['barcodes']['barcode_file'] = bc_list2
         #data_DS['barcodes']['barcode_num'] = 'null'
-        data_DS['counting_opts']['downsampling'] = '20000,5000,10000,15000'
+        data_DS['counting_opts']['downsampling'] = '5000,10000,15000,20000,50000'
         data_DS['reference']['STAR_index'] = '/project/devel/alafzi/ref_genomes/human/STARgenome'
         data_DS['reference']['GTF_file'] = '/project/devel/alafzi/ref_genomes/human/hsa_gencode.v28.annotation.gtf'
         data_DS['reference']['additional_STAR_params'] = '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000'
@@ -73,7 +73,7 @@ rule fix_yaml:
     shell:
         """
        sed 's/make_stats: true/make_stats: yes/g' {input.yamlin_DS} > {output.yamlOutFix_DS}
-       sed 's/downsampling: 20000,5000,10000,15000/downsampling: "20000,5000,10000,15000"/g' {input.yamlin_DS} > {output.yamlOutFix_DS}
+       sed 's/downsampling: 5000,10000,15000,20000,50000/downsampling: "5000,10000,15000,20000,50000"/g' {input.yamlin_DS} > {output.yamlOutFix_DS}
        """
        
 
