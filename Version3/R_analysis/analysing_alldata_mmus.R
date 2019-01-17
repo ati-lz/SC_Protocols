@@ -466,11 +466,11 @@ mmus.total.reads <- rbind(mmus.total.reads, data.frame(ddSEQexp1.mmus.fin.metada
 mmus.total.reads <- rbind(mmus.total.reads, data.frame(C1HT.mmus.fin.metadata[, c("Library", "nTReads")], tech = rep("C1HT", nrow(C1HT.mmus.fin.metadata))))
 mmus.total.reads <- rbind(mmus.total.reads, data.frame(X10x8x10K.mmus.fin.metadata[, c("Library", "nTReads")], tech = rep("X10x8x10K", nrow(X10x8x10K.mmus.fin.metadata))))
 mmus.total.reads <- rbind(mmus.total.reads, data.frame(X10Scilife.mmus.fin.metadata[, c("Library", "nTReads")], tech = rep("X10Scilife", nrow(X10Scilife.mmus.fin.metadata))))
-pdf("all_techs/mmus_total_number_Reads_all_V3.pdf")
+pdf("all_techs/mmus_total_number_Reads_all_V2.pdf")
 #ggplot(data=mmus.total.reads, aes(x=Library, y=log(nTReads), fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none") + facet_grid(. ~ tech, scales = "free") 
 #ggplot(data=mmus.total.reads, aes(x=tech, y=log(nTReads), fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none") + facet_grid(. ~ tech, scales = "free") 
-#ggplot(data=mmus.total.reads, aes(x=tech, y=nTReads, fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none",panel.spacing.x = unit(0, "null")) + scale_y_continuous(trans = "log10", labels= scales::comma, breaks = c(1000, 20000, 100000, 500000, 1000000)) + facet_grid(. ~ tech, scales = "free") + geom_hline(yintercept=c(1000, 20000, 100000, 500000, 1000000), color = "orange", linetype = "dashed") # , limits = c(5000, NA)
-ggplot(data=mmus.total.reads, aes(x=tech, y=nTReads, fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none",panel.spacing.x = unit(0, "null")) + scale_y_continuous(labels= scales::comma, breaks = c(1000, 20000, 100000, 500000, 1000000)) + facet_grid(. ~ tech, scales = "free") + geom_hline(yintercept=c(1000, 20000, 100000, 500000, 1000000), color = "orange", linetype = "dashed") # , limits = c(5000, NA)
+ggplot(data=mmus.total.reads, aes(x=tech, y=nTReads, fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none",panel.spacing.x = unit(0, "null")) + scale_y_continuous(trans = "log", labels= scales::comma, breaks = c(1000, 20000, 100000, 500000, 1000000)) + facet_grid(. ~ tech, scales = "free") #+ geom_hline(yintercept=c(1000, 20000, 100000, 500000, 1000000), color = "orange", linetype = "dashed") # , limits = c(5000, NA)
+#ggplot(data=mmus.total.reads, aes(x=tech, y=nTReads, fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none",panel.spacing.x = unit(0, "null")) + scale_y_continuous(labels= scales::comma, breaks = c(1000, 20000, 100000, 500000, 1000000)) + facet_grid(. ~ tech, scales = "free") + geom_hline(yintercept=c(1000, 20000, 100000, 500000, 1000000), color = "orange", linetype = "dashed") # , limits = c(5000, NA)
 dev.off()
 
 
@@ -492,11 +492,11 @@ mmus.total.genes <- rbind(mmus.total.genes, data.frame(ddSEQexp1.mmus.fin.metada
 mmus.total.genes <- rbind(mmus.total.genes, data.frame(C1HT.mmus.fin.metadata[, c("Library", "nGenes")], tech = rep("C1HT", nrow(C1HT.mmus.fin.metadata))))
 mmus.total.genes <- rbind(mmus.total.genes, data.frame(X10x8x10K.mmus.fin.metadata[, c("Library", "nGenes")], tech = rep("X10x8x10K", nrow(X10x8x10K.mmus.fin.metadata))))
 mmus.total.genes <- rbind(mmus.total.genes, data.frame(X10Scilife.mmus.fin.metadata[, c("Library", "nGenes")], tech = rep("X10Scilife", nrow(X10Scilife.mmus.fin.metadata))))
-pdf("all_techs/mmus_total_number_Genes_all_V3.pdf")
+pdf("all_techs/mmus_total_number_Genes_all_V2.pdf")
 #ggplot(data=mmus.total.genes, aes(x=Library, y=log(nGenes), fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none") + facet_grid(. ~ tech, scales = "free") 
 #ggplot(data=mmus.total.genes, aes(x=tech, y=log(nGenes), fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none") + facet_grid(. ~ tech, scales = "free") 
-#ggplot(data=mmus.total.genes, aes(x=tech, y=nGenes, fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none",panel.spacing.x = unit(0, "null")) + scale_y_continuous(trans = "log10", labels= scales::comma, breaks = c(10,150,500, 1500, 5000)) + facet_grid(. ~ tech, scales = "free") + geom_hline(yintercept=c(10,150,500, 1500, 5000), color = "orange", linetype = "dashed") # , limits = c(5000, NA)
-ggplot(data=mmus.total.genes, aes(x=tech, y=nGenes, fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none",panel.spacing.x = unit(0, "null")) + scale_y_continuous(labels= scales::comma, breaks = c(10,150,500, 1500, 5000)) + facet_grid(. ~ tech, scales = "free") + geom_hline(yintercept=c(10,150,500, 1500, 5000), color = "orange", linetype = "dashed") # , limits = c(5000, NA)
+ggplot(data=mmus.total.genes, aes(x=tech, y=nGenes, fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none",panel.spacing.x = unit(0, "null")) + scale_y_continuous(trans = "log", labels= scales::comma, breaks = c(10,150,500, 1500, 5000)) + facet_grid(. ~ tech, scales = "free") #+ geom_hline(yintercept=c(10,150,500, 1500, 5000), color = "orange", linetype = "dashed") # , limits = c(5000, NA)
+#ggplot(data=mmus.total.genes, aes(x=tech, y=nGenes, fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none",panel.spacing.x = unit(0, "null")) + scale_y_continuous(labels= scales::comma, breaks = c(10,150,500, 1500, 5000)) + facet_grid(. ~ tech, scales = "free") + geom_hline(yintercept=c(10,150,500, 1500, 5000), color = "orange", linetype = "dashed") # , limits = c(5000, NA)
 dev.off()
 
 
@@ -516,11 +516,11 @@ mmus.total.UMIs <- rbind(mmus.total.UMIs, data.frame(ddSEQexp1.mmus.fin.metadata
 mmus.total.UMIs <- rbind(mmus.total.UMIs, data.frame(C1HT.mmus.fin.metadata[, c("Library", "nUMIs")], tech = rep("C1HT", nrow(C1HT.mmus.fin.metadata))))
 mmus.total.UMIs <- rbind(mmus.total.UMIs, data.frame(X10x8x10K.mmus.fin.metadata[, c("Library", "nUMIs")], tech = rep("X10x8x10K", nrow(X10x8x10K.mmus.fin.metadata))))
 mmus.total.UMIs <- rbind(mmus.total.UMIs, data.frame(X10Scilife.mmus.fin.metadata[, c("Library", "nUMIs")], tech = rep("X10Scilife", nrow(X10Scilife.mmus.fin.metadata))))
-pdf("all_techs/mmus_total_number_UMIs_all_V3.pdf")
+pdf("all_techs/mmus_total_number_UMIs_all_V2.pdf")
 #ggplot(data=mmus.total.UMIs, aes(x=Library, y=log(nUMIs), fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none") + facet_grid(. ~ tech, scales = "free")
 #ggplot(data=mmus.total.UMIs, aes(x=tech, y=log(nUMIs), fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none") + facet_grid(. ~ tech, scales = "free")
-#ggplot(data=mmus.total.UMIs, aes(x=tech, y=nUMIs, fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none",panel.spacing.x = unit(0, "null")) + scale_y_continuous(trans = "log10", labels= scales::comma, breaks = c(200,2000,20000,200000, 1000000)) + facet_grid(. ~ tech, scales = "free")+ geom_hline(yintercept=c(200,2000,20000,200000), color = "orange", linetype = "dashed") # , limits = c(5000, NA)
-ggplot(data=mmus.total.UMIs, aes(x=tech, y=nUMIs, fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none",panel.spacing.x = unit(0, "null")) + scale_y_continuous(labels= scales::comma, breaks = c(200,2000,20000,200000, 1000000)) + facet_grid(. ~ tech, scales = "free")+ geom_hline(yintercept=c(200,2000,20000,200000), color = "orange", linetype = "dashed") # , limits = c(5000, NA)
+ggplot(data=mmus.total.UMIs, aes(x=tech, y=nUMIs, fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none",panel.spacing.x = unit(0, "null")) + scale_y_continuous(trans = "log", labels= scales::comma, breaks = c(200,2000,20000,200000, 1000000)) + facet_grid(. ~ tech, scales = "free") #+ geom_hline(yintercept=c(200,2000,20000,200000), color = "orange", linetype = "dashed") # , limits = c(5000, NA)
+#ggplot(data=mmus.total.UMIs, aes(x=tech, y=nUMIs, fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none",panel.spacing.x = unit(0, "null")) + scale_y_continuous(labels= scales::comma, breaks = c(200,2000,20000,200000, 1000000)) + facet_grid(. ~ tech, scales = "free")+ geom_hline(yintercept=c(200,2000,20000,200000), color = "orange", linetype = "dashed") # , limits = c(5000, NA)
 dev.off()
 
 
@@ -541,11 +541,12 @@ mmus.nread.numi.df <- rbind(mmus.nread.numi.df, data.frame(C1HT.mmus.fin.metadat
 mmus.nread.numi.df <- rbind(mmus.nread.numi.df, data.frame(X10x8x10K.mmus.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("X10x8x10K", nrow(X10x8x10K.mmus.fin.metadata))))
 mmus.nread.numi.df <- rbind(mmus.nread.numi.df, data.frame(X10Scilife.mmus.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("X10Scilife", nrow(X10Scilife.mmus.fin.metadata))))
 
-pdf("all_techs/mmus_nReadsVSnUMIs_all_V4SSasymp.pdf")
+pdf("all_techs/mmus_nReadsVSnUMIs_all_V5.pdf")
 #ggplot(mmus.nread.numi.df, aes(x=nTReads, y=nUMIs, group=tech)) + geom_smooth(aes(color=tech))+ xlim(0, 2000000)# + geom_line(aes(color=tech))#
+ggplot(mmus.nread.numi.df, aes(x=nTReads, y=nUMIs, group=tech)) + geom_smooth(aes(color=tech))+ xlim(0, 100000)# + geom_line(aes(color=tech))#
 #ggplot(mmus.nread.numi.df, aes(x=nTReads, y=nUMIs, group=tech)) + geom_smooth(method="lm", formula=y~log(x), fill="grey", aes(color=tech))+ xlim(0, 2000000)# + geom_line(aes(color=tech))#
 #ggplot(mmus.nread.numi.df, aes(x=nTReads, y=nUMIs, group=tech)) + geom_smooth(method='nlsLM',formula=y ~ a*x^b, se=FALSE, method.args = list(start = list(a=1,b=1)), aes(color=tech))+ xlim(0, 1500000)# + geom_line(aes(color=tech))#
-ggplot(mmus.nread.numi.df, aes(x=nTReads, y=nUMIs, group=tech)) + geom_smooth(method='nls',formula=y ~ SSasympOff(x, A, lrc, c0), se=FALSE, aes(color=tech))+ xlim(0, 1500000)# + geom_line(aes(color=tech))#
+#ggplot(mmus.nread.numi.df, aes(x=nTReads, y=nUMIs, group=tech)) + geom_smooth(method='nls',formula=y ~ SSasympOff(x, A, lrc, c0), se=FALSE, aes(color=tech))+ xlim(0, 1500000)# + geom_line(aes(color=tech))#
 
 dev.off()
 
@@ -567,9 +568,10 @@ mmus.nread.ngene.df <- rbind(mmus.nread.ngene.df, data.frame(ddSEQexp1.mmus.fin.
 mmus.nread.ngene.df <- rbind(mmus.nread.ngene.df, data.frame(C1HT.mmus.fin.metadata[, c("nTReads", "nGenes")], tech = rep("C1HT", nrow(C1HT.mmus.fin.metadata))))
 mmus.nread.ngene.df <- rbind(mmus.nread.ngene.df, data.frame(X10x8x10K.mmus.fin.metadata[, c("nTReads", "nGenes")], tech = rep("X10x8x10K", nrow(X10x8x10K.mmus.fin.metadata))))
 mmus.nread.ngene.df <- rbind(mmus.nread.ngene.df, data.frame(X10Scilife.mmus.fin.metadata[, c("nTReads", "nGenes")], tech = rep("X10Scilife", nrow(X10Scilife.mmus.fin.metadata))))
-pdf("all_techs/mmus_nReadsVSnGenes_all_V4SSasymp.pdf")
+pdf("all_techs/mmus_nReadsVSnGenes_all_V5.pdf")
 #ggplot(mmus.nread.ngene.df, aes(x=nGenes, y=nTReads, group=tech)) + geom_point(aes(color=tech)) + geom_smooth(aes(color=tech))+ xlim(0, 18000)# + geom_line(aes(color=tech))#
+ggplot(mmus.nread.ngene.df, aes(x=nGenes, y=nTReads, group=tech))  + geom_smooth(aes(color=tech))+ xlim(0, 100000)# + geom_line(aes(color=tech))#
 #ggplot(mmus.nread.ngene.df, aes(x=nTReads, y=nGenes, group=tech)) + geom_smooth(method="lm", formula=y~log(x), fill="grey", aes(color=tech))+ xlim(0, 2000000)# + geom_line(aes(color=tech))#
 #ggplot(mmus.nread.ngene.df, aes(x=nTReads, y=nGenes, group=tech)) + geom_smooth(method='nlsLM',formula=y ~ a*x^b, se=FALSE, method.args = list(start = list(a=1,b=1)), aes(color=tech))+ xlim(0, 1500000)# + geom_line(aes(color=tech))#
-ggplot(mmus.nread.ngene.df, aes(x=nTReads, y=nGenes, group=tech)) + geom_smooth(method='nls',formula=y ~ SSasympOff(x, A, lrc, c0), se=FALSE, aes(color=tech))+ xlim(0, 1500000)# + geom_line(aes(color=tech))#
+#ggplot(mmus.nread.ngene.df, aes(x=nTReads, y=nGenes, group=tech)) + geom_smooth(method='nls',formula=y ~ SSasympOff(x, A, lrc, c0), se=FALSE, aes(color=tech))+ xlim(0, 1500000)# + geom_line(aes(color=tech))#
 dev.off()
