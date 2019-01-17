@@ -24,22 +24,22 @@ shell.prefix("module unload gcc/latest; module load gcc/6.3.0; module load XZ/5.
 
 rule all:
     input:
-        'multigenome_1CBramon_onlyHsap/S14_human/'+protocol+'.filtered.tagged.Aligned.out.bam',
-        'multigenome_1CBramon_onlyHsap/S14_human/zUMIs_output/'+protocol+'kept_barcodes.txt',
-        'multigenome_1CBramon_onlyHsap/S14_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds'
+        'multigenome_1CBramon_onlyHsap/S1_human/'+protocol+'.filtered.tagged.Aligned.out.bam',
+        'multigenome_1CBramon_onlyHsap/S1_human/zUMIs_output/'+protocol+'kept_barcodes.txt',
+        'multigenome_1CBramon_onlyHsap/S1_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds'
        
 rule zUMI_run:
     input:
         yaml_hsap="1CB_specific_yamls/Ramon_1CB.onlyHsap.yaml"
 
     output:
-        dir='multigenome_1CBramon_onlyHsap/S14_human/'+protocol+'.filtered.tagged.Aligned.out.bam',
-        dir_file11='multigenome_1CBramon_onlyHsap/S14_human/zUMIs_output/'+protocol+'kept_barcodes.txt',
-        dir_file111='multigenome_1CBramon_onlyHsap/S14_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds'
+        dir='multigenome_1CBramon_onlyHsap/S1_human/'+protocol+'.filtered.tagged.Aligned.out.bam',
+        dir_file11='multigenome_1CBramon_onlyHsap/S1_human/zUMIs_output/'+protocol+'kept_barcodes.txt',
+        dir_file111='multigenome_1CBramon_onlyHsap/S1_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds'
         
     shell:
         """
-        cd multigenome_1CBramon_onlyHsap/S14_human
+        cd multigenome_1CBramon_onlyHsap/S1_human
         bash {zUMI_path}/zUMIs-master.sh -y ../../{input.yaml_hsap}
         cd ../..
        """
