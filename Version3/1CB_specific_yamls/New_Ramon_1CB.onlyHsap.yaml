@@ -1,0 +1,47 @@
+project: test
+sequence_files:
+  file1:
+    name: /project/devel/HCA/MDC_Berlin/1CellBio/re-demux/PXXX/demux2/FASTQ/SP021_024_S1_R1_001.fastq.gz
+    base_definition: cDNA(1-60)
+  file2:
+    name: /project/devel/HCA/MDC_Berlin/1CellBio/re-demux/PXXX/demux2/FASTQ/SP021_024_S1_R2_001.fastq.gz
+    base_definition:
+    - BC(1-8,31-38)
+    - UMI(39-44)
+    correct_frameshift: GAGTGATTGCTTGTGACGCCTT
+reference:
+  STAR_index: /project/devel/alafzi/ref_genomes/human/STARgenome/
+  GTF_file: /project/devel/alafzi/ref_genomes/human/hsa_gencode.v28.annotation.gtf
+  additional_files: ~
+  additional_STAR_params: ~
+  GTF_file_final: /project/devel/alafzi/ref_genomes/human/hsa_gencode.v28.annotation.gtf
+out_dir: /project/devel/alafzi/SC_Protocols/Version3/multigenome_1CBramon_onlyHsap/S1_human
+num_threads: 1
+mem_limit: 16
+filter_cutoffs:
+  BC_filter:
+    num_bases: 1
+    phred: 20
+  UMI_filter:
+    num_bases: 1
+    phred: 20
+barcodes:
+  barcode_num: ~
+  barcode_file: ~
+  BarcodeBinning: 0
+  nReadsperCell: 1000
+counting_opts:
+  introns: yes
+  downsampling: 0
+  strand: 0
+  Ham_Dist: 0
+  velocyto: yes
+  primaryHit: yes
+  twoPass: yes
+make_stats: yes
+which_Stage: Filtering
+samtools_exec: samtools
+pigz_exec: pigz
+STAR_exec: STAR
+zUMIs_directory: /apps/ZUMIS/2.2/
+read_layout: SE

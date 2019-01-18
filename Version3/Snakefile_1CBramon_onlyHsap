@@ -30,7 +30,7 @@ rule all:
        
 rule zUMI_run:
     input:
-        yaml_hsap="1CB_specific_yamls/Ramon_1CB.onlyHsap.yaml"
+        yaml_hsap="1CB_specific_yamls/New_Ramon_1CB.onlyHsap.yaml"
 
     output:
         dir='multigenome_1CBramon_onlyHsap/S1_human/'+protocol+'.filtered.tagged.Aligned.out.bam',
