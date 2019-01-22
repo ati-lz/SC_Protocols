@@ -422,6 +422,34 @@ X10Scilife.hsap.fin.metadata <- colData(X10Scilife.hsap.final)
 #### end ####
 
 
+# CB1 hsap Preparation ====
+print("CB1 is Running...")
+load("../SCE_Robjects/1CB.hsap.full.SCE.Robj")
+CB1.hsap <- full.SCE.hsap
+rm(full.SCE.hsap)
+
+CB1.hsap.count <- as.data.frame(counts(CB1.hsap))
+CB1.hsap.count.mapped <- mapIDs(CB1.hsap.count, "hsap")
+CB1.hsap.metadata <- as.data.frame(colData(CB1.hsap))
+CB1.hsap.metadata[is.na(CB1.hsap.metadata)] <- 0
+CB1.hsap.tmappedReads <- rowSums(CB1.hsap.metadata[, c(2:4,6)])
+CB1.hsap.mappedReadsPerc <- (CB1.hsap.tmappedReads/CB1.hsap.metadata$nTReads)*100
+CB1.hsap.metadata <- add_column(CB1.hsap.metadata, mappedReads= CB1.hsap.tmappedReads, mappedReadsPerc= CB1.hsap.mappedReadsPerc, .after = 1 )
+CB1.hsap.cells <- which(CB1.hsap.metadata$Species == "Human")
+CB1.hsap.new <- SingleCellExperiment(assays = list(counts = as.matrix(CB1.hsap.count.mapped[,CB1.hsap.cells])), colData = CB1.hsap.metadata[CB1.hsap.cells,c(1:15)])
+
+CB1.hsap.is.mito <- grep("^MT-", rownames(counts(CB1.hsap.new)))
+CB1.hsap.new <- calculateQCMetrics(CB1.hsap.new, feature_controls=list(Mt=CB1.hsap.is.mito))
+CB1.hsap.nTReads.drop <- which(isOutlier(CB1.hsap.new$mappedReads, nmads=2, type="lower", log=TRUE))
+CB1.hsap.mappedPct.drop <- which(CB1.hsap.new$mappedReadsPerc < 65)
+CB1.hsap.mito.drop <- which(isOutlier(CB1.hsap.new$log10_total_counts_Mt, nmads=2, type="higher"))
+#plot(density(colData(CB1.hsap.new)[-CB1.hsap.mito.drop, "log10_total_counts_Mt"]))
+CB1.hsap.final <- CB1.hsap.new[,-c(CB1.hsap.nTReads.drop, CB1.hsap.mappedPct.drop,CB1.hsap.mito.drop)]
+CB1.hsap.fin.metadata <- colData(CB1.hsap.final)
+
+#### end ####
+
+
 #library(data.table)
 # Read distribution in each sample in each tech ====
 #print("Read distribution in each sample in each tech")
@@ -466,7 +494,8 @@ hsap.total.reads <- rbind(hsap.total.reads, data.frame(ddSEQexp1.hsap.fin.metada
 hsap.total.reads <- rbind(hsap.total.reads, data.frame(C1HT.hsap.fin.metadata[, c("Library", "nTReads")], tech = rep("C1HT", nrow(C1HT.hsap.fin.metadata))))
 hsap.total.reads <- rbind(hsap.total.reads, data.frame(X10x8x10K.hsap.fin.metadata[, c("Library", "nTReads")], tech = rep("X10x8x10K", nrow(X10x8x10K.hsap.fin.metadata))))
 hsap.total.reads <- rbind(hsap.total.reads, data.frame(X10Scilife.hsap.fin.metadata[, c("Library", "nTReads")], tech = rep("X10Scilife", nrow(X10Scilife.hsap.fin.metadata))))
-pdf("all_techs/hsap_total_number_Reads_all_V3.pdf")
+hsap.total.reads <- rbind(hsap.total.reads, data.frame(CB1.hsap.fin.metadata[, c("Library", "nTReads")], tech = rep("CB1", nrow(CB1.hsap.fin.metadata))))
+pdf("all_techs/hsap_total_number_Reads_all_V4.pdf")
 #ggplot(data=hsap.total.reads, aes(x=Library, y=log(nTReads), fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none") + facet_grid(. ~ tech, scales = "free") 
 #ggplot(data=hsap.total.reads, aes(x=tech, y=log(nTReads), fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none") + facet_grid(. ~ tech, scales = "free") 
 #ggplot(data=hsap.total.reads, aes(x=tech, y=nTReads, fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none",panel.spacing.x = unit(0, "null")) + scale_y_continuous(trans = "log10", labels= scales::comma, breaks = c(1000, 20000, 100000, 500000, 1000000)) + facet_grid(. ~ tech, scales = "free") + geom_hline(yintercept=c(1000, 20000, 100000, 500000, 1000000), color = "orange", linetype = "dashed") # , limits = c(5000, NA)
@@ -492,7 +521,8 @@ hsap.total.genes <- rbind(hsap.total.genes, data.frame(ddSEQexp1.hsap.fin.metada
 hsap.total.genes <- rbind(hsap.total.genes, data.frame(C1HT.hsap.fin.metadata[, c("Library", "nGenes")], tech = rep("C1HT", nrow(C1HT.hsap.fin.metadata))))
 hsap.total.genes <- rbind(hsap.total.genes, data.frame(X10x8x10K.hsap.fin.metadata[, c("Library", "nGenes")], tech = rep("X10x8x10K", nrow(X10x8x10K.hsap.fin.metadata))))
 hsap.total.genes <- rbind(hsap.total.genes, data.frame(X10Scilife.hsap.fin.metadata[, c("Library", "nGenes")], tech = rep("X10Scilife", nrow(X10Scilife.hsap.fin.metadata))))
-pdf("all_techs/hsap_total_number_Genes_all_V3.pdf")
+hsap.total.genes <- rbind(hsap.total.genes, data.frame(CB1.hsap.fin.metadata[, c("Library", "nGenes")], tech = rep("CB1", nrow(CB1.hsap.fin.metadata))))
+pdf("all_techs/hsap_total_number_Genes_all_V4.pdf")
 #ggplot(data=hsap.total.genes, aes(x=Library, y=log(nGenes), fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none") + facet_grid(. ~ tech, scales = "free") 
 #ggplot(data=hsap.total.genes, aes(x=tech, y=log(nGenes), fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none") + facet_grid(. ~ tech, scales = "free") 
 #ggplot(data=hsap.total.genes, aes(x=tech, y=nGenes, fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none",panel.spacing.x = unit(0, "null")) + scale_y_continuous(trans = "log10", labels= scales::comma, breaks = c(10,150,500, 1500, 5000)) + facet_grid(. ~ tech, scales = "free") + geom_hline(yintercept=c(10,150,500, 1500, 5000), color = "orange", linetype = "dashed") # , limits = c(5000, NA)
@@ -516,7 +546,8 @@ hsap.total.UMIs <- rbind(hsap.total.UMIs, data.frame(ddSEQexp1.hsap.fin.metadata
 hsap.total.UMIs <- rbind(hsap.total.UMIs, data.frame(C1HT.hsap.fin.metadata[, c("Library", "nUMIs")], tech = rep("C1HT", nrow(C1HT.hsap.fin.metadata))))
 hsap.total.UMIs <- rbind(hsap.total.UMIs, data.frame(X10x8x10K.hsap.fin.metadata[, c("Library", "nUMIs")], tech = rep("X10x8x10K", nrow(X10x8x10K.hsap.fin.metadata))))
 hsap.total.UMIs <- rbind(hsap.total.UMIs, data.frame(X10Scilife.hsap.fin.metadata[, c("Library", "nUMIs")], tech = rep("X10Scilife", nrow(X10Scilife.hsap.fin.metadata))))
-pdf("all_techs/hsap_total_number_UMIs_all_V3.pdf")
+hsap.total.UMIs <- rbind(hsap.total.UMIs, data.frame(CB1.hsap.fin.metadata[, c("Library", "nUMIs")], tech = rep("CB1", nrow(CB1.hsap.fin.metadata))))
+pdf("all_techs/hsap_total_number_UMIs_all_V4.pdf")
 #ggplot(data=hsap.total.UMIs, aes(x=Library, y=log(nUMIs), fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none") + facet_grid(. ~ tech, scales = "free")
 #ggplot(data=hsap.total.UMIs, aes(x=tech, y=log(nUMIs), fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none") + facet_grid(. ~ tech, scales = "free")
 #ggplot(data=hsap.total.UMIs, aes(x=tech, y=nUMIs, fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none",panel.spacing.x = unit(0, "null")) + scale_y_continuous(trans = "log10", labels= scales::comma, breaks = c(200,2000,20000,200000, 1000000)) + facet_grid(. ~ tech, scales = "free")+ geom_hline(yintercept=c(200,2000,20000,200000), color = "orange", linetype = "dashed") # , limits = c(5000, NA)
@@ -540,8 +571,9 @@ hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(ddSEQexp1.hsap.fin.me
 hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(C1HT.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("C1HT", nrow(C1HT.hsap.fin.metadata))))
 hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(X10x8x10K.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("X10x8x10K", nrow(X10x8x10K.hsap.fin.metadata))))
 hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(X10Scilife.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("X10Scilife", nrow(X10Scilife.hsap.fin.metadata))))
+hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(CB1.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("CB1", nrow(CB1.hsap.fin.metadata))))
 
-pdf("all_techs/hsap_nReadsVSnUMIs_all_V5.pdf")
+pdf("all_techs/hsap_nReadsVSnUMIs_all_V6.pdf")
 #ggplot(hsap.nread.numi.df, aes(x=nTReads, y=nUMIs, group=tech)) + geom_smooth(aes(color=tech))+ xlim(0, 100000)# + geom_line(aes(color=tech))#
 ggplot(hsap.nread.numi.df, aes(x=nTReads, y=nUMIs, group=tech)) + geom_smooth(method="lm", formula=y~x, fill="grey",aes(color=tech))+ xlim(0, 100000)# + geom_line(aes(color=tech))#
 #ggplot(hsap.nread.numi.df, aes(x=nTReads, y=nUMIs, group=tech)) + geom_smooth(method="lm", formula=y~log(x), fill="grey", aes(color=tech))+ xlim(0, 2000000)# + geom_line(aes(color=tech))#
@@ -568,7 +600,8 @@ hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(ddSEQexp1.hsap.fin.
 hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(C1HT.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("C1HT", nrow(C1HT.hsap.fin.metadata))))
 hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(X10x8x10K.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("X10x8x10K", nrow(X10x8x10K.hsap.fin.metadata))))
 hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(X10Scilife.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("X10Scilife", nrow(X10Scilife.hsap.fin.metadata))))
-pdf("all_techs/hsap_nReadsVSnGenes_all_V5.pdf")
+hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(CB1.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("CB1", nrow(CB1.hsap.fin.metadata))))
+pdf("all_techs/hsap_nReadsVSnGenes_all_V6.pdf")
 #ggplot(hsap.nread.ngene.df, aes(x=nGenes, y=nTReads, group=tech)) + geom_point(aes(color=tech)) + geom_smooth(aes(color=tech))+ xlim(0, 100000)# + geom_line(aes(color=tech))#
 ggplot(hsap.nread.ngene.df, aes(x=nTReads, y=nGenes, group=tech)) + geom_smooth(method="lm", formula=y~x, fill="grey", aes(color=tech))+ xlim(0, 100000)# + geom_line(aes(color=tech))#
 #ggplot(hsap.nread.ngene.df, aes(x=nTReads, y=nGenes, group=tech)) + geom_smooth(method="lm", formula=y~log(x), fill="grey", aes(color=tech))+ xlim(0, 2000000)# + geom_line(aes(color=tech))#
