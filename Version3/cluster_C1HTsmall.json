@@ -1,0 +1,34 @@
+{
+    
+    "__default__" :
+    {
+        "cpus_per_task" : 4,
+        "job_name" : "C1HTsmall.{wildcards}",
+        "output" : "mnout/C1HTsmall_{wildcards}.out",
+        "error" : "mnout/C1HTsmall_{wildcards}.err"
+    },
+
+    "zUMI_run" :
+    {
+        "cpus_per_task" : 15,
+        "job_name" : "C1HTsmall.{wildcards}",
+        "output" : "mnout/C1HTsmall_{wildcards}.out",
+        "error" : "mnout/C1HTsmall_{wildcards}.err"
+    },
+
+    "demux_cells" :
+    {
+        "cpus_per_task" : 8,
+        "job_name" : "C1HTsmall.{wildcards}",
+        "output" : "mnout/C1HTsmall_{wildcards}.out",
+        "error" : "mnout/C1HTsmall_{wildcards}.err"
+    },
+
+    "R_wrapper" :
+    {
+        "cpus_per_task" : 8,
+        "job_name" : "C1HTsmall.{wildcards}",
+        "output" : "mnout/C1HTsmall_{wildcards}.out",
+        "error" : "mnout/C1HTsmall_{wildcards}.err"
+    }
+}
