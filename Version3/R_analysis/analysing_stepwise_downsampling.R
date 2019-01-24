@@ -166,7 +166,7 @@ X108x10.DS.Reads <- X108x10.DS$Reads
 
 #Plotting stepwise Downsampling for HEK ####
 
-techniques <- c("MARSseq", "QUARTZseq", "CELseq2", "Dropseq", "SCRBseq", "X10Scilife", "X10Nuclei", "ICELL8", "ddSEQ", "ddSEQexp1", "C1HT", "X108x10")
+techniques <- c("MARSseq", "QUARTZseq", "CELseq2", "Dropseq", "SCRBseq", "X10Scilife", "X10Nuclei", "ICELL8")#, "X108x10" , "ddSEQ", "ddSEQexp1", "C1HT"
 DSth.df <- data.frame()
 techs.HEK.20K.list <- list()
 for (tech in techniques){
