@@ -122,11 +122,11 @@ X10Scilife.DS.Reads <- X10Scilife.DS$Reads
 rm(X10Scilife.DS)
 
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Nuclei10X.hsap.full.SCE.jointDSmat.Robj")
-Nuclei10X.DS <- output.readcount.umicount.joint.mats
+X10Nuclei.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
-Nuclei10X.DS.UMI <- Nuclei10X.DS$UMI
-Nuclei10X.DS.Reads <- Nuclei10X.DS$Reads
-rm(Nuclei10X.DS)
+X10Nuclei.DS.UMI <- X10Nuclei.DS$UMI
+X10Nuclei.DS.Reads <- X10Nuclei.DS$Reads
+rm(X10Nuclei.DS)
 
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/ICELL8.hsap.full.SCE.jointDSmat.Robj")
 ICELL8.DS <- output.readcount.umicount.joint.mats
