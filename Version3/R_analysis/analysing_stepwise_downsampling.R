@@ -166,8 +166,9 @@ X108x10.DS.Reads <- X108x10.DS$Reads
 
 #Plotting stepwise Downsampling for HEK ####
 
-techniques <- c("MARSseq", "QUARTZseq", "CELseq2", "Dropseq", "SCRBseq", "X10Scilife", "Nuclei10X", "ICELL8", "ddSEQ", "ddSEQexp1", "C1HT", "X108x10")
+techniques <- c("MARSseq", "QUARTZseq", "CELseq2", "Dropseq", "SCRBseq", "X10Scilife", "X10Nuclei", "ICELL8", "ddSEQ", "ddSEQexp1", "C1HT", "X108x10")
 DSth.df <- data.frame()
+techs.HEK.20K.list <- list()
 for (tech in techniques){
   print(tech)
   tech.DS.UMI <- get(paste(tech,".DS.UMI", sep = ""))
@@ -177,6 +178,10 @@ for (tech in techniques){
     colnames(tech.DS.UMI[[DSth]]) <- gsub(x = colnames(tech.DS.UMI[[DSth]]), pattern = "\\.", replacement = "_")
     comm.cells <- intersect(tech.HEK, colnames(tech.DS.UMI[[DSth]]))
     DS.mat.HEKS <- tech.DS.UMI[[DSth]][, comm.cells]
+    if (DSth == "downsampled_20000"){
+      DS.mat.HEKS.dup <- DS.mat.HEKS
+      DS.mat.HEKS.dup$gene_id <- rownames(DS.mat.HEKS.dup)
+      techs.HEK.20K.list[[tech]] <- as.data.frame((DS.mat.HEKS.dup))}
     DS.gene.distribution.HEK <- colSums(DS.mat.HEKS[,]>0)
     DS.UMI.distribution.HEK <- colSums(DS.mat.HEKS)
     DS.labels <- rep(DSth, length(DS.gene.distribution.HEK))
@@ -189,7 +194,6 @@ for (tech in techniques){
     print(dim(DSth.df))
   }
 }
-
 pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS_plots.pdf")
 ggplot(DSth.df, aes(x=DSthNum, y=nGenes, group =DStech))  + geom_smooth(method = "lm", formula = y ~ log(x), se = T, aes(color=DStech))
 ggplot(DSth.df, aes(x=DSthNum, y=nUMIs, group =DStech))  + geom_smooth(method = "lm", formula = y ~ log(x), se = T, aes(color=DStech))
@@ -200,4 +204,23 @@ ggplot(data=DSth.df, aes(x=DStech, y=nGenes, fill=DStech)) + geom_boxplot() +the
 ggplot(data=DSth.df, aes(x=DStech, y=nUMIs, fill=DStech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none") +facet_wrap(. ~ DSthNum, scales = "free") 
 dev.off()
 
+
+
+# The PCA for celltypes 
+library(plyr)
+techs.HEK.20K.df=join_all(techs.HEK.20K.list, by = "gene_id", type = 'full')
+rownames(techs.HEK.20K.df) <- techs.HEK.20K.df[,"gene_id"]
+gene.id.col <- which(colnames(techs.HEK.20K.df) == "gene_id")
+techs.HEK.20K.df <- techs.HEK.20K.df[,-gene.id.col]
+dim(techs.HEK.20K.df)
+techs.HEK.20K.df <- na.omit(techs.HEK.20K.df)
+techs.HEK.20K.log.df <- log(techs.HEK.20K.df + 1)
+pca.res <- prcomp(techs.HEK.20K.log.df, scale. = T)
+
+pca.df <- as.data.frame(pca.res$rotation[,c("PC1","PC2")])
+tech.vec <- sapply(strsplit(rownames(pca.df), split = "_", fixed = T), `[`,1)
+pca.df <- cbind(pca.df,tech.vec)
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCA.pdf")
+ggplot(pca.df, aes(x= PC1, y = PC2, group= tech.vec)) + geom_point(aes(color = tech.vec))
+dev.off()
 
