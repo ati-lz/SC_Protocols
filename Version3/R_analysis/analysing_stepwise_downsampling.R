@@ -1,3 +1,8 @@
+ibrary(scater)
+library(ggplot2)
+library(biomaRt)
+library(tibble)
+library(data.table)
 
 # loading Annotated seurat objects ####
 load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects/MARSseq_data_seu.obj_res0.5_dim6.RData")
@@ -207,6 +212,7 @@ dev.off()
 
 
 # The PCA for celltypes 
+print("PCA analysis started")
 library(plyr)
 techs.HEK.20K.df=join_all(techs.HEK.20K.list, by = "gene_id", type = 'full')
 rownames(techs.HEK.20K.df) <- techs.HEK.20K.df[,"gene_id"]
