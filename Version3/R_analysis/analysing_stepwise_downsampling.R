@@ -1,4 +1,4 @@
-ibrary(scater)
+library(scater)
 library(ggplot2)
 library(biomaRt)
 library(tibble)
