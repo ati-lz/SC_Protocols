@@ -320,3 +320,71 @@ legend(0.7,1.1,legend=c("MARSseq","CELseq2","SCRBseq", "QUARTZseq", "Dropseq", "
        fill=c("slateblue1", "orchid1", "red", "olivedrab3", "purple", "grey", "orange", "yellow"),border=FALSE, bty="n", y.intersp = 0.7, cex=0.7, xpd = T)
 
 dev.off()
+
+
+
+# preparing  Hek cells downsampleded matrix and plot
+MARSseq.20K.UMI.mat <- mapIDs(MARSseq.DS.UMI$downsampled_20000, "hsap")
+MARSseq.HEK.common <- intersect(colnames(MARSseq.20K.UMI.mat),MARSseq.HEK)
+
+CELseq2.20K.UMI.mat <- mapIDs(CELseq2.DS.UMI$downsampled_20000, "hsap")
+colnames(CELseq2.20K.UMI.mat) <- gsub(x = colnames(CELseq2.20K.UMI.mat), pattern = "\\.", replacement = "_")
+CELseq2.HEK.common <- intersect(colnames(CELseq2.20K.UMI.mat),CELseq2.HEK)
+
+QUARTZseq.20K.UMI.mat <- mapIDs(QUARTZseq.DS.UMI$downsampled_20000, "hsap")
+QUARTZseq.HEK.common <- intersect(colnames(QUARTZseq.20K.UMI.mat),QUARTZseq.HEK)
+
+Dropseq.20K.UMI.mat <- mapIDs(Dropseq.DS.UMI$downsampled_20000, "hsap")
+Dropseq.HEK.common <- intersect(colnames(Dropseq.20K.UMI.mat),Dropseq.HEK)
+
+SCRBseq.20K.UMI.mat <- mapIDs(SCRBseq.DS.UMI$downsampled_20000, "hsap")
+SCRBseq.HEK.common <- intersect(colnames(SCRBseq.20K.UMI.mat),SCRBseq.HEK)
+
+X10Scilife.20K.UMI.mat <- mapIDs(X10Scilife.DS.UMI$downsampled_20000, "hsap")
+X10Scilife.HEK.common <- intersect(colnames(X10Scilife.20K.UMI.mat),X10Scilife.HEK)
+
+X10Nuclei.20K.UMI.mat <- mapIDs(X10Nuclei.DS.UMI$downsampled_20000, "hsap")
+X10Nuclei.HEK.common <- intersect(colnames(X10Nuclei.20K.UMI.mat),X10Nuclei.HEK)
+
+ICELL8.20K.UMI.mat <- mapIDs(ICELL8.DS.UMI$downsampled_20000, "hsap")
+ICELL8.HEK.common <- intersect(colnames(ICELL8.20K.UMI.mat),ICELL8.HEK)
+
+#Separating cluster specific markers ####
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects/gene_cl.ref.RData")
+ref.markers <- gene_cl.ref
+HEK.common <- Reduce(intersect, list(ref.markers[["HEK cells"]], rownames(MARSseq.20K.UMI.mat), rownames(CELseq2.20K.UMI.mat), rownames(QUARTZseq.20K.UMI.mat), rownames(Dropseq.20K.UMI.mat), rownames(SCRBseq.20K.UMI.mat) , rownames(X10Scilife.20K.UMI.mat), rownames(X10Nuclei.20K.UMI.mat), rownames(ICELL8.20K.UMI.mat)))
+print(paste("length common HEK markers = ", length(HEK.common), sep=""))
+#HEK.common <- Reduce(intersect, list(ref.markers[["CD14+ HEK"]], rownames(MARSseq.20K.UMI.mat), rownames(CELseq2.20K.UMI.mat), rownames(QUARTZseq.20K.UMI.mat), rownames(SCRBseq.20K.UMI.mat)))
+
+MARSseq.20K.UMI.HEK.mat <- MARSseq.20K.UMI.mat[HEK.common, MARSseq.HEK.common]
+CELseq2.20K.UMI.HEK.mat <- CELseq2.20K.UMI.mat[HEK.common, CELseq2.HEK.common]
+SCRBseq.20K.UMI.HEK.mat <- SCRBseq.20K.UMI.mat[HEK.common, SCRBseq.HEK.common]
+QUARTZseq.20K.UMI.HEK.mat <- QUARTZseq.20K.UMI.mat[HEK.common, QUARTZseq.HEK.common]
+Dropseq.20K.UMI.HEK.mat <- Dropseq.20K.UMI.mat[HEK.common, Dropseq.HEK.common]
+X10Scilife.20K.UMI.HEK.mat <- X10Scilife.20K.UMI.mat[HEK.common, X10Scilife.HEK.common]
+X10Nuclei.20K.UMI.HEK.mat <- X10Nuclei.20K.UMI.mat[HEK.common, X10Nuclei.HEK.common]
+ICELL8.20K.UMI.HEK.mat <- ICELL8.20K.UMI.mat[HEK.common, ICELL8.HEK.common]
+
+library(dplyr)
+library(ggplot2)
+library(gplots)
+
+HEK.heatmap.df <- log(as.matrix(bind_cols(MARSseq.20K.UMI.HEK.mat, CELseq2.20K.UMI.HEK.mat, SCRBseq.20K.UMI.HEK.mat, QUARTZseq.20K.UMI.HEK.mat, Dropseq.20K.UMI.HEK.mat, X10Scilife.20K.UMI.HEK.mat, X10Nuclei.20K.UMI.HEK.mat, ICELL8.20K.UMI.HEK.mat)) + 1)
+rownames(HEK.heatmap.df) <- HEK.common
+col.separators = c(ncol(MARSseq.20K.UMI.HEK.mat), ncol(MARSseq.20K.UMI.HEK.mat) + ncol(CELseq2.20K.UMI.HEK.mat),
+ ncol(MARSseq.20K.UMI.HEK.mat) + ncol(CELseq2.20K.UMI.HEK.mat) + ncol(SCRBseq.20K.UMI.HEK.mat),
+ ncol(MARSseq.20K.UMI.HEK.mat) + ncol(CELseq2.20K.UMI.HEK.mat) + ncol(SCRBseq.20K.UMI.HEK.mat) + ncol(QUARTZseq.20K.UMI.HEK.mat),
+ ncol(MARSseq.20K.UMI.HEK.mat) + ncol(CELseq2.20K.UMI.HEK.mat) + ncol(SCRBseq.20K.UMI.HEK.mat) + ncol(QUARTZseq.20K.UMI.HEK.mat) + ncol(Dropseq.20K.UMI.HEK.mat),
+ ncol(MARSseq.20K.UMI.HEK.mat) + ncol(CELseq2.20K.UMI.HEK.mat) + ncol(SCRBseq.20K.UMI.HEK.mat) + ncol(QUARTZseq.20K.UMI.HEK.mat) + ncol(Dropseq.20K.UMI.HEK.mat) + ncol(X10Scilife.20K.UMI.HEK.mat),
+ ncol(MARSseq.20K.UMI.HEK.mat) + ncol(CELseq2.20K.UMI.HEK.mat) + ncol(SCRBseq.20K.UMI.HEK.mat) + ncol(QUARTZseq.20K.UMI.HEK.mat) + ncol(Dropseq.20K.UMI.HEK.mat) + ncol(X10Scilife.20K.UMI.HEK.mat) + ncol(X10Nuclei.20K.UMI.HEK.mat))
+
+col.sep.color = c(rep("slateblue1", ncol(MARSseq.20K.UMI.HEK.mat)), rep("orchid1",ncol(CELseq2.20K.UMI.HEK.mat)), rep("red", ncol(SCRBseq.20K.UMI.HEK.mat)), rep("olivedrab3", ncol(QUARTZseq.20K.UMI.HEK.mat)), rep("purple", ncol(Dropseq.20K.UMI.HEK.mat)), rep("grey", ncol(X10Scilife.20K.UMI.HEK.mat)), rep("orange", ncol(X10Nuclei.20K.UMI.HEK.mat)), rep("yellow", ncol(ICELL8.20K.UMI.HEK.mat)))
+my_palette <- colorRampPalette(c("steelblue2","yellow", "orangered2"))(n = 299)
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/Markers_comparison_HEK.pdf")
+heatmap.2(HEK.heatmap.df, Rowv = F, Colv = F, trace = "none", 
+          colsep = col.separators,sepcolor = "black",sepwidth = c(0.8,0.8),
+          ColSideColors= col.sep.color, labCol = F, col = my_palette, cexRow = 0.3, main = "HEK markers downsampled to 20K")
+legend(0.7,1.1,legend=c("MARSseq","CELseq2","SCRBseq", "QUARTZseq", "Dropseq", "X10Scilife", "X10Nuclei", "ICELL8"),
+       fill=c("slateblue1", "orchid1", "red", "olivedrab3", "purple", "grey", "orange", "yellow"),border=FALSE, bty="n", y.intersp = 0.7, cex=0.7, xpd = T)
+
+dev.off()

@@ -199,7 +199,7 @@ for (tech in techniques){
     print(dim(DSth.df))
   }
 }
-pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS_plots.pdf")
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS_HEK_plots.pdf")
 ggplot(DSth.df, aes(x=DSthNum, y=nGenes, group =DStech))  + geom_smooth(method = "lm", formula = y ~ log(x), se = T, aes(color=DStech))
 ggplot(DSth.df, aes(x=DSthNum, y=nUMIs, group =DStech))  + geom_smooth(method = "lm", formula = y ~ log(x), se = T, aes(color=DStech))
 
@@ -209,9 +209,98 @@ ggplot(data=DSth.df, aes(x=DStech, y=nGenes, fill=DStech)) + geom_boxplot() +the
 ggplot(data=DSth.df, aes(x=DStech, y=nUMIs, fill=DStech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none") +facet_wrap(. ~ DSthNum, scales = "free") 
 dev.off()
 
+print("Stepwise DS plots for HEK done")
+
+#Plotting stepwise Downsampling for Monocytes ####
+
+techniques <- c("MARSseq", "QUARTZseq", "CELseq2", "Dropseq", "SCRBseq", "X10Scilife", "X10Nuclei", "ICELL8")#, "X108x10" , "ddSEQ", "ddSEQexp1", "C1HT"
+DSth.df <- data.frame()
+techs.Monocytes.20K.list <- list()
+for (tech in techniques){
+  print(tech)
+  tech.DS.UMI <- get(paste(tech,".DS.UMI", sep = ""))
+  tech.Monocytes <- get(paste(tech,".Monocytes", sep = ""))
+  for (DSth in names(tech.DS.UMI)){
+    print(paste(tech, DSth, sep = "_"))
+    colnames(tech.DS.UMI[[DSth]]) <- gsub(x = colnames(tech.DS.UMI[[DSth]]), pattern = "\\.", replacement = "_")
+    comm.cells <- intersect(tech.Monocytes, colnames(tech.DS.UMI[[DSth]]))
+    DS.mat.MonocytesS <- tech.DS.UMI[[DSth]][, comm.cells]
+    if (DSth == "downsampled_20000"){
+      DS.mat.MonocytesS.dup <- DS.mat.MonocytesS
+      DS.mat.MonocytesS.dup$gene_id <- rownames(DS.mat.MonocytesS.dup)
+      techs.Monocytes.20K.list[[tech]] <- as.data.frame((DS.mat.MonocytesS.dup))}
+    DS.gene.distribution.Monocytes <- colSums(DS.mat.MonocytesS[,]>0)
+    DS.UMI.distribution.Monocytes <- colSums(DS.mat.MonocytesS)
+    DS.labels <- rep(DSth, length(DS.gene.distribution.Monocytes))
+    DSth_number = as.numeric(unlist(strsplit(DSth, "_"))[[2]])
+    DSth.number.vec = rep(DSth_number, length(DS.gene.distribution.Monocytes))
+    DS.labels <- rep(DSth, length(DS.gene.distribution.Monocytes))
+    DS.techs <- rep(tech, length(DS.gene.distribution.Monocytes))
+    DS.df <- data.frame(nGenes = DS.gene.distribution.Monocytes, nUMIs = DS.UMI.distribution.Monocytes, DSthNum = DSth.number.vec, DStech = DS.techs)
+    DSth.df <- rbind(DSth.df, DS.df)
+    print(dim(DSth.df))
+  }
+}
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS_Monocytes_plots.pdf")
+ggplot(DSth.df, aes(x=DSthNum, y=nGenes, group =DStech))  + geom_smooth(method = "lm", formula = y ~ log(x), se = T, aes(color=DStech))
+ggplot(DSth.df, aes(x=DSthNum, y=nUMIs, group =DStech))  + geom_smooth(method = "lm", formula = y ~ log(x), se = T, aes(color=DStech))
+
+#ggplot(DSth.df, aes(x=DSthNum, y=nGenes, fill = DSth)) +geom_boxplot() + geom_smooth(method = "lm", formula = y ~ log(x), se = T, aes(group = 1))
+
+ggplot(data=DSth.df, aes(x=DStech, y=nGenes, fill=DStech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none") +facet_wrap(. ~ DSthNum, scales = "free") 
+ggplot(data=DSth.df, aes(x=DStech, y=nUMIs, fill=DStech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none") +facet_wrap(. ~ DSthNum, scales = "free") 
+dev.off()
+
+print("Stepwise DS plots for Monocytes done")
+
+#Plotting stepwise Downsampling for Bcell ####
+
+techniques <- c("MARSseq", "QUARTZseq", "CELseq2", "Dropseq", "SCRBseq", "X10Scilife", "X10Nuclei", "ICELL8")#, "X108x10" , "ddSEQ", "ddSEQexp1", "C1HT"
+DSth.df <- data.frame()
+techs.Bcells.10K.list <- list()
+for (tech in techniques){
+  print(tech)
+  tech.DS.UMI <- get(paste(tech,".DS.UMI", sep = ""))
+  tech.Bcells <- get(paste(tech,".Bcells", sep = ""))
+  for (DSth in names(tech.DS.UMI)){
+    print(paste(tech, DSth, sep = "_"))
+    colnames(tech.DS.UMI[[DSth]]) <- gsub(x = colnames(tech.DS.UMI[[DSth]]), pattern = "\\.", replacement = "_")
+    comm.cells <- intersect(tech.Bcells, colnames(tech.DS.UMI[[DSth]]))
+    DS.mat.BcellsS <- tech.DS.UMI[[DSth]][, comm.cells]
+    if (DSth == "downsampled_10000"){
+      DS.mat.BcellsS.dup <- DS.mat.BcellsS
+      DS.mat.BcellsS.dup$gene_id <- rownames(DS.mat.BcellsS.dup)
+      techs.Bcells.10K.list[[tech]] <- as.data.frame((DS.mat.BcellsS.dup))}
+    DS.gene.distribution.Bcells <- colSums(DS.mat.BcellsS[,]>0)
+    DS.UMI.distribution.Bcells <- colSums(DS.mat.BcellsS)
+    DS.labels <- rep(DSth, length(DS.gene.distribution.Bcells))
+    DSth_number = as.numeric(unlist(strsplit(DSth, "_"))[[2]])
+    DSth.number.vec = rep(DSth_number, length(DS.gene.distribution.Bcells))
+    DS.labels <- rep(DSth, length(DS.gene.distribution.Bcells))
+    DS.techs <- rep(tech, length(DS.gene.distribution.Bcells))
+    DS.df <- data.frame(nGenes = DS.gene.distribution.Bcells, nUMIs = DS.UMI.distribution.Bcells, DSthNum = DSth.number.vec, DStech = DS.techs)
+    DSth.df <- rbind(DSth.df, DS.df)
+    print(dim(DSth.df))
+  }
+}
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS_Bcells_plots.pdf")
+ggplot(DSth.df, aes(x=DSthNum, y=nGenes, group =DStech))  + geom_smooth(method = "lm", formula = y ~ log(x), se = T, aes(color=DStech))
+ggplot(DSth.df, aes(x=DSthNum, y=nUMIs, group =DStech))  + geom_smooth(method = "lm", formula = y ~ log(x), se = T, aes(color=DStech))
+
+#ggplot(DSth.df, aes(x=DSthNum, y=nGenes, fill = DSth)) +geom_boxplot() + geom_smooth(method = "lm", formula = y ~ log(x), se = T, aes(group = 1))
+
+ggplot(data=DSth.df, aes(x=DStech, y=nGenes, fill=DStech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none") +facet_wrap(. ~ DSthNum, scales = "free") 
+ggplot(data=DSth.df, aes(x=DStech, y=nUMIs, fill=DStech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none") +facet_wrap(. ~ DSthNum, scales = "free") 
+dev.off()
+
+print("Stepwise DS plots for Bcells done")
 
 
-# The PCA for celltypes 
+
+
+
+
+# The PCA for celltypes HEK
 print("PCA analysis started")
 library(plyr)
 techs.HEK.20K.df=join_all(techs.HEK.20K.list, by = "gene_id", type = 'full')
@@ -226,7 +315,49 @@ pca.res <- prcomp(techs.HEK.20K.log.df, scale. = T)
 pca.df <- as.data.frame(pca.res$rotation[,c("PC1","PC2")])
 tech.vec <- sapply(strsplit(rownames(pca.df), split = "_", fixed = T), `[`,1)
 pca.df <- cbind(pca.df,tech.vec)
-pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCA.pdf")
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCA_HEK.pdf")
 ggplot(pca.df, aes(x= PC1, y = PC2, group= tech.vec)) + geom_point(aes(color = tech.vec))
 dev.off()
+print("PCA DS plots for HEK done")
 
+
+# The PCA for celltypes Monocytes
+print("PCA analysis started")
+library(plyr)
+techs.Monocytes.20K.df=join_all(techs.Monocytes.20K.list, by = "gene_id", type = 'full')
+rownames(techs.Monocytes.20K.df) <- techs.Monocytes.20K.df[,"gene_id"]
+gene.id.col <- which(colnames(techs.Monocytes.20K.df) == "gene_id")
+techs.Monocytes.20K.df <- techs.Monocytes.20K.df[,-gene.id.col]
+dim(techs.Monocytes.20K.df)
+techs.Monocytes.20K.df <- na.omit(techs.Monocytes.20K.df)
+techs.Monocytes.20K.log.df <- log(techs.Monocytes.20K.df + 1)
+pca.res <- prcomp(techs.Monocytes.20K.log.df, scale. = T)
+
+pca.df <- as.data.frame(pca.res$rotation[,c("PC1","PC2")])
+tech.vec <- sapply(strsplit(rownames(pca.df), split = "_", fixed = T), `[`,1)
+pca.df <- cbind(pca.df,tech.vec)
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCA_Monocytes.pdf")
+ggplot(pca.df, aes(x= PC1, y = PC2, group= tech.vec)) + geom_point(aes(color = tech.vec))
+dev.off()
+print("PCA DS plots for Monocytes done")
+
+
+# The PCA for celltypes Bcells
+print("PCA analysis started")
+library(plyr)
+techs.Bcells.10K.df=join_all(techs.Bcells.10K.list, by = "gene_id", type = 'full')
+rownames(techs.Bcells.10K.df) <- techs.Bcells.10K.df[,"gene_id"]
+gene.id.col <- which(colnames(techs.Bcells.10K.df) == "gene_id")
+techs.Bcells.10K.df <- techs.Bcells.10K.df[,-gene.id.col]
+dim(techs.Bcells.10K.df)
+techs.Bcells.10K.df <- na.omit(techs.Bcells.10K.df)
+techs.Bcells.10K.log.df <- log(techs.Bcells.10K.df + 1)
+pca.res <- prcomp(techs.Bcells.10K.log.df, scale. = T)
+
+pca.df <- as.data.frame(pca.res$rotation[,c("PC1","PC2")])
+tech.vec <- sapply(strsplit(rownames(pca.df), split = "_", fixed = T), `[`,1)
+pca.df <- cbind(pca.df,tech.vec)
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS10K_PCA_Bcells.pdf")
+ggplot(pca.df, aes(x= PC1, y = PC2, group= tech.vec)) + geom_point(aes(color = tech.vec))
+dev.off()
+print("PCA DS plots for Bcells done")
