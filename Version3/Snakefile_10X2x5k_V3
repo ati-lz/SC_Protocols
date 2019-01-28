@@ -156,7 +156,7 @@ rule demux_cells:
     shell:
          """
          mkdir {output.demux_dir}
-         python SAM_cellBC_demultiplexing_V2.py {input.tagged_sam} {input.detected_BC} {protocol} {wildcards.sample} {output.demux_dir}
+         python SAM_cellBC_demultiplexing_V3.py {input.tagged_sam} {input.detected_BC} {protocol} {wildcards.sample} {output.demux_dir}
          """
 
 rule doublet_species:
