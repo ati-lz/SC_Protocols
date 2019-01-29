@@ -32,7 +32,7 @@ rule all:
 
 rule create_yaml:
     input:
-         yaml = "pipeline_SMARTseq2r10M.yaml"
+         yaml = "pipeline_SMARTseq2.yaml"
     output:
         yamlOut_hsap="YAMLs/"+protocol+"_hsap_{sample}.yaml",
         yamlOut_mmus="YAMLs/"+protocol+"_mmus_{sample}.yaml",
