@@ -52,11 +52,11 @@ rule create_yaml:
         #data_hsap['sequence_files']['file4']['base_definition'][0] = 'BC(1-8,31-38)'
         #data_hsap['sequence_files']['file4']['base_definition'][1] = 'UMI(39-44)'
         #data_hsap['sequence_files']['file4']['correct_frameshift'] = 'GAGTGATTGCTTGTGACGCCTT'
-        data_hsap['sequence_files']['file1']['name'] = fastq_path+ 'SP021_024015_' + wildcards.sample +'_merged_R2_001.fastq.gz'
+        data_hsap['sequence_files']['file1']['name'] = fastq_path+ 'SP021_024015_' + wildcards.sample +'_merged_R2.fastq.gz'
         data_hsap['sequence_files']['file1']['base_definition'][0] = 'BC(1-8,31-38)'
         data_hsap['sequence_files']['file1']['base_definition'][1] = 'UMI(39-44)'
         data_hsap['sequence_files']['file1']['correct_frameshift'] = 'GAGTGATTGCTTGTGACGCCTT'
-        data_hsap['sequence_files']['file2']['name'] = fastq_path+ 'SP021_024015_' + wildcards.sample +'_merged_R1_001.fastq.gz'
+        data_hsap['sequence_files']['file2']['name'] = fastq_path+ 'SP021_024015_' + wildcards.sample +'_merged_R1.fastq.gz'
         data_hsap['sequence_files']['file2']['base_definition'] = 'cDNA(1-60)'
         data_hsap['num_threads'] = 8
         #data_hsap['make_stats'] = "yes"
