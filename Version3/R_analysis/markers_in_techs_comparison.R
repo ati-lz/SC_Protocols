@@ -249,7 +249,7 @@ legend(0.7,1.1,legend=c("MARSseq","CELseq2","SCRBseq", "QUARTZseq", "Dropseq", "
 
 dev.off()
 
-vec.Bcell.matrices <- list(log(as.matrix(MARSseq.10K.UMI.Bcell.mat) +1), log(as.matrix(CELseq2.10K.UMI.Bcell.mat)+1), log(as.matrix(SCRBseq.10K.UMI.Bcell.mat)+1), log(as.matrix(QUARTZseq.10K.UMI.Bcell.mat)+1), log(as.matrix(Dropseq.10K.UMI.Bcell.mat)+1), log(as.matrix(X10Scilife.10K.UMI.Bcell.mat)+), log(as.matrix(X10Nuclei.10K.UMI.Bcell.mat)+1), log(as.matrix(ICELL8.10K.UMI.Bcell.mat)+1))
+vec.Bcell.matrices <- list(log(as.matrix(MARSseq.10K.UMI.Bcell.mat)+1), log(as.matrix(CELseq2.10K.UMI.Bcell.mat)+1), log(as.matrix(SCRBseq.10K.UMI.Bcell.mat)+1), log(as.matrix(QUARTZseq.10K.UMI.Bcell.mat)+1), log(as.matrix(Dropseq.10K.UMI.Bcell.mat)+1), log(as.matrix(X10Scilife.10K.UMI.Bcell.mat)+1), log(as.matrix(X10Nuclei.10K.UMI.Bcell.mat)+1), log(as.matrix(ICELL8.10K.UMI.Bcell.mat)+1))
 mean.tech.matrices.Bcell <- unlist(lapply(vec.Bcell.matrices, function(x) mean(x)))
 names(mean.tech.matrices.Bcell) <- c("MARSseq", "CELseq2", "SCRBseq", "QUARTZseq","Dropseq", "X10Scilife", "X10Nuclei", "ICELL8")
 
