@@ -113,7 +113,7 @@ rule zUMI_run:
         dir_file22222='multigenome_SMARTseq2_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
         dir_file222222='multigenome_SMARTseq2_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.bc.READcounts.rds',
         dir3='multigenome_SMARTseq2_V3/{sample}_mixed/'+protocol+'.filtered.tagged.Aligned.out.bam',
-        dir_file33='multigenome_SMARTseq2_V3/{sample}_mixed/zUMIs_output/'+protocol+'kept_barcodes.txt'
+        dir_file33='multigenome_SMARTseq2_V3/{sample}_mixed/zUMIs_output/'+protocol+'kept_barcodes.txt',
         dir_file333='multigenome_SMARTseq2_V3/{sample}_mixed/zUMIs_output/expression/'+protocol+'.dgecounts.rds'
         
     shell:
