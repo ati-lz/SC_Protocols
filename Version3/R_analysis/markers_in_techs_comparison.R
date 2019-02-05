@@ -77,6 +77,11 @@ ICELL8.obj <- data
 rm(data)
 ICELL8.metadata <- ICELL8.obj@meta.data
 
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects/ddSEQexp1_data_seu.obj_res0.3_dim6.RData")
+ddSEQexp1.obj <- data
+rm(data)
+ddSEQexp1.metadata <- ddSEQexp1.obj@meta.data
+
 # End ####
 
 # Taking out HEK cells of each technique ####
@@ -88,6 +93,7 @@ SCRBseq.HEK <- names(SCRBseq.obj@ident)[which(SCRBseq.obj@ident == "HEK cells")]
 X10Scilife.HEK <- names(X10Scilife.obj@ident)[which(X10Scilife.obj@ident == "HEK cells")]
 X10Nuclei.HEK <- names(X10Nuclei.obj@ident)[which(X10Nuclei.obj@ident == "HEK cells")]
 ICELL8.HEK <- names(ICELL8.obj@ident)[which(ICELL8.obj@ident == "HEK cells")]
+ddSEQexp1.HEK <- names(ddSEQexp1.obj@ident)[which(ddSEQexp1.obj@ident == "HEK cells")]
 
 # End ####
 
@@ -108,6 +114,7 @@ X10Nuclei.Monocytes <- names(X10Nuclei.obj@ident)[which(X10Nuclei.obj@ident == "
 #if(length(X10Nuclei.Monocytes) > 50){ X10Nuclei.Monocytes <- sample(X10Nuclei.Monocytes,50)}
 ICELL8.Monocytes <- names(ICELL8.obj@ident)[which(ICELL8.obj@ident == "CD14+ and FCGR3A+ Monocytes")]
 #if(length(ICELL8.Monocytes) > 50){ ICELL8.Monocytes <- sample(ICELL8.Monocytes,50)}
+ddSEQexp1.Monocytes <- names(ddSEQexp1.obj@ident)[which(ddSEQexp1.obj@ident == "CD14+ and FCGR3A+ Monocytes")]
 
 # End ####
 
@@ -128,6 +135,7 @@ X10Nuclei.Bcells <- names(X10Nuclei.obj@ident)[which(X10Nuclei.obj@ident == "B c
 #if(length(X10Nuclei.Bcells) > 50){ X10Nuclei.Bcells <- sample(X10Nuclei.Bcells,50)}
 ICELL8.Bcells <- names(ICELL8.obj@ident)[which(ICELL8.obj@ident == "B cells")]
 #if(length(ICELL8.Bcells) > 50){ ICELL8.Bcells <- sample(ICELL8.Bcells,50)}
+ddSEQexp1.Bcells <- names(ddSEQexp1.obj@ident)[which(ddSEQexp1.obj@ident == "B cells")]
 
 # End ####
 
@@ -180,7 +188,10 @@ ICELL8.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 ICELL8.DS.UMI <- ICELL8.DS$UMI
 
-
+load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/ddSEQexp1.hsap.full.SCE.jointDSmat.Robj")
+ddSEQexp1.DS <- output.readcount.umicount.joint.mats
+rm(output.readcount.umicount.joint.mats)
+ddSEQexp1.DS.UMI <- ddSEQexp1.DS$UMI
 # End ####
 
 # preparing  B cells downsampleded matrix and plot
@@ -209,10 +220,13 @@ X10Nuclei.Bcells.common <- intersect(colnames(X10Nuclei.10K.UMI.mat),X10Nuclei.B
 ICELL8.10K.UMI.mat <- mapIDs(ICELL8.DS.UMI$downsampled_10000, "hsap")
 ICELL8.Bcells.common <- intersect(colnames(ICELL8.10K.UMI.mat),ICELL8.Bcells)
 
+ddSEQexp1.10K.UMI.mat <- mapIDs(ddSEQexp1.DS.UMI$downsampled_10000, "hsap")
+ddSEQexp1.Bcells.common <- intersect(colnames(ddSEQexp1.10K.UMI.mat),ddSEQexp1.Bcells)
+
 #Separating cluster specific markers ####
 load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects/gene_cl.ref.RData")
 ref.markers <- gene_cl.ref
-Bcells.common <- Reduce(intersect, list(ref.markers[["B cells"]], rownames(MARSseq.10K.UMI.mat), rownames(CELseq2.10K.UMI.mat), rownames(QUARTZseq.10K.UMI.mat), rownames(Dropseq.10K.UMI.mat), rownames(SCRBseq.10K.UMI.mat) , rownames(X10Scilife.10K.UMI.mat), rownames(X10Nuclei.10K.UMI.mat), rownames(ICELL8.10K.UMI.mat)))
+Bcells.common <- Reduce(intersect, list(ref.markers[["B cells"]], rownames(MARSseq.10K.UMI.mat), rownames(CELseq2.10K.UMI.mat), rownames(QUARTZseq.10K.UMI.mat), rownames(Dropseq.10K.UMI.mat), rownames(SCRBseq.10K.UMI.mat) , rownames(X10Scilife.10K.UMI.mat), rownames(X10Nuclei.10K.UMI.mat), rownames(ICELL8.10K.UMI.mat), rownames(ddSEQexp1.10K.UMI.mat)))
 print(paste("length common Bcell markers = ", length(Bcells.common), sep=""))
 #Monocytes.common <- Reduce(intersect, list(ref.markers[["CD14+ Monocytes"]], rownames(MARSseq.10K.UMI.mat), rownames(CELseq2.10K.UMI.mat), rownames(QUARTZseq.10K.UMI.mat), rownames(SCRBseq.10K.UMI.mat)))
 
@@ -224,34 +238,36 @@ Dropseq.10K.UMI.Bcell.mat <- Dropseq.10K.UMI.mat[Bcells.common, Dropseq.Bcells.c
 X10Scilife.10K.UMI.Bcell.mat <- X10Scilife.10K.UMI.mat[Bcells.common, X10Scilife.Bcells.common]
 X10Nuclei.10K.UMI.Bcell.mat <- X10Nuclei.10K.UMI.mat[Bcells.common, X10Nuclei.Bcells.common]
 ICELL8.10K.UMI.Bcell.mat <- ICELL8.10K.UMI.mat[Bcells.common, ICELL8.Bcells.common]
+ddSEQexp1.10K.UMI.Bcell.mat <- ddSEQexp1.10K.UMI.mat[Bcells.common, ddSEQexp1.Bcells.common]
 
 library(dplyr)
 library(ggplot2)
 library(gplots)
 
-Bcell.heatmap.df <- log(as.matrix(bind_cols(MARSseq.10K.UMI.Bcell.mat, CELseq2.10K.UMI.Bcell.mat, SCRBseq.10K.UMI.Bcell.mat, QUARTZseq.10K.UMI.Bcell.mat, Dropseq.10K.UMI.Bcell.mat, X10Scilife.10K.UMI.Bcell.mat, X10Nuclei.10K.UMI.Bcell.mat, ICELL8.10K.UMI.Bcell.mat)) + 1)
+Bcell.heatmap.df <- log(as.matrix(bind_cols(MARSseq.10K.UMI.Bcell.mat, CELseq2.10K.UMI.Bcell.mat, SCRBseq.10K.UMI.Bcell.mat, QUARTZseq.10K.UMI.Bcell.mat, Dropseq.10K.UMI.Bcell.mat, X10Scilife.10K.UMI.Bcell.mat, X10Nuclei.10K.UMI.Bcell.mat, ICELL8.10K.UMI.Bcell.mat, ddSEQexp1.10K.UMI.Bcell.mat)) + 1)
 rownames(Bcell.heatmap.df) <- Bcells.common
 col.separators = c(ncol(MARSseq.10K.UMI.Bcell.mat), ncol(MARSseq.10K.UMI.Bcell.mat) + ncol(CELseq2.10K.UMI.Bcell.mat),
  ncol(MARSseq.10K.UMI.Bcell.mat) + ncol(CELseq2.10K.UMI.Bcell.mat) + ncol(SCRBseq.10K.UMI.Bcell.mat),
  ncol(MARSseq.10K.UMI.Bcell.mat) + ncol(CELseq2.10K.UMI.Bcell.mat) + ncol(SCRBseq.10K.UMI.Bcell.mat) + ncol(QUARTZseq.10K.UMI.Bcell.mat),
  ncol(MARSseq.10K.UMI.Bcell.mat) + ncol(CELseq2.10K.UMI.Bcell.mat) + ncol(SCRBseq.10K.UMI.Bcell.mat) + ncol(QUARTZseq.10K.UMI.Bcell.mat) + ncol(Dropseq.10K.UMI.Bcell.mat),
  ncol(MARSseq.10K.UMI.Bcell.mat) + ncol(CELseq2.10K.UMI.Bcell.mat) + ncol(SCRBseq.10K.UMI.Bcell.mat) + ncol(QUARTZseq.10K.UMI.Bcell.mat) + ncol(Dropseq.10K.UMI.Bcell.mat) + ncol(X10Scilife.10K.UMI.Bcell.mat),
- ncol(MARSseq.10K.UMI.Bcell.mat) + ncol(CELseq2.10K.UMI.Bcell.mat) + ncol(SCRBseq.10K.UMI.Bcell.mat) + ncol(QUARTZseq.10K.UMI.Bcell.mat) + ncol(Dropseq.10K.UMI.Bcell.mat) + ncol(X10Scilife.10K.UMI.Bcell.mat) + ncol(X10Nuclei.10K.UMI.Bcell.mat))
+ ncol(MARSseq.10K.UMI.Bcell.mat) + ncol(CELseq2.10K.UMI.Bcell.mat) + ncol(SCRBseq.10K.UMI.Bcell.mat) + ncol(QUARTZseq.10K.UMI.Bcell.mat) + ncol(Dropseq.10K.UMI.Bcell.mat) + ncol(X10Scilife.10K.UMI.Bcell.mat) + ncol(X10Nuclei.10K.UMI.Bcell.mat),
+ ncol(MARSseq.10K.UMI.Bcell.mat) + ncol(CELseq2.10K.UMI.Bcell.mat) + ncol(SCRBseq.10K.UMI.Bcell.mat) + ncol(QUARTZseq.10K.UMI.Bcell.mat) + ncol(Dropseq.10K.UMI.Bcell.mat) + ncol(X10Scilife.10K.UMI.Bcell.mat) + ncol(X10Nuclei.10K.UMI.Bcell.mat)+ ncol(ddSEQexp1.10K.UMI.Bcell.mat))
 
-col.sep.color = c(rep("slateblue1", ncol(MARSseq.10K.UMI.Bcell.mat)), rep("orchid1",ncol(CELseq2.10K.UMI.Bcell.mat)), rep("red", ncol(SCRBseq.10K.UMI.Bcell.mat)), rep("olivedrab3", ncol(QUARTZseq.10K.UMI.Bcell.mat)), rep("purple", ncol(Dropseq.10K.UMI.Bcell.mat)), rep("grey", ncol(X10Scilife.10K.UMI.Bcell.mat)), rep("orange", ncol(X10Nuclei.10K.UMI.Bcell.mat)), rep("yellow", ncol(ICELL8.10K.UMI.Bcell.mat)))
+col.sep.color = c(rep("slateblue1", ncol(MARSseq.10K.UMI.Bcell.mat)), rep("orchid1",ncol(CELseq2.10K.UMI.Bcell.mat)), rep("red", ncol(SCRBseq.10K.UMI.Bcell.mat)), rep("olivedrab3", ncol(QUARTZseq.10K.UMI.Bcell.mat)), rep("purple", ncol(Dropseq.10K.UMI.Bcell.mat)), rep("grey", ncol(X10Scilife.10K.UMI.Bcell.mat)), rep("orange", ncol(X10Nuclei.10K.UMI.Bcell.mat)), rep("yellow", ncol(ICELL8.10K.UMI.Bcell.mat), rep("red", ncol(ddSEQexp1.10K.UMI.Bcell.mat)))
 my_palette <- colorRampPalette(c("steelblue2","yellow", "orangered2"))(n = 299)
 pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/Markers_comparison_Bcells.pdf")
 heatmap.2(Bcell.heatmap.df, Rowv = F, Colv = F, trace = "none", 
           colsep = col.separators,sepcolor = "black",sepwidth = c(0.8,0.8),
           ColSideColors= col.sep.color, labCol = F, col = my_palette, cexRow = 0.3, main = "B Cells markers downsampled to 10K")
-legend(0.7,1.1,legend=c("MARSseq","CELseq2","SCRBseq", "QUARTZseq", "Dropseq", "X10Scilife", "X10Nuclei", "ICELL8"),
-       fill=c("slateblue1", "orchid1", "red", "olivedrab3", "purple", "grey", "orange", "yellow"),border=FALSE, bty="n", y.intersp = 0.7, cex=0.7, xpd = T)
+legend(0.7,1.1,legend=c("MARSseq","CELseq2","SCRBseq", "QUARTZseq", "Dropseq", "X10Scilife", "X10Nuclei", "ICELL8", "ddSEQexp1"),
+       fill=c("slateblue1", "orchid1", "red", "olivedrab3", "purple", "grey", "orange", "yellow","red"),border=FALSE, bty="n", y.intersp = 0.7, cex=0.7, xpd = T)
 
 dev.off()
 
-vec.Bcell.matrices <- list(log(as.matrix(MARSseq.10K.UMI.Bcell.mat)+1), log(as.matrix(CELseq2.10K.UMI.Bcell.mat)+1), log(as.matrix(SCRBseq.10K.UMI.Bcell.mat)+1), log(as.matrix(QUARTZseq.10K.UMI.Bcell.mat)+1), log(as.matrix(Dropseq.10K.UMI.Bcell.mat)+1), log(as.matrix(X10Scilife.10K.UMI.Bcell.mat)+1), log(as.matrix(X10Nuclei.10K.UMI.Bcell.mat)+1), log(as.matrix(ICELL8.10K.UMI.Bcell.mat)+1))
+vec.Bcell.matrices <- list(log(as.matrix(MARSseq.10K.UMI.Bcell.mat)+1), log(as.matrix(CELseq2.10K.UMI.Bcell.mat)+1), log(as.matrix(SCRBseq.10K.UMI.Bcell.mat)+1), log(as.matrix(QUARTZseq.10K.UMI.Bcell.mat)+1), log(as.matrix(Dropseq.10K.UMI.Bcell.mat)+1), log(as.matrix(X10Scilife.10K.UMI.Bcell.mat)+1), log(as.matrix(X10Nuclei.10K.UMI.Bcell.mat)+1), log(as.matrix(ICELL8.10K.UMI.Bcell.mat)+1), log(as.matrix(ddSEQexp1.10K.UMI.Bcell.mat)+1))
 mean.tech.matrices.Bcell <- unlist(lapply(vec.Bcell.matrices, function(x) mean(x)))
-names(mean.tech.matrices.Bcell) <- c("MARSseq", "CELseq2", "SCRBseq", "QUARTZseq","Dropseq", "X10Scilife", "X10Nuclei", "ICELL8")
+names(mean.tech.matrices.Bcell) <- c("MARSseq", "CELseq2", "SCRBseq", "QUARTZseq","Dropseq", "X10Scilife", "X10Nuclei", "ICELL8", "ddSEQexp1")
 
 
 
@@ -281,10 +297,13 @@ X10Nuclei.Monocytes.common <- intersect(colnames(X10Nuclei.10K.UMI.mat),X10Nucle
 ICELL8.10K.UMI.mat <- mapIDs(ICELL8.DS.UMI$downsampled_10000, "hsap")
 ICELL8.Monocytes.common <- intersect(colnames(ICELL8.10K.UMI.mat),ICELL8.Monocytes)
 
+ddSEQexp1.10K.UMI.mat <- mapIDs(ddSEQexp1.DS.UMI$downsampled_10000, "hsap")
+ddSEQexp1.Monocytes.common <- intersect(colnames(ddSEQexp1.10K.UMI.mat),ddSEQexp1.Monocytes)
+
 #Separating cluster specific markers ####
 load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects/gene_cl.ref.RData")
 ref.markers <- gene_cl.ref
-Monocytes.common <- Reduce(intersect, list(ref.markers[["CD14+ Monocytes"]], rownames(MARSseq.10K.UMI.mat), rownames(CELseq2.10K.UMI.mat), rownames(QUARTZseq.10K.UMI.mat), rownames(Dropseq.10K.UMI.mat), rownames(SCRBseq.10K.UMI.mat) , rownames(X10Scilife.10K.UMI.mat), rownames(X10Nuclei.10K.UMI.mat), rownames(ICELL8.10K.UMI.mat)))
+Monocytes.common <- Reduce(intersect, list(ref.markers[["CD14+ Monocytes"]], rownames(MARSseq.10K.UMI.mat), rownames(CELseq2.10K.UMI.mat), rownames(QUARTZseq.10K.UMI.mat), rownames(Dropseq.10K.UMI.mat), rownames(SCRBseq.10K.UMI.mat) , rownames(X10Scilife.10K.UMI.mat), rownames(X10Nuclei.10K.UMI.mat), rownames(ICELL8.10K.UMI.mat), rownames(ddSEQexp1.10K.UMI.mat)))
 print(paste("length common CD14+ Monocytes markers = ", length(Monocytes.common), sep=""))
 #Monocytes.common <- Reduce(intersect, list(ref.markers[["CD14+ Monocytes"]], rownames(MARSseq.10K.UMI.mat), rownames(CELseq2.10K.UMI.mat), rownames(QUARTZseq.10K.UMI.mat), rownames(SCRBseq.10K.UMI.mat)))
 
@@ -296,34 +315,36 @@ Dropseq.10K.UMI.Monocytes.mat <- Dropseq.10K.UMI.mat[Monocytes.common, Dropseq.M
 X10Scilife.10K.UMI.Monocytes.mat <- X10Scilife.10K.UMI.mat[Monocytes.common, X10Scilife.Monocytes.common]
 X10Nuclei.10K.UMI.Monocytes.mat <- X10Nuclei.10K.UMI.mat[Monocytes.common, X10Nuclei.Monocytes.common]
 ICELL8.10K.UMI.Monocytes.mat <- ICELL8.10K.UMI.mat[Monocytes.common, ICELL8.Monocytes.common]
+ddSEQexp1.10K.UMI.Monocytes.mat <- ddSEQexp1.10K.UMI.mat[Monocytes.common, ddSEQexp1.Monocytes.common]
 
 library(dplyr)
 library(ggplot2)
 library(gplots)
 
-Monocytes.heatmap.df <- log(as.matrix(bind_cols(MARSseq.10K.UMI.Monocytes.mat, CELseq2.10K.UMI.Monocytes.mat, SCRBseq.10K.UMI.Monocytes.mat, QUARTZseq.10K.UMI.Monocytes.mat, Dropseq.10K.UMI.Monocytes.mat, X10Scilife.10K.UMI.Monocytes.mat, X10Nuclei.10K.UMI.Monocytes.mat, ICELL8.10K.UMI.Monocytes.mat)) + 1)
+Monocytes.heatmap.df <- log(as.matrix(bind_cols(MARSseq.10K.UMI.Monocytes.mat, CELseq2.10K.UMI.Monocytes.mat, SCRBseq.10K.UMI.Monocytes.mat, QUARTZseq.10K.UMI.Monocytes.mat, Dropseq.10K.UMI.Monocytes.mat, X10Scilife.10K.UMI.Monocytes.mat, X10Nuclei.10K.UMI.Monocytes.mat, ICELL8.10K.UMI.Monocytes.mat, ddSEQexp1.10K.UMI.Monocytes.mat)) + 1)
 rownames(Monocytes.heatmap.df) <- Monocytes.common
 col.separators = c(ncol(MARSseq.10K.UMI.Monocytes.mat), ncol(MARSseq.10K.UMI.Monocytes.mat) + ncol(CELseq2.10K.UMI.Monocytes.mat),
  ncol(MARSseq.10K.UMI.Monocytes.mat) + ncol(CELseq2.10K.UMI.Monocytes.mat) + ncol(SCRBseq.10K.UMI.Monocytes.mat),
  ncol(MARSseq.10K.UMI.Monocytes.mat) + ncol(CELseq2.10K.UMI.Monocytes.mat) + ncol(SCRBseq.10K.UMI.Monocytes.mat) + ncol(QUARTZseq.10K.UMI.Monocytes.mat),
  ncol(MARSseq.10K.UMI.Monocytes.mat) + ncol(CELseq2.10K.UMI.Monocytes.mat) + ncol(SCRBseq.10K.UMI.Monocytes.mat) + ncol(QUARTZseq.10K.UMI.Monocytes.mat) + ncol(Dropseq.10K.UMI.Monocytes.mat),
  ncol(MARSseq.10K.UMI.Monocytes.mat) + ncol(CELseq2.10K.UMI.Monocytes.mat) + ncol(SCRBseq.10K.UMI.Monocytes.mat) + ncol(QUARTZseq.10K.UMI.Monocytes.mat) + ncol(Dropseq.10K.UMI.Monocytes.mat) + ncol(X10Scilife.10K.UMI.Monocytes.mat),
- ncol(MARSseq.10K.UMI.Monocytes.mat) + ncol(CELseq2.10K.UMI.Monocytes.mat) + ncol(SCRBseq.10K.UMI.Monocytes.mat) + ncol(QUARTZseq.10K.UMI.Monocytes.mat) + ncol(Dropseq.10K.UMI.Monocytes.mat) + ncol(X10Scilife.10K.UMI.Monocytes.mat) + ncol(X10Nuclei.10K.UMI.Monocytes.mat))
+ ncol(MARSseq.10K.UMI.Monocytes.mat) + ncol(CELseq2.10K.UMI.Monocytes.mat) + ncol(SCRBseq.10K.UMI.Monocytes.mat) + ncol(QUARTZseq.10K.UMI.Monocytes.mat) + ncol(Dropseq.10K.UMI.Monocytes.mat) + ncol(X10Scilife.10K.UMI.Monocytes.mat) + ncol(X10Nuclei.10K.UMI.Monocytes.mat),
+ ncol(MARSseq.10K.UMI.Monocytes.mat) + ncol(CELseq2.10K.UMI.Monocytes.mat) + ncol(SCRBseq.10K.UMI.Monocytes.mat) + ncol(QUARTZseq.10K.UMI.Monocytes.mat) + ncol(Dropseq.10K.UMI.Monocytes.mat) + ncol(X10Scilife.10K.UMI.Monocytes.mat) + ncol(X10Nuclei.10K.UMI.Monocytes.mat)+ ncol(ddSEQexp1.10K.UMI.Monocytes.mat))
 
-col.sep.color = c(rep("slateblue1", ncol(MARSseq.10K.UMI.Monocytes.mat)), rep("orchid1",ncol(CELseq2.10K.UMI.Monocytes.mat)), rep("red", ncol(SCRBseq.10K.UMI.Monocytes.mat)), rep("olivedrab3", ncol(QUARTZseq.10K.UMI.Monocytes.mat)), rep("purple", ncol(Dropseq.10K.UMI.Monocytes.mat)), rep("grey", ncol(X10Scilife.10K.UMI.Monocytes.mat)), rep("orange", ncol(X10Nuclei.10K.UMI.Monocytes.mat)), rep("yellow", ncol(ICELL8.10K.UMI.Monocytes.mat)))
+col.sep.color = c(rep("slateblue1", ncol(MARSseq.10K.UMI.Monocytes.mat)), rep("orchid1",ncol(CELseq2.10K.UMI.Monocytes.mat)), rep("red", ncol(SCRBseq.10K.UMI.Monocytes.mat)), rep("olivedrab3", ncol(QUARTZseq.10K.UMI.Monocytes.mat)), rep("purple", ncol(Dropseq.10K.UMI.Monocytes.mat)), rep("grey", ncol(X10Scilife.10K.UMI.Monocytes.mat)), rep("orange", ncol(X10Nuclei.10K.UMI.Monocytes.mat)), rep("yellow", ncol(ICELL8.10K.UMI.Monocytes.mat)), rep("red", ncol(ddSEQexp1.10K.UMI.Monocytes.mat)))
 my_palette <- colorRampPalette(c("steelblue2","yellow", "orangered2"))(n = 299)
 pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/Markers_comparison_Monocytes.pdf")
 heatmap.2(Monocytes.heatmap.df, Rowv = F, Colv = F, trace = "none", 
           colsep = col.separators,sepcolor = "black",sepwidth = c(0.8,0.8),
           ColSideColors= col.sep.color, labCol = F, col = my_palette, cexRow = 0.3, main = "Monocytes markers downsampled to 10K")
-legend(0.7,1.1,legend=c("MARSseq","CELseq2","SCRBseq", "QUARTZseq", "Dropseq", "X10Scilife", "X10Nuclei", "ICELL8"),
-       fill=c("slateblue1", "orchid1", "red", "olivedrab3", "purple", "grey", "orange", "yellow"),border=FALSE, bty="n", y.intersp = 0.7, cex=0.7, xpd = T)
+legend(0.7,1.1,legend=c("MARSseq","CELseq2","SCRBseq", "QUARTZseq", "Dropseq", "X10Scilife", "X10Nuclei", "ICELL8", "ddSEQexp1"),
+       fill=c("slateblue1", "orchid1", "red", "olivedrab3", "purple", "grey", "orange", "yellow", "red"),border=FALSE, bty="n", y.intersp = 0.7, cex=0.7, xpd = T)
 
 dev.off()
 
-vec.Monocytes.matrices <- list(log(as.matrix(MARSseq.10K.UMI.Monocytes.mat)+1), log(as.matrix(CELseq2.10K.UMI.Monocytes.mat)+1), log(as.matrix(SCRBseq.10K.UMI.Monocytes.mat)+1), log(as.matrix(QUARTZseq.10K.UMI.Monocytes.mat)+1), log(as.matrix(Dropseq.10K.UMI.Monocytes.mat)+1), log(as.matrix(X10Scilife.10K.UMI.Monocytes.mat)+1), log(as.matrix(X10Nuclei.10K.UMI.Monocytes.mat)+1), log(as.matrix(ICELL8.10K.UMI.Monocytes.mat)+1))
+vec.Monocytes.matrices <- list(log(as.matrix(MARSseq.10K.UMI.Monocytes.mat)+1), log(as.matrix(CELseq2.10K.UMI.Monocytes.mat)+1), log(as.matrix(SCRBseq.10K.UMI.Monocytes.mat)+1), log(as.matrix(QUARTZseq.10K.UMI.Monocytes.mat)+1), log(as.matrix(Dropseq.10K.UMI.Monocytes.mat)+1), log(as.matrix(X10Scilife.10K.UMI.Monocytes.mat)+1), log(as.matrix(X10Nuclei.10K.UMI.Monocytes.mat)+1), log(as.matrix(ICELL8.10K.UMI.Monocytes.mat)+1), log(as.matrix(ddSEQexp1.10K.UMI.Monocytes.mat)+1))
 mean.tech.matrices.Monocytes <- unlist(lapply(vec.Monocytes.matrices, function(x) mean(x)))
-names(mean.tech.matrices.Monocytes) <- c("MARSseq", "CELseq2", "SCRBseq", "QUARTZseq","Dropseq", "X10Scilife", "X10Nuclei", "ICELL8")
+names(mean.tech.matrices.Monocytes) <- c("MARSseq", "CELseq2", "SCRBseq", "QUARTZseq","Dropseq", "X10Scilife", "X10Nuclei", "ICELL8", "ddSEQexp1")
 
 
 
@@ -353,10 +374,13 @@ X10Nuclei.HEK.common <- intersect(colnames(X10Nuclei.20K.UMI.mat),X10Nuclei.HEK)
 ICELL8.20K.UMI.mat <- mapIDs(ICELL8.DS.UMI$downsampled_20000, "hsap")
 ICELL8.HEK.common <- intersect(colnames(ICELL8.20K.UMI.mat),ICELL8.HEK)
 
+ddSEQexp1.20K.UMI.mat <- mapIDs(ddSEQexp1.DS.UMI$downsampled_20000, "hsap")
+ddSEQexp1.HEK.common <- intersect(colnames(ddSEQexp1.20K.UMI.mat),ddSEQexp1.HEK)
+
 #Separating cluster specific markers ####
 load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects/gene_cl.ref.RData")
 ref.markers <- gene_cl.ref
-HEK.common <- Reduce(intersect, list(ref.markers[["HEK cells"]], rownames(MARSseq.20K.UMI.mat), rownames(CELseq2.20K.UMI.mat), rownames(QUARTZseq.20K.UMI.mat), rownames(Dropseq.20K.UMI.mat), rownames(SCRBseq.20K.UMI.mat) , rownames(X10Scilife.20K.UMI.mat), rownames(X10Nuclei.20K.UMI.mat), rownames(ICELL8.20K.UMI.mat)))
+HEK.common <- Reduce(intersect, list(ref.markers[["HEK cells"]], rownames(MARSseq.20K.UMI.mat), rownames(CELseq2.20K.UMI.mat), rownames(QUARTZseq.20K.UMI.mat), rownames(Dropseq.20K.UMI.mat), rownames(SCRBseq.20K.UMI.mat) , rownames(X10Scilife.20K.UMI.mat), rownames(X10Nuclei.20K.UMI.mat), rownames(ICELL8.20K.UMI.mat), rownames(ddSEQexp1.20K.UMI.mat)))
 print(paste("length common HEK markers = ", length(HEK.common), sep=""))
 #HEK.common <- Reduce(intersect, list(ref.markers[["CD14+ HEK"]], rownames(MARSseq.20K.UMI.mat), rownames(CELseq2.20K.UMI.mat), rownames(QUARTZseq.20K.UMI.mat), rownames(SCRBseq.20K.UMI.mat)))
 
@@ -368,35 +392,37 @@ Dropseq.20K.UMI.HEK.mat <- Dropseq.20K.UMI.mat[HEK.common, Dropseq.HEK.common]
 X10Scilife.20K.UMI.HEK.mat <- X10Scilife.20K.UMI.mat[HEK.common, X10Scilife.HEK.common]
 X10Nuclei.20K.UMI.HEK.mat <- X10Nuclei.20K.UMI.mat[HEK.common, X10Nuclei.HEK.common]
 ICELL8.20K.UMI.HEK.mat <- ICELL8.20K.UMI.mat[HEK.common, ICELL8.HEK.common]
+ddSEQexp1.20K.UMI.HEK.mat <- ddSEQexp1.20K.UMI.mat[HEK.common, ddSEQexp1.HEK.common]
 
 library(dplyr)
 library(ggplot2)
 library(gplots)
 
-HEK.heatmap.df <- log(as.matrix(bind_cols(MARSseq.20K.UMI.HEK.mat, CELseq2.20K.UMI.HEK.mat, SCRBseq.20K.UMI.HEK.mat, QUARTZseq.20K.UMI.HEK.mat, Dropseq.20K.UMI.HEK.mat, X10Scilife.20K.UMI.HEK.mat, X10Nuclei.20K.UMI.HEK.mat, ICELL8.20K.UMI.HEK.mat)) + 1)
+HEK.heatmap.df <- log(as.matrix(bind_cols(MARSseq.20K.UMI.HEK.mat, CELseq2.20K.UMI.HEK.mat, SCRBseq.20K.UMI.HEK.mat, QUARTZseq.20K.UMI.HEK.mat, Dropseq.20K.UMI.HEK.mat, X10Scilife.20K.UMI.HEK.mat, X10Nuclei.20K.UMI.HEK.mat, ICELL8.20K.UMI.HEK.mat, ddSEQexp1.20K.UMI.HEK.mat)) + 1)
 rownames(HEK.heatmap.df) <- HEK.common
 col.separators = c(ncol(MARSseq.20K.UMI.HEK.mat), ncol(MARSseq.20K.UMI.HEK.mat) + ncol(CELseq2.20K.UMI.HEK.mat),
  ncol(MARSseq.20K.UMI.HEK.mat) + ncol(CELseq2.20K.UMI.HEK.mat) + ncol(SCRBseq.20K.UMI.HEK.mat),
  ncol(MARSseq.20K.UMI.HEK.mat) + ncol(CELseq2.20K.UMI.HEK.mat) + ncol(SCRBseq.20K.UMI.HEK.mat) + ncol(QUARTZseq.20K.UMI.HEK.mat),
  ncol(MARSseq.20K.UMI.HEK.mat) + ncol(CELseq2.20K.UMI.HEK.mat) + ncol(SCRBseq.20K.UMI.HEK.mat) + ncol(QUARTZseq.20K.UMI.HEK.mat) + ncol(Dropseq.20K.UMI.HEK.mat),
  ncol(MARSseq.20K.UMI.HEK.mat) + ncol(CELseq2.20K.UMI.HEK.mat) + ncol(SCRBseq.20K.UMI.HEK.mat) + ncol(QUARTZseq.20K.UMI.HEK.mat) + ncol(Dropseq.20K.UMI.HEK.mat) + ncol(X10Scilife.20K.UMI.HEK.mat),
- ncol(MARSseq.20K.UMI.HEK.mat) + ncol(CELseq2.20K.UMI.HEK.mat) + ncol(SCRBseq.20K.UMI.HEK.mat) + ncol(QUARTZseq.20K.UMI.HEK.mat) + ncol(Dropseq.20K.UMI.HEK.mat) + ncol(X10Scilife.20K.UMI.HEK.mat) + ncol(X10Nuclei.20K.UMI.HEK.mat))
+ ncol(MARSseq.20K.UMI.HEK.mat) + ncol(CELseq2.20K.UMI.HEK.mat) + ncol(SCRBseq.20K.UMI.HEK.mat) + ncol(QUARTZseq.20K.UMI.HEK.mat) + ncol(Dropseq.20K.UMI.HEK.mat) + ncol(X10Scilife.20K.UMI.HEK.mat) + ncol(X10Nuclei.20K.UMI.HEK.mat),
+ ncol(MARSseq.20K.UMI.HEK.mat) + ncol(CELseq2.20K.UMI.HEK.mat) + ncol(SCRBseq.20K.UMI.HEK.mat) + ncol(QUARTZseq.20K.UMI.HEK.mat) + ncol(Dropseq.20K.UMI.HEK.mat) + ncol(X10Scilife.20K.UMI.HEK.mat) + ncol(X10Nuclei.20K.UMI.HEK.mat) + + ncol(ddSEQexp1.20K.UMI.HEK.mat))
 
-col.sep.color = c(rep("slateblue1", ncol(MARSseq.20K.UMI.HEK.mat)), rep("orchid1",ncol(CELseq2.20K.UMI.HEK.mat)), rep("red", ncol(SCRBseq.20K.UMI.HEK.mat)), rep("olivedrab3", ncol(QUARTZseq.20K.UMI.HEK.mat)), rep("purple", ncol(Dropseq.20K.UMI.HEK.mat)), rep("grey", ncol(X10Scilife.20K.UMI.HEK.mat)), rep("orange", ncol(X10Nuclei.20K.UMI.HEK.mat)), rep("yellow", ncol(ICELL8.20K.UMI.HEK.mat)))
+col.sep.color = c(rep("slateblue1", ncol(MARSseq.20K.UMI.HEK.mat)), rep("orchid1",ncol(CELseq2.20K.UMI.HEK.mat)), rep("red", ncol(SCRBseq.20K.UMI.HEK.mat)), rep("olivedrab3", ncol(QUARTZseq.20K.UMI.HEK.mat)), rep("purple", ncol(Dropseq.20K.UMI.HEK.mat)), rep("grey", ncol(X10Scilife.20K.UMI.HEK.mat)), rep("orange", ncol(X10Nuclei.20K.UMI.HEK.mat)), rep("yellow", ncol(ICELL8.20K.UMI.HEK.mat)), rep("red", ncol(ddSEQexp1.20K.UMI.HEK.mat)))
 my_palette <- colorRampPalette(c("steelblue2","yellow", "orangered2"))(n = 299)
 pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/Markers_comparison_HEK.pdf")
 heatmap.2(HEK.heatmap.df, Rowv = F, Colv = F, trace = "none", 
           colsep = col.separators,sepcolor = "black",sepwidth = c(0.8,0.8),
           ColSideColors= col.sep.color, labCol = F, col = my_palette, cexRow = 0.3, main = "HEK markers downsampled to 20K")
-legend(0.7,1.1,legend=c("MARSseq","CELseq2","SCRBseq", "QUARTZseq", "Dropseq", "X10Scilife", "X10Nuclei", "ICELL8"),
-       fill=c("slateblue1", "orchid1", "red", "olivedrab3", "purple", "grey", "orange", "yellow"),border=FALSE, bty="n", y.intersp = 0.7, cex=0.7, xpd = T)
+legend(0.7,1.1,legend=c("MARSseq","CELseq2","SCRBseq", "QUARTZseq", "Dropseq", "X10Scilife", "X10Nuclei", "ICELL8", "ddSEQexp1"),
+       fill=c("slateblue1", "orchid1", "red", "olivedrab3", "purple", "grey", "orange", "yellow", "red"),border=FALSE, bty="n", y.intersp = 0.7, cex=0.7, xpd = T)
 
 dev.off()
 
 
-vec.HEK.matrices <- list(log(as.matrix(MARSseq.20K.UMI.HEK.mat)+1), log(as.matrix(CELseq2.20K.UMI.HEK.mat)+1), log(as.matrix(SCRBseq.20K.UMI.HEK.mat)+1), log(as.matrix(QUARTZseq.20K.UMI.HEK.mat)+1), log(as.matrix(Dropseq.20K.UMI.HEK.mat)+1), log(as.matrix(X10Scilife.20K.UMI.HEK.mat)+1), log(as.matrix(X10Nuclei.20K.UMI.HEK.mat)+1), log(as.matrix(ICELL8.20K.UMI.HEK.mat)+1))
+vec.HEK.matrices <- list(log(as.matrix(MARSseq.20K.UMI.HEK.mat)+1), log(as.matrix(CELseq2.20K.UMI.HEK.mat)+1), log(as.matrix(SCRBseq.20K.UMI.HEK.mat)+1), log(as.matrix(QUARTZseq.20K.UMI.HEK.mat)+1), log(as.matrix(Dropseq.20K.UMI.HEK.mat)+1), log(as.matrix(X10Scilife.20K.UMI.HEK.mat)+1), log(as.matrix(X10Nuclei.20K.UMI.HEK.mat)+1), log(as.matrix(ICELL8.20K.UMI.HEK.mat)+1), log(as.matrix(ddSEQexp1.20K.UMI.HEK.mat)+1))
 mean.tech.matrices.HEK <- unlist(lapply(vec.HEK.matrices, function(x) mean(x)))
-names(mean.tech.matrices.HEK) <- c("MARSseq", "CELseq2", "SCRBseq", "QUARTZseq","Dropseq", "X10Scilife", "X10Nuclei", "ICELL8")
+names(mean.tech.matrices.HEK) <- c("MARSseq", "CELseq2", "SCRBseq", "QUARTZseq","Dropseq", "X10Scilife", "X10Nuclei", "ICELL8", "ddSEQexp1")
 
 #The overall mean hetamap per tech per celltype
 whole.mean.df <- cbind(Monocytes=mean.tech.matrices.Monocytes, Bcells=mean.tech.matrices.Bcell, HEK=mean.tech.matrices.HEK)

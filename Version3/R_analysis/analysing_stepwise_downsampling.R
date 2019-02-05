@@ -46,6 +46,16 @@ ICELL8.obj <- data
 rm(data)
 ICELL8.metadata <- ICELL8.obj@meta.data
 
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects/ddSEQ_data_seu.obj_res0.5_dim13.RData")
+ddSEQ.obj <- data
+rm(data)
+ddSEQ.metadata <- ddSEQ.obj@meta.data
+
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects/ddSEQexp1_data_seu.obj_res0.3_dim6.RData")
+ddSEQexp1.obj <- data
+rm(data)
+ddSEQexp1.metadata <- ddSEQexp1.obj@meta.data
+
 # End ####
 
 # Taking out HEK cells of each technique ####
@@ -57,6 +67,8 @@ SCRBseq.HEK <- names(SCRBseq.obj@ident)[which(SCRBseq.obj@ident == "HEK cells")]
 X10Scilife.HEK <- names(X10Scilife.obj@ident)[which(X10Scilife.obj@ident == "HEK cells")]
 X10Nuclei.HEK <- names(X10Nuclei.obj@ident)[which(X10Nuclei.obj@ident == "HEK cells")]
 ICELL8.HEK <- names(ICELL8.obj@ident)[which(ICELL8.obj@ident == "HEK cells")]
+ddSEQ.HEK <- names(ddSEQ.obj@ident)[which(ddSEQ.obj@ident == "HEK cells")]
+ddSEQexp1.HEK <- names(ddSEQexp1.obj@ident)[which(ddSEQexp1.obj@ident == "HEK cells")]
 
 # End ####
 
@@ -69,6 +81,8 @@ SCRBseq.Monocytes <- names(SCRBseq.obj@ident)[which(SCRBseq.obj@ident == "CD14+ 
 X10Scilife.Monocytes <- names(X10Scilife.obj@ident)[which(X10Scilife.obj@ident == "CD14+ and FCGR3A+ Monocytes")]
 X10Nuclei.Monocytes <- names(X10Nuclei.obj@ident)[which(X10Nuclei.obj@ident == "CD14+ Monocytes")]
 ICELL8.Monocytes <- names(ICELL8.obj@ident)[which(ICELL8.obj@ident == "CD14+ and FCGR3A+ Monocytes")]
+ddSEQ.Monocytes <- names(ddSEQ.obj@ident)[which(ddSEQ.obj@ident == "CD14+ and FCGR3A+ Monocytes")]
+ddSEQexp1.Monocytes <- names(ddSEQexp1.obj@ident)[which(ddSEQexp1.obj@ident == "CD14+ and FCGR3A+ Monocytes")]
 
 # End ####
 
@@ -81,6 +95,8 @@ SCRBseq.Bcells <- names(SCRBseq.obj@ident)[which(SCRBseq.obj@ident == "B cells")
 X10Scilife.Bcells <- names(X10Scilife.obj@ident)[which(X10Scilife.obj@ident == "B cells")]
 X10Nuclei.Bcells <- names(X10Nuclei.obj@ident)[which(X10Nuclei.obj@ident == "B cells")]
 ICELL8.Bcells <- names(ICELL8.obj@ident)[which(ICELL8.obj@ident == "B cells")]
+ddSEQ.Bcells <- names(ddSEQ.obj@ident)[which(ddSEQ.obj@ident == "B cells")]
+ddSEQexp1.Bcells <- names(ddSEQexp1.obj@ident)[which(ddSEQexp1.obj@ident == "B cells")]
 
 # End ####
 
@@ -172,7 +188,7 @@ X108x10.DS.Reads <- X108x10.DS$Reads
 
 #Plotting stepwise Downsampling for HEK ####
 
-techniques <- c("MARSseq", "QUARTZseq", "CELseq2", "Dropseq", "SCRBseq", "X10Scilife", "X10Nuclei", "ICELL8")#, "X108x10" , "ddSEQ", "ddSEQexp1", "C1HT"
+techniques <- c("MARSseq", "QUARTZseq", "CELseq2", "Dropseq", "SCRBseq", "X10Scilife", "X10Nuclei", "ICELL8", "ddSEQ", "ddSEQexp1")#, "CB1")#, "X108x10" , "ddSEQ", "ddSEQexp1", "C1HT"
 DSth.df <- data.frame()
 techs.HEK.20K.list <- list()
 for (tech in techniques){
@@ -200,7 +216,7 @@ for (tech in techniques){
     print(dim(DSth.df))
   }
 }
-pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS_HEK_plots.pdf")
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS_HEK_plots_V2.pdf")
 ggplot(DSth.df, aes(x=DSthNum, y=nGenes, group =DStech))  + geom_smooth(method = "lm", formula = y ~ log(x), se = T, aes(color=DStech))
 ggplot(DSth.df, aes(x=DSthNum, y=nUMIs, group =DStech))  + geom_smooth(method = "lm", formula = y ~ log(x), se = T, aes(color=DStech))
 
@@ -214,7 +230,7 @@ print("Stepwise DS plots for HEK done")
 
 #Plotting stepwise Downsampling for Monocytes ####
 
-techniques <- c("MARSseq", "QUARTZseq", "CELseq2", "Dropseq", "SCRBseq", "X10Scilife", "X10Nuclei", "ICELL8")#, "X108x10" , "ddSEQ", "ddSEQexp1", "C1HT"
+techniques <- c("MARSseq", "QUARTZseq", "CELseq2", "Dropseq", "SCRBseq", "X10Scilife", "X10Nuclei", "ICELL8", "ddSEQ", "ddSEQexp1")#, "CB1")#, "X108x10" , "ddSEQ", "ddSEQexp1", "C1HT"
 DSth.df <- data.frame()
 techs.Monocytes.20K.list <- list()
 for (tech in techniques){
@@ -242,7 +258,7 @@ for (tech in techniques){
     print(dim(DSth.df))
   }
 }
-pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS_Monocytes_plots.pdf")
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS_Monocytes_plots_V2.pdf")
 ggplot(DSth.df, aes(x=DSthNum, y=nGenes, group =DStech))  + geom_smooth(method = "lm", formula = y ~ log(x), se = T, aes(color=DStech))
 ggplot(DSth.df, aes(x=DSthNum, y=nUMIs, group =DStech))  + geom_smooth(method = "lm", formula = y ~ log(x), se = T, aes(color=DStech))
 
@@ -256,7 +272,7 @@ print("Stepwise DS plots for Monocytes done")
 
 #Plotting stepwise Downsampling for Bcell ####
 
-techniques <- c("MARSseq", "QUARTZseq", "CELseq2", "Dropseq", "SCRBseq", "X10Scilife", "X10Nuclei", "ICELL8")#, "X108x10" , "ddSEQ", "ddSEQexp1", "C1HT"
+techniques <- c("MARSseq", "QUARTZseq", "CELseq2", "Dropseq", "SCRBseq", "X10Scilife", "X10Nuclei", "ICELL8", "ddSEQ", "ddSEQexp1")#, "CB1")#, "X108x10" , "ddSEQ", "ddSEQexp1", "C1HT"
 DSth.df <- data.frame()
 techs.Bcells.10K.list <- list()
 for (tech in techniques){
@@ -284,7 +300,7 @@ for (tech in techniques){
     print(dim(DSth.df))
   }
 }
-pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS_Bcells_plots.pdf")
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS_Bcells_plots_V2.pdf")
 ggplot(DSth.df, aes(x=DSthNum, y=nGenes, group =DStech))  + geom_smooth(method = "lm", formula = y ~ log(x), se = T, aes(color=DStech))
 ggplot(DSth.df, aes(x=DSthNum, y=nUMIs, group =DStech))  + geom_smooth(method = "lm", formula = y ~ log(x), se = T, aes(color=DStech))
 
@@ -326,7 +342,7 @@ print("HEK HVG:")
 print(dim(HEK.seurat@scale.data))
 print(length(HEK.seurat@var.genes))
 HEK.seurat <- RunPCA(HEK.seurat, pc.genes = HEK.seurat@var.genes, do.print = F)
-pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCAseurat_HEK.pdf")
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCAseurat_HEK_V2.pdf")
 PCAPlot(HEK.seurat, 1,2, group.by = "orig.ident")
 dev.off()
 print("PCA DS plots for HEK done")
@@ -357,7 +373,7 @@ print("Monocytes HVG:")
 print(dim(Monocytes.seurat@scale.data))
 print(length(Monocytes.seurat@var.genes))
 Monocytes.seurat <- RunPCA(Monocytes.seurat, pc.genes = Monocytes.seurat@var.genes, do.print = F)
-pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCAseurat_Monocytes.pdf")
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCAseurat_Monocytes_V2.pdf")
 PCAPlot(Monocytes.seurat, 1,2, group.by = "orig.ident")
 dev.off()
 print("PCA DS plots for Monocytes done")
@@ -388,7 +404,7 @@ print("Bcells HVG:")
 print(dim(Bcells.seurat@scale.data))
 print(length(Bcells.seurat@var.genes))
 Bcells.seurat <- RunPCA(Bcells.seurat, pc.genes = Bcells.seurat@var.genes, do.print = F)
-pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCAseurat_Bcells.pdf")
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCAseurat_Bcells_V2.pdf")
 PCAPlot(Bcells.seurat, 1,2, group.by = "orig.ident")
 dev.off()
 print("PCA DS plots for Bcells done")
