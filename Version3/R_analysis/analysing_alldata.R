@@ -36,6 +36,80 @@ mapIDs <- function (count.mat, species){
 #### end ####
 
 
+# loading Annotated seurat objects ####
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects/MARSseq_data_seu.obj_res0.5_dim6.RData")
+MARSseq.obj <- data
+rm(data)
+MARSseq.metadata <- MARSseq.obj@meta.data
+
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects/CELseq2_data_seu.obj_res0.5_dim8.RData")
+CELseq2.obj <- data
+rm(data)
+CELseq2.metadata <- CELseq2.obj@meta.data
+
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects/QUARTZseq_data_seu.obj_res0.4_dim10.RData")
+QUARTZseq.obj <- data
+rm(data)
+QUARTZseq.metadata <- QUARTZseq.obj@meta.data
+
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects/Dropseq_data_seu.obj_res0.4_dim8.RData")
+Dropseq.obj <- data
+rm(data)
+Dropseq.metadata <- Dropseq.obj@meta.data
+
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects/SCRBseq_data_seu.obj_res0.3_dim10.RData")
+SCRBseq.obj <- data
+rm(data)
+SCRBseq.metadata <- SCRBseq.obj@meta.data
+
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects/SeqwellV2_data_seu.obj_res0.5_dim7.RData")
+SeqwellV2.obj <- data
+rm(data)
+SeqwellV2.metadata <- SeqwellV2.obj@meta.data
+
+
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects/X10Scilife_data_seu.obj_res0.1_dim8.RData")
+X10Scilife.obj <- data
+rm(data)
+X10Scilife.metadata <- X10Scilife.obj@meta.data
+
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects/X10Nuclei_data_seu.obj_res0.4_dim8.RData")
+X10Nuclei.obj <- data
+rm(data)
+X10Nuclei.metadata <- X10Nuclei.obj@meta.data
+
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects/ICELL8_data_seu.obj_res0.5_dim9.RData")
+ICELL8.obj <- data
+rm(data)
+ICELL8.metadata <- ICELL8.obj@meta.data
+
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects/ddSEQ_data_seu.obj_res0.5_dim13.RData")
+ddSEQ.obj <- data
+rm(data)
+ddSEQ.metadata <- ddSEQ.obj@meta.data
+
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects/ddSEQexp1_data_seu.obj_res0.3_dim6.RData")
+ddSEQexp1.obj <- data
+rm(data)
+ddSEQexp1.metadata <- ddSEQexp1.obj@meta.data
+
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects/C1HTsmall_data_seu.obj_res0.3_dim6.RData")
+C1HTsmall.obj <- data
+rm(data)
+C1HTsmall.metadata <- C1HTsmall.obj@meta.data
+
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects/C1HTmedium_data_seu.obj_res0.3_dim8.RData")
+C1HTmedium.obj <- data
+rm(data)
+C1HTmedium.metadata <- C1HTmedium.obj@meta.data
+
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects/CB1_data_seu.obj_res0.5_dim7.RData")
+CB1.obj <- data
+rm(data)
+CB1.metadata <- CB1.obj@meta.data
+
+
+
 # MARSseq hsap Preparation ====
 print("MARSseq is Running...")
 load("../SCE_Robjects/MARSseq.hsap.full.SCE.Robj")
@@ -62,6 +136,7 @@ MARSseq.hsap.mito.drop <- which(isOutlier(MARSseq.hsap.new$log10_total_counts_Mt
 #plot(density(colData(MARSseq.hsap.new)[-MARSseq.hsap.mito.drop, "log10_total_counts_Mt"]))
 MARSseq.hsap.final <- MARSseq.hsap.new[,-c(MARSseq.hsap.nTReads.drop, MARSseq.hsap.mappedPct.drop,MARSseq.hsap.mito.drop)]
 MARSseq.hsap.fin.metadata <- colData(MARSseq.hsap.final)
+MARSseq.hsap.fin.metadata <- MARSseq.hsap.fin.metadata[rownames(MARSseq.metadata),]
 #### end ####
 
 # CELseq2 hsap Preparation ====
@@ -90,6 +165,8 @@ CELseq2.hsap.mito.drop <- which(isOutlier(CELseq2.hsap.new$log10_total_counts_Mt
 #plot(density(colData(CELseq2.hsap.new)[-CELseq2.hsap.mito.drop, "log10_total_counts_Mt"]))
 CELseq2.hsap.final <- CELseq2.hsap.new[,-c(CELseq2.hsap.nTReads.drop, CELseq2.hsap.mappedPct.drop,CELseq2.hsap.mito.drop)]
 CELseq2.hsap.fin.metadata <- colData(CELseq2.hsap.final)
+CELseq2.hsap.fin.metadata <- CELseq2.hsap.fin.metadata[rownames(CELseq2.metadata),]
+
 #### end ####
 
 # QUARTZseq hsap Preparation ====
@@ -118,6 +195,8 @@ QUARTZseq.hsap.mito.drop <- which(isOutlier(QUARTZseq.hsap.new$log10_total_count
 #plot(density(colData(QUARTZseq.hsap.new)[-QUARTZseq.hsap.mito.drop, "log10_total_counts_Mt"]))
 QUARTZseq.hsap.final <- QUARTZseq.hsap.new[,-c(QUARTZseq.hsap.nTReads.drop, QUARTZseq.hsap.mappedPct.drop,QUARTZseq.hsap.mito.drop)]
 QUARTZseq.hsap.fin.metadata <- colData(QUARTZseq.hsap.final)
+QUARTZseq.hsap.fin.metadata <- QUARTZseq.hsap.fin.metadata[rownames(QUARTZseq.metadata),]
+
 #### end ####
 
 # Dropseq hsap Preparation ====
@@ -146,6 +225,8 @@ Dropseq.hsap.mito.drop <- which(isOutlier(Dropseq.hsap.new$log10_total_counts_Mt
 #plot(density(colData(Dropseq.hsap.new)[-Dropseq.hsap.mito.drop, "log10_total_counts_Mt"]))
 Dropseq.hsap.final <- Dropseq.hsap.new[,-c(Dropseq.hsap.nTReads.drop, Dropseq.hsap.mappedPct.drop,Dropseq.hsap.mito.drop)]
 Dropseq.hsap.fin.metadata <- colData(Dropseq.hsap.final)
+Dropseq.hsap.fin.metadata <- Dropseq.hsap.fin.metadata[rownames(Dropseq.metadata),]
+
 #### end ####
 
 # SCRBseq hsap Preparation ====
@@ -172,6 +253,8 @@ SCRBseq.hsap.mito.drop <- which(isOutlier(SCRBseq.hsap.new$log10_total_counts_Mt
 #plot(density(colData(SCRBseq.hsap.new)[-SCRBseq.hsap.mito.drop, "log10_total_counts_Mt"]))
 SCRBseq.hsap.final <- SCRBseq.hsap.new[,-c(SCRBseq.hsap.nTReads.drop, SCRBseq.hsap.mappedPct.drop,SCRBseq.hsap.mito.drop)]
 SCRBseq.hsap.fin.metadata <- colData(SCRBseq.hsap.final)
+SCRBseq.hsap.fin.metadata <- SCRBseq.hsap.fin.metadata[rownames(SCRBseq.metadata),]
+
 #### end ####
 
 
@@ -199,6 +282,8 @@ SeqwellV2.hsap.mito.drop <- which(isOutlier(SeqwellV2.hsap.new$log10_total_count
 #plot(density(colData(SeqwellV2.hsap.new)[-SeqwellV2.hsap.mito.drop, "log10_total_counts_Mt"]))
 SeqwellV2.hsap.final <- SeqwellV2.hsap.new[,-c(SeqwellV2.hsap.nTReads.drop, SeqwellV2.hsap.mappedPct.drop,SeqwellV2.hsap.mito.drop)]
 SeqwellV2.hsap.fin.metadata <- colData(SeqwellV2.hsap.final)
+SeqwellV2.hsap.fin.metadata <- SeqwellV2.hsap.fin.metadata[rownames(SeqwellV2.metadata),]
+
 #### end ####
 
 
@@ -226,6 +311,8 @@ SeqwellV1.hsap.mito.drop <- which(isOutlier(SeqwellV1.hsap.new$log10_total_count
 #plot(density(colData(SeqwellV1.hsap.new)[-SeqwellV1.hsap.mito.drop, "log10_total_counts_Mt"]))
 SeqwellV1.hsap.final <- SeqwellV1.hsap.new[,-c(SeqwellV1.hsap.nTReads.drop, SeqwellV1.hsap.mappedPct.drop,SeqwellV1.hsap.mito.drop)]
 SeqwellV1.hsap.fin.metadata <- colData(SeqwellV1.hsap.final)
+#SeqwellV1.hsap.fin.metadata <- SeqwellV1.hsap.fin.metadata[rownames(SeqwellV1.metadata),]
+
 #### end ####
 
 
@@ -253,6 +340,8 @@ Nuclei10X.hsap.mito.drop <- which(isOutlier(Nuclei10X.hsap.new$log10_total_count
 #plot(density(colData(Nuclei10X.hsap.new)[-Nuclei10X.hsap.mito.drop, "log10_total_counts_Mt"]))
 Nuclei10X.hsap.final <- Nuclei10X.hsap.new[,-c(Nuclei10X.hsap.nTReads.drop, Nuclei10X.hsap.mappedPct.drop,Nuclei10X.hsap.mito.drop)]
 Nuclei10X.hsap.fin.metadata <- colData(Nuclei10X.hsap.final)
+Nuclei10X.hsap.fin.metadata <- Nuclei10X.hsap.fin.metadata[rownames(Nuclei10X.metadata),]
+
 #### end ####
 
 
@@ -280,6 +369,8 @@ ICELL8.hsap.mito.drop <- which(isOutlier(ICELL8.hsap.new$log10_total_counts_Mt, 
 #plot(density(colData(ICELL8.hsap.new)[-ICELL8.hsap.mito.drop, "log10_total_counts_Mt"]))
 ICELL8.hsap.final <- ICELL8.hsap.new[,-c(ICELL8.hsap.nTReads.drop, ICELL8.hsap.mappedPct.drop,ICELL8.hsap.mito.drop)]
 ICELL8.hsap.fin.metadata <- colData(ICELL8.hsap.final)
+ICELL8.hsap.fin.metadata <- ICELL8.hsap.fin.metadata[rownames(ICELL8.metadata),]
+
                                                                                                        
 #### end ####
 
@@ -308,6 +399,8 @@ ddSEQ.hsap.mito.drop <- which(isOutlier(ddSEQ.hsap.new$log10_total_counts_Mt, nm
 #plot(density(colData(ddSEQ.hsap.new)[-ddSEQ.hsap.mito.drop, "log10_total_counts_Mt"]))
 ddSEQ.hsap.final <- ddSEQ.hsap.new[,-c(ddSEQ.hsap.nTReads.drop, ddSEQ.hsap.mappedPct.drop,ddSEQ.hsap.mito.drop)]
 ddSEQ.hsap.fin.metadata <- colData(ddSEQ.hsap.final)
+ddSEQ.hsap.fin.metadata <- ddSEQ.hsap.fin.metadata[rownames(ddSEQ.metadata),]
+
 #### end ####
 
 # ddSEQexp1 hsap Preparation ====
@@ -334,36 +427,66 @@ ddSEQexp1.hsap.mito.drop <- which(isOutlier(ddSEQexp1.hsap.new$log10_total_count
 #plot(density(colData(ddSEQexp1.hsap.new)[-ddSEQexp1.hsap.mito.drop, "log10_total_counts_Mt"]))
 ddSEQexp1.hsap.final <- ddSEQexp1.hsap.new[,-c(ddSEQexp1.hsap.nTReads.drop, ddSEQexp1.hsap.mappedPct.drop,ddSEQexp1.hsap.mito.drop)]
 ddSEQexp1.hsap.fin.metadata <- colData(ddSEQexp1.hsap.final)
+ddSEQexp1.hsap.fin.metadata <- ddSEQexp1.hsap.fin.metadata[rownames(ddSEQexp1.metadata),]
+
 #### end ####
 
 
-# C1HT hsap Preparation ====
-print("C1HT is Running...")
-load("../SCE_Robjects/C1HT.hsap.full.SCE.Robj")
-C1HT.hsap <- full.SCE.hsap
+# C1HTsmall hsap Preparation ====
+print("C1HTsmall is Running...")
+load("../SCE_Robjects/C1HTsmall.hsap.full.SCE.Robj")
+C1HTsmall.hsap <- full.SCE.hsap
 rm(full.SCE.hsap)
 
-C1HT.hsap.count <- as.data.frame(counts(C1HT.hsap))
-C1HT.hsap.count.mapped <- mapIDs(C1HT.hsap.count, "hsap")
-C1HT.hsap.metadata <- as.data.frame(colData(C1HT.hsap))
-C1HT.hsap.metadata[is.na(C1HT.hsap.metadata)] <- 0
-C1HT.hsap.tmappedReads <- rowSums(C1HT.hsap.metadata[, c(2:4,6)])
-C1HT.hsap.mappedReadsPerc <- (C1HT.hsap.tmappedReads/C1HT.hsap.metadata$nTReads)*100
-C1HT.hsap.metadata <- add_column(C1HT.hsap.metadata, mappedReads= C1HT.hsap.tmappedReads, mappedReadsPerc= C1HT.hsap.mappedReadsPerc, .after = 1 )
-C1HT.hsap.cells <- which(C1HT.hsap.metadata$Species == "Human")
-C1HT.hsap.new <- SingleCellExperiment(assays = list(counts = as.matrix(C1HT.hsap.count.mapped[,C1HT.hsap.cells])), colData = C1HT.hsap.metadata[C1HT.hsap.cells,c(1:15)])
+C1HTsmall.hsap.count <- as.data.frame(counts(C1HTsmall.hsap))
+C1HTsmall.hsap.count.mapped <- mapIDs(C1HTsmall.hsap.count, "hsap")
+C1HTsmall.hsap.metadata <- as.data.frame(colData(C1HTsmall.hsap))
+C1HTsmall.hsap.metadata[is.na(C1HTsmall.hsap.metadata)] <- 0
+C1HTsmall.hsap.tmappedReads <- rowSums(C1HTsmall.hsap.metadata[, c(2:4,6)])
+C1HTsmall.hsap.mappedReadsPerc <- (C1HTsmall.hsap.tmappedReads/C1HTsmall.hsap.metadata$nTReads)*100
+C1HTsmall.hsap.metadata <- add_column(C1HTsmall.hsap.metadata, mappedReads= C1HTsmall.hsap.tmappedReads, mappedReadsPerc= C1HTsmall.hsap.mappedReadsPerc, .after = 1 )
+C1HTsmall.hsap.cells <- which(C1HTsmall.hsap.metadata$Species == "Human")
+C1HTsmall.hsap.new <- SingleCellExperiment(assays = list(counts = as.matrix(C1HTsmall.hsap.count.mapped[,C1HTsmall.hsap.cells])), colData = C1HTsmall.hsap.metadata[C1HTsmall.hsap.cells,c(1:15)])
 
-C1HT.hsap.is.mito <- grep("^MT-", rownames(counts(C1HT.hsap.new)))
-C1HT.hsap.new <- calculateQCMetrics(C1HT.hsap.new, feature_controls=list(Mt=C1HT.hsap.is.mito))
-C1HT.hsap.nTReads.drop <- which(isOutlier(C1HT.hsap.new$mappedReads, nmads=2, type="lower", log=TRUE))
-C1HT.hsap.mappedPct.drop <- which(C1HT.hsap.new$mappedReadsPerc < 65)
-C1HT.hsap.mito.drop <- which(isOutlier(C1HT.hsap.new$log10_total_counts_Mt, nmads=2, type="higher"))
-#plot(density(colData(C1HT.hsap.new)[-C1HT.hsap.mito.drop, "log10_total_counts_Mt"]))
-C1HT.hsap.final <- C1HT.hsap.new[,-c(C1HT.hsap.nTReads.drop, C1HT.hsap.mappedPct.drop,C1HT.hsap.mito.drop)]
-C1HT.hsap.fin.metadata <- colData(C1HT.hsap.final)
+C1HTsmall.hsap.is.mito <- grep("^MT-", rownames(counts(C1HTsmall.hsap.new)))
+C1HTsmall.hsap.new <- calculateQCMetrics(C1HTsmall.hsap.new, feature_controls=list(Mt=C1HTsmall.hsap.is.mito))
+C1HTsmall.hsap.nTReads.drop <- which(isOutlier(C1HTsmall.hsap.new$mappedReads, nmads=2, type="lower", log=TRUE))
+C1HTsmall.hsap.mappedPct.drop <- which(C1HTsmall.hsap.new$mappedReadsPerc < 65)
+C1HTsmall.hsap.mito.drop <- which(isOutlier(C1HTsmall.hsap.new$log10_total_counts_Mt, nmads=2, type="higher"))
+#plot(density(colData(C1HTsmall.hsap.new)[-C1HTsmall.hsap.mito.drop, "log10_total_counts_Mt"]))
+C1HTsmall.hsap.final <- C1HTsmall.hsap.new[,-c(C1HTsmall.hsap.nTReads.drop, C1HTsmall.hsap.mappedPct.drop,C1HTsmall.hsap.mito.drop)]
+C1HTsmall.hsap.fin.metadata <- colData(C1HTsmall.hsap.final)
+C1HTsmall.hsap.fin.metadata <- C1HTsmall.hsap.fin.metadata[rownames(C1HTsmall.metadata),]
 
 #### end ####
 
+# C1HTmedium hsap Preparation ====
+print("C1HTmedium is Running...")
+load("../SCE_Robjects/C1HTmedium.hsap.full.SCE.Robj")
+C1HTmedium.hsap <- full.SCE.hsap
+rm(full.SCE.hsap)
+
+C1HTmedium.hsap.count <- as.data.frame(counts(C1HTmedium.hsap))
+C1HTmedium.hsap.count.mapped <- mapIDs(C1HTmedium.hsap.count, "hsap")
+C1HTmedium.hsap.metadata <- as.data.frame(colData(C1HTmedium.hsap))
+C1HTmedium.hsap.metadata[is.na(C1HTmedium.hsap.metadata)] <- 0
+C1HTmedium.hsap.tmappedReads <- rowSums(C1HTmedium.hsap.metadata[, c(2:4,6)])
+C1HTmedium.hsap.mappedReadsPerc <- (C1HTmedium.hsap.tmappedReads/C1HTmedium.hsap.metadata$nTReads)*100
+C1HTmedium.hsap.metadata <- add_column(C1HTmedium.hsap.metadata, mappedReads= C1HTmedium.hsap.tmappedReads, mappedReadsPerc= C1HTmedium.hsap.mappedReadsPerc, .after = 1 )
+C1HTmedium.hsap.cells <- which(C1HTmedium.hsap.metadata$Species == "Human")
+C1HTmedium.hsap.new <- SingleCellExperiment(assays = list(counts = as.matrix(C1HTmedium.hsap.count.mapped[,C1HTmedium.hsap.cells])), colData = C1HTmedium.hsap.metadata[C1HTmedium.hsap.cells,c(1:15)])
+
+C1HTmedium.hsap.is.mito <- grep("^MT-", rownames(counts(C1HTmedium.hsap.new)))
+C1HTmedium.hsap.new <- calculateQCMetrics(C1HTmedium.hsap.new, feature_controls=list(Mt=C1HTmedium.hsap.is.mito))
+C1HTmedium.hsap.nTReads.drop <- which(isOutlier(C1HTmedium.hsap.new$mappedReads, nmads=2, type="lower", log=TRUE))
+C1HTmedium.hsap.mappedPct.drop <- which(C1HTmedium.hsap.new$mappedReadsPerc < 65)
+C1HTmedium.hsap.mito.drop <- which(isOutlier(C1HTmedium.hsap.new$log10_total_counts_Mt, nmads=2, type="higher"))
+#plot(density(colData(C1HTmedium.hsap.new)[-C1HTmedium.hsap.mito.drop, "log10_total_counts_Mt"]))
+C1HTmedium.hsap.final <- C1HTmedium.hsap.new[,-c(C1HTmedium.hsap.nTReads.drop, C1HTmedium.hsap.mappedPct.drop,C1HTmedium.hsap.mito.drop)]
+C1HTmedium.hsap.fin.metadata <- colData(C1HTmedium.hsap.final)
+C1HTmedium.hsap.fin.metadata <- C1HTmedium.hsap.fin.metadata[rownames(C1HTmedium.metadata),]
+
+#### end ####
 
 
 #10X8x10K hsap Preparation ====
@@ -390,6 +513,7 @@ X10x8x10K.hsap.mito.drop <- which(isOutlier(X10x8x10K.hsap.new$log10_total_count
 #plot(density(colData(X10x8x10K.hsap.new)[-X10x8x10K.hsap.mito.drop, "log10_total_counts_Mt"]))
 X10x8x10K.hsap.final <- X10x8x10K.hsap.new[,-c(X10x8x10K.hsap.nTReads.drop, X10x8x10K.hsap.mappedPct.drop,X10x8x10K.hsap.mito.drop)]
 X10x8x10K.hsap.fin.metadata <- colData(X10x8x10K.hsap.final)
+X10x8x10K.hsap.fin.metadata <- X10x8x10K.hsap.fin.metadata[rownames(X10x8x10K.metadata),]
 
 #### end ####
 
@@ -418,6 +542,7 @@ X10Scilife.hsap.mito.drop <- which(isOutlier(X10Scilife.hsap.new$log10_total_cou
 #plot(density(colData(X10Scilife.hsap.new)[-X10Scilife.hsap.mito.drop, "log10_total_counts_Mt"]))
 X10Scilife.hsap.final <- X10Scilife.hsap.new[,-c(X10Scilife.hsap.nTReads.drop, X10Scilife.hsap.mappedPct.drop,X10Scilife.hsap.mito.drop)]
 X10Scilife.hsap.fin.metadata <- colData(X10Scilife.hsap.final)
+X10Scilife.hsap.fin.metadata <- X10Scilife.hsap.fin.metadata[rownames(X10Scilife.metadata),]
 
 #### end ####
 
@@ -446,6 +571,7 @@ CB1.hsap.mito.drop <- which(isOutlier(CB1.hsap.new$log10_total_counts_Mt, nmads=
 #plot(density(colData(CB1.hsap.new)[-CB1.hsap.mito.drop, "log10_total_counts_Mt"]))
 CB1.hsap.final <- CB1.hsap.new[,-c(CB1.hsap.nTReads.drop, CB1.hsap.mappedPct.drop,CB1.hsap.mito.drop)]
 CB1.hsap.fin.metadata <- colData(CB1.hsap.final)
+CB1.hsap.fin.metadata <- CB1.hsap.fin.metadata[rownames(CB1.metadata),]
 
 #### end ####
 
@@ -485,17 +611,18 @@ hsap.total.reads <- rbind(hsap.total.reads, data.frame(CELseq2.hsap.fin.metadata
 hsap.total.reads <- rbind(hsap.total.reads, data.frame(QUARTZseq.hsap.fin.metadata[, c("Library", "nTReads")], tech = rep("QUARTZseq", nrow(QUARTZseq.hsap.fin.metadata))))
 hsap.total.reads <- rbind(hsap.total.reads, data.frame(Dropseq.hsap.fin.metadata[, c("Library", "nTReads")], tech = rep("Dropseq", nrow(Dropseq.hsap.fin.metadata))))
 hsap.total.reads <- rbind(hsap.total.reads, data.frame(SCRBseq.hsap.fin.metadata[, c("Library", "nTReads")], tech = rep("SCRBseq", nrow(SCRBseq.hsap.fin.metadata))))
-hsap.total.reads <- rbind(hsap.total.reads, data.frame(SeqwellV1.hsap.fin.metadata[, c("Library", "nTReads")], tech = rep("SeqwellV1", nrow(SeqwellV1.hsap.fin.metadata))))
+#hsap.total.reads <- rbind(hsap.total.reads, data.frame(SeqwellV1.hsap.fin.metadata[, c("Library", "nTReads")], tech = rep("SeqwellV1", nrow(SeqwellV1.hsap.fin.metadata))))
 hsap.total.reads <- rbind(hsap.total.reads, data.frame(SeqwellV2.hsap.fin.metadata[, c("Library", "nTReads")], tech = rep("SeqwellV2", nrow(SeqwellV2.hsap.fin.metadata))))
 hsap.total.reads <- rbind(hsap.total.reads, data.frame(Nuclei10X.hsap.fin.metadata[, c("Library", "nTReads")], tech = rep("Nuclei10X", nrow(Nuclei10X.hsap.fin.metadata))))
 hsap.total.reads <- rbind(hsap.total.reads, data.frame(ICELL8.hsap.fin.metadata[, c("Library", "nTReads")], tech = rep("ICELL8", nrow(ICELL8.hsap.fin.metadata))))
 hsap.total.reads <- rbind(hsap.total.reads, data.frame(ddSEQ.hsap.fin.metadata[, c("Library", "nTReads")], tech = rep("ddSEQ", nrow(ddSEQ.hsap.fin.metadata))))
 hsap.total.reads <- rbind(hsap.total.reads, data.frame(ddSEQexp1.hsap.fin.metadata[, c("Library", "nTReads")], tech = rep("ddSEQexp1", nrow(ddSEQexp1.hsap.fin.metadata))))
-hsap.total.reads <- rbind(hsap.total.reads, data.frame(C1HT.hsap.fin.metadata[, c("Library", "nTReads")], tech = rep("C1HT", nrow(C1HT.hsap.fin.metadata))))
-hsap.total.reads <- rbind(hsap.total.reads, data.frame(X10x8x10K.hsap.fin.metadata[, c("Library", "nTReads")], tech = rep("X10x8x10K", nrow(X10x8x10K.hsap.fin.metadata))))
+hsap.total.reads <- rbind(hsap.total.reads, data.frame(C1HTsmall.hsap.fin.metadata[, c("Library", "nTReads")], tech = rep("C1HTsmall", nrow(C1HTsmall.hsap.fin.metadata))))
+hsap.total.reads <- rbind(hsap.total.reads, data.frame(C1HTmedium.hsap.fin.metadata[, c("Library", "nTReads")], tech = rep("C1HTmedium", nrow(C1HTmedium.hsap.fin.metadata))))
+#hsap.total.reads <- rbind(hsap.total.reads, data.frame(X10x8x10K.hsap.fin.metadata[, c("Library", "nTReads")], tech = rep("X10x8x10K", nrow(X10x8x10K.hsap.fin.metadata))))
 hsap.total.reads <- rbind(hsap.total.reads, data.frame(X10Scilife.hsap.fin.metadata[, c("Library", "nTReads")], tech = rep("X10Scilife", nrow(X10Scilife.hsap.fin.metadata))))
 hsap.total.reads <- rbind(hsap.total.reads, data.frame(CB1.hsap.fin.metadata[, c("Library", "nTReads")], tech = rep("CB1", nrow(CB1.hsap.fin.metadata))))
-pdf("all_techs_V2/hsap_total_number_Reads_all_V5.pdf")
+pdf("all_techs_V2/hsap_total_number_Reads_all_V6.pdf")
 #ggplot(data=hsap.total.reads, aes(x=Library, y=log(nTReads), fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none") + facet_grid(. ~ tech, scales = "free") 
 #ggplot(data=hsap.total.reads, aes(x=tech, y=log(nTReads), fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none") + facet_grid(. ~ tech, scales = "free") 
 ggplot(data=hsap.total.reads, aes(x=tech, y=nTReads, fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none",panel.spacing.x = unit(0, "null")) + scale_y_continuous(trans = "log", labels= scales::comma, breaks = c(1000, 20000, 100000, 500000, 1000000)) + facet_grid(. ~ tech, scales = "free") + geom_hline(yintercept=c(1000, 20000, 100000, 500000, 1000000), color = "orange", linetype = "dashed") # , limits = c(5000, NA)
@@ -512,17 +639,18 @@ hsap.total.genes <- rbind(hsap.total.genes, data.frame(CELseq2.hsap.fin.metadata
 hsap.total.genes <- rbind(hsap.total.genes, data.frame(QUARTZseq.hsap.fin.metadata[, c("Library", "nGenes")], tech = rep("QUARTZseq", nrow(QUARTZseq.hsap.fin.metadata))))
 hsap.total.genes <- rbind(hsap.total.genes, data.frame(Dropseq.hsap.fin.metadata[, c("Library", "nGenes")], tech = rep("Dropseq", nrow(Dropseq.hsap.fin.metadata))))
 hsap.total.genes <- rbind(hsap.total.genes, data.frame(SCRBseq.hsap.fin.metadata[, c("Library", "nGenes")], tech = rep("SCRBseq", nrow(SCRBseq.hsap.fin.metadata))))
-hsap.total.genes <- rbind(hsap.total.genes, data.frame(SeqwellV1.hsap.fin.metadata[, c("Library", "nGenes")], tech = rep("SeqwellV1", nrow(SeqwellV1.hsap.fin.metadata))))
+#hsap.total.genes <- rbind(hsap.total.genes, data.frame(SeqwellV1.hsap.fin.metadata[, c("Library", "nGenes")], tech = rep("SeqwellV1", nrow(SeqwellV1.hsap.fin.metadata))))
 hsap.total.genes <- rbind(hsap.total.genes, data.frame(SeqwellV2.hsap.fin.metadata[, c("Library", "nGenes")], tech = rep("SeqwellV2", nrow(SeqwellV2.hsap.fin.metadata))))
 hsap.total.genes <- rbind(hsap.total.genes, data.frame(Nuclei10X.hsap.fin.metadata[, c("Library", "nGenes")], tech = rep("Nuclei10X", nrow(Nuclei10X.hsap.fin.metadata))))
 hsap.total.genes <- rbind(hsap.total.genes, data.frame(ICELL8.hsap.fin.metadata[, c("Library", "nGenes")], tech = rep("ICELL8", nrow(ICELL8.hsap.fin.metadata))))
 hsap.total.genes <- rbind(hsap.total.genes, data.frame(ddSEQ.hsap.fin.metadata[, c("Library", "nGenes")], tech = rep("ddSEQ", nrow(ddSEQ.hsap.fin.metadata))))
 hsap.total.genes <- rbind(hsap.total.genes, data.frame(ddSEQexp1.hsap.fin.metadata[, c("Library", "nGenes")], tech = rep("ddSEQexp1", nrow(ddSEQexp1.hsap.fin.metadata))))
-hsap.total.genes <- rbind(hsap.total.genes, data.frame(C1HT.hsap.fin.metadata[, c("Library", "nGenes")], tech = rep("C1HT", nrow(C1HT.hsap.fin.metadata))))
-hsap.total.genes <- rbind(hsap.total.genes, data.frame(X10x8x10K.hsap.fin.metadata[, c("Library", "nGenes")], tech = rep("X10x8x10K", nrow(X10x8x10K.hsap.fin.metadata))))
+hsap.total.genes <- rbind(hsap.total.genes, data.frame(C1HTsmall.hsap.fin.metadata[, c("Library", "nGenes")], tech = rep("C1HTsmall", nrow(C1HTsmall.hsap.fin.metadata))))
+hsap.total.genes <- rbind(hsap.total.genes, data.frame(C1HTmedium.hsap.fin.metadata[, c("Library", "nGenes")], tech = rep("C1HTmedium", nrow(C1HTmedium.hsap.fin.metadata))))
+#hsap.total.genes <- rbind(hsap.total.genes, data.frame(X10x8x10K.hsap.fin.metadata[, c("Library", "nGenes")], tech = rep("X10x8x10K", nrow(X10x8x10K.hsap.fin.metadata))))
 hsap.total.genes <- rbind(hsap.total.genes, data.frame(X10Scilife.hsap.fin.metadata[, c("Library", "nGenes")], tech = rep("X10Scilife", nrow(X10Scilife.hsap.fin.metadata))))
 hsap.total.genes <- rbind(hsap.total.genes, data.frame(CB1.hsap.fin.metadata[, c("Library", "nGenes")], tech = rep("CB1", nrow(CB1.hsap.fin.metadata))))
-pdf("all_techs_V2/hsap_total_number_Genes_all_V5.pdf")
+pdf("all_techs_V2/hsap_total_number_Genes_all_V6.pdf")
 #ggplot(data=hsap.total.genes, aes(x=Library, y=log(nGenes), fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none") + facet_grid(. ~ tech, scales = "free") 
 #ggplot(data=hsap.total.genes, aes(x=tech, y=log(nGenes), fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none") + facet_grid(. ~ tech, scales = "free") 
 ggplot(data=hsap.total.genes, aes(x=tech, y=nGenes, fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none",panel.spacing.x = unit(0, "null")) + scale_y_continuous(trans = "log", labels= scales::comma, breaks = c(10,150,500, 1500, 5000)) + facet_grid(. ~ tech, scales = "free") + geom_hline(yintercept=c(10,150,500, 1500, 5000), color = "orange", linetype = "dashed") # , limits = c(5000, NA)
@@ -537,17 +665,18 @@ hsap.total.UMIs <- rbind(hsap.total.UMIs, data.frame(CELseq2.hsap.fin.metadata[,
 hsap.total.UMIs <- rbind(hsap.total.UMIs, data.frame(QUARTZseq.hsap.fin.metadata[, c("Library", "nUMIs")], tech = rep("QUARTZseq", nrow(QUARTZseq.hsap.fin.metadata))))
 hsap.total.UMIs <- rbind(hsap.total.UMIs, data.frame(Dropseq.hsap.fin.metadata[, c("Library", "nUMIs")], tech = rep("Dropseq", nrow(Dropseq.hsap.fin.metadata))))
 hsap.total.UMIs <- rbind(hsap.total.UMIs, data.frame(SCRBseq.hsap.fin.metadata[, c("Library", "nUMIs")], tech = rep("SCRBseq", nrow(SCRBseq.hsap.fin.metadata))))
-hsap.total.UMIs <- rbind(hsap.total.UMIs, data.frame(SeqwellV1.hsap.fin.metadata[, c("Library", "nUMIs")], tech = rep("SeqwellV1", nrow(SeqwellV1.hsap.fin.metadata))))
+#hsap.total.UMIs <- rbind(hsap.total.UMIs, data.frame(SeqwellV1.hsap.fin.metadata[, c("Library", "nUMIs")], tech = rep("SeqwellV1", nrow(SeqwellV1.hsap.fin.metadata))))
 hsap.total.UMIs <- rbind(hsap.total.UMIs, data.frame(SeqwellV2.hsap.fin.metadata[, c("Library", "nUMIs")], tech = rep("SeqwellV2", nrow(SeqwellV2.hsap.fin.metadata))))
 hsap.total.UMIs <- rbind(hsap.total.UMIs, data.frame(Nuclei10X.hsap.fin.metadata[, c("Library", "nUMIs")], tech = rep("Nuclei10X", nrow(Nuclei10X.hsap.fin.metadata))))
 hsap.total.UMIs <- rbind(hsap.total.UMIs, data.frame(ICELL8.hsap.fin.metadata[, c("Library", "nUMIs")], tech = rep("ICELL8", nrow(ICELL8.hsap.fin.metadata))))
 hsap.total.UMIs <- rbind(hsap.total.UMIs, data.frame(ddSEQ.hsap.fin.metadata[, c("Library", "nUMIs")], tech = rep("ddSEQ", nrow(ddSEQ.hsap.fin.metadata))))
 hsap.total.UMIs <- rbind(hsap.total.UMIs, data.frame(ddSEQexp1.hsap.fin.metadata[, c("Library", "nUMIs")], tech = rep("ddSEQexp1", nrow(ddSEQexp1.hsap.fin.metadata))))
-hsap.total.UMIs <- rbind(hsap.total.UMIs, data.frame(C1HT.hsap.fin.metadata[, c("Library", "nUMIs")], tech = rep("C1HT", nrow(C1HT.hsap.fin.metadata))))
-hsap.total.UMIs <- rbind(hsap.total.UMIs, data.frame(X10x8x10K.hsap.fin.metadata[, c("Library", "nUMIs")], tech = rep("X10x8x10K", nrow(X10x8x10K.hsap.fin.metadata))))
+hsap.total.UMIs <- rbind(hsap.total.UMIs, data.frame(C1HTsmall.hsap.fin.metadata[, c("Library", "nUMIs")], tech = rep("C1HTsmall", nrow(C1HTsmall.hsap.fin.metadata))))
+hsap.total.UMIs <- rbind(hsap.total.UMIs, data.frame(C1HTmedium.hsap.fin.metadata[, c("Library", "nUMIs")], tech = rep("C1HTmedium", nrow(C1HTmedium.hsap.fin.metadata))))
+#hsap.total.UMIs <- rbind(hsap.total.UMIs, data.frame(X10x8x10K.hsap.fin.metadata[, c("Library", "nUMIs")], tech = rep("X10x8x10K", nrow(X10x8x10K.hsap.fin.metadata))))
 hsap.total.UMIs <- rbind(hsap.total.UMIs, data.frame(X10Scilife.hsap.fin.metadata[, c("Library", "nUMIs")], tech = rep("X10Scilife", nrow(X10Scilife.hsap.fin.metadata))))
 hsap.total.UMIs <- rbind(hsap.total.UMIs, data.frame(CB1.hsap.fin.metadata[, c("Library", "nUMIs")], tech = rep("CB1", nrow(CB1.hsap.fin.metadata))))
-pdf("all_techs_V2/hsap_total_number_UMIs_all_V5.pdf")
+pdf("all_techs_V2/hsap_total_number_UMIs_all_V6.pdf")
 #ggplot(data=hsap.total.UMIs, aes(x=Library, y=log(nUMIs), fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none") + facet_grid(. ~ tech, scales = "free")
 #ggplot(data=hsap.total.UMIs, aes(x=tech, y=log(nUMIs), fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none") + facet_grid(. ~ tech, scales = "free")
 ggplot(data=hsap.total.UMIs, aes(x=tech, y=nUMIs, fill=tech)) + geom_boxplot() +theme (axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none",panel.spacing.x = unit(0, "null")) + scale_y_continuous(trans = "log", labels= scales::comma, breaks = c(200,2000,20000,200000, 1000000)) + facet_grid(. ~ tech, scales = "free")+ geom_hline(yintercept=c(200,2000,20000,200000), color = "orange", linetype = "dashed") # , limits = c(5000, NA)
@@ -562,18 +691,19 @@ hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(CELseq2.hsap.fin.meta
 hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(QUARTZseq.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("QUARTZseq", nrow(QUARTZseq.hsap.fin.metadata))))
 hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(Dropseq.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("Dropseq", nrow(Dropseq.hsap.fin.metadata))))
 hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(SCRBseq.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("SCRBseq", nrow(SCRBseq.hsap.fin.metadata))))
-hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(SeqwellV1.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("SeqwellV1", nrow(SeqwellV1.hsap.fin.metadata))))
+#hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(SeqwellV1.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("SeqwellV1", nrow(SeqwellV1.hsap.fin.metadata))))
 hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(SeqwellV2.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("SeqwellV2", nrow(SeqwellV2.hsap.fin.metadata))))
 hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(Nuclei10X.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("Nuclei10X", nrow(Nuclei10X.hsap.fin.metadata))))
 hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(ICELL8.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("ICELL8", nrow(ICELL8.hsap.fin.metadata))))
 hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(ddSEQ.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("ddSEQ", nrow(ddSEQ.hsap.fin.metadata))))
 hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(ddSEQexp1.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("ddSEQexp1", nrow(ddSEQexp1.hsap.fin.metadata))))
-hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(C1HT.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("C1HT", nrow(C1HT.hsap.fin.metadata))))
+hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(C1HTsmall.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("C1HTsmall", nrow(C1HTsmall.hsap.fin.metadata))))
+hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(C1HTmedium.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("C1HTmedium", nrow(C1HTmedium.hsap.fin.metadata))))
 hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(X10x8x10K.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("X10x8x10K", nrow(X10x8x10K.hsap.fin.metadata))))
 hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(X10Scilife.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("X10Scilife", nrow(X10Scilife.hsap.fin.metadata))))
 hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(CB1.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("CB1", nrow(CB1.hsap.fin.metadata))))
 
-pdf("all_techs_V2/hsap_nReadsVSnUMIs_all_V5.pdf")
+pdf("all_techs_V2/hsap_nReadsVSnUMIs_all_V6.pdf")
 #ggplot(hsap.nread.numi.df, aes(x=nTReads, y=nUMIs, group=tech)) + geom_smooth(aes(color=tech))+ xlim(0, 100000)# + geom_line(aes(color=tech))#
 ggplot(hsap.nread.numi.df, aes(x=nTReads, y=nUMIs, group=tech)) + geom_smooth(method="lm", formula=y~x, fill="grey",aes(color=tech))+ xlim(0, 100000)# + geom_line(aes(color=tech))#
 #ggplot(hsap.nread.numi.df, aes(x=nTReads, y=nUMIs, group=tech)) + geom_smooth(method="lm", formula=y~log(x), fill="grey", aes(color=tech))+ xlim(0, 2000000)# + geom_line(aes(color=tech))#
@@ -591,17 +721,18 @@ hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(CELseq2.hsap.fin.me
 hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(QUARTZseq.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("QUARTZseq", nrow(QUARTZseq.hsap.fin.metadata))))
 hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(Dropseq.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("Dropseq", nrow(Dropseq.hsap.fin.metadata))))
 hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(SCRBseq.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("SCRBseq", nrow(SCRBseq.hsap.fin.metadata))))
-hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(SeqwellV1.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("SeqwellV1", nrow(SeqwellV1.hsap.fin.metadata))))
+#hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(SeqwellV1.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("SeqwellV1", nrow(SeqwellV1.hsap.fin.metadata))))
 hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(SeqwellV2.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("SeqwellV2", nrow(SeqwellV2.hsap.fin.metadata))))
 hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(Nuclei10X.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("Nuclei10X", nrow(Nuclei10X.hsap.fin.metadata))))
 hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(ICELL8.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("ICELL8", nrow(ICELL8.hsap.fin.metadata))))
 hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(ddSEQ.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("ddSEQ", nrow(ddSEQ.hsap.fin.metadata))))
 hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(ddSEQexp1.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("ddSEQexp1", nrow(ddSEQexp1.hsap.fin.metadata))))
-hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(C1HT.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("C1HT", nrow(C1HT.hsap.fin.metadata))))
+hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(C1HTsmall.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("C1HTsmall", nrow(C1HTsmall.hsap.fin.metadata))))
+hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(C1HTmedium.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("C1HTmedium", nrow(C1HTmedium.hsap.fin.metadata))))
 hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(X10x8x10K.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("X10x8x10K", nrow(X10x8x10K.hsap.fin.metadata))))
 hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(X10Scilife.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("X10Scilife", nrow(X10Scilife.hsap.fin.metadata))))
 hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(CB1.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("CB1", nrow(CB1.hsap.fin.metadata))))
-pdf("all_techs_V2/hsap_nReadsVSnGenes_all_V5.pdf")
+pdf("all_techs_V2/hsap_nReadsVSnGenes_all_V6.pdf")
 #ggplot(hsap.nread.ngene.df, aes(x=nGenes, y=nTReads, group=tech)) + geom_point(aes(color=tech)) + geom_smooth(aes(color=tech))+ xlim(0, 100000)# + geom_line(aes(color=tech))#
 ggplot(hsap.nread.ngene.df, aes(x=nTReads, y=nGenes, group=tech)) + geom_smooth(method="lm", formula=y~x, fill="grey", aes(color=tech))+ xlim(0, 100000)# + geom_line(aes(color=tech))#
 #ggplot(hsap.nread.ngene.df, aes(x=nTReads, y=nGenes, group=tech)) + geom_smooth(method="lm", formula=y~log(x), fill="grey", aes(color=tech))+ xlim(0, 2000000)# + geom_line(aes(color=tech))#
