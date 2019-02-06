@@ -43,14 +43,14 @@ rule create_yaml:
         data_hsap = yaml.load(stream)
 
         data_hsap['project'] = protocol
-        data_hsap['sequence_files']['file1']['name'] = fastq_path+ 'SMARTseq2_allLanes_test_R1.fastq.gz'
+        data_hsap['sequence_files']['file1']['name'] = fastq_path+ 'SMARTseq_allLanes_R1.fastq.gz'
         data_hsap['sequence_files']['file1']['base_definition'][0] = 'cDNA(1-76)'
-        data_hsap['sequence_files']['file2']['name'] = fastq_path+ 'SMARTseq2_allLanes_test_R2.fastq.gz'
+        data_hsap['sequence_files']['file2']['name'] = fastq_path+ 'SMARTseq_allLanes_R2.fastq.gz'
         data_hsap['sequence_files']['file2']['base_definition'][0] = 'cDNA(1-76)'
-        data_hsap['sequence_files']['file3']['name'] = fastq_path+ 'SMARTseq2_allLanes_test_I1.fastq.gz'
+        data_hsap['sequence_files']['file3']['name'] = fastq_path+ 'SMARTseq_allLanes_I1.fastq.gz'
         data_hsap['sequence_files']['file3']['base_definition'][0] = 'BC(1-8)'
         #data_hsap['sequence_files']['file3']['base_definition'][1] = 'UMI(1-8)'
-        data_hsap['sequence_files']['file4']['name'] = fastq_path+ 'SMARTseq2_allLanes_test_I2.fastq.gz'
+        data_hsap['sequence_files']['file4']['name'] = fastq_path+ 'SMARTseq_allLanes_I2.fastq.gz'
         data_hsap['sequence_files']['file4']['base_definition'][0] = 'BC(1-8)'
         data_hsap['num_threads'] = 8
         data_hsap['mem_limit'] = 50
