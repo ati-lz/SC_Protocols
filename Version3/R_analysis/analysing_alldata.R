@@ -340,7 +340,7 @@ Nuclei10X.hsap.mito.drop <- which(isOutlier(Nuclei10X.hsap.new$log10_total_count
 #plot(density(colData(Nuclei10X.hsap.new)[-Nuclei10X.hsap.mito.drop, "log10_total_counts_Mt"]))
 Nuclei10X.hsap.final <- Nuclei10X.hsap.new[,-c(Nuclei10X.hsap.nTReads.drop, Nuclei10X.hsap.mappedPct.drop,Nuclei10X.hsap.mito.drop)]
 Nuclei10X.hsap.fin.metadata <- colData(Nuclei10X.hsap.final)
-Nuclei10X.hsap.fin.metadata <- Nuclei10X.hsap.fin.metadata[rownames(Nuclei10X.metadata),]
+Nuclei10X.hsap.fin.metadata <- Nuclei10X.hsap.fin.metadata[rownames(X10Nuclei.metadata),]
 
 #### end ####
 
