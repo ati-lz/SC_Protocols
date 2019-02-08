@@ -355,8 +355,12 @@ print("HEK HVG:")
 print(dim(HEK.seurat@scale.data))
 print(length(HEK.seurat@var.genes))
 HEK.seurat <- RunPCA(HEK.seurat, pc.genes = HEK.seurat@var.genes, do.print = F)
-pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCAseurat_HEK_V3.pdf")
+HEK.colors.nUMI = HEK.seurat@meta.data[names(HEK.seurat@ident), "nUMI"]
+HEK.data.plot <- HEK.seurat@dr$pca@cell.embeddings[,1:3]
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCAseurat_HEK_V4.pdf")
 PCAPlot(HEK.seurat, 1,2, group.by = "orig.ident")
+ggplot(data = HEK.data.plot, mapping = aes(x = PC1, y = PC2, color=HEK.colors.nUMI)) + 
+  geom_point(size = 1,shape = 16)+ scale_color_gradient( low = "grey", high = "red")
 dev.off()
 print("PCA DS plots for HEK done")
 
@@ -386,8 +390,12 @@ print("Monocytes HVG:")
 print(dim(Monocytes.seurat@scale.data))
 print(length(Monocytes.seurat@var.genes))
 Monocytes.seurat <- RunPCA(Monocytes.seurat, pc.genes = Monocytes.seurat@var.genes, do.print = F)
-pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCAseurat_Monocytes_V3.pdf")
+Monocytes.colors.nUMI = Monocytes.seurat@meta.data[names(Monocytes.seurat@ident), "nUMI"]
+Monocytes.data.plot <- Monocytes.seurat@dr$pca@cell.embeddings[,1:3]
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCAseurat_HEK_V4.pdf")
 PCAPlot(Monocytes.seurat, 1,2, group.by = "orig.ident")
+ggplot(data = Monocytes.data.plot, mapping = aes(x = PC1, y = PC2, color=Monocytes.colors.nUMI)) + 
+  geom_point(size = 1,shape = 16)+ scale_color_gradient( low = "grey", high = "red")
 dev.off()
 print("PCA DS plots for Monocytes done")
 
@@ -417,7 +425,11 @@ print("Bcells HVG:")
 print(dim(Bcells.seurat@scale.data))
 print(length(Bcells.seurat@var.genes))
 Bcells.seurat <- RunPCA(Bcells.seurat, pc.genes = Bcells.seurat@var.genes, do.print = F)
-pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS10K_PCAseurat_Bcells_V3.pdf")
+Bcells.colors.nUMI = Bcells.seurat@meta.data[names(Bcells.seurat@ident), "nUMI"]
+Bcells.data.plot <- Bcells.seurat@dr$pca@cell.embeddings[,1:3]
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCAseurat_HEK_V4.pdf")
 PCAPlot(Bcells.seurat, 1,2, group.by = "orig.ident")
+ggplot(data = Bcells.data.plot, mapping = aes(x = PC1, y = PC2, color=Bcells.colors.nUMI)) + 
+  geom_point(size = 1,shape = 16)+ scale_color_gradient( low = "grey", high = "red")
 dev.off()
 print("PCA DS plots for Bcells done")
