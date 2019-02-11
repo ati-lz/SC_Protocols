@@ -513,7 +513,7 @@ X10x8x10K.hsap.mito.drop <- which(isOutlier(X10x8x10K.hsap.new$log10_total_count
 #plot(density(colData(X10x8x10K.hsap.new)[-X10x8x10K.hsap.mito.drop, "log10_total_counts_Mt"]))
 X10x8x10K.hsap.final <- X10x8x10K.hsap.new[,-c(X10x8x10K.hsap.nTReads.drop, X10x8x10K.hsap.mappedPct.drop,X10x8x10K.hsap.mito.drop)]
 X10x8x10K.hsap.fin.metadata <- colData(X10x8x10K.hsap.final)
-X10x8x10K.hsap.fin.metadata <- X10x8x10K.hsap.fin.metadata[rownames(X10x8x10K.metadata),]
+#X10x8x10K.hsap.fin.metadata <- X10x8x10K.hsap.fin.metadata[rownames(X10x8x10K.metadata),]
 
 #### end ####
 
@@ -730,7 +730,7 @@ hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(ddSEQ.hsap.fin.metada
 hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(ddSEQexp1.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("ddSEQexp1", nrow(ddSEQexp1.hsap.fin.metadata))))
 hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(C1HTsmall.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("C1HTsmall", nrow(C1HTsmall.hsap.fin.metadata))))
 hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(C1HTmedium.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("C1HTmedium", nrow(C1HTmedium.hsap.fin.metadata))))
-hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(X10x8x10K.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("X10x8x10K", nrow(X10x8x10K.hsap.fin.metadata))))
+#hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(X10x8x10K.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("X10x8x10K", nrow(X10x8x10K.hsap.fin.metadata))))
 hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(X10X2x5Half.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("X10X2x5Half", nrow(X10X2x5Half.hsap.fin.metadata))))
 hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(X10Scilife.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("X10Scilife", nrow(X10Scilife.hsap.fin.metadata))))
 hsap.nread.numi.df <- rbind(hsap.nread.numi.df, data.frame(CB1.hsap.fin.metadata[, c("nTReads", "nUMIs")], tech = rep("CB1", nrow(CB1.hsap.fin.metadata))))
@@ -761,7 +761,7 @@ hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(ddSEQ.hsap.fin.meta
 hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(ddSEQexp1.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("ddSEQexp1", nrow(ddSEQexp1.hsap.fin.metadata))))
 hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(C1HTsmall.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("C1HTsmall", nrow(C1HTsmall.hsap.fin.metadata))))
 hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(C1HTmedium.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("C1HTmedium", nrow(C1HTmedium.hsap.fin.metadata))))
-hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(X10x8x10K.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("X10x8x10K", nrow(X10x8x10K.hsap.fin.metadata))))
+#hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(X10x8x10K.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("X10x8x10K", nrow(X10x8x10K.hsap.fin.metadata))))
 hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(X10X2x5Half.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("X10X2x5Half", nrow(X10X2x5Half.hsap.fin.metadata))))
 hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(X10Scilife.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("X10Scilife", nrow(X10Scilife.hsap.fin.metadata))))
 hsap.nread.ngene.df <- rbind(hsap.nread.ngene.df, data.frame(CB1.hsap.fin.metadata[, c("nTReads", "nGenes")], tech = rep("CB1", nrow(CB1.hsap.fin.metadata))))
