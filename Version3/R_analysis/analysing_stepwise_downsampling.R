@@ -362,6 +362,15 @@ PCAPlot(HEK.seurat, 1,2, group.by = "orig.ident")
 ggplot(data = HEK.data.plot, mapping = aes(x = PC1, y = PC2, color=HEK.colors.nUMI)) + 
   geom_point(size = 1,shape = 16)+ scale_color_gradient( low = "grey", high = "red")
 dev.off()
+
+#HEK Cluster tree
+HEK.seurat@ident <- HEK.seurat@meta.data$orig.ident
+names(HEK.seurat@ident) <- rownames(HEK.seurat@meta.data)
+HEK.seurat <- BuildClusterTree(HEK.seurat, genes.use = HEK.seurat@var.genes)
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_HEK_ClusterTree.pdf")
+plotClusterTree(HEK.seurat)
+dev.off()
+
 print("PCA DS plots for HEK done")
 
 
@@ -392,11 +401,20 @@ print(length(Monocytes.seurat@var.genes))
 Monocytes.seurat <- RunPCA(Monocytes.seurat, pc.genes = Monocytes.seurat@var.genes, do.print = F)
 Monocytes.colors.nUMI = Monocytes.seurat@meta.data[names(Monocytes.seurat@ident), "nUMI"]
 Monocytes.data.plot <- as.data.frame(Monocytes.seurat@dr$pca@cell.embeddings[,1:3])
-pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCAseurat_HEK_V4.pdf")
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCAseurat_Monocytes_V4.pdf")
 PCAPlot(Monocytes.seurat, 1,2, group.by = "orig.ident")
 ggplot(data = Monocytes.data.plot, mapping = aes(x = PC1, y = PC2, color=Monocytes.colors.nUMI)) + 
   geom_point(size = 1,shape = 16)+ scale_color_gradient( low = "grey", high = "red")
 dev.off()
+
+#Monocytes Cluster tree
+Monocytes.seurat@ident <- Monocytes.seurat@meta.data$orig.ident
+names(Monocytes.seurat@ident) <- rownames(Monocytes.seurat@meta.data)
+Monocytes.seurat <- BuildClusterTree(Monocytes.seurat, genes.use = Monocytes.seurat@var.genes)
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_Monocytes_ClusterTree.pdf")
+plotClusterTree(Monocytes.seurat)
+dev.off()
+
 print("PCA DS plots for Monocytes done")
 
 
@@ -427,9 +445,18 @@ print(length(Bcells.seurat@var.genes))
 Bcells.seurat <- RunPCA(Bcells.seurat, pc.genes = Bcells.seurat@var.genes, do.print = F)
 Bcells.colors.nUMI = Bcells.seurat@meta.data[names(Bcells.seurat@ident), "nUMI"]
 Bcells.data.plot <- as.data.frame(Bcells.seurat@dr$pca@cell.embeddings[,1:3])
-pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCAseurat_HEK_V4.pdf")
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS10K_PCAseurat_Bcells_V4.pdf")
 PCAPlot(Bcells.seurat, 1,2, group.by = "orig.ident")
 ggplot(data = Bcells.data.plot, mapping = aes(x = PC1, y = PC2, color=Bcells.colors.nUMI)) + 
   geom_point(size = 1,shape = 16)+ scale_color_gradient( low = "grey", high = "red")
 dev.off()
+
+#Bcells Cluster tree
+Bcells.seurat@ident <- Bcells.seurat@meta.data$orig.ident
+names(Bcells.seurat@ident) <- rownames(Bcells.seurat@meta.data)
+Bcells.seurat <- BuildClusterTree(Bcells.seurat, genes.use = Bcells.seurat@var.genes)
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS10K_Bcells_ClusterTree.pdf")
+plotClusterTree(Bcells.seurat)
+dev.off()
+
 print("PCA DS plots for Bcells done")
