@@ -366,8 +366,8 @@ dev.off()
 #HEK Cluster tree
 HEK.seurat@ident <- HEK.seurat@meta.data$orig.ident
 names(HEK.seurat@ident) <- rownames(HEK.seurat@meta.data)
-HEK.seurat <- BuildClusterTree(HEK.seurat, genes.use = HEK.seurat@var.genes)
-pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_HEK_ClusterTree.pdf")
+HEK.seurat <- BuildClusterTree(HEK.seurat, genes.use = HEK.seurat@var.genes, pcs.use = 1:5)
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_HEK_ClusterTree_pc1to5.pdf")
 plotClusterTree(HEK.seurat)
 dev.off()
 
@@ -410,8 +410,8 @@ dev.off()
 #Monocytes Cluster tree
 Monocytes.seurat@ident <- Monocytes.seurat@meta.data$orig.ident
 names(Monocytes.seurat@ident) <- rownames(Monocytes.seurat@meta.data)
-Monocytes.seurat <- BuildClusterTree(Monocytes.seurat, genes.use = Monocytes.seurat@var.genes)
-pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_Monocytes_ClusterTree.pdf")
+Monocytes.seurat <- BuildClusterTree(Monocytes.seurat, genes.use = Monocytes.seurat@var.genes, pcs.use = 1:5)
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_Monocytes_ClusterTree_pc1to5.pdf")
 plotClusterTree(Monocytes.seurat)
 dev.off()
 
@@ -454,8 +454,8 @@ dev.off()
 #Bcells Cluster tree
 Bcells.seurat@ident <- Bcells.seurat@meta.data$orig.ident
 names(Bcells.seurat@ident) <- rownames(Bcells.seurat@meta.data)
-Bcells.seurat <- BuildClusterTree(Bcells.seurat, genes.use = Bcells.seurat@var.genes)
-pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS10K_Bcells_ClusterTree.pdf")
+Bcells.seurat <- BuildClusterTree(Bcells.seurat, genes.use = Bcells.seurat@var.genes, pcs.use = 1:5)
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS10K_Bcells_ClusterTree_pc1to5.pdf")
 plotClusterTree(Bcells.seurat)
 dev.off()
 
