@@ -52,8 +52,8 @@ rule create_yaml:
         data_hsap['sequence_files']['file4']['name'] = fastq_path+ 'SMARTseq_' + wildcards.sample +'_I2.fastq.gz'
         data_hsap['sequence_files']['file4']['base_definition'][0] = 'BC(1-8)'
         data_hsap['num_threads'] = 8
-        data_hsap['mem_limit'] = 50
-        #data_hsap['make_stats'] = "yes"
+        #data_hsap['mem_limit'] = 50
+        data_hsap['make_stats'] = "yes"
         #data_hsap['which_Stage'] = 'Counting'
         #data_hsap['barcodes']['barcode_file'] = bc_list2
         data_hsap['barcodes']['barcode_num'] = 3000
@@ -87,9 +87,9 @@ rule fix_yaml:
         yamlOutFix_mixed="YAMLs_fixed/"+protocol+"_mixed_{sample}_fixed.yaml"
     shell:
         """
-       sed 's/make_stats: true/make_stats: no/g' {input.yamlin_hsap} > {output.yamlOutFix_hsap}
-       sed 's/make_stats: true/make_stats: no/g' {input.yamlin_mmus} > {output.yamlOutFix_mmus}
-       sed 's/make_stats: true/make_stats: no/g' {input.yamlin_mixed} > {output.yamlOutFix_mixed}
+       sed 's/make_stats: true/make_stats: yes/g' {input.yamlin_hsap} > {output.yamlOutFix_hsap}
+       sed 's/make_stats: true/make_stats: yes/g' {input.yamlin_mmus} > {output.yamlOutFix_mmus}
+       sed 's/make_stats: true/make_stats: yes/g' {input.yamlin_mixed} > {output.yamlOutFix_mixed}
        """
        
 
