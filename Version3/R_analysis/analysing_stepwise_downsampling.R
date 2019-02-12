@@ -1,5 +1,6 @@
 library(scater)
 library(ggplot2)
+library(ggExtra)
 library(biomaRt)
 library(tibble)
 library(Seurat)
@@ -324,8 +325,6 @@ ggplot(data=DSth.df, aes(x=DStech, y=nUMIs, fill=DStech)) + geom_boxplot() +them
 dev.off()
 
 print("Stepwise DS plots for Bcells done")
-
-
 
 
 
