@@ -76,7 +76,7 @@ X10Scilife.metadata <- X10Scilife.obj@meta.data
 load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects/X10Nuclei_data_seu.obj_res0.4_dim8.RData")
 X10Nuclei.obj <- data
 rm(data)
-X10Nuclei.metadata <- X10Nuclei.obj@meta.data
+Nuclei10X.metadata <- X10Nuclei.obj@meta.data
 
 load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects/ICELL8_data_seu.obj_res0.5_dim9.RData")
 ICELL8.obj <- data
