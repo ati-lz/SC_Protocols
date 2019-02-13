@@ -1,6 +1,7 @@
 library(scater)
 library(ggplot2)
 library(ggExtra)
+library(gridExtra)
 library(biomaRt)
 library(tibble)
 library(Seurat)
@@ -359,26 +360,31 @@ names(HEK.colors.nUMI) <- names(HEK.seurat@ident)
 HEK.data.plot <- as.data.frame(HEK.seurat@dr$pca@cell.embeddings[,1:8])
 HEK.data.plot <- cbind(HEK.data.plot, nUMI=HEK.colors.nUMI, techs=HEK.seurat@meta.data$orig.ident)
 
-pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCAseurat_HEK_V5.pdf")
-PCAPlot(HEK.seurat, 1,2, group.by = "orig.ident")
-ggplot(data = HEK.data.plot, mapping = aes(x = PC1, y = PC2, color=HEK.colors.nUMI)) + 
+p0 <- PCAPlot(HEK.seurat, 1,2, group.by = "orig.ident")
+p00 <- ggplot(data = HEK.data.plot, mapping = aes(x = PC1, y = PC2, color=HEK.colors.nUMI)) + 
   geom_point(size = 1,shape = 16)+ scale_color_gradient( low = "grey", high = "red")
+
 p1 <- ggplot(data = HEK.data.plot, mapping = aes(x = PC1, y = PC2, color=techs)) + 
   geom_point(size = 1,shape = 16)+ theme(legend.position="none")
 p11 <- ggMarginal(p1, data = HEK.data.plot, x= HEK.colors.nUMI, y= HEK.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
-print(p11)
+
 p2 <- ggplot(data = HEK.data.plot, mapping = aes(x = PC3, y = PC4, color=techs)) + 
   geom_point(size = 1,shape = 16)+ theme(legend.position="none")
 p22 <- ggMarginal(p2, data = HEK.data.plot, x= HEK.colors.nUMI, y= HEK.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
-print(p22)
+
 p3 <- ggplot(data = HEK.data.plot, mapping = aes(x = PC5, y = PC6, color=techs)) + 
   geom_point(size = 1,shape = 16)+ theme(legend.position="none")
-P33 <- ggMarginal(p3, data = HEK.data.plot, x= HEK.colors.nUMI, y= HEK.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
-print(p33)
+p33 <- ggMarginal(p3, data = HEK.data.plot, x= HEK.colors.nUMI, y= HEK.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
+
 p4 <- ggplot(data = HEK.data.plot, mapping = aes(x = PC7, y = PC8, color=techs)) + 
   geom_point(size = 1,shape = 16)+ theme(legend.position="none")
 p44 <- ggMarginal(p4, data = HEK.data.plot, x= HEK.colors.nUMI, y= HEK.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
-print(p44)
+
+plot.list <- list(p0,p00,p1,p11,p2,p22,p3,p33,p4,p44)
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCAseurat_HEK_V5.pdf", onefile = TRUE)
+for (i in seq(length(plot.list))) {
+  do.call("grid.arrange", plot.list[[i]])  
+}
 
 dev.off()
 
@@ -423,27 +429,32 @@ names(Monocytes.colors.nUMI) <- names(Monocytes.seurat@ident)
 Monocytes.data.plot <- as.data.frame(Monocytes.seurat@dr$pca@cell.embeddings[,1:8])
 Monocytes.data.plot <- cbind(Monocytes.data.plot, nUMI=Monocytes.colors.nUMI, techs=Monocytes.seurat@meta.data$orig.ident)
 
-pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCAseurat_Monocytes_V5.pdf")
-PCAPlot(Monocytes.seurat, 1,2, group.by = "orig.ident")
-ggplot(data = Monocytes.data.plot, mapping = aes(x = PC1, y = PC2, color=Monocytes.colors.nUMI)) + 
+p0 <- PCAPlot(Monocytes.seurat, 1,2, group.by = "orig.ident")
+p00 <- ggplot(data = Monocytes.data.plot, mapping = aes(x = PC1, y = PC2, color=Monocytes.colors.nUMI)) + 
   geom_point(size = 1,shape = 16)+ scale_color_gradient( low = "grey", high = "red")
+
 p1 <- ggplot(data = Monocytes.data.plot, mapping = aes(x = PC1, y = PC2, color=techs)) + 
   geom_point(size = 1,shape = 16)+ theme(legend.position="none")
 p11 <- ggMarginal(p1, data = Monocytes.data.plot, x= Monocytes.colors.nUMI, y= Monocytes.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
-print(p11)
+
 p2 <- ggplot(data = Monocytes.data.plot, mapping = aes(x = PC3, y = PC4, color=techs)) + 
   geom_point(size = 1,shape = 16)+ theme(legend.position="none")
 p22 <- ggMarginal(p2, data = Monocytes.data.plot, x= Monocytes.colors.nUMI, y= Monocytes.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
-print(p22)
+
 p3 <- ggplot(data = Monocytes.data.plot, mapping = aes(x = PC5, y = PC6, color=techs)) + 
   geom_point(size = 1,shape = 16)+ theme(legend.position="none")
 p33 <- ggMarginal(p3, data = Monocytes.data.plot, x= Monocytes.colors.nUMI, y= Monocytes.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
-print(p33)
+
 p4 <- ggplot(data = Monocytes.data.plot, mapping = aes(x = PC7, y = PC8, color=techs)) + 
   geom_point(size = 1,shape = 16)+ theme(legend.position="none")
 p44 <- ggMarginal(p4, data = Monocytes.data.plot, x= Monocytes.colors.nUMI, y= Monocytes.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
-print(p44)
 
+
+plot.list <- list(p0,p00,p1,p11,p2,p22,p3,p33,p4,p44)
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCAseurat_Monocytes_V5.pdf", onefile = TRUE)
+for (i in seq(length(plot.list))) {
+  do.call("grid.arrange", plot.list[[i]])  
+}
 dev.off()
 
 #Monocytes Cluster tree
@@ -487,27 +498,31 @@ names(Bcells.colors.nUMI) <- names(Bcells.seurat@ident)
 Bcells.data.plot <- as.data.frame(Bcells.seurat@dr$pca@cell.embeddings[,1:8])
 Bcells.data.plot <- cbind(Bcells.data.plot, nUMI=Bcells.colors.nUMI, techs=Bcells.seurat@meta.data$orig.ident)
 
-pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS10K_PCAseurat_Bcells_V4.pdf")
-PCAPlot(Bcells.seurat, 1,2, group.by = "orig.ident")
-ggplot(data = Bcells.data.plot, mapping = aes(x = PC1, y = PC2, color=Bcells.colors.nUMI)) + 
+p0 <- PCAPlot(Bcells.seurat, 1,2, group.by = "orig.ident")
+p00 <- ggplot(data = Bcells.data.plot, mapping = aes(x = PC1, y = PC2, color=Bcells.colors.nUMI)) + 
   geom_point(size = 1,shape = 16)+ scale_color_gradient( low = "grey", high = "red")
+
 p1 <- ggplot(data = Bcells.data.plot, mapping = aes(x = PC1, y = PC2, color=techs)) + 
   geom_point(size = 1,shape = 16)+ theme(legend.position="none")
 p11 <- ggMarginal(p1, data = Bcells.data.plot, x= Bcells.colors.nUMI, y= Bcells.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
-print(p11)
+
 p2 <- ggplot(data = Bcells.data.plot, mapping = aes(x = PC3, y = PC4, color=techs)) + 
   geom_point(size = 1,shape = 16)+ theme(legend.position="none")
 p22 <-ggMarginal(p2, data = Bcells.data.plot, x= Bcells.colors.nUMI, y= Bcells.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
-print(p22)
+
 p3 <- ggplot(data = Bcells.data.plot, mapping = aes(x = PC5, y = PC6, color=techs)) + 
   geom_point(size = 1,shape = 16)+ theme(legend.position="none")
 p33 <- ggMarginal(p3, data = Bcells.data.plot, x= Bcells.colors.nUMI, y= Bcells.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
-print(p33)
+
 p4 <- ggplot(data = Bcells.data.plot, mapping = aes(x = PC7, y = PC8, color=techs)) + 
   geom_point(size = 1,shape = 16)+ theme(legend.position="none")
 p44 <- ggMarginal(p4, data = Bcells.data.plot, x= Bcells.colors.nUMI, y= Bcells.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
-print(p44)
 
+plot.list <- list(p0,p00,p1,p11,p2,p22,p3,p33,p4,p44)
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS10K_PCAseurat_Bcells_V5.pdf", onefile = TRUE)
+for (i in seq(length(plot.list))) {
+  do.call("grid.arrange", plot.list[[i]])  
+}
 dev.off()
 
 #Bcells Cluster tree
