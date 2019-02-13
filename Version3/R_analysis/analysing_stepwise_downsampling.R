@@ -365,16 +365,20 @@ ggplot(data = HEK.data.plot, mapping = aes(x = PC1, y = PC2, color=HEK.colors.nU
   geom_point(size = 1,shape = 16)+ scale_color_gradient( low = "grey", high = "red")
 p1 <- ggplot(data = HEK.data.plot, mapping = aes(x = PC1, y = PC2, color=techs)) + 
   geom_point(size = 1,shape = 16)+ theme(legend.position="none")
-ggMarginal(p1, data = HEK.data.plot, x= HEK.colors.nUMI, y= HEK.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
+p11 <- ggMarginal(p1, data = HEK.data.plot, x= HEK.colors.nUMI, y= HEK.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
+print(p11)
 p2 <- ggplot(data = HEK.data.plot, mapping = aes(x = PC3, y = PC4, color=techs)) + 
   geom_point(size = 1,shape = 16)+ theme(legend.position="none")
-ggMarginal(p2, data = HEK.data.plot, x= HEK.colors.nUMI, y= HEK.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
+p22 <- ggMarginal(p2, data = HEK.data.plot, x= HEK.colors.nUMI, y= HEK.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
+print(p22)
 p3 <- ggplot(data = HEK.data.plot, mapping = aes(x = PC5, y = PC6, color=techs)) + 
   geom_point(size = 1,shape = 16)+ theme(legend.position="none")
-ggMarginal(p3, data = HEK.data.plot, x= HEK.colors.nUMI, y= HEK.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
+P33 <- ggMarginal(p3, data = HEK.data.plot, x= HEK.colors.nUMI, y= HEK.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
+print(p33)
 p4 <- ggplot(data = HEK.data.plot, mapping = aes(x = PC7, y = PC8, color=techs)) + 
   geom_point(size = 1,shape = 16)+ theme(legend.position="none")
-ggMarginal(p4, data = HEK.data.plot, x= HEK.colors.nUMI, y= HEK.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
+p44 <- ggMarginal(p4, data = HEK.data.plot, x= HEK.colors.nUMI, y= HEK.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
+print(p44)
 
 dev.off()
 
@@ -425,16 +429,20 @@ ggplot(data = Monocytes.data.plot, mapping = aes(x = PC1, y = PC2, color=Monocyt
   geom_point(size = 1,shape = 16)+ scale_color_gradient( low = "grey", high = "red")
 p1 <- ggplot(data = Monocytes.data.plot, mapping = aes(x = PC1, y = PC2, color=techs)) + 
   geom_point(size = 1,shape = 16)+ theme(legend.position="none")
-ggMarginal(p1, data = Monocytes.data.plot, x= Monocytes.colors.nUMI, y= Monocytes.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
+p11 <- ggMarginal(p1, data = Monocytes.data.plot, x= Monocytes.colors.nUMI, y= Monocytes.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
+print(p11)
 p2 <- ggplot(data = Monocytes.data.plot, mapping = aes(x = PC3, y = PC4, color=techs)) + 
   geom_point(size = 1,shape = 16)+ theme(legend.position="none")
-ggMarginal(p2, data = Monocytes.data.plot, x= Monocytes.colors.nUMI, y= Monocytes.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
+p22 <- ggMarginal(p2, data = Monocytes.data.plot, x= Monocytes.colors.nUMI, y= Monocytes.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
+print(p22)
 p3 <- ggplot(data = Monocytes.data.plot, mapping = aes(x = PC5, y = PC6, color=techs)) + 
   geom_point(size = 1,shape = 16)+ theme(legend.position="none")
-ggMarginal(p3, data = Monocytes.data.plot, x= Monocytes.colors.nUMI, y= Monocytes.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
+p33 <- ggMarginal(p3, data = Monocytes.data.plot, x= Monocytes.colors.nUMI, y= Monocytes.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
+print(p33)
 p4 <- ggplot(data = Monocytes.data.plot, mapping = aes(x = PC7, y = PC8, color=techs)) + 
   geom_point(size = 1,shape = 16)+ theme(legend.position="none")
-ggMarginal(p4, data = Monocytes.data.plot, x= Monocytes.colors.nUMI, y= Monocytes.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
+p44 <- ggMarginal(p4, data = Monocytes.data.plot, x= Monocytes.colors.nUMI, y= Monocytes.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
+print(p44)
 
 dev.off()
 
@@ -485,16 +493,20 @@ ggplot(data = Bcells.data.plot, mapping = aes(x = PC1, y = PC2, color=Bcells.col
   geom_point(size = 1,shape = 16)+ scale_color_gradient( low = "grey", high = "red")
 p1 <- ggplot(data = Bcells.data.plot, mapping = aes(x = PC1, y = PC2, color=techs)) + 
   geom_point(size = 1,shape = 16)+ theme(legend.position="none")
-ggMarginal(p1, data = Bcells.data.plot, x= Bcells.colors.nUMI, y= Bcells.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
+p11 <- ggMarginal(p1, data = Bcells.data.plot, x= Bcells.colors.nUMI, y= Bcells.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
+print(p11)
 p2 <- ggplot(data = Bcells.data.plot, mapping = aes(x = PC3, y = PC4, color=techs)) + 
   geom_point(size = 1,shape = 16)+ theme(legend.position="none")
-ggMarginal(p2, data = Bcells.data.plot, x= Bcells.colors.nUMI, y= Bcells.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
+p22 <-ggMarginal(p2, data = Bcells.data.plot, x= Bcells.colors.nUMI, y= Bcells.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
+print(p22)
 p3 <- ggplot(data = Bcells.data.plot, mapping = aes(x = PC5, y = PC6, color=techs)) + 
   geom_point(size = 1,shape = 16)+ theme(legend.position="none")
-ggMarginal(p3, data = Bcells.data.plot, x= Bcells.colors.nUMI, y= Bcells.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
+p33 <- ggMarginal(p3, data = Bcells.data.plot, x= Bcells.colors.nUMI, y= Bcells.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
+print(p33)
 p4 <- ggplot(data = Bcells.data.plot, mapping = aes(x = PC7, y = PC8, color=techs)) + 
   geom_point(size = 1,shape = 16)+ theme(legend.position="none")
-ggMarginal(p4, data = Bcells.data.plot, x= Bcells.colors.nUMI, y= Bcells.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
+p44 <- ggMarginal(p4, data = Bcells.data.plot, x= Bcells.colors.nUMI, y= Bcells.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
+print(p44)
 
 dev.off()
 
