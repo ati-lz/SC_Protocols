@@ -6,6 +6,38 @@ library(tibble)
 library(Seurat)
 library(data.table)
 
+# Functions ####
+load("Biomart_hsap_mapping_table.RData")
+load("Biomart_mmus_mapping_table.RData")
+mapIDs <- function (count.mat, species){
+  ens_ids <- rownames(count.mat)
+  mat.rownames <- as.character(lapply(ens_ids, function (x) unlist(strsplit(x, split = ".", fixed = T))[1]))
+  mat.dup.rows <- which(duplicated(mat.rownames))
+  if (length(mat.dup.rows) != 0){
+    mat.rownames <- mat.rownames[-mat.dup.rows]
+    count.mat <- count.mat[-mat.dup.rows,]
+  }
+  if (species == "hsap"){
+    hsap.genes.with.ids <- intersect(mat.rownames, rownames(hsap.GID.mapping.final))
+    hsap.rownames.mapped <- mat.rownames
+    names(hsap.rownames.mapped) <- hsap.rownames.mapped
+    hsap.rownames.mapped[hsap.genes.with.ids] <- hsap.GID.mapping.final[hsap.genes.with.ids, "hgnc_symbol"]
+    rownames(count.mat) <- hsap.rownames.mapped
+  }
+  else if (species == "mmus"){
+    mmus.genes.with.ids <- intersect(mat.rownames, rownames(mmus.GID.mapping.final))
+    mmus.rownames.mapped <- mat.rownames
+    names(mmus.rownames.mapped) <- mmus.rownames.mapped
+    mmus.rownames.mapped[mmus.genes.with.ids] <- mmus.GID.mapping.final[mmus.genes.with.ids, "mgi_symbol"]
+    rownames(count.mat) <- mmus.rownames.mapped
+  }
+  return(count.mat)
+  
+}
+#### end ####
+
+
+
 # loading Annotated seurat objects ####
 load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects/MARSseq_data_seu.obj_res0.5_dim6.RData")
 MARSseq.obj <- data
