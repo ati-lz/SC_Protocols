@@ -306,7 +306,7 @@ for (tech in techniques){
 print("calculating the cumulatives")
 HEK.plot.df <- data.frame()
 for (tech in names(techs.HEK.20K.list)){
-    tech.data <- techs.HEK.20K.list[tech]
+    tech.data <- techs.HEK.20K.list[[tech]]
     tech.cumul.gene.numbers <- c()
     for (cell in 1:ncol(tech.data)){
       print(cell)
@@ -336,7 +336,7 @@ print("HEK cumulative done!")
 
 Monocytes.plot.df <- data.frame()
 for (tech in names(techs.Monocytes.20K.list)){
-    tech.data <- techs.Monocytes.20K.list[tech]
+    tech.data <- techs.Monocytes.20K.list[[tech]]
     tech.cumul.gene.numbers <- c()
     for (cell in 1:ncol(tech.data)){
       print(cell)
@@ -366,7 +366,7 @@ print("Monocytes cumulative done!")
 
 Bcells.plot.df <- data.frame()
 for (tech in names(techs.Bcells.10K.list)){
-    tech.data <- techs.Bcells.10K.list[tech]
+    tech.data <- techs.Bcells.10K.list[[tech]]
     tech.cumul.gene.numbers <- c()
     for (cell in 1:ncol(tech.data)){
       print(cell)
