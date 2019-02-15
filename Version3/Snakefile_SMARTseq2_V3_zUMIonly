@@ -26,9 +26,10 @@ SAMPLES = list(set(i.split("_")[1] for i in sample_files))
 
 rule all:
     input:
-        expand('multigenome_SMARTseqZUMI_V3/{sample}_human/'+protocol+'.filtered.tagged.Aligned.out.bam',sample=SAMPLES),
-        expand('multigenome_SMARTseqZUMI_V3/{sample}_mouse/'+protocol+'.filtered.tagged.Aligned.out.bam',sample=SAMPLES),
-        expand('multigenome_SMARTseqZUMI_V3/{sample}_mixed/'+protocol+'.filtered.tagged.Aligned.out.bam',sample=SAMPLES)
+        #expand('multigenome_SMARTseqZUMI_V3/{sample}_human/'+protocol+'.filtered.tagged.Aligned.out.bam',sample=SAMPLES),
+        #expand('multigenome_SMARTseqZUMI_V3/{sample}_mouse/'+protocol+'.filtered.tagged.Aligned.out.bam',sample=SAMPLES),
+        #expand('multigenome_SMARTseqZUMI_V3/{sample}_mixed/'+protocol+'.filtered.tagged.Aligned.out.bam',sample=SAMPLES)
+        expand('multigenome_SMARTseqZUMI_V3/{sample}_mixed/doublet_species/doublet_table.txt',sample=SAMPLES)
 
 rule create_yaml:
     input:
