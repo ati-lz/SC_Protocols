@@ -356,9 +356,8 @@ save(ICELL8.o.ifm)
 print("ICELL8 model done")
 
 
-
-
 #Running priors
+print("Running priors")
 
 #MARSseq priors
 MARSseq.o.prior <- scde.expression.prior(models = MARSseq.o.ifm, counts = MARSseq.raw.HEK, length.out = 400, show.plot = FALSE)
