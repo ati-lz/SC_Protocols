@@ -26,7 +26,7 @@
 
     "R_wrapper" :
     {
-        "cpus_per_task" : 15,
+        "cpus_per_task" : 24,
         "job_name" : "10X2x5K.{wildcards}",
         "output" : "mnout/10X2x5K_{wildcards}.out",
         "error" : "mnout/10X2x5K_{wildcards}.err"
