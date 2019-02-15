@@ -267,41 +267,49 @@ MARSseq.raw.HEK <- techs.HEK.20K.list[["MARSseq"]]
 MARSseq.raw.HEK <- mapIDs(MARSseq.raw.HEK, "hsap")
 MARSseq.common.cells.HEK <- intersect(colnames(MARSseq.raw.HEK),colnames(MARSseq.obj@scale.data))
 MARSseq.raw.HEK <- MARSseq.raw.HEK[rownames(MARSseq.obj@scale.data),MARSseq.common.cells.HEK]
+MARSseq.raw.HEK <- as.data.frame(lapply(MARSseq.raw.HEK, as.integer))
 
 CELseq2.raw.HEK <- techs.HEK.20K.list[["CELseq2"]]
 CELseq2.raw.HEK <- mapIDs(CELseq2.raw.HEK, "hsap")
 CELseq2.common.cells.HEK <- intersect(colnames(CELseq2.raw.HEK),colnames(CELseq2.obj@scale.data))
 CELseq2.raw.HEK <- CELseq2.raw.HEK[rownames(CELseq2.obj@scale.data),CELseq2.common.cells.HEK]
+CELseq2.raw.HEK <- as.data.frame(lapply(CELseq2.raw.HEK, as.integer))
 
 QUARTZseq.raw.HEK <- techs.HEK.20K.list[["QUARTZseq"]]
 QUARTZseq.raw.HEK <- mapIDs(QUARTZseq.raw.HEK, "hsap")
 QUARTZseq.common.cells.HEK <- intersect(colnames(QUARTZseq.raw.HEK),colnames(QUARTZseq.obj@scale.data))
 QUARTZseq.raw.HEK <- QUARTZseq.raw.HEK[rownames(QUARTZseq.obj@scale.data),QUARTZseq.common.cells.HEK]
+QUARTZseq.raw.HEK <- as.data.frame(lapply(QUARTZseq.raw.HEK, as.integer))
 
 SCRBseq.raw.HEK <- techs.HEK.20K.list[["SCRBseq"]]
 SCRBseq.raw.HEK <- mapIDs(SCRBseq.raw.HEK, "hsap")
 SCRBseq.common.cells.HEK <- intersect(colnames(SCRBseq.raw.HEK),colnames(SCRBseq.obj@scale.data))
 SCRBseq.raw.HEK <- SCRBseq.raw.HEK[rownames(SCRBseq.obj@scale.data),SCRBseq.common.cells.HEK]
+SCRBseq.raw.HEK <- as.data.frame(lapply(SCRBseq.raw.HEK, as.integer))
 
 Dropseq.raw.HEK <- techs.HEK.20K.list[["Dropseq"]]
 Dropseq.raw.HEK <- mapIDs(Dropseq.raw.HEK, "hsap")
 Dropseq.common.cells.HEK <- intersect(colnames(Dropseq.raw.HEK),colnames(Dropseq.obj@scale.data))
 Dropseq.raw.HEK <- Dropseq.raw.HEK[rownames(Dropseq.obj@scale.data),Dropseq.common.cells.HEK]
+Dropseq.raw.HEK <- as.data.frame(lapply(Dropseq.raw.HEK, as.integer))
 
 X10Scilife.raw.HEK <- techs.HEK.20K.list[["X10Scilife"]]
 X10Scilife.raw.HEK <- mapIDs(X10Scilife.raw.HEK, "hsap")
 X10Scilife.common.cells.HEK <- intersect(colnames(X10Scilife.raw.HEK),colnames(X10Scilife.obj@scale.data))
 X10Scilife.raw.HEK <- X10Scilife.raw.HEK[rownames(X10Scilife.obj@scale.data),X10Scilife.common.cells.HEK]
+X10Scilife.raw.HEK <- as.data.frame(lapply(X10Scilife.raw.HEK, as.integer))
 
 X10Nuclei.raw.HEK <- techs.HEK.20K.list[["X10Nuclei"]]
 X10Nuclei.raw.HEK <- mapIDs(X10Nuclei.raw.HEK, "hsap")
 X10Nuclei.common.cells.HEK <- intersect(colnames(X10Nuclei.raw.HEK),colnames(X10Nuclei.obj@scale.data))
 X10Nuclei.raw.HEK <- X10Nuclei.raw.HEK[rownames(X10Nuclei.obj@scale.data),X10Nuclei.common.cells.HEK]
+X10Nuclei.raw.HEK <- as.data.frame(lapply(X10Nuclei.raw.HEK, as.integer))
 
 ICELL8.raw.HEK <- techs.HEK.20K.list[["ICELL8"]]
 ICELL8.raw.HEK <- mapIDs(ICELL8.raw.HEK, "hsap")
 ICELL8.common.cells.HEK <- intersect(colnames(ICELL8.raw.HEK),colnames(ICELL8.obj@scale.data))
 ICELL8.raw.HEK <- ICELL8.raw.HEK[rownames(ICELL8.obj@scale.data),ICELL8.common.cells.HEK]
+ICELL8.raw.HEK <- as.data.frame(lapply(ICELL8.raw.HEK, as.integer))
 
 library(scde)
 #Running error models
