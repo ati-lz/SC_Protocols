@@ -16,13 +16,13 @@
 
     "demux_cells" :
     {
-        "cpus_per_task" : 8,
+        "cpus_per_task" : 24,
         "job_name" : "SMARTseq2.{wildcards}"
     },
 
     "R_wrapper" :
     {
-        "cpus_per_task" : 8,
+        "cpus_per_task" : 15,
         "job_name" : "SMARTseq2.{wildcards}"
     }
 }
