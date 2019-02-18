@@ -113,7 +113,7 @@ if(length(ddSEQ.Monocytes) > 50){ ddSEQ.Monocytes <- sample(ddSEQ.Monocytes,50)}
 ddSEQexp1.Monocytes <- names(ddSEQexp1.obj@ident)[which(ddSEQexp1.obj@ident == "CD14+ and FCGR3A+ Monocytes")]
 if(length(ddSEQexp1.Monocytes) > 50){ ddSEQexp1.Monocytes <- sample(ddSEQexp1.Monocytes,50)}
 CB1.Monocytes <- names(CB1.obj@ident)[which(CB1.obj@ident == "CD14+ Monocytes")]
-f(length(CB1.Monocytes) > 50){ CB1.Monocytes <- sample(CB1.Monocytes,50)}
+if(length(CB1.Monocytes) > 50){ CB1.Monocytes <- sample(CB1.Monocytes,50)}
 # End ####
 
 # Taking out Bcells cells of each technique ####
@@ -443,3 +443,4 @@ pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Cumulative_gene/Cumu
 ggplot(data=Bcells.plot.df, aes(x=cell.num, y=Cumul, group=tech)) + geom_point(aes(color=tech)) + geom_smooth(aes(color=tech))
 dev.off()
 print("Bcells cumulative done!")
+ñ
