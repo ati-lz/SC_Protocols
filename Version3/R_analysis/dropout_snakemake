@@ -13,7 +13,7 @@ rule all:
 
 rule SCDE_run:
     input:
-        seuratObjPath = expand("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_renamed/{tech}_seurat.RData", tech=TECHS)
+        seuratObjPath = expand("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_renamed/{tech}_seurat.RData", tech=TECHS),
         monocyteAnnot= lambda wildcards: monocyte_dict[wildcards.tech], 
         DSpath = expand("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/{tech}.hsap.full.SCE.jointDSmat.Robj", tech=TECHS)
     output:
