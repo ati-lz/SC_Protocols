@@ -4,8 +4,8 @@ TECHS = ["MARSseq", "QUARTZseq", "CELseq2", "Dropseq", "SCRBseq", "X10Scilife", 
 
 monocyte_dict = {'MARSseq': "CD14+ Monocytes", 'QUARTZseq': "CD14+ Monocytes", 'CELseq2': "CD14+ Monocytes",
  'Dropseq': "CD14+ Monocytes", 'SCRBseq': "CD14+ Monocytes", 'X10Nuclei': "CD14+ Monocytes", 'CB1': "CD14+ Monocytes",
-  'X10Scilife': "CD14+ and FCGR3A+ Monocytes",'X10Scilife': "CD14+ and FCGR3A+ Monocytes",'ICELL8': "CD14+ and FCGR3A+ Monocytes",
-  'ddSEQ': "CD14+ and FCGR3A+ Monocytes",'ddSEQexp1': "CD14+ and FCGR3A+ Monocytes",}
+  'X10Scilife': "CD14+ and FCGR3A+ Monocytes",'ICELL8': "CD14+ and FCGR3A+ Monocytes",
+  'ddSEQ': "CD14+ and FCGR3A+ Monocytes",'ddSEQexp1': "CD14+ and FCGR3A+ Monocytes"}
 
 rule all:
     input:
