@@ -271,16 +271,16 @@ for (tech in techniques){
   print(tech)
   tech.DS.UMI <- get(paste(tech,".DS.UMI", sep = ""))
   tech.HEK <- get(paste(tech,".HEK", sep = ""))
-  for (DSth in names(tech.DS.UMI)){
-    if (DSth == "downsampled_20000"){
-    print(paste(tech, DSth, sep = "_"))
-    colnames(tech.DS.UMI[[DSth]]) <- gsub(x = colnames(tech.DS.UMI[[DSth]]), pattern = "\\.", replacement = "_")
-    comm.cells <- intersect(tech.HEK, colnames(tech.DS.UMI[[DSth]]))
-    DS.mat.HEKS <- tech.DS.UMI[[DSth]][, comm.cells]
+  DSth <- "downsampled_20000"
+  print(paste(tech, DSth, sep = "_"))
+  tech.DS.UMI.20K <- tech.DS.UMI$downsampled_20000
+  colnames(tech.DS.UMI.20K) <- gsub(x = colnames(tech.DS.UMI.20K), pattern = "\\.", replacement = "_")
+  comm.cells <- intersect(tech.HEK, colnames(tech.DS.UMI.20K))
+  DS.mat.HEKS <- tech.DS.UMI.20K[, comm.cells]
     
-    DS.mat.HEKS.dup <- DS.mat.HEKS
-    DS.mat.HEKS.dup$gene_id <- rownames(DS.mat.HEKS.dup)
-    techs.HEK.20K.list[[tech]] <- as.data.frame((DS.mat.HEKS.dup))}
+  #DS.mat.HEKS.dup <- DS.mat.HEKS
+  #DS.mat.HEKS.dup$gene_id <- rownames(DS.mat.HEKS.dup)
+  techs.HEK.20K.list[[tech]] <- as.data.frame((DS.mat.HEKS))}
   rm(tech.DS.UMI)
   }
 }
