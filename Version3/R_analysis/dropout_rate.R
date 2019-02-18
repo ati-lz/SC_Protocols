@@ -146,88 +146,82 @@ load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/MARSseq.hsa
 MARSseq.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 MARSseq.DS.UMI <- MARSseq.DS$UMI
-MARSseq.DS.Reads <- MARSseq.DS$Reads
 rm(MARSseq.DS)
 
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/CELseq2.hsap.full.SCE.jointDSmat.Robj")
 CELseq2.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 CELseq2.DS.UMI <- CELseq2.DS$UMI
-CELseq2.DS.Reads <- CELseq2.DS$Reads
 rm(CELseq2.DS)
 
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/QUARTZseq.hsap.full.SCE.jointDSmat.Robj")
 QUARTZseq.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 QUARTZseq.DS.UMI <- QUARTZseq.DS$UMI
-QUARTZseq.DS.Reads <- QUARTZseq.DS$Reads
 rm(QUARTZseq.DS)
 
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Dropseq.hsap.full.SCE.jointDSmat.Robj")
 Dropseq.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 Dropseq.DS.UMI <- Dropseq.DS$UMI
-Dropseq.DS.Reads <- Dropseq.DS$Reads
 rm(Dropseq.DS)
 
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/SCRBseq.hsap.full.SCE.jointDSmat.Robj")
 SCRBseq.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 SCRBseq.DS.UMI <- SCRBseq.DS$UMI
-SCRBseq.DS.Reads <- SCRBseq.DS$Reads
 rm(SCRBseq.DS)
 
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/10XScilife.hsap.full.SCE.jointDSmat.Robj")
 X10Scilife.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 X10Scilife.DS.UMI <- X10Scilife.DS$UMI
-X10Scilife.DS.Reads <- X10Scilife.DS$Reads
 rm(X10Scilife.DS)
 
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Nuclei10X.hsap.full.SCE.jointDSmat.Robj")
 X10Nuclei.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 X10Nuclei.DS.UMI <- X10Nuclei.DS$UMI
-X10Nuclei.DS.Reads <- X10Nuclei.DS$Reads
 rm(X10Nuclei.DS)
 
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/ICELL8.hsap.full.SCE.jointDSmat.Robj")
 ICELL8.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 ICELL8.DS.UMI <- ICELL8.DS$UMI
-ICELL8.DS.Reads <- ICELL8.DS$Reads
+rm(ICELL8.DS)
 
 
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/ddSEQexp1.hsap.full.SCE.jointDSmat.Robj")
 ddSEQexp1.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 ddSEQexp1.DS.UMI <- ddSEQexp1.DS$UMI
-ddSEQexp1.DS.Reads <- ddSEQexp1.DS$Reads
+rm(ddSEQexp1.DS)
 
 
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/ddSEQ.hsap.full.SCE.jointDSmat.Robj")
 ddSEQ.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 ddSEQ.DS.UMI <- ddSEQ.DS$UMI
-ddSEQ.DS.Reads <- ddSEQ.DS$Reads
+rm(ddSEQ.DS)
+
 
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/C1HT.hsap.full.SCE.jointDSmat.Robj")
 C1HT.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 C1HT.DS.UMI <- C1HT.DS$UMI
-C1HT.DS.Reads <- C1HT.DS$Reads
+rm(C1HT.DS)
 
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/10X8x10K.hsap.full.SCE.jointDSmat.Robj")
 X108x10.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 X108x10.DS.UMI <- X108x10.DS$UMI
-X108x10.DS.Reads <- X108x10.DS$Reads
+rm(X108x10.DS)
 
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/1CB.hsap.full.SCE.jointDSmat.Robj")
 CB1.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 CB1.DS.UMI <- CB1.DS$UMI
-CB1.DS.Reads <- CB1.DS$Reads
+rm(CB1.DS)
 
 # End ####
 
@@ -242,27 +236,20 @@ for (tech in techniques){
   tech.DS.UMI <- get(paste(tech,".DS.UMI", sep = ""))
   tech.HEK <- get(paste(tech,".HEK", sep = ""))
   for (DSth in names(tech.DS.UMI)){
+    if (DSth == "downsampled_20000"){
     print(paste(tech, DSth, sep = "_"))
     colnames(tech.DS.UMI[[DSth]]) <- gsub(x = colnames(tech.DS.UMI[[DSth]]), pattern = "\\.", replacement = "_")
     comm.cells <- intersect(tech.HEK, colnames(tech.DS.UMI[[DSth]]))
     DS.mat.HEKS <- tech.DS.UMI[[DSth]][, comm.cells]
-    if (DSth == "downsampled_20000"){
-      DS.mat.HEKS.dup <- DS.mat.HEKS
-      DS.mat.HEKS.dup$gene_id <- rownames(DS.mat.HEKS.dup)
-      techs.HEK.20K.list[[tech]] <- as.data.frame((DS.mat.HEKS.dup))}
-    DS.gene.distribution.HEK <- colSums(DS.mat.HEKS[,]>0)
-    DS.UMI.distribution.HEK <- colSums(DS.mat.HEKS)
-    DS.labels <- rep(DSth, length(DS.gene.distribution.HEK))
-    DSth_number = as.numeric(unlist(strsplit(DSth, "_"))[[2]])
-    DSth.number.vec = rep(DSth_number, length(DS.gene.distribution.HEK))
-    DS.labels <- rep(DSth, length(DS.gene.distribution.HEK))
-    DS.techs <- rep(tech, length(DS.gene.distribution.HEK))
-    DS.df <- data.frame(nGenes = DS.gene.distribution.HEK, nUMIs = DS.UMI.distribution.HEK, DSthNum = DSth.number.vec, DStech = DS.techs)
-    DSth.df <- rbind(DSth.df, DS.df)
-    print(dim(DSth.df))
+    
+    DS.mat.HEKS.dup <- DS.mat.HEKS
+    DS.mat.HEKS.dup$gene_id <- rownames(DS.mat.HEKS.dup)
+    techs.HEK.20K.list[[tech]] <- as.data.frame((DS.mat.HEKS.dup))}
+  rm(tech.DS.UMI)
   }
 }
 
+print("preprocessing is done, the tech.DS.list is ready")
 MARSseq.raw.HEK <- techs.HEK.20K.list[["MARSseq"]]
 MARSseq.raw.HEK <- mapIDs(MARSseq.raw.HEK, "hsap")
 MARSseq.common.cells.HEK <- intersect(colnames(MARSseq.raw.HEK),colnames(MARSseq.obj@scale.data))
