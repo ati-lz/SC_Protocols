@@ -9,14 +9,14 @@ monocyte_dict = {'MARSseq': "CD14+ Monocytes", 'QUARTZseq': "CD14+ Monocytes", '
 
 rule all:
     input:
-        "SCDE_outputs/{tech}_SCDEoutputs.Robj"
+        expand("SCDE_outputs/{tech}_SCDEoutputs.Robj", tech=TECHS)
 
 rule SCDE_run:
     input:
-        seuratObjPath = expand("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_renamed/{tech}_seurat.RData", tech=TECHS),
+        seuratObjPath = "/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_renamed/{tech}_seurat.RData",
         monocyteAnnot= lambda wildcards: monocyte_dict[wildcards.tech], 
-        DSpath = expand("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/{tech}.hsap.full.SCE.jointDSmat.Robj", tech=TECHS)
+        DSpath = "/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/{tech}.hsap.full.SCE.jointDSmat.Robj"
     output:
-        "SCDE_outputs/{tech}_SCDEoutputs.Robj"
+        outpatch= "SCDE_outputs/{tech}_SCDEoutputs.Robj"
     shell:
         "Rscript dropout_wrapper_snakemake.R --technology {wildcards.tech} --seuratObj_path {input.seuratObjPath}  --Monocyte_annot {input.monocyteAnnot} --DS_path {input.DSpath} --output_path ./SCDE_outputs"
