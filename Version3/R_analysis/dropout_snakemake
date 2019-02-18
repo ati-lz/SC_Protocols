@@ -15,7 +15,7 @@ rule SCDE_run:
     input:
         seuratObjPath = "/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_renamed/{tech}_seurat.RData",
         #monocyteAnnot= lambda wildcards: monocyte_dict[wildcards.tech], 
-        DSpath = "/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/{tech}.hsap.full.SCE.jointDSmat.Robj"
+        DSpath = "/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound_rename/{tech}.hsap.full.SCE.jointDSmat.Robj"
     output:
         outpatch= "SCDE_outputs/{tech}_SCDEoutputs.Robj"
     shell:
