@@ -380,8 +380,8 @@ p4 <- ggplot(data = HEK.data.plot, mapping = aes(x = PC7, y = PC8, color=techs))
   geom_point(size = 1,shape = 16)+ theme(legend.position="none")
 p44 <- ggMarginal(p4, data = HEK.data.plot, x= HEK.colors.nUMI, y= HEK.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
 
-HEK.plot.list <- list(p0,p00,p1,p11,p2,p22,p3,p33,p4,p44)
-pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCAseurat_HEK_V5.pdf")
+HEK.plot.list <- list(p0,p00,p11,p22,p33,p44)
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCAseurat_HEK_V6.pdf")
 invisible(lapply(HEK.plot.list, print))
 dev.off()
 
@@ -447,8 +447,8 @@ p4 <- ggplot(data = Monocytes.data.plot, mapping = aes(x = PC7, y = PC8, color=t
 p44 <- ggMarginal(p4, data = Monocytes.data.plot, x= Monocytes.colors.nUMI, y= Monocytes.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
 
 
-Monocytes.plot.list <- list(p0,p00,p1,p11,p2,p22,p3,p33,p4,p44)
-pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCAseurat_Monocytes_V5.pdf")
+Monocytes.plot.list <- list(p0,p00,p11,p22,p33,p44)
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCAseurat_Monocytes_V6.pdf")
 invisible(lapply(Monocytes.plot.list, print))
 dev.off()
 
@@ -513,8 +513,8 @@ p4 <- ggplot(data = Bcells.data.plot, mapping = aes(x = PC7, y = PC8, color=tech
   geom_point(size = 1,shape = 16)+ theme(legend.position="none")
 p44 <- ggMarginal(p4, data = Bcells.data.plot, x= Bcells.colors.nUMI, y= Bcells.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
 
-Bcells.plot.list <- list(p0,p00,p1,p11,p2,p22,p3,p33,p4,p44)
-pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS10K_PCAseurat_Bcells_V5.pdf")
+Bcells.plot.list <- list(p0,p00,p11,p22,p33,p44)
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS10K_PCAseurat_Bcells_V6.pdf")
 invisible(lapply(Bcells.plot.list, print))
 dev.off()
 
