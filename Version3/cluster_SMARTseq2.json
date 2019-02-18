@@ -22,7 +22,7 @@
 
     "R_wrapper" :
     {
-        "cpus_per_task" : 15,
+        "cpus_per_task" : 24,
         "job_name" : "SMARTseq2.{wildcards}"
     }
 }
