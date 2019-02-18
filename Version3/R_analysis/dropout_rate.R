@@ -98,48 +98,84 @@ CB1.metadata <- CB1.obj@meta.data
 
 # Taking out HEK cells of each technique ####
 MARSseq.HEK <- names(MARSseq.obj@ident)[which(MARSseq.obj@ident == "HEK cells")]
+if(length(MARSseq.HEK) > 50){ MARSseq.HEK <- sample(MARSseq.HEK,50)}
 CELseq2.HEK <- names(CELseq2.obj@ident)[which(CELseq2.obj@ident == "HEK cells")]
+if(length(CELseq2.HEK) > 50){ CELseq2.HEK <- sample(CELseq2.HEK,50)}
 QUARTZseq.HEK <- names(QUARTZseq.obj@ident)[which(QUARTZseq.obj@ident == "HEK cells")]
+if(length(QUARTZseq.HEK) > 50){ QUARTZseq.HEK <- sample(QUARTZseq.HEK,50)}
 Dropseq.HEK <- names(Dropseq.obj@ident)[which(Dropseq.obj@ident == "HEK cells")]
+if(length(Dropseq.HEK) > 50){ Dropseq.HEK <- sample(Dropseq.HEK,50)}
 SCRBseq.HEK <- names(SCRBseq.obj@ident)[which(SCRBseq.obj@ident == "HEK cells")]
+if(length(SCRBseq.HEK) > 50){ SCRBseq.HEK <- sample(SCRBseq.HEK,50)}
 X10Scilife.HEK <- names(X10Scilife.obj@ident)[which(X10Scilife.obj@ident == "HEK cells")]
+if(length(X10Scilife.HEK) > 50){ X10Scilife.HEK <- sample(X10Scilife.HEK,50)}
 X10Nuclei.HEK <- names(X10Nuclei.obj@ident)[which(X10Nuclei.obj@ident == "HEK cells")]
+if(length(X10Nuclei.HEK) > 50){ X10Nuclei.HEK <- sample(X10Nuclei.HEK,50)}
 ICELL8.HEK <- names(ICELL8.obj@ident)[which(ICELL8.obj@ident == "HEK cells")]
+if(length(ICELL8.HEK) > 50){ ICELL8.HEK <- sample(ICELL8.HEK,50)}
 ddSEQ.HEK <- names(ddSEQ.obj@ident)[which(ddSEQ.obj@ident == "HEK cells")]
+if(length(ddSEQ.HEK) > 50){ ddSEQ.HEK <- sample(ddSEQ.HEK,50)}
 ddSEQexp1.HEK <- names(ddSEQexp1.obj@ident)[which(ddSEQexp1.obj@ident == "HEK cells")]
+if(length(ddSEQexp1.HEK) > 50){ ddSEQexp1.HEK <- sample(ddSEQexp1.HEK,50)}
 CB1.HEK <- names(CB1.obj@ident)[which(CB1.obj@ident == "HEK cells")]
+if(length(CB1.HEK) > 50){ CB1.HEK <- sample(CB1.HEK,50)}
 
 # End ####
 
 # Taking out Monocytes cells of each technique ####
 MARSseq.Monocytes <- names(MARSseq.obj@ident)[which(MARSseq.obj@ident == "CD14+ Monocytes")]
+if(length(MARSseq.Monocytes) > 50){ MARSseq.Monocytes <- sample(MARSseq.Monocytes,50)}
 CELseq2.Monocytes <- names(CELseq2.obj@ident)[which(CELseq2.obj@ident == "CD14+ Monocytes")]
+if(length(CELseq2.Monocytes) > 50){ CELseq2.Monocytes <- sample(CELseq2.Monocytes,50)}
 QUARTZseq.Monocytes <- names(QUARTZseq.obj@ident)[which(QUARTZseq.obj@ident == "CD14+ Monocytes")]
+if(length(QUARTZseq.Monocytes) > 50){ QUARTZseq.Monocytes <- sample(QUARTZseq.Monocytes,50)}
 Dropseq.Monocytes <- names(Dropseq.obj@ident)[which(Dropseq.obj@ident == "CD14+ Monocytes")]
+if(length(Dropseq.Monocytes) > 50){ Dropseq.Monocytes <- sample(Dropseq.Monocytes,50)}
 SCRBseq.Monocytes <- names(SCRBseq.obj@ident)[which(SCRBseq.obj@ident == "CD14+ Monocytes")]
+if(length(SCRBseq.Monocytes) > 50){ SCRBseq.Monocytes <- sample(SCRBseq.Monocytes,50)}
 X10Scilife.Monocytes <- names(X10Scilife.obj@ident)[which(X10Scilife.obj@ident == "CD14+ and FCGR3A+ Monocytes")]
+if(length(X10Scilife.Monocytes) > 50){ X10Scilife.Monocytes <- sample(X10Scilife.Monocytes,50)}
 X10Nuclei.Monocytes <- names(X10Nuclei.obj@ident)[which(X10Nuclei.obj@ident == "CD14+ Monocytes")]
+if(length(X10Nuclei.Monocytes) > 50){ X10Nuclei.Monocytes <- sample(X10Nuclei.Monocytes,50)}
 ICELL8.Monocytes <- names(ICELL8.obj@ident)[which(ICELL8.obj@ident == "CD14+ and FCGR3A+ Monocytes")]
+if(length(ICELL8.Monocytes) > 50){ ICELL8.Monocytes <- sample(ICELL8.Monocytes,50)}
 ddSEQ.Monocytes <- names(ddSEQ.obj@ident)[which(ddSEQ.obj@ident == "CD14+ and FCGR3A+ Monocytes")]
+if(length(ddSEQ.Monocytes) > 50){ ddSEQ.Monocytes <- sample(ddSEQ.Monocytes,50)}
 ddSEQexp1.Monocytes <- names(ddSEQexp1.obj@ident)[which(ddSEQexp1.obj@ident == "CD14+ and FCGR3A+ Monocytes")]
+if(length(ddSEQexp1.Monocytes) > 50){ ddSEQexp1.Monocytes <- sample(ddSEQexp1.Monocytes,50)}
 CB1.Monocytes <- names(CB1.obj@ident)[which(CB1.obj@ident == "CD14+ Monocytes")]
-
+f(length(CB1.Monocytes) > 50){ CB1.Monocytes <- sample(CB1.Monocytes,50)}
 # End ####
 
 # Taking out Bcells cells of each technique ####
 MARSseq.Bcells <- names(MARSseq.obj@ident)[which(MARSseq.obj@ident == "B cells")]
+if(length(MARSseq.Bcells) > 50){ MARSseq.Bcells <- sample(MARSseq.Bcells,50)}
 CELseq2.Bcells <- names(CELseq2.obj@ident)[which(CELseq2.obj@ident == "B cells")]
+if(length(CELseq2.Bcells) > 50){ CELseq2.Bcells <- sample(CELseq2.Bcells,50)}
 QUARTZseq.Bcells <- names(QUARTZseq.obj@ident)[which(QUARTZseq.obj@ident == "B cells")]
+if(length(QUARTZseq.Bcells) > 50){ QUARTZseq.Bcells <- sample(QUARTZseq.Bcells,50)}
 Dropseq.Bcells <- names(Dropseq.obj@ident)[which(Dropseq.obj@ident == "B cells")]
+if(length(Dropseq.Bcells) > 50){ Dropseq.Bcells <- sample(Dropseq.Bcells,50)}
 SCRBseq.Bcells <- names(SCRBseq.obj@ident)[which(SCRBseq.obj@ident == "B cells")]
+if(length(SCRBseq.Bcells) > 50){ SCRBseq.Bcells <- sample(SCRBseq.Bcells,50)}
 X10Scilife.Bcells <- names(X10Scilife.obj@ident)[which(X10Scilife.obj@ident == "B cells")]
+if(length(X10Scilife.Bcells) > 50){ X10Scilife.Bcells <- sample(X10Scilife.Bcells,50)}
 X10Nuclei.Bcells <- names(X10Nuclei.obj@ident)[which(X10Nuclei.obj@ident == "B cells")]
+if(length(X10Nuclei.Bcells) > 50){ X10Nuclei.Bcells <- sample(X10Nuclei.Bcells,50)}
 ICELL8.Bcells <- names(ICELL8.obj@ident)[which(ICELL8.obj@ident == "B cells")]
+if(length(ICELL8.Bcells) > 50){ ICELL8.Bcells <- sample(ICELL8.Bcells,50)}
 ddSEQ.Bcells <- names(ddSEQ.obj@ident)[which(ddSEQ.obj@ident == "B cells")]
+if(length(ddSEQ.Bcells) > 50){ ddSEQ.Bcells <- sample(ddSEQ.Bcells,50)}
 ddSEQexp1.Bcells <- names(ddSEQexp1.obj@ident)[which(ddSEQexp1.obj@ident == "B cells")]
+if(length(ddSEQexp1.Bcells) > 50){ ddSEQexp1.Bcells <- sample(ddSEQexp1.Bcells,50)}
 CB1.Bcells <- names(CB1.obj@ident)[which(CB1.obj@ident == "B cells")]
+if(length(CB1.Bcells) > 50){ CB1.Bcells <- sample(CB1.Bcells,50)}
 
 # End ####
+
+
+
+
 
 # Loding Downsampleded data ####
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/MARSseq.hsap.full.SCE.jointDSmat.Robj")
