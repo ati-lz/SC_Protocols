@@ -7,7 +7,7 @@ monocyte_dict = {'MARSseq': "CD14+ Monocytes", 'QUARTZseq': "CD14+ Monocytes", '
 
 rule all:
     input:
-        expand("SCDE_outputs/{tech}_SCDEoutputs.Robj", tech=TECHs)
+        expand("SCDE_outputs/{tech}_SCDEoutputs.Robj", tech=TECHS)
 
 rule SCDE_run:
     input:
