@@ -19,4 +19,4 @@ rule SCDE_run:
     output:
         outpatch= "SCDE_outputs/{tech}_SCDEoutputs.Robj"
     shell:
-        "Rscript dropout_wrapper_snakemake.R --technology {wildcards.tech} --seuratObj_path {input.seuratObjPath}  --Monocyte_annot {monocyte_dict[wildcards.tech]} --DS_path {input.DSpath} --output_path ./SCDE_outputs"
+        "Rscript dropout_wrapper_snakemake.R --technology {wildcards.tech} --seuratObj_path {input.seuratObjPath}  --Monocyte_annot monocyte_dict[wildcards.tech] --DS_path {input.DSpath} --output_path ./SCDE_outputs"
