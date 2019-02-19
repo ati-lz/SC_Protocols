@@ -280,9 +280,8 @@ for (tech in techniques){
     
   #DS.mat.HEKS.dup <- DS.mat.HEKS
   #DS.mat.HEKS.dup$gene_id <- rownames(DS.mat.HEKS.dup)
-  techs.HEK.20K.list[[tech]] <- as.data.frame((DS.mat.HEKS))}
+  techs.HEK.20K.list[[tech]] <- as.data.frame((DS.mat.HEKS))
   rm(tech.DS.UMI)
-  }
 }
 
 print("preprocessing is done, the tech.DS.list is ready")
