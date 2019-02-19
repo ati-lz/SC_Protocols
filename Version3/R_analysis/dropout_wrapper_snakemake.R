@@ -61,7 +61,7 @@ main <- function(technology, seuratObj_path, Monocyte_annot, DS_path, output_pat
     techs.raw.HEK <- techs.raw.HEK[rownames(techs.obj@scale.data),techs.common.cells.HEK]
     techs.raw.HEK <- as.data.frame(lapply(techs.raw.HEK, as.integer))
 
-    techs.o.ifm <- scde.error.models(counts = techs.raw.HEK, n.cores = 10, threshold.segmentation = TRUE, save.crossfit.plots = T, save.model.plots = T, verbose = 1)
+    techs.o.ifm <- scde.error.models(counts = techs.raw.HEK, n.cores = 10, threshold.segmentation = FALSE, save.crossfit.plots = F, save.model.plots = F, verbose = 1)
     #save(techs.o.ifm)
     print(paste(technology,"error model done", sep= "")
 

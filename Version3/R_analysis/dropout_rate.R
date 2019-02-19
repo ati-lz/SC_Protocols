@@ -337,43 +337,43 @@ library(scde)
 #Running error models
 
 #MARSseq error model
-MARSseq.o.ifm <- scde.error.models(counts = MARSseq.raw.HEK, n.cores = 10, threshold.segmentation = TRUE, save.crossfit.plots = T, save.model.plots = T, verbose = 1)
+MARSseq.o.ifm <- scde.error.models(counts = MARSseq.raw.HEK, n.cores = 10, threshold.segmentation = FALSE, save.crossfit.plots = T, save.model.plots = T, verbose = 1)
 save(MARSseq.o.ifm)
 print("MARSseq model done")
 
 #CELseq2 error model
-CELseq2.o.ifm <- scde.error.models(counts = CELseq2.raw.HEK, n.cores = 10, threshold.segmentation = TRUE, save.crossfit.plots = T, save.model.plots = T, verbose = 1)
+CELseq2.o.ifm <- scde.error.models(counts = CELseq2.raw.HEK, n.cores = 10, threshold.segmentation = FALSE, save.crossfit.plots = T, save.model.plots = T, verbose = 1)
 save(CELseq2.o.ifm)
 print("CELseq2 model done")
 
 #QUARTZseq error model
-QUARTZseq.o.ifm <- scde.error.models(counts = QUARTZseq.raw.HEK, n.cores = 10, threshold.segmentation = TRUE, save.crossfit.plots = T, save.model.plots = T, verbose = 1)
+QUARTZseq.o.ifm <- scde.error.models(counts = QUARTZseq.raw.HEK, n.cores = 10, threshold.segmentation = FALSE, save.crossfit.plots = T, save.model.plots = T, verbose = 1)
 save(QUARTZseq.o.ifm)
 print("QUARTZseq model done")
 
 #Dropseq error model
-Dropseq.o.ifm <- scde.error.models(counts = Dropseq.raw.HEK, n.cores = 10, threshold.segmentation = TRUE, save.crossfit.plots = T, save.model.plots = T, verbose = 1)
+Dropseq.o.ifm <- scde.error.models(counts = Dropseq.raw.HEK, n.cores = 10, threshold.segmentation = FALSE, save.crossfit.plots = T, save.model.plots = T, verbose = 1)
 save(Dropseq.o.ifm)
 print("Dropseq model done")
 
 
 #SCRBseq error model
-SCRBseq.o.ifm <- scde.error.models(counts = SCRBseq.raw.HEK, n.cores = 10, threshold.segmentation = TRUE, save.crossfit.plots = T, save.model.plots = T, verbose = 1)
+SCRBseq.o.ifm <- scde.error.models(counts = SCRBseq.raw.HEK, n.cores = 10, threshold.segmentation = FALSE, save.crossfit.plots = T, save.model.plots = T, verbose = 1)
 save(SCRBseq.o.ifm)
 print("SCRBseq model done")
 
 #X10Scilife error model
-X10Scilife.o.ifm <- scde.error.models(counts = X10Scilife.raw.HEK, n.cores = 10, threshold.segmentation = TRUE, save.crossfit.plots = T, save.model.plots = T, verbose = 1)
+X10Scilife.o.ifm <- scde.error.models(counts = X10Scilife.raw.HEK, n.cores = 10, threshold.segmentation = FALSE, save.crossfit.plots = T, save.model.plots = T, verbose = 1)
 save(X10Scilife.o.ifm)
 print("X10Scilife model done")
 
 #X10Nuclei error model
-X10Nuclei.o.ifm <- scde.error.models(counts = X10Nuclei.raw.HEK, n.cores = 10, threshold.segmentation = TRUE, save.crossfit.plots = T, save.model.plots = T, verbose = 1)
+X10Nuclei.o.ifm <- scde.error.models(counts = X10Nuclei.raw.HEK, n.cores = 10, threshold.segmentation = FALSE, save.crossfit.plots = T, save.model.plots = T, verbose = 1)
 save(X10Nuclei.o.ifm)
 print("X10Nuclei model done")
 
 #ICELL8 error model
-ICELL8.o.ifm <- scde.error.models(counts = ICELL8.raw.HEK, n.cores = 10, threshold.segmentation = TRUE, save.crossfit.plots = T, save.model.plots = T, verbose = 1)
+ICELL8.o.ifm <- scde.error.models(counts = ICELL8.raw.HEK, n.cores = 10, threshold.segmentation = FALSE, save.crossfit.plots = T, save.model.plots = T, verbose = 1)
 save(ICELL8.o.ifm)
 print("ICELL8 model done")
 
