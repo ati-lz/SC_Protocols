@@ -58,7 +58,8 @@ main <- function(technology, seuratObj_path, Monocyte_annot, DS_path, output_pat
     techs.raw.HEK <- DS.mat.HEKS
     techs.raw.HEK <- mapIDs(techs.raw.HEK, "hsap")
     techs.common.cells.HEK <- intersect(colnames(techs.raw.HEK),colnames(techs.obj@scale.data))
-    techs.raw.HEK <- techs.raw.HEK[rownames(techs.obj@scale.data),techs.common.cells.HEK]
+    techs.common.genes.HEK <- intersect(rownames(techs.raw.HEK),rownames(techs.obj@scale.data))
+    techs.raw.HEK <- techs.raw.HEK[techs.common.genes.HEK,techs.common.cells.HEK]
     techs.raw.HEK <- as.data.frame(lapply(techs.raw.HEK, as.integer))
 
     techs.o.ifm <- scde.error.models(counts = techs.raw.HEK, n.cores = 10, threshold.segmentation = FALSE, save.crossfit.plots = F, save.model.plots = F, verbose = 1)
