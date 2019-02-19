@@ -1,0 +1,29 @@
+{
+    
+    "__default__" :
+    {
+        "cpus_per_task" : 4,
+        "job_name" : "SMARTfinal.{wildcards}",
+        "output" : "mnout/SMARTfinal_{wildcards}.out",
+        "error" : "mnout/SMARTfinal_{wildcards}.err"
+    },
+
+    "zUMI_run" :
+    {
+        "cpus_per_task" : 15,
+        "job_name" : "SMARTfinal.{wildcards}"
+    },
+
+    "demux_cells" :
+    {
+        "cpus_per_task" : 24,
+        "job_name" : "SMARTfinal.{wildcards}"
+    },
+
+    "R_wrapper" :
+    {
+        "cpus_per_task" : 18,
+        "job_name" : "SMARTfinal.{wildcards}"
+    }
+}
+
