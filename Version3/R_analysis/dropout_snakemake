@@ -3,7 +3,7 @@ shell.prefix("module unload gcc/latest; module load gcc/6.3.0; module load XZ/5.
 
 print("test")
 
-TECHS = ["MARSseq", "QUARTZseq", "CELseq2", "Dropseq", "SCRBseq", "X10Scilife", "X10Nuclei", "ICELL8", "ddSEQ", "ddSEQexp1", "CB1"]
+TECHS = ["MARSseq"]#, "QUARTZseq", "CELseq2", "Dropseq", "SCRBseq", "X10Scilife", "X10Nuclei", "ICELL8", "ddSEQ", "ddSEQexp1", "CB1"]
 
 monocyte_dict = {'MARSseq': "CD14+ Monocytes", 'QUARTZseq': "CD14+ Monocytes", 'CELseq2': "CD14+ Monocytes",
  'Dropseq': "CD14+ Monocytes", 'SCRBseq': "CD14+ Monocytes", 'X10Nuclei': "CD14+ Monocytes", 'CB1': "CD14+ Monocytes",
