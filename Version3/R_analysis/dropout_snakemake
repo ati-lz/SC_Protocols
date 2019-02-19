@@ -1,5 +1,5 @@
 
-shell.prefix("module load hdf5/1.10.1; module load R/3.5.0;")
+shell.prefix("module load R/3.5.0; ")
 
 
 TECHS = ["MARSseq", "QUARTZseq", "CELseq2", "Dropseq", "SCRBseq", "X10Scilife", "X10Nuclei", "ICELL8", "ddSEQ", "ddSEQexp1", "CB1"]
