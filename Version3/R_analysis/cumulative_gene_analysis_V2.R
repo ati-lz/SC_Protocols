@@ -82,7 +82,7 @@ X10Nuclei.HEK <- names(X10Nuclei.obj@ident)[which(X10Nuclei.obj@ident == "HEK ce
 if(length(X10Nuclei.HEK) > 50){ X10Nuclei.HEK <- sample(X10Nuclei.HEK,50)}
 ICELL8.HEK <- names(ICELL8.obj@ident)[which(ICELL8.obj@ident == "HEK cells")]
 if(length(ICELL8.HEK) > 50){ ICELL8.HEK <- sample(ICELL8.HEK,50)}
-ddSEQ.HEK <- names(ddSEQ.obj@ident)[which(ddSEQ.obj@ident == "HEK cells")]
+ddSEQ.HEK <- names(ddSEQ.obj@ident)[which(ddSEQ.obj@ident == "HEK cells1")] # NOTICE THIS **********
 if(length(ddSEQ.HEK) > 50){ ddSEQ.HEK <- sample(ddSEQ.HEK,50)}
 ddSEQexp1.HEK <- names(ddSEQexp1.obj@ident)[which(ddSEQexp1.obj@ident == "HEK cells")]
 if(length(ddSEQexp1.HEK) > 50){ ddSEQexp1.HEK <- sample(ddSEQexp1.HEK,50)}
@@ -231,7 +231,7 @@ rm(CB1.DS)
 
 #Plotting stepwise Downsampling for HEK ####
 
-techniques <- c("MARSseq", "QUARTZseq", "CELseq2", "Dropseq", "SCRBseq", "X10Scilife", "X10Nuclei", "ICELL8", "ddSEQ", "ddSEQexp1", "CB1")#, "X108x10" , "ddSEQ", "ddSEQexp1", "C1HT"
+techniques <- c("MARSseq", "QUARTZseq", "CELseq2", "Dropseq", "SCRBseq", "X10Scilife", "X10Nuclei", "ICELL8","ddSEQ", "ddSEQexp1", "CB1")#, "X108x10" , "ddSEQ", "ddSEQexp1", "C1HT"
 DSth.df <- data.frame()
 techs.HEK.20K.list <- list()
 for (tech in techniques){
