@@ -1,6 +1,7 @@
 
-shell.prefix("module load R/3.5.0; ")
+shell.prefix("module unload gcc/latest; module load gcc/6.3.0; module load XZ/5.2.2; module load COREUTILS/8.21; module load CONDA/4.3.11_PYTHON3; module load java/latest; module load SAMTOOLS/1.6; module load BAMTOOLS/2.3.0 ; module load STAR/2.6.0c; module load R/3.5.0; module load hdf5/1.10.1; module load PIGZ/2.3.3; module load ZUMIS/2.2; ")
 
+print("test")
 
 TECHS = ["MARSseq", "QUARTZseq", "CELseq2", "Dropseq", "SCRBseq", "X10Scilife", "X10Nuclei", "ICELL8", "ddSEQ", "ddSEQexp1", "CB1"]
 
