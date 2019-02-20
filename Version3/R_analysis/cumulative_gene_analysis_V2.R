@@ -296,7 +296,7 @@ for (tech in techniques){
 
 
 # calculating the cumulatives
-print("calculating the cumulatives")
+print("calculating the cumulatives For HEK")
 HEK.plot.df <- data.frame()
 for (tech in names(techs.HEK.20K.list)){
     print(tech)
