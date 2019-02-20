@@ -231,103 +231,68 @@ rm(CB1.DS)
 
 #Plotting stepwise Downsampling for HEK ####
 
-techniques <- c("MARSseq", "QUARTZseq", "CELseq2", "Dropseq", "SCRBseq", "X10Scilife", "X10Nuclei", "ICELL8","ddSEQ", "ddSEQexp1", "CB1")#, "X108x10" , "ddSEQ", "ddSEQexp1", "C1HT"
+techniques <- c("MARSseq", "QUARTZseq", "CELseq2", "Dropseq", "SCRBseq", "X10Scilife", "X10Nuclei", "ICELL8", "ddSEQexp1", "CB1")#, "X108x10" , "ddSEQ", "ddSEQexp1", "C1HT"
 DSth.df <- data.frame()
 techs.HEK.20K.list <- list()
 for (tech in techniques){
   print(tech)
   tech.DS.UMI <- get(paste(tech,".DS.UMI", sep = ""))
   tech.HEK <- get(paste(tech,".HEK", sep = ""))
-  tech.seurat.object <- get(paste(tech,".metadata", sep = ""))
-  tech.seurat.cells <- rownames(tech.seurat.object)
-  for (DSth in names(tech.DS.UMI)){
-    print(paste(tech, DSth, sep = "_"))
-    colnames(tech.DS.UMI[[DSth]]) <- gsub(x = colnames(tech.DS.UMI[[DSth]]), pattern = "\\.", replacement = "_")
-    comm.cells <- intersect(tech.HEK, colnames(tech.DS.UMI[[DSth]]))
-    DS.mat.HEKS <- tech.DS.UMI[[DSth]][, comm.cells]
-    if (DSth == "downsampled_20000"){
-      DS.mat.HEKS.dup <- DS.mat.HEKS
-      HEK.common.cells <- intersect(tech.seurat.cells, colnames(DS.mat.HEKS.dup))
-      techs.HEK.20K.list[[tech]] <- as.data.frame((DS.mat.HEKS.dup[,HEK.common.cells]))}
-    DS.gene.distribution.HEK <- colSums(DS.mat.HEKS[,]>0)
-    DS.UMI.distribution.HEK <- colSums(DS.mat.HEKS)
-    DS.labels <- rep(DSth, length(DS.gene.distribution.HEK))
-    DSth_number = as.numeric(unlist(strsplit(DSth, "_"))[[2]])
-    DSth.number.vec = rep(DSth_number, length(DS.gene.distribution.HEK))
-    DS.labels <- rep(DSth, length(DS.gene.distribution.HEK))
-    DS.techs <- rep(tech, length(DS.gene.distribution.HEK))
-    DS.df <- data.frame(nGenes = DS.gene.distribution.HEK, nUMIs = DS.UMI.distribution.HEK, DSthNum = DSth.number.vec, DStech = DS.techs)
-    DSth.df <- rbind(DSth.df, DS.df)
-    print(dim(DSth.df))
-  }
+  DSth <- "downsampled_20000"
+  print(paste(tech, DSth, sep = "_"))
+  tech.DS.UMI.20K <- tech.DS.UMI$downsampled_20000
+  colnames(tech.DS.UMI.20K) <- gsub(x = colnames(tech.DS.UMI.20K), pattern = "\\.", replacement = "_")
+  comm.cells <- intersect(tech.HEK, colnames(tech.DS.UMI.20K))
+  DS.mat.HEKS <- tech.DS.UMI.20K[, comm.cells]
+    
+  #DS.mat.HEKS.dup <- DS.mat.HEKS
+  #DS.mat.HEKS.dup$gene_id <- rownames(DS.mat.HEKS.dup)
+  techs.HEK.20K.list[[tech]] <- as.data.frame((DS.mat.HEKS))
+  rm(tech.DS.UMI)
 }
 
 #Plotting stepwise Downsampling for Monocytes ####
 
-techniques <- c("MARSseq", "QUARTZseq", "CELseq2", "Dropseq", "SCRBseq", "X10Scilife", "X10Nuclei", "ICELL8", "ddSEQ", "ddSEQexp1", "CB1")#, "X108x10" , "ddSEQ", "ddSEQexp1", "C1HT"
+techniques <- c("MARSseq", "QUARTZseq", "CELseq2", "Dropseq", "SCRBseq", "X10Scilife", "X10Nuclei", "ICELL8", "ddSEQexp1", "CB1")#, "X108x10" , "ddSEQ", "ddSEQexp1", "C1HT"
 DSth.df <- data.frame()
 techs.Monocytes.20K.list <- list()
 for (tech in techniques){
   print(tech)
   tech.DS.UMI <- get(paste(tech,".DS.UMI", sep = ""))
   tech.Monocytes <- get(paste(tech,".Monocytes", sep = ""))
-  tech.seurat.object <- get(paste(tech,".metadata", sep = ""))
-  tech.seurat.cells <- rownames(tech.seurat.object)
-  for (DSth in names(tech.DS.UMI)){
-    print(paste(tech, DSth, sep = "_"))
-    colnames(tech.DS.UMI[[DSth]]) <- gsub(x = colnames(tech.DS.UMI[[DSth]]), pattern = "\\.", replacement = "_")
-    comm.cells <- intersect(tech.Monocytes, colnames(tech.DS.UMI[[DSth]]))
-    DS.mat.MonocytesS <- tech.DS.UMI[[DSth]][, comm.cells]
-    if (DSth == "downsampled_20000"){
-      DS.mat.MonocytesS.dup <- DS.mat.MonocytesS
-      MonocytesS.common.cells <- intersect(tech.seurat.cells, colnames(DS.mat.MonocytesS.dup))
-      techs.Monocytes.20K.list[[tech]] <- as.data.frame((DS.mat.MonocytesS.dup[,MonocytesS.common.cells]))}
-    DS.gene.distribution.Monocytes <- colSums(DS.mat.MonocytesS[,]>0)
-    DS.UMI.distribution.Monocytes <- colSums(DS.mat.MonocytesS)
-    DS.labels <- rep(DSth, length(DS.gene.distribution.Monocytes))
-    DSth_number = as.numeric(unlist(strsplit(DSth, "_"))[[2]])
-    DSth.number.vec = rep(DSth_number, length(DS.gene.distribution.Monocytes))
-    DS.labels <- rep(DSth, length(DS.gene.distribution.Monocytes))
-    DS.techs <- rep(tech, length(DS.gene.distribution.Monocytes))
-    DS.df <- data.frame(nGenes = DS.gene.distribution.Monocytes, nUMIs = DS.UMI.distribution.Monocytes, DSthNum = DSth.number.vec, DStech = DS.techs)
-    DSth.df <- rbind(DSth.df, DS.df)
-    print(dim(DSth.df))
-  }
+  DSth <- "downsampled_20000"
+  print(paste(tech, DSth, sep = "_"))
+  tech.DS.UMI.20K <- tech.DS.UMI$downsampled_20000
+  colnames(tech.DS.UMI.20K) <- gsub(x = colnames(tech.DS.UMI.20K), pattern = "\\.", replacement = "_")
+  comm.cells <- intersect(tech.Monocytes, colnames(tech.DS.UMI.20K))
+  DS.mat.Monocytes <- tech.DS.UMI.20K[, comm.cells]
+    
+  #DS.mat.Monocytes.dup <- DS.mat.Monocytes
+  #DS.mat.Monocytes.dup$gene_id <- rownames(DS.mat.Monocytes.dup)
+  techs.Monocytes.20K.list[[tech]] <- as.data.frame((DS.mat.Monocytes))
+  rm(tech.DS.UMI)
 }
-
 #Plotting stepwise Downsampling for Bcell ####
 
-techniques <- c("MARSseq", "QUARTZseq", "CELseq2", "Dropseq", "SCRBseq", "X10Scilife", "X10Nuclei", "ICELL8", "ddSEQ", "ddSEQexp1", "CB1")#, "X108x10" , "ddSEQ", "ddSEQexp1", "C1HT"
+techniques <- c("MARSseq", "QUARTZseq", "CELseq2", "Dropseq", "SCRBseq", "X10Scilife", "X10Nuclei", "ICELL8", "ddSEQexp1", "CB1")#, "X108x10" , "ddSEQ", "ddSEQexp1", "C1HT"
 DSth.df <- data.frame()
 techs.Bcells.10K.list <- list()
 for (tech in techniques){
   print(tech)
   tech.DS.UMI <- get(paste(tech,".DS.UMI", sep = ""))
   tech.Bcells <- get(paste(tech,".Bcells", sep = ""))
-  tech.seurat.object <- get(paste(tech,".metadata", sep = ""))
-  tech.seurat.cells <- rownames(tech.seurat.object)
-  for (DSth in names(tech.DS.UMI)){
-    print(paste(tech, DSth, sep = "_"))
-    colnames(tech.DS.UMI[[DSth]]) <- gsub(x = colnames(tech.DS.UMI[[DSth]]), pattern = "\\.", replacement = "_")
-    comm.cells <- intersect(tech.Bcells, colnames(tech.DS.UMI[[DSth]]))
-    DS.mat.Bcells <- tech.DS.UMI[[DSth]][, comm.cells]
-    if (DSth == "downsampled_10000"){
-      DS.mat.Bcells.dup <- DS.mat.Bcells
-      Bcells.common.cells <- intersect(tech.seurat.cells, colnames(DS.mat.Bcells.dup))
-      techs.Bcells.10K.list[[tech]] <- as.data.frame((DS.mat.Bcells.dup[,Bcells.common.cells]))}
-    DS.gene.distribution.Bcells <- colSums(DS.mat.Bcells[,]>0)
-    DS.UMI.distribution.Bcells <- colSums(DS.mat.Bcells)
-    DS.labels <- rep(DSth, length(DS.gene.distribution.Bcells))
-    DSth_number = as.numeric(unlist(strsplit(DSth, "_"))[[2]])
-    DSth.number.vec = rep(DSth_number, length(DS.gene.distribution.Bcells))
-    DS.labels <- rep(DSth, length(DS.gene.distribution.Bcells))
-    DS.techs <- rep(tech, length(DS.gene.distribution.Bcells))
-    DS.df <- data.frame(nGenes = DS.gene.distribution.Bcells, nUMIs = DS.UMI.distribution.Bcells, DSthNum = DSth.number.vec, DStech = DS.techs)
-    DSth.df <- rbind(DSth.df, DS.df)
-    print(dim(DSth.df))
-  }
+  DSth <- "downsampled_20000"
+  print(paste(tech, DSth, sep = "_"))
+  tech.DS.UMI.10K <- tech.DS.UMI$downsampled_20000
+  colnames(tech.DS.UMI.10K) <- gsub(x = colnames(tech.DS.UMI.10K), pattern = "\\.", replacement = "_")
+  comm.cells <- intersect(tech.Bcells, colnames(tech.DS.UMI.10K))
+  DS.mat.Bcells <- tech.DS.UMI.10K[, comm.cells]
+    
+  #DS.mat.Bcells.dup <- DS.mat.Bcells
+  #DS.mat.Bcells.dup$gene_id <- rownames(DS.mat.Bcells.dup)
+  techs.Bcells.10K.list[[tech]] <- as.data.frame((DS.mat.Bcells))
+  rm(tech.DS.UMI)
 }
-
 
 
 # calculating the cumulatives
@@ -363,6 +328,8 @@ for (tech in names(techs.HEK.20K.list)){
     }
     HEK.plot.df <- rbind(HEK.plot.df, data.frame(Cumul= tech.cumul.gene.numbers, tech= rep(tech, length(tech.cumul.gene.numbers)), cell.num= seq(1:length(tech.cumul.gene.numbers))))
 }
+
+save(HEK.plot.df, "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Cumulative_gene/Cumulative_gene_dist_DS20K_HEK_dataPlot.RData")
 
 pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Cumulative_gene/Cumulative_gene_dist_DS20K_HEK_V2.pdf")
 ggplot(data=HEK.plot.df, aes(x=cell.num, y=Cumul, group=tech)) + geom_point(aes(color=tech)) + geom_smooth(aes(color=tech))
@@ -400,6 +367,8 @@ for (tech in names(techs.Monocytes.20K.list)){
     }
     Monocytes.plot.df <- rbind(Monocytes.plot.df, data.frame(Cumul= tech.cumul.gene.numbers, tech= rep(tech, length(tech.cumul.gene.numbers)), cell.num= seq(1:length(tech.cumul.gene.numbers))))
 }
+
+save(Monocytes.plot.df, "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Cumulative_gene/Cumulative_gene_dist_DS20K_Monocytes_dataPlot.RData")
 
 pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Cumulative_gene/Cumulative_gene_dist_DS20K_Monocytes_V2.pdf")
 ggplot(data=Monocytes.plot.df, aes(x=cell.num, y=Cumul, group=tech)) + geom_point(aes(color=tech)) + geom_smooth(aes(color=tech))
@@ -439,8 +408,9 @@ for (tech in names(techs.Bcells.10K.list)){
     Bcells.plot.df <- rbind(Bcells.plot.df, data.frame(Cumul= tech.cumul.gene.numbers, tech= rep(tech, length(tech.cumul.gene.numbers)), cell.num= seq(1:length(tech.cumul.gene.numbers))))
 }
 
+save(Bcells.plot.df, "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Cumulative_gene/Cumulative_gene_dist_DS10K_Bcells_dataPlot.RData")
+
 pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Cumulative_gene/Cumulative_gene_dist_DS10K_Bcells.pdf")
 ggplot(data=Bcells.plot.df, aes(x=cell.num, y=Cumul, group=tech)) + geom_point(aes(color=tech)) + geom_smooth(aes(color=tech))
 dev.off()
 print("Bcells cumulative done!")
-ñ
