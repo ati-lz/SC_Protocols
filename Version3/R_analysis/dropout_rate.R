@@ -346,43 +346,43 @@ library(scde)
 
 #MARSseq error model
 MARSseq.o.ifm <- scde.error.models(counts = MARSseq.raw.HEK, n.cores = 4, threshold.segmentation = FALSE, save.crossfit.plots = T, save.model.plots = T, verbose = 1)
-save(MARSseq.o.ifm)
+save(MARSseq.o.ifm, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/MARSseq.o.ifm.RData")
 print("MARSseq model done")
 
 #CELseq2 error model
 CELseq2.o.ifm <- scde.error.models(counts = CELseq2.raw.HEK, n.cores = 4, threshold.segmentation = FALSE, save.crossfit.plots = T, save.model.plots = T, verbose = 1)
-save(CELseq2.o.ifm)
+save(CELseq2.o.ifm, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/CELseq2.o.ifm.RData")
 print("CELseq2 model done")
 
 #QUARTZseq error model
 QUARTZseq.o.ifm <- scde.error.models(counts = QUARTZseq.raw.HEK, n.cores = 4, threshold.segmentation = FALSE, save.crossfit.plots = T, save.model.plots = T, verbose = 1)
-save(QUARTZseq.o.ifm)
+save(QUARTZseq.o.ifm, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/QUARTZseq.o.ifm.RData")
 print("QUARTZseq model done")
 
 #Dropseq error model
 Dropseq.o.ifm <- scde.error.models(counts = Dropseq.raw.HEK, n.cores = 4, threshold.segmentation = FALSE, save.crossfit.plots = T, save.model.plots = T, verbose = 1)
-save(Dropseq.o.ifm)
+save(Dropseq.o.ifm, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/Dropseq.o.ifm.RData")
 print("Dropseq model done")
 
 
 #SCRBseq error model
 SCRBseq.o.ifm <- scde.error.models(counts = SCRBseq.raw.HEK, n.cores = 4, threshold.segmentation = FALSE, save.crossfit.plots = T, save.model.plots = T, verbose = 1)
-save(SCRBseq.o.ifm)
+save(SCRBseq.o.ifm, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/SCRBseq.o.ifm.RData")
 print("SCRBseq model done")
 
 #X10Scilife error model
 X10Scilife.o.ifm <- scde.error.models(counts = X10Scilife.raw.HEK, n.cores = 4, threshold.segmentation = FALSE, save.crossfit.plots = T, save.model.plots = T, verbose = 1)
-save(X10Scilife.o.ifm)
+save(X10Scilife.o.ifm, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/X10Scilife.o.ifm.RData")
 print("X10Scilife model done")
 
 #X10Nuclei error model
 X10Nuclei.o.ifm <- scde.error.models(counts = X10Nuclei.raw.HEK, n.cores = 4, threshold.segmentation = FALSE, save.crossfit.plots = T, save.model.plots = T, verbose = 1)
-save(X10Nuclei.o.ifm)
+save(X10Nuclei.o.ifm, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/X10Nuclei.o.ifm.RData")
 print("X10Nuclei model done")
 
 #ICELL8 error model
 ICELL8.o.ifm <- scde.error.models(counts = ICELL8.raw.HEK, n.cores = 4, threshold.segmentation = FALSE, save.crossfit.plots = T, save.model.plots = T, verbose = 1)
-save(ICELL8.o.ifm)
+save(ICELL8.o.ifm, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/ICELL8.o.ifm.RData")
 print("ICELL8 model done")
 
 
@@ -391,43 +391,43 @@ print("Running priors")
 
 #MARSseq priors
 MARSseq.o.prior <- scde.expression.prior(models = MARSseq.o.ifm, counts = MARSseq.raw.HEK, length.out = 400, show.plot = FALSE)
-save(MARSseq.o.prior)
+save(MARSseq.o.prior, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/MARSseq.o.prior.RData")
 print("MARSseq Prior done")
 
 #CELseq2 priors
 CELseq2.o.prior <- scde.expression.prior(models = CELseq2.o.ifm, counts = CELseq2.raw.HEK, length.out = 400, show.plot = FALSE)
-save(CELseq2.o.prior)
+save(CELseq2.o.prior, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/CELseq2.o.prior.RData")
 print("CELseq2 Prior done")
 
 #QUARTZseq priors
 QUARTZseq.o.prior <- scde.expression.prior(models = QUARTZseq.o.ifm, counts = QUARTZseq.raw.HEK, length.out = 400, show.plot = FALSE)
-save(QUARTZseq.o.prior)
+save(QUARTZseq.o.prior, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/QUARTZseq.o.prior.RData")
 print("QUARTZseq Prior done")
 
 #Dropseq priors
 Dropseq.o.prior <- scde.expression.prior(models = Dropseq.o.ifm, counts = Dropseq.raw.HEK, length.out = 400, show.plot = FALSE)
-save(Dropseq.o.prior)
+save(Dropseq.o.prior, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/Dropseq.o.prior.RData")
 print("Dropseq Prior done")
 
 
 #SCRBseq priors
 SCRBseq.o.prior <- scde.expression.prior(models = SCRBseq.o.ifm, counts = SCRBseq.raw.HEK, length.out = 400, show.plot = FALSE)
-save(SCRBseq.o.prior)
+save(SCRBseq.o.prior, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/SCRBseq.o.prior.RData")
 print("SCRBseq Prior done")
 
 #X10Scilife priors
 X10Scilife.o.prior <- scde.expression.prior(models = X10Scilife.o.ifm, counts = X10Scilife.raw.HEK, length.out = 400, show.plot = FALSE)
-save(X10Scilife.o.prior)
+save(X10Scilife.o.prior, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/X10Scilife.o.prior.RData")
 print("X10Scilife Prior done")
 
 #X10Nuclei priors
 X10Nuclei.o.prior <- scde.expression.prior(models = X10Nuclei.o.ifm, counts = X10Nuclei.raw.HEK, length.out = 400, show.plot = FALSE)
-save(X10Nuclei.o.prior)
+save(X10Nuclei.o.prior, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/X10Nuclei.o.prior.RData")
 print("X10Nuclei Prior done")
 
 #ICELL8 priors
 ICELL8.o.prior <- scde.expression.prior(models = ICELL8.o.ifm, counts = ICELL8.raw.HEK, length.out = 400, show.plot = FALSE)
-save(ICELL8.o.prior)
+save(ICELL8.o.prior, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/ICELL8.o.prior.RData")
 print("ICELL8 Prior done")
 
 
@@ -435,48 +435,89 @@ print("ICELL8 Prior done")
 
 #MARSseq failure prob
 MARSseq.self.fail <- scde.failure.probability(models = MARSseq.o.ifm, counts = MARSseq.raw.HEK)
-save(MARSseq.self.fail)
+save(MARSseq.self.fail, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/MARSseq.self.fail.RData")
 print("MARSseq failure prob done")
 
 #CELseq2 failure prob
 CELseq2.self.fail <- scde.failure.probability(models = CELseq2.o.ifm, counts = CELseq2.raw.HEK)
-save(CELseq2.self.fail)
+save(CELseq2.self.fail, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/CELseq2.self.fail.RData")
 print("CELseq2 failure prob done")
 
 #QUARTZseq failure prob
 QUARTZseq.self.fail <- scde.failure.probability(models = QUARTZseq.o.ifm, counts = QUARTZseq.raw.HEK)
-save(QUARTZseq.self.fail)
+save(QUARTZseq.self.fail, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/QUARTZseq.self.fail.RData")
 print("QUARTZseq failure prob done")
 
 #Dropseq failure prob
 Dropseq.self.fail <- scde.failure.probability(models = Dropseq.o.ifm, counts = Dropseq.raw.HEK)
-save(Dropseq.self.fail)
+save(Dropseq.self.fail, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/Dropseq.self.fail.RData")
 print("Dropseq failure prob done")
 
 
 #SCRBseq failure prob
 SCRBseq.self.fail <- scde.failure.probability(models = SCRBseq.o.ifm, counts = SCRBseq.raw.HEK)
-save(SCRBseq.self.fail)
+save(SCRBseq.self.fail, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/SCRBseq.self.fail.RData")
 print("SCRBseq failure prob done")
 
 #X10Scilife failure prob
 X10Scilife.self.fail <- scde.failure.probability(models = X10Scilife.o.ifm, counts = X10Scilife.raw.HEK)
-save(X10Scilife.self.fail)
+save(X10Scilife.self.fail, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/X10Scilife.self.fail.RData")
 print("X10Scilife failure prob done")
 
 #X10Nuclei failure prob
 X10Nuclei.self.fail <- scde.failure.probability(models = X10Nuclei.o.ifm, counts = X10Nuclei.raw.HEK)
-save(X10Nuclei.self.fail)
+save(X10Nuclei.self.fail, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/X10Nuclei.self.fail.RData")
 print("X10Nuclei failure prob done")
 
 #ICELL8 failure prob
 ICELL8.self.fail <- scde.failure.probability(models = ICELL8.o.ifm, counts = ICELL8.raw.HEK)
-save(ICELL8.self.fail)
+save(ICELL8.self.fail, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/ICELL8.self.fail.RData")
 print("ICELL8 failure prob done")
 
 
 
+#get failure curves
 
+#MARSseq failure curve
+MARSseq.fail.curve <- scde.failure.probability(models = MARSseq.o.ifm, magnitudes = log((10^MARSseq.o.prior$x)-1))
+save(MARSseq.fail.curve, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/MARSseq.fail.curve.RData")
+print("MARSseq failure curve done")
+
+#CELseq2 failure curve
+CELseq2.fail.curve <- scde.failure.probability(models = CELseq2.o.ifm, magnitudes = log((10^CELseq2.o.prior$x)-1))
+save(CELseq2.fail.curve, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/CELseq2.fail.curve.RData")
+print("CELseq2 failure curve done")
+
+#QUARTZseq failure curve
+QUARTZseq.fail.curve <- scde.failure.probability(models = QUARTZseq.o.ifm, magnitudes = log((10^QUARTZseq.o.prior$x)-1))
+save(QUARTZseq.fail.curve, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/QUARTZseq.fail.curve.RData")
+print("QUARTZseq failure curve done")
+
+#Dropseq failure curve
+Dropseq.fail.curve <- scde.failure.probability(models = Dropseq.o.ifm, magnitudes = log((10^Dropseq.o.prior$x)-1))
+save(Dropseq.fail.curve, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/Dropseq.fail.curve.RData")
+print("Dropseq failure curve done")
+
+
+#SCRBseq failure curve
+SCRBseq.fail.curve <- scde.failure.probability(models = SCRBseq.o.ifm, magnitudes = log((10^SCRBseq.o.prior$x)-1))
+save(SCRBseq.fail.curve, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/SCRBseq.fail.curve.RData")
+print("SCRBseq failure curve done")
+
+#X10Scilife failure curve
+X10Scilife.fail.curve <- scde.failure.probability(models = X10Scilife.o.ifm, magnitudes = log((10^X10Scilife.o.prior$x)-1))
+save(X10Scilife.fail.curve, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/X10Scilife.fail.curve.RData")
+print("X10Scilife failure curve done")
+
+#X10Nuclei failure curve
+X10Nuclei.fail.curve <- scde.failure.probability(models = X10Nuclei.o.ifm, magnitudes = log((10^X10Nuclei.o.prior$x)-1))
+save(X10Nuclei.fail.curve, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/X10Nuclei.fail.curve.RData")
+print("X10Nuclei failure curve done")
+
+#ICELL8 failure curve
+ICELL8.fail.curve <- scde.failure.probability(models = ICELL8.o.ifm, magnitudes = log((10^ICELL8.o.prior$x)-1))
+save(ICELL8.fail.curve, file = "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Dropout_results/ICELL8.fail.curve.RData")
+print("ICELL8 failure curve done")
 
 
 load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects/gene_cl.ref.RData")
