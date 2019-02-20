@@ -10,14 +10,19 @@ output_path = sys.argv[5]
 
 bc_list = []
 dict_demux = {}
-for line in bc_file:
-    bc = line.split()[0]
+bc_line = bc_file.readline()
+while bc_line:
+    bc = bc_line.split()[0]
     if bc != 'XC':
         bc_list.append(bc)
         dict_demux[bc] = []
+    bc_line = bc_file.readline()
+bc_file.close()
+
 
 header_list = []
-for line in big_sam_file:
+read_line = big_sam_file.readline()
+while read_line:
     if line.startswith("@"):
         header_list.append(line)
     else:
@@ -29,7 +34,10 @@ for line in big_sam_file:
         cellBC = cellBC[2]
         if cellBC in dict_demux.keys():
             line_partial = '\t'.join(line_words[0:4])
-            dict_demux[cellBC].append(line)
+            dict_demux[cellBC].append(line_partial)
+    read_line = big_sam_file.readline()
+big_sam_file.close()
+            
             
 for cBC in bc_list:
     filenames = output_path + "/" + protocol + "." + "mixed." + sample + "." + cBC + ".sam"
