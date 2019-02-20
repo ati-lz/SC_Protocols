@@ -380,16 +380,17 @@ p4 <- ggplot(data = HEK.data.plot, mapping = aes(x = PC7, y = PC8, color=techs))
   geom_point(size = 1,shape = 16)+ theme(legend.position="none")
 p44 <- ggMarginal(p4, data = HEK.data.plot, x= HEK.colors.nUMI, y= HEK.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
 
-HEK.plot.list <- list(p0,p00,p11,p22,p33,p44)
+HEK.plot.list <- list(p0,p00,p1,p11,p2,p22,p3,p33,p4,p44)
 pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCAseurat_HEK_V6.pdf")
 invisible(lapply(HEK.plot.list, print))
 dev.off()
+save(HEK.data.plot, file="/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCAseurat_HEK_dataPlot.RData")
 
 #HEK Cluster tree
 HEK.seurat@ident <- HEK.seurat@meta.data$orig.ident
 names(HEK.seurat@ident) <- rownames(HEK.seurat@meta.data)
-HEK.seurat <- BuildClusterTree(HEK.seurat, genes.use = HEK.seurat@var.genes, pcs.use = 1:5)
-pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_HEK_ClusterTree_pc1to5.pdf")
+HEK.seurat <- BuildClusterTree(HEK.seurat, genes.use = HEK.seurat@var.genes, pcs.use = 1:10)
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_HEK_ClusterTree_pc1to10.pdf")
 plotClusterTree(HEK.seurat)
 dev.off()
 
@@ -447,16 +448,17 @@ p4 <- ggplot(data = Monocytes.data.plot, mapping = aes(x = PC7, y = PC8, color=t
 p44 <- ggMarginal(p4, data = Monocytes.data.plot, x= Monocytes.colors.nUMI, y= Monocytes.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
 
 
-Monocytes.plot.list <- list(p0,p00,p11,p22,p33,p44)
+Monocytes.plot.list <- list(p0,p00,p1,p11,p2,p22,p3,p33,p4,p44)
 pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCAseurat_Monocytes_V6.pdf")
 invisible(lapply(Monocytes.plot.list, print))
 dev.off()
+save(Monocytes.data.plot, file="/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_PCAseurat_Monocytes_dataPlot.RData")
 
 #Monocytes Cluster tree
 Monocytes.seurat@ident <- Monocytes.seurat@meta.data$orig.ident
 names(Monocytes.seurat@ident) <- rownames(Monocytes.seurat@meta.data)
-Monocytes.seurat <- BuildClusterTree(Monocytes.seurat, genes.use = Monocytes.seurat@var.genes, pcs.use = 1:5)
-pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_Monocytes_ClusterTree_pc1to5.pdf")
+Monocytes.seurat <- BuildClusterTree(Monocytes.seurat, genes.use = Monocytes.seurat@var.genes, pcs.use = 1:10)
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS20K_Monocytes_ClusterTree_pc1to10.pdf")
 plotClusterTree(Monocytes.seurat)
 dev.off()
 
@@ -513,16 +515,17 @@ p4 <- ggplot(data = Bcells.data.plot, mapping = aes(x = PC7, y = PC8, color=tech
   geom_point(size = 1,shape = 16)+ theme(legend.position="none")
 p44 <- ggMarginal(p4, data = Bcells.data.plot, x= Bcells.colors.nUMI, y= Bcells.colors.nUMI, type = "density", margins = "both", size = 4, color = "pink", fill = "pink")
 
-Bcells.plot.list <- list(p0,p00,p11,p22,p33,p44)
+Bcells.plot.list <- list(p0,p00,p1,p11,p2,p22,p3,p33,p4,p44)
 pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS10K_PCAseurat_Bcells_V6.pdf")
 invisible(lapply(Bcells.plot.list, print))
 dev.off()
+save(Bcells.data.plot, file="/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS10K_PCAseurat_Bcells_dataPlot.RData")
 
 #Bcells Cluster tree
 Bcells.seurat@ident <- Bcells.seurat@meta.data$orig.ident
 names(Bcells.seurat@ident) <- rownames(Bcells.seurat@meta.data)
-Bcells.seurat <- BuildClusterTree(Bcells.seurat, genes.use = Bcells.seurat@var.genes, pcs.use = 1:5)
-pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS10K_Bcells_ClusterTree_pc1to5.pdf")
+Bcells.seurat <- BuildClusterTree(Bcells.seurat, genes.use = Bcells.seurat@var.genes, pcs.use = 1:10)
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwide_DS_analysis/all_techs_stepwise_DS10K_Bcells_ClusterTree_pc1to10.pdf")
 plotClusterTree(Bcells.seurat)
 dev.off()
 
