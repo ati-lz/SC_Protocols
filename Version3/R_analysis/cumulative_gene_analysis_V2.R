@@ -329,12 +329,7 @@ for (tech in names(techs.HEK.20K.list)){
     HEK.plot.df <- rbind(HEK.plot.df, data.frame(Cumul= tech.cumul.gene.numbers, tech= rep(tech, length(tech.cumul.gene.numbers)), cell.num= seq(1:length(tech.cumul.gene.numbers))))
 }
 
-save(HEK.plot.df, "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Cumulative_gene/Cumulative_gene_dist_DS20K_HEK_dataPlot.RData")
-
-pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Cumulative_gene/Cumulative_gene_dist_DS20K_HEK_V2.pdf")
-ggplot(data=HEK.plot.df, aes(x=cell.num, y=Cumul, group=tech)) + geom_point(aes(color=tech)) + geom_smooth(aes(color=tech))
-dev.off()
-print("HEK cumulative done!")
+save(HEK.plot.df, file ="/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Cumulative_gene/Cumulative_gene_dist_DS20K_HEK_dataPlot.RData")
 
 
 for (tech in names(techs.Monocytes.20K.list)){
@@ -368,12 +363,7 @@ for (tech in names(techs.Monocytes.20K.list)){
     Monocytes.plot.df <- rbind(Monocytes.plot.df, data.frame(Cumul= tech.cumul.gene.numbers, tech= rep(tech, length(tech.cumul.gene.numbers)), cell.num= seq(1:length(tech.cumul.gene.numbers))))
 }
 
-save(Monocytes.plot.df, "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Cumulative_gene/Cumulative_gene_dist_DS20K_Monocytes_dataPlot.RData")
-
-pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Cumulative_gene/Cumulative_gene_dist_DS20K_Monocytes_V2.pdf")
-ggplot(data=Monocytes.plot.df, aes(x=cell.num, y=Cumul, group=tech)) + geom_point(aes(color=tech)) + geom_smooth(aes(color=tech))
-dev.off()
-print("Monocytes cumulative done!")
+save(Monocytes.plot.df, file ="/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Cumulative_gene/Cumulative_gene_dist_DS20K_Monocytes_dataPlot.RData")
 
 
 Bcells.plot.df <- data.frame()
@@ -408,7 +398,20 @@ for (tech in names(techs.Bcells.10K.list)){
     Bcells.plot.df <- rbind(Bcells.plot.df, data.frame(Cumul= tech.cumul.gene.numbers, tech= rep(tech, length(tech.cumul.gene.numbers)), cell.num= seq(1:length(tech.cumul.gene.numbers))))
 }
 
-save(Bcells.plot.df, "/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Cumulative_gene/Cumulative_gene_dist_DS10K_Bcells_dataPlot.RData")
+save(Bcells.plot.df, file ="/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Cumulative_gene/Cumulative_gene_dist_DS10K_Bcells_dataPlot.RData")
+
+
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Cumulative_gene/Cumulative_gene_dist_DS20K_HEK_V2.pdf")
+ggplot(data=HEK.plot.df, aes(x=cell.num, y=Cumul, group=tech)) + geom_point(aes(color=tech)) + geom_smooth(aes(color=tech))
+dev.off()
+print("HEK cumulative done!")
+
+
+pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Cumulative_gene/Cumulative_gene_dist_DS20K_Monocytes_V2.pdf")
+ggplot(data=Monocytes.plot.df, aes(x=cell.num, y=Cumul, group=tech)) + geom_point(aes(color=tech)) + geom_smooth(aes(color=tech))
+dev.off()
+print("Monocytes cumulative done!")
+
 
 pdf("/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Cumulative_gene/Cumulative_gene_dist_DS10K_Bcells.pdf")
 ggplot(data=Bcells.plot.df, aes(x=cell.num, y=Cumul, group=tech)) + geom_point(aes(color=tech)) + geom_smooth(aes(color=tech))
