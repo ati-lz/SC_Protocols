@@ -116,3 +116,51 @@ rule zUMI_run:
         bash {zUMI_path}/zUMIs-master.sh -y ../../{input.yaml_mixed}
         cd ../..
        """
+rule Big_Bam_to_SAM:
+    input: 
+        'multigenome_SMARTseqFINAL_V3/{sample}_mixed/'+protocol+'.filtered.tagged.Aligned.out.bam'
+    output: 
+        'multigenome_SMARTseqFINAL_V3/{sample}_mixed/'+protocol+'.demuxready.sam'
+    shell:
+        """
+        samtools view -h {input} > {output}
+        """
+
+# Here im getting the cell barcodes from readspercell.txt in zUMI_output/stats (It may be redundant I can combine it later)
+rule cellBC_detected:
+    input:
+        reads_per_cell= 'multigenome_SMARTseqFINAL_V3/{sample}_mixed/zUMIs_output/'+protocol+'kept_barcodes.txt'
+    output:
+        'multigenome_SMARTseqFINAL_V3/{sample}_mixed/cell_barcodes.txt'
+    shell:
+        """
+        sed '1d' {input.reads_per_cell} | cut -d ',' -f1 > {output}
+        """
+rule demux_cells:
+    input:
+        tagged_sam= 'multigenome_SMARTseqFINAL_V3/{sample}_mixed/'+protocol+'.demuxready.sam',
+        detected_BC= 'multigenome_SMARTseqFINAL_V3/{sample}_mixed/cell_barcodes.txt'
+    output:
+        demux_dir= 'multigenome_SMARTseqFINAL_V3/{sample}_mixed/demuxed_cells_sam'
+    shell:
+         """
+         mkdir {output.demux_dir}
+         python SAM_cellBC_demultiplexing_V3.py {input.tagged_sam} {input.detected_BC} {protocol} {wildcards.sample} {output.demux_dir}
+         """
+
+rule doublet_species:
+    input:
+        demux_dir= 'multigenome_SMARTseqFINAL_V3/{sample}_mixed/demuxed_cells_sam'
+    output:
+        out1= 'multigenome_SMARTseqFINAL_V3/{sample}_mixed/doublet_species/doublet_table.txt',
+        out2= 'multigenome_SMARTseqFINAL_V3/{sample}_mixed/doublet_species/doublet_table_reads.txt',
+        out3= 'multigenome_SMARTseqFINAL_V3/{sample}_mixed/doublet_species/Only_human_cell_IDs.txt',
+        out4= 'multigenome_SMARTseqFINAL_V3/{sample}_mixed/doublet_species/Only_mouse_cell_IDs.txt',
+        out5= 'multigenome_SMARTseqFINAL_V3/{sample}_mixed/doublet_species/Only_dog_cell_IDs.txt',
+        out6= 'multigenome_SMARTseqFINAL_V3/{sample}_mixed/doublet_species/Only_human_cell_IDs_BAMs.txt'
+
+    shell:
+        """
+        python doublet_rate_V2.py {input.demux_dir} {output.out1} {output.out2} {output.out3} {output.out4} {output.out5} {output.out6}
+
+        """
