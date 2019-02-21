@@ -24,7 +24,7 @@ header_list = []
 read_line = big_sam_file.readline()
 while read_line:
     if line.startswith("@"):
-        header_list.append(line)
+        header_list.append(read_line)
     else:
         line_words = line.split()
         BC_tag = [i for i in line_words if i.startswith('BC:Z:')][0]
@@ -38,7 +38,7 @@ while read_line:
     read_line = big_sam_file.readline()
 big_sam_file.close()
             
-            
+
 for cBC in bc_list:
     filenames = output_path + "/" + protocol + "." + "mixed." + sample + "." + cBC + ".sam"
     fout = open(filenames, 'w')
