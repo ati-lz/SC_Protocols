@@ -331,7 +331,7 @@ for (tech in names(techs.HEK.20K.list)){
 
 save(HEK.plot.df, file ="/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Cumulative_gene/Cumulative_gene_dist_DS20K_HEK_dataPlot.RData")
 
-
+Monocytes.plot.df <- data.frame()
 for (tech in names(techs.Monocytes.20K.list)){
     print(tech)
     tech.data <- techs.Monocytes.20K.list[[tech]]
