@@ -28,8 +28,9 @@ SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
     input:
-        "multigenome_10X2x5K_V3/"+protocol+".hsap.full.SCE.Robj",
-        "multigenome_10X2x5K_V3/"+protocol+".mmus.full.SCE.Robj"
+        #"multigenome_10X2x5K_V3/"+protocol+".hsap.full.SCE.Robj",
+        #"multigenome_10X2x5K_V3/"+protocol+".mmus.full.SCE.Robj"
+        expand('multigenome_10X2x5K_V3/{sample}_mixed/doublet_species/doublet_table.txt',sample=SAMPLES)
 
 rule create_yaml:
     input:
