@@ -112,14 +112,14 @@ main <- function(hsapExp,mmusExp, species,output_SCEobj, technology) {
                                           sample.hsap.ng, sample.species, sample.library), by = "cellID", type = 'full')
     
     
-    print("is the problem here?")
-    print(class(sample.hfeatures.file))
-    print(dim(sample.hfeatures.file))
-    print(head(sample.hfeatures.file))
-    print(class(as.character(sample.hfeatures.file[which(sample.hfeatures.file$type == "Exon"), "RG"])))
-    cellIDtest=create_cell_IDs(as.character(sample.hfeatures.file[which(sample.hfeatures.file$type == "Exon"), "RG"]), id.type = "cell_Barcode",tech = technology, lib = sample.ID)
-    print(cellIDtest[1])
-    print(as.character(sample.hfeatures.file[which(sample.hfeatures.file$type == "Exon"), "RG"])[1:5])
+    #print("is the problem here?")
+    #print(class(sample.hfeatures.file))
+    #print(head(sample.hfeatures.file))
+    #print(dim(sample.hfeatures.file))
+    #print(class(as.character(sample.hfeatures.file[which(sample.hfeatures.file$type == "Exon"), "RG"])))
+    #cellIDtest=create_cell_IDs(as.character(sample.hfeatures.file[which(sample.hfeatures.file$type == "Exon"), "RG"]), id.type = "cell_Barcode",tech = technology, lib = sample.ID)
+    #print(cellIDtest[1])
+    #print(as.character(sample.hfeatures.file[which(sample.hfeatures.file$type == "Exon"), "RG"])[1:5])
     print(technology)
     print(sample.ID)
     
