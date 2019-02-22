@@ -23,7 +23,7 @@ bc_file.close()
 header_list = []
 read_line = big_sam_file.readline()
 while read_line:
-    if line.startswith("@"):
+    if read_line.startswith("@"):
         header_list.append(read_line)
     else:
         line_words = line.split()
