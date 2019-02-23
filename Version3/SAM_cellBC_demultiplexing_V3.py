@@ -26,7 +26,7 @@ while read_line:
     if read_line.startswith("@"):
         header_list.append(read_line)
     else:
-        line_words = line.split()
+        line_words = read_line.split()
         BC_tag = [i for i in line_words if i.startswith('BC:Z:')][0]
         cellBC = BC_tag.split(":")
         if len(cellBC) != 3:
