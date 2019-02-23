@@ -46,10 +46,10 @@ rule create_yaml:
         data_hsap = yaml.load(stream)
 
         data_hsap['project'] = protocol
-        data_hsap['sequence_files']['file1']['name'] = fastq_path+ wildcards.sample +'_halfReads_R1.fastq.gz'
+        data_hsap['sequence_files']['file1']['name'] = fastq_path+ wildcards.sample +'_R1.fastq.gz'
         data_hsap['sequence_files']['file1']['base_definition'][0] = 'BC(1-16)'
         data_hsap['sequence_files']['file1']['base_definition'][1] = 'UMI(17-26)'
-        data_hsap['sequence_files']['file2']['name'] = fastq_path+ wildcards.sample +'_halfReads_R2.fastq.gz'
+        data_hsap['sequence_files']['file2']['name'] = fastq_path+ wildcards.sample +'_R2.fastq.gz'
         data_hsap['sequence_files']['file2']['base_definition'][0] = 'cDNA(1-91)'
         data_hsap['num_threads'] = 24
         #data_hsap['make_stats'] = "yes"
