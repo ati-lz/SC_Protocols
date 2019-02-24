@@ -183,7 +183,8 @@ rule prepare_R_inputs:
         echo -e "{input.mmus_Exprs}" >> {output.mmusExp_list}
         echo -e "{input.species_info}" >> {output.species_list}
         """
-    rule R_wrapper:
+
+rule R_wrapper:
     input:
         hE_list="multigenome_SMARTseqFINAL_V3/"+protocol+'_Hsap_expression_list.txt',
         mE_list="multigenome_SMARTseqFINAL_V3/"+protocol+'_Mmus_expression_list.txt',
