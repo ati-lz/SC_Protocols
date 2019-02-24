@@ -29,7 +29,9 @@ rule all:
         #expand('multigenome_SMARTseqFINAL_V3/{sample}_human/'+protocol+'.filtered.tagged.Aligned.out.bam',sample=SAMPLES),
         #expand('multigenome_SMARTseqFINAL_V3/{sample}_mouse/'+protocol+'.filtered.tagged.Aligned.out.bam',sample=SAMPLES),
         #expand('multigenome_SMARTseqFINAL_V3/{sample}_mixed/'+protocol+'.filtered.tagged.Aligned.out.bam',sample=SAMPLES)
-        expand('multigenome_SMARTseqFINAL_V3/{sample}_mixed/doublet_species/doublet_table.txt',sample=SAMPLES)
+        #expand('multigenome_SMARTseqFINAL_V3/{sample}_mixed/doublet_species/doublet_table.txt',sample=SAMPLES)
+        "multigenome_SMARTseqFINAL_V3/"+protocol+".hsap.full.SCE.Robj",
+        "multigenome_SMARTseqFINAL_V3/"+protocol+".mmus.full.SCE.Robj"
 
 rule create_yaml:
     input:
