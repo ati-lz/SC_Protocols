@@ -164,3 +164,33 @@ rule doublet_species:
         python doublet_rate_V2.py {input.demux_dir} {output.out1} {output.out2} {output.out3} {output.out4} {output.out5} {output.out6}
 
         """
+rule prepare_R_inputs:
+    input:
+        hsap_Exprs= expand('multigenome_SMARTseqFINAL_V3/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES),
+        mmus_Exprs= expand('multigenome_SMARTseqFINAL_V3/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES),
+        species_info= expand('multigenome_SMARTseqFINAL_V3/{sample}_mixed/doublet_species/doublet_table_reads.txt',sample=SAMPLES)
+        #VCF_file= expand('multigenome_SMARTseqFINAL_V3/mpileup/{sample}.mpileup.full.vcf.gz',sample=SAMPLES)
+    
+    output:
+        hsapExp_list="multigenome_SMARTseqFINAL_V3/"+protocol+'_Hsap_expression_list.txt',
+        mmusExp_list="multigenome_SMARTseqFINAL_V3/"+protocol+'_Mmus_expression_list.txt',
+        species_list="multigenome_SMARTseqFINAL_V3/"+protocol+'_Species_info_list.txt'
+        #vcfs_list="multigenome_SMARTseqFINAL_V3/"+protocol+'_VCFs_list.txt'
+
+    shell:
+        """
+        echo -e "{input.hsap_Exprs}" >> {output.hsapExp_list}
+        echo -e "{input.mmus_Exprs}" >> {output.mmusExp_list}
+        echo -e "{input.species_info}" >> {output.species_list}
+        """
+    rule R_wrapper:
+    input:
+        hE_list="multigenome_SMARTseqFINAL_V3/"+protocol+'_Hsap_expression_list.txt',
+        mE_list="multigenome_SMARTseqFINAL_V3/"+protocol+'_Mmus_expression_list.txt',
+        spec_list="multigenome_SMARTseqFINAL_V3/"+protocol+'_Species_info_list.txt'
+        #vcf_list="multigenome_SMARTseqFINAL_V3/"+protocol+'_VCFs_list.txt'
+    output:
+        hsap_Robj= "multigenome_SMARTseqFINAL_V3/"+protocol+".hsap.full.SCE.Robj",
+        mmus_Robj= "multigenome_SMARTseqFINAL_V3/"+protocol+".mmus.full.SCE.Robj"
+    shell:
+        "Rscript wrapper_Robj_V4_SMARTseq2.R --hsapExp {input.hE_list} --mmusExp {input.mE_list} --species {input.spec_list} --output_SCEobj ./multigenome_SMARTseqFINAL_V3 --technology SMARTseqFINAL"
