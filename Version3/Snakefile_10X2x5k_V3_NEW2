@@ -2,8 +2,8 @@ from os import listdir
 import yaml
 
 #Path to sample fastq files
-#fastq_path = '/project/devel/HCA/10XGenomics/fastqs_all_final/10X_2x5Kcells_halfReads/'
-fastq_path = '/project/devel/HCA/10XGenomics/fastqs_all_final/10X_2x5Kcells_250Kreads/'
+fastq_path = '/project/devel/HCA/10XGenomics/fastqs_all_final/10X_2x5Kcells_halfReads/'
+#fastq_path = '/project/devel/HCA/10XGenomics/fastqs_all_final/10X_2x5Kcells_250Kreads/'
 human_gtf = '/project/devel/alafzi/ref_genomes/human/hsa_gencode.v28.annotation.gtf'
 human_STAR_genome= '/project/devel/alafzi/ref_genomes/human/STARgenome'
 mouse_gtf = '/project/devel/alafzi/ref_genomes/mouse/mmu_gencode.vM17.primary_assembly.annotation.gtf'
@@ -11,13 +11,13 @@ mouse_STAR_genome= '/project/devel/alafzi/ref_genomes/mouse/STARgenome'
 mixed_gtf = '/project/devel/alafzi/ref_genomes/mixed/hsap_mmus_can_combined_gtf.gtf'
 mixed_STAR_genome= '/project/devel/alafzi/ref_genomes/mixed/STARgenome'
 
-zUMI_path='/apps/ZUMIS/2.2'
+zUMI_path='/apps/ZUMIS/29c776d'
 bc_list2= '/project/devel/HCA/10XGenomics/10X_cellBCs_737K-august-2016.txt'
 protocol= '10X2x5K'
 
 #Loading modules
 #shell.executable("!/usr/bin/env bash")
-shell.prefix("module unload gcc/latest; module load gcc/6.3.0; module load XZ/5.2.2; module load COREUTILS/8.21; module load CONDA/4.3.11_PYTHON3; module load java/latest; module load SAMTOOLS/1.6; module load BAMTOOLS/2.3.0 ; module load STAR/2.6.0c; module load R/3.5.0; module load hdf5/1.10.1; module load PIGZ/2.3.3; module load ZUMIS/2.2; ")
+shell.prefix("module unload gcc/latest; module load gcc/6.3.0; module load XZ/5.2.2; module load COREUTILS/8.21; module load CONDA/4.3.11_PYTHON3; module load java/latest; module load SAMTOOLS/1.6; module load BAMTOOLS/2.3.0 ; module load STAR/2.6.0c; module load R/3.5.0; module load hdf5/1.10.1; module load PIGZ/2.3.3; module load ZUMIS/29c776d; ")
 
 #Samples
 sample_files = listdir(fastq_path)
@@ -46,10 +46,10 @@ rule create_yaml:
         data_hsap = yaml.load(stream)
 
         data_hsap['project'] = protocol
-        data_hsap['sequence_files']['file1']['name'] = fastq_path+ wildcards.sample +'_R1.fastq.gz'
+        data_hsap['sequence_files']['file1']['name'] = fastq_path+ wildcards.sample +'_halfReads_R1.fastq.gz'
         data_hsap['sequence_files']['file1']['base_definition'][0] = 'BC(1-16)'
         data_hsap['sequence_files']['file1']['base_definition'][1] = 'UMI(17-26)'
-        data_hsap['sequence_files']['file2']['name'] = fastq_path+ wildcards.sample +'_R2.fastq.gz'
+        data_hsap['sequence_files']['file2']['name'] = fastq_path+ wildcards.sample +'_halfReads_R2.fastq.gz'
         data_hsap['sequence_files']['file2']['base_definition'][0] = 'cDNA(1-91)'
         data_hsap['num_threads'] = 24
         #data_hsap['make_stats'] = "yes"
