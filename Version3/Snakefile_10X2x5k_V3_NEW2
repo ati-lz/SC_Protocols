@@ -1,7 +1,7 @@
 from os import listdir
 import yaml
 
-Path to sample fastq files
+#Path to sample fastq files
 #fastq_path = '/project/devel/HCA/10XGenomics/fastqs_all_final/10X_2x5Kcells_halfReads/'
 fastq_path = '/project/devel/HCA/10XGenomics/fastqs_all_final/10X_2x5Kcells_250Kreads/'
 human_gtf = '/project/devel/alafzi/ref_genomes/human/hsa_gencode.v28.annotation.gtf'
