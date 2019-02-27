@@ -28,9 +28,9 @@ SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
     input:
-        #"multigenome_10X2x5K_V3/"+protocol+".hsap.full.SCE.Robj",
-        #"multigenome_10X2x5K_V3/"+protocol+".mmus.full.SCE.Robj"
-        expand('multigenome_10X2x5K_V3/{sample}_mixed/doublet_species/doublet_table.txt',sample=SAMPLES)
+        #"multigenome_10X2x5K_64220Full/"+protocol+".hsap.full.SCE.Robj",
+        #"multigenome_10X2x5K_64220Full/"+protocol+".mmus.full.SCE.Robj"
+        expand('multigenome_10X2x5K_64220Full/{sample}_mixed/doublet_species/doublet_table.txt',sample=SAMPLES)
 
 rule create_yaml:
     input:
@@ -59,19 +59,19 @@ rule create_yaml:
         data_hsap['reference']['STAR_index'] = '/project/devel/alafzi/ref_genomes/human/STARgenome'
         data_hsap['reference']['GTF_file'] = '/project/devel/alafzi/ref_genomes/human/hsa_gencode.v28.annotation.gtf'
         data_hsap['reference']['additional_STAR_params'] = '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000'
-        data_hsap['out_dir'] = "/project/devel/alafzi/SC_Protocols/Version3/multigenome_10X2x5K_V3/"+wildcards.sample+"_human"
+        data_hsap['out_dir'] = "/project/devel/alafzi/SC_Protocols/Version3/multigenome_10X2x5K_64220Full/"+wildcards.sample+"_human"
         with open(output.yamlOut_hsap, 'w') as out_hsap:
             yaml.dump(data_hsap, out_hsap, default_flow_style=False)
         data_mmus = data_hsap
         data_mmus['reference']['STAR_index'] = '/project/devel/alafzi/ref_genomes/mouse/STARgenome'
         data_mmus['reference']['GTF_file'] = '/project/devel/alafzi/ref_genomes/mouse/mmu_gencode.vM17.primary_assembly.annotation.gtf'
-        data_mmus['out_dir'] = "/project/devel/alafzi/SC_Protocols/Version3/multigenome_10X2x5K_V3/"+wildcards.sample+"_mouse"
+        data_mmus['out_dir'] = "/project/devel/alafzi/SC_Protocols/Version3/multigenome_10X2x5K_64220Full/"+wildcards.sample+"_mouse"
         with open(output.yamlOut_mmus, 'w') as out_mmus:
             yaml.dump(data_mmus, out_mmus, default_flow_style=False)
         data_mixed = data_hsap
         data_mixed['reference']['STAR_index'] = '/project/devel/alafzi/ref_genomes/mixed/STARgenome'
         data_mixed['reference']['GTF_file'] = '/project/devel/alafzi/ref_genomes/mixed/hsap_mmus_can_combined_gtf.gtf'
-        data_mixed['out_dir'] = "/project/devel/alafzi/SC_Protocols/Version3/multigenome_10X2x5K_V3/"+wildcards.sample+"_mixed"
+        data_mixed['out_dir'] = "/project/devel/alafzi/SC_Protocols/Version3/multigenome_10X2x5K_64220Full/"+wildcards.sample+"_mixed"
         with open(output.yamlOut_mixed, 'w') as out_mixed:
             yaml.dump(data_mixed, out_mixed, default_flow_style=False)
 
@@ -99,26 +99,26 @@ rule zUMI_run:
         yaml_mixed="YAMLs_fixed/"+protocol + "_mixed_{sample}_fixed.yaml"
 
     output:
-        dir='multigenome_10X2x5K_V3/{sample}_human/'+protocol+'.filtered.tagged.Aligned.out.bam',
-        dir_file11='multigenome_10X2x5K_V3/{sample}_human/zUMIs_output/'+protocol+'kept_barcodes.txt',
-        dir_file111='multigenome_10X2x5K_V3/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
-        dir_file1111='multigenome_10X2x5K_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.genecounts.txt',
-        dir_file11111='multigenome_10X2x5K_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
-        dir_file111111='multigenome_10X2x5K_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.bc.READcounts.rds',
-        dir2='multigenome_10X2x5K_V3/{sample}_mouse/'+protocol+'.filtered.tagged.Aligned.out.bam',
-        dir_file22='multigenome_10X2x5K_V3/{sample}_mouse/zUMIs_output/'+protocol+'kept_barcodes.txt',
-        dir_file222='multigenome_10X2x5K_V3/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
-        dir_file2222='multigenome_10X2x5K_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.genecounts.txt',
-        dir_file22222='multigenome_10X2x5K_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
-        dir_file222222='multigenome_10X2x5K_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.bc.READcounts.rds',
-        dir3='multigenome_10X2x5K_V3/{sample}_mixed/'+protocol+'.filtered.tagged.Aligned.out.bam',
-        dir_file33='multigenome_10X2x5K_V3/{sample}_mixed/zUMIs_output/'+protocol+'kept_barcodes.txt',
-        dir_file333='multigenome_10X2x5K_V3/{sample}_mixed/zUMIs_output/expression/'+protocol+'.dgecounts.rds'
+        dir='multigenome_10X2x5K_64220Full/{sample}_human/'+protocol+'.filtered.tagged.Aligned.out.bam',
+        dir_file11='multigenome_10X2x5K_64220Full/{sample}_human/zUMIs_output/'+protocol+'kept_barcodes.txt',
+        dir_file111='multigenome_10X2x5K_64220Full/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
+        dir_file1111='multigenome_10X2x5K_64220Full/{sample}_human/zUMIs_output/stats/'+protocol+'.genecounts.txt',
+        dir_file11111='multigenome_10X2x5K_64220Full/{sample}_human/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
+        dir_file111111='multigenome_10X2x5K_64220Full/{sample}_human/zUMIs_output/stats/'+protocol+'.bc.READcounts.rds',
+        dir2='multigenome_10X2x5K_64220Full/{sample}_mouse/'+protocol+'.filtered.tagged.Aligned.out.bam',
+        dir_file22='multigenome_10X2x5K_64220Full/{sample}_mouse/zUMIs_output/'+protocol+'kept_barcodes.txt',
+        dir_file222='multigenome_10X2x5K_64220Full/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
+        dir_file2222='multigenome_10X2x5K_64220Full/{sample}_mouse/zUMIs_output/stats/'+protocol+'.genecounts.txt',
+        dir_file22222='multigenome_10X2x5K_64220Full/{sample}_mouse/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
+        dir_file222222='multigenome_10X2x5K_64220Full/{sample}_mouse/zUMIs_output/stats/'+protocol+'.bc.READcounts.rds',
+        dir3='multigenome_10X2x5K_64220Full/{sample}_mixed/'+protocol+'.filtered.tagged.Aligned.out.bam',
+        dir_file33='multigenome_10X2x5K_64220Full/{sample}_mixed/zUMIs_output/'+protocol+'kept_barcodes.txt',
+        dir_file333='multigenome_10X2x5K_64220Full/{sample}_mixed/zUMIs_output/expression/'+protocol+'.dgecounts.rds'
         
 
     shell:
         """
-        cd multigenome_10X2x5K_V3/{wildcards.sample}_human
+        cd multigenome_10X2x5K_64220Full/{wildcards.sample}_human
         bash {zUMI_path}/zUMIs-master.sh -y ../../{input.yaml_hsap}
         cd ../{wildcards.sample}_mouse
         bash {zUMI_path}/zUMIs-master.sh -y ../../{input.yaml_mmus}
@@ -131,9 +131,9 @@ rule zUMI_run:
 
 rule Big_Bam_to_SAM:
     input: 
-        'multigenome_10X2x5K_V3/{sample}_mixed/'+protocol+'.filtered.tagged.Aligned.out.bam'
+        'multigenome_10X2x5K_64220Full/{sample}_mixed/'+protocol+'.filtered.tagged.Aligned.out.bam'
     output: 
-        'multigenome_10X2x5K_V3/{sample}_mixed/'+protocol+'.demuxready.sam'
+        'multigenome_10X2x5K_64220Full/{sample}_mixed/'+protocol+'.demuxready.sam'
     shell:
         """
         samtools view -h {input} > {output}
@@ -142,19 +142,19 @@ rule Big_Bam_to_SAM:
 # Here im getting the cell barcodes from readspercell.txt in zUMI_output/stats (It may be redundant I can combine it later)
 rule cellBC_detected:
     input:
-        reads_per_cell= 'multigenome_10X2x5K_V3/{sample}_mixed/zUMIs_output/'+protocol+'kept_barcodes.txt'
+        reads_per_cell= 'multigenome_10X2x5K_64220Full/{sample}_mixed/zUMIs_output/'+protocol+'kept_barcodes.txt'
     output:
-        'multigenome_10X2x5K_V3/{sample}_mixed/cell_barcodes.txt'
+        'multigenome_10X2x5K_64220Full/{sample}_mixed/cell_barcodes.txt'
     shell:
         """
         sed '1d' {input.reads_per_cell} | cut -d ',' -f1 > {output}
         """
 rule demux_cells:
     input:
-        tagged_sam= 'multigenome_10X2x5K_V3/{sample}_mixed/'+protocol+'.demuxready.sam',
-        detected_BC= 'multigenome_10X2x5K_V3/{sample}_mixed/cell_barcodes.txt'
+        tagged_sam= 'multigenome_10X2x5K_64220Full/{sample}_mixed/'+protocol+'.demuxready.sam',
+        detected_BC= 'multigenome_10X2x5K_64220Full/{sample}_mixed/cell_barcodes.txt'
     output:
-        demux_dir= 'multigenome_10X2x5K_V3/{sample}_mixed/demuxed_cells_sam'
+        demux_dir= 'multigenome_10X2x5K_64220Full/{sample}_mixed/demuxed_cells_sam'
     shell:
          """
          mkdir {output.demux_dir}
@@ -163,14 +163,14 @@ rule demux_cells:
 
 rule doublet_species:
     input:
-        demux_dir= 'multigenome_10X2x5K_V3/{sample}_mixed/demuxed_cells_sam'
+        demux_dir= 'multigenome_10X2x5K_64220Full/{sample}_mixed/demuxed_cells_sam'
     output:
-        out1= 'multigenome_10X2x5K_V3/{sample}_mixed/doublet_species/doublet_table.txt',
-        out2= 'multigenome_10X2x5K_V3/{sample}_mixed/doublet_species/doublet_table_reads.txt',
-        out3= 'multigenome_10X2x5K_V3/{sample}_mixed/doublet_species/Only_human_cell_IDs.txt',
-        out4= 'multigenome_10X2x5K_V3/{sample}_mixed/doublet_species/Only_mouse_cell_IDs.txt',
-        out5= 'multigenome_10X2x5K_V3/{sample}_mixed/doublet_species/Only_dog_cell_IDs.txt',
-        out6= 'multigenome_10X2x5K_V3/{sample}_mixed/doublet_species/Only_human_cell_IDs_BAMs.txt'
+        out1= 'multigenome_10X2x5K_64220Full/{sample}_mixed/doublet_species/doublet_table.txt',
+        out2= 'multigenome_10X2x5K_64220Full/{sample}_mixed/doublet_species/doublet_table_reads.txt',
+        out3= 'multigenome_10X2x5K_64220Full/{sample}_mixed/doublet_species/Only_human_cell_IDs.txt',
+        out4= 'multigenome_10X2x5K_64220Full/{sample}_mixed/doublet_species/Only_mouse_cell_IDs.txt',
+        out5= 'multigenome_10X2x5K_64220Full/{sample}_mixed/doublet_species/Only_dog_cell_IDs.txt',
+        out6= 'multigenome_10X2x5K_64220Full/{sample}_mixed/doublet_species/Only_human_cell_IDs_BAMs.txt'
 
     shell:
         """
