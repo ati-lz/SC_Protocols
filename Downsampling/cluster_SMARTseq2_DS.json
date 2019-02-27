@@ -1,0 +1,11 @@
+{
+    
+    "__default__" :
+    {
+        "cpus_per_task" : 8,
+        "job_name" : "DS.SMARTseq.{wildcards}",
+        "output" : "mnout/DS.SMARTseq_{wildcards}.out",
+        "error" : "mnout/DS.SMARTseq_{wildcards}.err"
+    }
+
+}
