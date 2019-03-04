@@ -25,7 +25,7 @@ SAMPLES = list(set(i.split("_")[1] for i in sample_files))
 
 rule all:
     input:
-        "multigenome_SMARTseqFINAL_DS_YAML/"+protocol+".mmus.full.SCE.jointDSmat.Robj"
+        "multigenome_SMARTseqFINAL_DS_YAML/"+protocol+".mmus.full.SCE.jointDSmat.2.Robj"
         #expand("YAMLs/"+protocol+"_mmus_{sample}.yaml",sample=SAMPLES),
         #expand("YAMLs/"+protocol+"_DS_{sample}.yaml",sample=SAMPLES)
         #expand('multigenome_SMARTseqFINAL_DS_YAML/{sample}_mouse/'+protocol+'.aligned.sorted.bam', sample=SAMPLES)
@@ -112,6 +112,6 @@ rule R_wrapper:
     input:
         hE_list="multigenome_SMARTseqFINAL_DS_YAML/"+protocol+"_mmus_expression_DS_list.txt"
     output:
-        mmus_Robj= "multigenome_SMARTseqFINAL_DS_YAML/"+protocol+".mmus.full.SCE.jointDSmat.Robj"
+        mmus_Robj= "multigenome_SMARTseqFINAL_DS_YAML/"+protocol+".mmus.full.SCE.jointDSmat.2.Robj"
     shell:
-        "Rscript wrapper_Downsampled_Robj.R --hsapExp {input.hE_list} --output_SCEobj ./multigenome_SMARTseqFINAL_DS_YAML --technology SMARTseqFINAL"
+        "Rscript wrapper_Downsampled_Robj_SMARTseq2_mmus.R --hsapExp {input.hE_list} --output_SCEobj ./multigenome_SMARTseqFINAL_DS_YAML --technology SMARTseqFINAL"

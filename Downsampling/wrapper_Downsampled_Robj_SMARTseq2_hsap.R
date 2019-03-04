@@ -70,7 +70,7 @@ main <- function(hsapExp, output_SCEobj, technology) {
   
   output.readcount.umicount.joint.mats[["Reads"]] <- final.sample.merged.mat.Reads
   #save(hsap.DS.ExpsMat.UMI.all, file = paste(output_SCEobj,"/", technology,".hsap.full.SCE.Robj", sep = ""))
-  save(output.readcount.umicount.joint.mats, file = paste(output_SCEobj,"/", technology,".hsap.full.SCE.jointDSmat.Robj", sep = ""))
+  save(output.readcount.umicount.joint.mats, file = paste(output_SCEobj,"/", technology,".hsap.full.SCE.jointDSmat.2.Robj", sep = ""))
   #save(full.SCE.mmus, file = paste(output_SCEobj,"/", technology,".mmus.full.SCE.Robj", sep = ""))
   
   return("Done")
