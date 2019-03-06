@@ -8,132 +8,132 @@ library(Seurat)
 library(data.table)
 
 # loading Annotated seurat objects ####
-load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final/Human/celseq_seu.obj.RData")
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Human/CELseq2_seu.obj.RData")
 CELseq2.hsap.obj <- celseq
 rm(celseq)
 CELseq2.hsap.metadata <- CELseq2.hsap.obj@meta.data
-#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final/Mouse/celseq_seu.obj.RData")
+#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/celseq_seu.obj.RData")
 #CELseq2.mmus.obj <- celseq
 #rm(celseq)
 #CELseq2.mmus.metadata <- CELseq2.mmus.obj@meta.data
 
 
-load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final/Human/marsseq_seu.obj.RData")
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Human/MARSseq_seu.obj.RData")
 MARSseq.hsap.obj <- marsseq
 rm(marsseq)
 MARSseq.hsap.metadata <- MARSseq.hsap.obj@meta.data
-#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final/Mouse/marsseq_seu.obj.RData")
+#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/marsseq_seu.obj.RData")
 #MARSseq.mmus.obj <- marsseq
 #rm(marsseq)
 #MARSseq.mmus.metadata <- MARSseq.mmus.obj@meta.data
 
-load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final/Human/quartzseq_seu.obj.RData")
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Human/QUARTZseq_seu.obj.RData")
 QUARTZseq.hsap.obj <- quartzseq
 rm(quartzseq)
 QUARTZseq.hsap.metadata <- QUARTZseq.hsap.obj@meta.data
-#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final/Mouse/quartzseq_seu.obj.RData")
+#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/quartzseq_seu.obj.RData")
 #QUARTZseq.mmus.obj <- quartzseq
 #rm(quartzseq)
 #QUARTZseq.mmus.metadata <- QUARTZseq.mmus.obj@meta.data
 
-load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final/Human/scrbseq_seu.obj.RData")
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Human/SCRBseq_seu.obj.RData")
 SCRBseq.hsap.obj <- scrbseq
 rm(scrbseq)
 SCRBseq.hsap.metadata <- SCRBseq.hsap.obj@meta.data
-#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final/Mouse/scrbseq_seu.obj.RData")
+#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/scrbseq_seu.obj.RData")
 #SCRBseq.mmus.obj <- scrbseq
 #rm(scrbseq)
 #SCRBseq.mmus.metadata <- SCRBseq.mmus.obj@meta.data
 
-load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final/Human/smartseq_seu.obj.RData")
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Human/SMARTseqFINAL_seu.obj.RData")
 SMARTseq2.hsap.obj <- smartseq
 rm(smartseq)
 SMARTseq2.hsap.metadata <- SMARTseq2.hsap.obj@meta.data
-#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final/Mouse/smartseq_seu.obj.RData")
+#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/smartseq_seu.obj.RData")
 #SMARTseq2.mmus.obj <- smartseq
 #rm(smartseq)
 #SMARTseq2.mmus.metadata <- SMARTseq2.mmus.obj@meta.data
 
-load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final/Human/c1ht.s_seu.obj.RData")
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Human/C1HTsmall_seu.obj.RData")
 C1HTsmall.hsap.obj <- c1ht.s
 rm(c1ht.s)
 C1HTsmall.hsap.metadata <- C1HTsmall.hsap.obj@meta.data
-#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final/Mouse/c1ht.s_seu.obj.RData")
+#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/c1ht.s_seu.obj.RData")
 #C1HTsmall.mmus.obj <- c1ht.s
 #rm(c1ht.s)
 #C1HTsmall.mmus.metadata <- C1HTsmall.mmus.obj@meta.data
 
-load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final/Human/c1ht.m_seu.obj.RData")
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Human/C1HTmedium_seu.obj.RData")
 C1HTmedium.hsap.obj <- c1ht.m
 rm(c1ht.m)
 C1HTmedium.hsap.metadata <- C1HTmedium.hsap.obj@meta.data
-#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final/Mouse/c1ht.m_seu.obj.RData")
+#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/c1ht.m_seu.obj.RData")
 #C1HTmedium.mmus.obj <- c1ht.m
 #rm(c1ht.m)
 #C1HTmedium.mmus.metadata <- C1HTmedium.mmus.obj@meta.data
 
 
-load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final/Human/chromium_seu.obj.RData")
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Human/10X2x5K_seu.obj.RData")
 Chromium.hsap.obj <- chromium
 rm(chromium)
 Chromium.hsap.metadata <- Chromium.hsap.obj@meta.data
-#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final/Mouse/chromium_seu.obj.RData")
+#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/chromium_seu.obj.RData")
 #Chromium.mmus.obj <- chromium
 #rm(chromium)
 #Chromium.mmus.metadata <- Chromium.mmus.obj@meta.data
 
 
-load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final/Human/nuclei_seu.obj.RData")
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Human/Nuclei10X_seu.obj.RData")
 ChromiumNuclei.hsap.obj <- nuclei
 rm(nuclei)
 ChromiumNuclei.hsap.metadata <- ChromiumNuclei.hsap.obj@meta.data
-#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final/Mouse/nuclei_seu.obj.RData")
+#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/nuclei_seu.obj.RData")
 #ChromiumNuclei.mmus.obj <- nuclei
 #rm(nuclei)
 #ChromiumNuclei.mmus.metadata <- ChromiumNuclei.mmus.obj@meta.data
 
-load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final/Human/ddseq_seu.obj.RData")
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Human/ddSEQ_seu.obj.RData")
 ddSEQ.hsap.obj <- ddseq
 rm(ddseq)
 ddSEQ.hsap.metadata <- ddSEQ.hsap.obj@meta.data
-#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final/Mouse/ddseq_seu.obj.RData")
+#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/ddseq_seu.obj.RData")
 #ddSEQ.mmus.obj <- ddseq
 #rm(ddseq)
 #ddSEQ.mmus.metadata <- ddSEQ.mmus.obj@meta.data
 
-load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final/Human/dropseq_seu.obj.RData")
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Human/Dropseq_seu.obj.RData")
 Dropseq.hsap.obj <- dropseq
 rm(dropseq)
 Dropseq.hsap.metadata <- Dropseq.hsap.obj@meta.data
-#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final/Mouse/dropseq_seu.obj.RData")
+#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/dropseq_seu.obj.RData")
 #Dropseq.mmus.obj <- dropseq
 #rm(dropseq)
 #Dropseq.mmus.metadata <- Dropseq.mmus.obj@meta.data
 
 
-load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final/Human/icell8_seu.obj.RData")
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Human/ICELL8_seu.obj.RData")
 ICELL8.hsap.obj <- icell8
 rm(icell8)
 ICELL8.hsap.metadata <- ICELL8.hsap.obj@meta.data
-#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final/Mouse/icell8_seu.obj.RData")
+#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/icell8_seu.obj.RData")
 #ICELL8.mmus.obj <- icell8
 #rm(icell8)
 #ICELL8.mmus.metadata <- ICELL8.mmus.obj@meta.data
 
-load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final/Human/onecb_seu.obj.RData")
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Human/1CB_seu.obj.RData")
 inDrop.hsap.obj <- onecb
 rm(onecb)
 inDrop.hsap.metadata <- inDrop.hsap.obj@meta.data
-#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final/Mouse/indrop_seu.obj.RData")
+#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/indrop_seu.obj.RData")
 #inDrop.mmus.obj <- indrop
 #rm(indrop)
 #inDrop.mmus.metadata <- inDrop.mmus.obj@meta.data
 
-load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final/Human/seqwellV2_seu.obj.RData")
+load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Human/SeqWellV2_seu.obj.RData")
 SeqwellV2.hsap.obj <- seqwell
 rm(seqwell)
 SeqwellV2.hsap.metadata <- SeqwellV2.hsap.obj@meta.data
-#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final/Mouse/seqwellV2_seu.obj.RData")
+#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/seqwellV2_seu.obj.RData")
 #SeqwellV2.mmus.obj <- seqwell
 #rm(seqwell)
 #SeqwellV2.mmus.metadata <- SeqwellV2.mmus.obj@meta.data
@@ -196,14 +196,14 @@ SeqwellV2.Bcells <- rownames(SeqwellV2.hsap.metadata[which(SeqwellV2.hsap.metada
 # End ####
 
 # Loding Downsampleded data ####
-load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/CELseq2.hsap.full.SCE.jointDSmat.Robj")
+load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/CELseq2.hsap.full.SCE.jointDSmat.Robj")
 CELseq2.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 CELseq2.DS.UMI <- CELseq2.DS$UMI
 CELseq2.DS.Reads <- CELseq2.DS$Reads
 rm(CELseq2.DS)
 
-load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/MARSseq.hsap.full.SCE.jointDSmat.Robj")
+load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/MARSseq.hsap.full.SCE.jointDSmat.Robj")
 MARSseq.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 MARSseq.DS.UMI <- MARSseq.DS$UMI
@@ -211,72 +211,72 @@ MARSseq.DS.Reads <- MARSseq.DS$Reads
 rm(MARSseq.DS)
 
 
-load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/QUARTZseq.hsap.full.SCE.jointDSmat.Robj")
+load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/QUARTZseq.hsap.full.SCE.jointDSmat.Robj")
 QUARTZseq.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 QUARTZseq.DS.UMI <- QUARTZseq.DS$UMI
 QUARTZseq.DS.Reads <- QUARTZseq.DS$Reads
 rm(QUARTZseq.DS)
 
-load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/SCRBseq.hsap.full.SCE.jointDSmat.Robj")
+load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/SCRBseq.hsap.full.SCE.jointDSmat.Robj")
 SCRBseq.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 SCRBseq.DS.UMI <- SCRBseq.DS$UMI
 SCRBseq.DS.Reads <- SCRBseq.DS$Reads
 rm(SCRBseq.DS)
 
-#load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/SMARTseqFINAL.hsap.full.SCE.jointDSmat.Robj")
+#load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/SMARTseqFINAL.hsap.full.SCE.jointDSmat.Robj")
 #SMARTseq2.DS <- output.readcount.umicount.joint.mats
 #rm(output.readcount.umicount.joint.mats)
 #SMARTseq2.DS.UMI <- SMARTseq2.DS$UMI
 #SMARTseq2.DS.Reads <- SMARTseq2.DS$Reads
 #rm(SMARTseq2.DS)
 
-load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/C1HTsmall.hsap.full.SCE.jointDSmat.Robj")
+load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/C1HTsmall.hsap.full.SCE.jointDSmat.Robj")
 C1HTsmall.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 C1HTsmall.DS.UMI <- C1HTsmall.DS$UMI
 C1HTsmall.DS.Reads <- C1HTsmall.DS$Reads
 
-load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/C1HTmedium.hsap.full.SCE.jointDSmat.Robj")
+load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/C1HTmedium.hsap.full.SCE.jointDSmat.Robj")
 C1HTmedium.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 C1HTmedium.DS.UMI <- C1HTmedium.DS$UMI
 C1HTmedium.DS.Reads <- C1HTmedium.DS$Reads
 
-load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/10X2x5K.hsap.full.SCE.jointDSmat.Robj")
+load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/10X2x5K.hsap.full.SCE.jointDSmat.Robj")
 Chromium.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 Chromium.DS.UMI <- Chromium.DS$UMI
 Chromium.DS.Reads <- Chromium.DS$Reads
 
-load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Nuclei10X.hsap.full.SCE.jointDSmat.Robj")
+load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/Nuclei10X.hsap.full.SCE.jointDSmat.Robj")
 ChromiumNuclei.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 ChromiumNuclei.DS.UMI <- ChromiumNuclei.DS$UMI
 ChromiumNuclei.DS.Reads <- ChromiumNuclei.DS$Reads
 
-load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/ddSEQ.hsap.full.SCE.jointDSmat.Robj")
+load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/ddSEQ.hsap.full.SCE.jointDSmat.Robj")
 ddSEQ.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 ddSEQ.DS.UMI <- ddSEQ.DS$UMI
 ddSEQ.DS.Reads <- ddSEQ.DS$Reads
 
-load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Dropseq.hsap.full.SCE.jointDSmat.Robj")
+load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/Dropseq.hsap.full.SCE.jointDSmat.Robj")
 Dropseq.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 Dropseq.DS.UMI <- Dropseq.DS$UMI
 Dropseq.DS.Reads <- Dropseq.DS$Reads
 rm(Dropseq.DS)
 
-load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/ICELL8.hsap.full.SCE.jointDSmat.Robj")
+load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/ICELL8.hsap.full.SCE.jointDSmat.Robj")
 ICELL8.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 ICELL8.DS.UMI <- ICELL8.DS$UMI
 ICELL8.DS.Reads <- ICELL8.DS$Reads
 
 
-load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/1CB.hsap.full.SCE.jointDSmat.Robj")
+load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/1CB.hsap.full.SCE.jointDSmat.Robj")
 inDrop.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 inDrop.DS.UMI <- inDrop.DS$UMI
