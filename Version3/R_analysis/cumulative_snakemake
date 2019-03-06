@@ -3,7 +3,7 @@ shell.prefix("module unload gcc/latest; module load gcc/6.3.0; module load XZ/5.
 
 print("test")
 
-TECHS = ["MARSseq"]#, "QUARTZseq", "CELseq2", "Dropseq", "SCRBseq", "X10Scilife", "X10Nuclei", "ICELL8", "ddSEQ", "ddSEQexp1", "CB1"]
+TECHS = ["MARSseq", "QUARTZseq", "CELseq2", "Dropseq", "SCRBseq", "Nuclei10X", "ICELL8", "ddSEQ", "1CB", "C1HTmedium", "C1HTsmall", "10X2x5K", "SeqWellV2", "SMARTseqFINAL"]
 
 
 rule all:
