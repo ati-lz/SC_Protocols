@@ -1,0 +1,10 @@
+{
+    
+    "__default__" :
+    {
+        "cpus_per_task" : 24,
+        "job_name" : "cumul.{wildcards}",
+        "output" : "mnout/cumul_{wildcards}.out",
+        "error" : "mnout/cumul_{wildcards}.err"
+    }
+}
