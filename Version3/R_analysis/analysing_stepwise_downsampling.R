@@ -316,7 +316,7 @@ for (tech in techniques){
   }
 }
 
-save(DSth.df.HEK, file="/project/devel/alafzi/SC_Protocols/Version3/stepwise_analysis_final/Stepwise_DS_plotdf_HEK.RData")
+save(DSth.df.HEK, file="/project/devel/alafzi/SC_Protocols/Version3/R_analysis/stepwise_analysis_final/Stepwise_DS_plotdf_HEK.RData")
 print("Stepwise DS plots for HEK done")
 
 #Plotting stepwise Downsampling for Monocytes ####
