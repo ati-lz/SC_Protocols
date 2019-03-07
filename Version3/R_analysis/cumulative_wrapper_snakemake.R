@@ -23,7 +23,6 @@ suppressPackageStartupMessages(library(ggExtra))
 suppressPackageStartupMessages(library(cardelino))
 suppressPackageStartupMessages(library(tibble))
 suppressPackageStartupMessages(library(Seurat))
-suppressPackageStartupMessages(library(scde))
 suppressPackageStartupMessages(library(data.table))
 
 main <- function(technology, seuratObj_path, DS_path, output_path) {
