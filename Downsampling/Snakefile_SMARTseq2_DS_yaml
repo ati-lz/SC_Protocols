@@ -112,6 +112,6 @@ rule R_wrapper:
     input:
         hE_list="multigenome_SMARTseqFINAL_DS_YAML/"+protocol+"_Hsap_expression_DS_list.txt"
     output:
-        hsap_Robj= "multigenome_SMARTseqFINAL_DS_YAML/"+protocol+".hsap.full.SCE.jointDSmat.2.Robj"
+        hsap_Robj= "multigenome_SMARTseqFINAL_DS_YAML/"+protocol+".hsap.full.SCE.jointDSmat.Robj"
     shell:
         "Rscript wrapper_Downsampled_Robj_SMARTseq2_hsap.R --hsapExp {input.hE_list} --output_SCEobj ./multigenome_SMARTseqFINAL_DS_YAML --technology SMARTseqFINAL"
