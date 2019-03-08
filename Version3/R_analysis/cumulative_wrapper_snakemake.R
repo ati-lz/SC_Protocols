@@ -203,4 +203,4 @@ opt <- docopt::docopt(doc, version = "version 0.0.1\n")
 
 
 ## Run main function
-main(opt$technology, opt$seuratObj_path, opt$Monocyte_annot, opt$DS_path, opt$output_path)
+main(opt$technology, opt$seuratObj_path, opt$DS_path, opt$output_path)
