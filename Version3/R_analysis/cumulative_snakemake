@@ -18,4 +18,4 @@ rule cumulative_run:
     output:
         outpatch= "Cumulative_gene_final/{tech}_Cumulatives.Robj"
     shell:
-        "Rscript dropout_wrapper_snakemake.R --technology {wildcards.tech} --seuratObj_path {input.seuratObjPath} --DS_path {input.DSpath} --output_path ./Cumulative_gene_final"
+        "Rscript cumulative_wrapper_snakemake.R --technology {wildcards.tech} --seuratObj_path {input.seuratObjPath} --DS_path {input.DSpath} --output_path ./Cumulative_gene_final"
