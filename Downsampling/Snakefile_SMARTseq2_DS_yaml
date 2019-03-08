@@ -84,8 +84,8 @@ rule zUMI_run:
         yaml_DS="YAMLs_fixed/"+protocol + "_DS_{sample}_fixed.yaml"
 
     output:
-        dir='multigenome_SMARTseqFINAL_DS_YAML/{sample}_human/'+protocol+'.filtered.tagged.Aligned.out.bam',
-        dir_file11='multigenome_SMARTseqFINAL_DS_YAML/{sample}_human/'+protocol+'.BCstats.txt',
+        #dir='multigenome_SMARTseqFINAL_DS_YAML/{sample}_human/'+protocol+'.filtered.tagged.Aligned.out.bam',
+        #dir_file11='multigenome_SMARTseqFINAL_DS_YAML/{sample}_human/'+protocol+'.BCstats.txt',
         dir_exp='multigenome_SMARTseqFINAL_DS_YAML/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds'
 
     shell:
