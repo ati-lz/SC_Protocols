@@ -35,10 +35,10 @@ main <- function(technology, seuratObj_path, DS_path, output_path) {
     techs.HEK <- rownames(techs.metadata)[which(techs.metadata$clean.id == "HEK")]
     if(length(techs.HEK) > 50){ techs.HEK <- sample(techs.HEK,50)}
 
-    techs.Monocytes <- rownames(CELseq2.hsap.metadata)[which(CELseq2.hsap.metadata$clean.id == "Monocytes")]
+    techs.Monocytes <- rownames(techs.metadata)[which(techs.metadata$clean.id == "Monocytes")]
     if(length(techs.Monocytes) > 50){ techs.Monocytes <- sample(techs.Monocytes,50)}
 
-    techs.Bcells <- rownames(CELseq2.hsap.metadata)[which(CELseq2.hsap.metadata$clean.id == "B")]
+    techs.Bcells <- rownames(techs.metadata)[which(techs.metadata$clean.id == "B")]
     if(length(techs.Bcells) > 50){ techs.Bcells <- sample(techs.Bcells,50)}
 
     load(DS_path)
