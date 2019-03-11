@@ -225,12 +225,12 @@ SCRBseq.DS.UMI <- SCRBseq.DS$UMI
 SCRBseq.DS.Reads <- SCRBseq.DS$Reads
 rm(SCRBseq.DS)
 
-#load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/SMARTseqFINAL.hsap.full.SCE.jointDSmat.Robj")
-#SMARTseq2.DS <- output.readcount.umicount.joint.mats
-#rm(output.readcount.umicount.joint.mats)
-#SMARTseq2.DS.UMI <- SMARTseq2.DS$UMI
-#SMARTseq2.DS.Reads <- SMARTseq2.DS$Reads
-#rm(SMARTseq2.DS)
+load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/SMARTseqFINAL.hsap.full.SCE.jointDSmat.Robj")
+SMARTseq2.DS <- output.readcount.umicount.joint.mats
+rm(output.readcount.umicount.joint.mats)
+SMARTseq2.DS.UMI <- SMARTseq2.DS$UMI
+SMARTseq2.DS.Reads <- SMARTseq2.DS$Reads
+rm(SMARTseq2.DS)
 
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/C1HTsmall.hsap.full.SCE.jointDSmat.Robj")
 C1HTsmall.DS <- output.readcount.umicount.joint.mats
@@ -287,7 +287,7 @@ inDrop.DS.Reads <- inDrop.DS$Reads
 
 #Plotting stepwise Downsampling for HEK ####
 
-techniques <- c("CELseq2","MARSseq","QUARTZseq","SCRBseq", "C1HTsmall","C1HTmedium","Chromium", "ChromiumNuclei","ddSEQ","Dropseq","ICELL8","inDrop") #"SMARTseq2",
+techniques <- c("CELseq2","MARSseq","QUARTZseq","SCRBseq","SMARTseq2", "C1HTsmall","C1HTmedium","Chromium", "ChromiumNuclei","ddSEQ","Dropseq","ICELL8","inDrop") #"SMARTseq2",
 DSth.df.HEK <- data.frame()
 techs.HEK.20K.list <- list()
 for (tech in techniques){
