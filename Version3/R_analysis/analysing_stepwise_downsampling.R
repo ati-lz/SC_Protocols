@@ -12,6 +12,7 @@ load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Hu
 CELseq2.hsap.obj <- celseq
 rm(celseq)
 CELseq2.hsap.metadata <- CELseq2.hsap.obj@meta.data
+rm(CELseq2.hsap.obj)
 #load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/celseq_seu.obj.RData")
 #CELseq2.mmus.obj <- celseq
 #rm(celseq)
@@ -22,6 +23,7 @@ load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Hu
 MARSseq.hsap.obj <- marsseq
 rm(marsseq)
 MARSseq.hsap.metadata <- MARSseq.hsap.obj@meta.data
+rm(MARSseq.hsap.obj)
 #load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/marsseq_seu.obj.RData")
 #MARSseq.mmus.obj <- marsseq
 #rm(marsseq)
@@ -31,6 +33,7 @@ load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Hu
 QUARTZseq.hsap.obj <- quartzseq
 rm(quartzseq)
 QUARTZseq.hsap.metadata <- QUARTZseq.hsap.obj@meta.data
+rm(QUARTZseq.hsap.obj)
 #load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/quartzseq_seu.obj.RData")
 #QUARTZseq.mmus.obj <- quartzseq
 #rm(quartzseq)
@@ -40,6 +43,7 @@ load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Hu
 SCRBseq.hsap.obj <- scrbseq
 rm(scrbseq)
 SCRBseq.hsap.metadata <- SCRBseq.hsap.obj@meta.data
+rm(SCRBseq.hsap.obj)
 #load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/scrbseq_seu.obj.RData")
 #SCRBseq.mmus.obj <- scrbseq
 #rm(scrbseq)
@@ -49,6 +53,7 @@ load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Hu
 SMARTseq2.hsap.obj <- smartseq
 rm(smartseq)
 SMARTseq2.hsap.metadata <- SMARTseq2.hsap.obj@meta.data
+rm(SMARTseq2.hsap.obj)
 #load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/smartseq_seu.obj.RData")
 #SMARTseq2.mmus.obj <- smartseq
 #rm(smartseq)
@@ -58,6 +63,7 @@ load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Hu
 C1HTsmall.hsap.obj <- c1ht.s
 rm(c1ht.s)
 C1HTsmall.hsap.metadata <- C1HTsmall.hsap.obj@meta.data
+rm(C1HTsmall.hsap.obj)
 #load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/c1ht.s_seu.obj.RData")
 #C1HTsmall.mmus.obj <- c1ht.s
 #rm(c1ht.s)
@@ -67,6 +73,7 @@ load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Hu
 C1HTmedium.hsap.obj <- c1ht.m
 rm(c1ht.m)
 C1HTmedium.hsap.metadata <- C1HTmedium.hsap.obj@meta.data
+rm(C1HTmedium.hsap.obj)
 #load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/c1ht.m_seu.obj.RData")
 #C1HTmedium.mmus.obj <- c1ht.m
 #rm(c1ht.m)
@@ -77,6 +84,7 @@ load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Hu
 Chromium.hsap.obj <- chromium
 rm(chromium)
 Chromium.hsap.metadata <- Chromium.hsap.obj@meta.data
+rm(Chromium.hsap.obj)
 #load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/chromium_seu.obj.RData")
 #Chromium.mmus.obj <- chromium
 #rm(chromium)
@@ -87,6 +95,7 @@ load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Hu
 ChromiumNuclei.hsap.obj <- nuclei
 rm(nuclei)
 ChromiumNuclei.hsap.metadata <- ChromiumNuclei.hsap.obj@meta.data
+rm(ChromiumNuclei.hsap.obj)
 #load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/nuclei_seu.obj.RData")
 #ChromiumNuclei.mmus.obj <- nuclei
 #rm(nuclei)
@@ -96,6 +105,7 @@ load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Hu
 ddSEQ.hsap.obj <- ddseq
 rm(ddseq)
 ddSEQ.hsap.metadata <- ddSEQ.hsap.obj@meta.data
+rm(ddSEQ.hsap.obj)
 #load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/ddseq_seu.obj.RData")
 #ddSEQ.mmus.obj <- ddseq
 #rm(ddseq)
@@ -105,6 +115,7 @@ load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Hu
 Dropseq.hsap.obj <- dropseq
 rm(dropseq)
 Dropseq.hsap.metadata <- Dropseq.hsap.obj@meta.data
+rm(Dropseq.hsap.obj)
 #load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/dropseq_seu.obj.RData")
 #Dropseq.mmus.obj <- dropseq
 #rm(dropseq)
@@ -115,6 +126,7 @@ load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Hu
 ICELL8.hsap.obj <- icell8
 rm(icell8)
 ICELL8.hsap.metadata <- ICELL8.hsap.obj@meta.data
+rm(ICELL8.hsap.obj)
 #load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/icell8_seu.obj.RData")
 #ICELL8.mmus.obj <- icell8
 #rm(icell8)
@@ -124,6 +136,7 @@ load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Hu
 inDrop.hsap.obj <- onecb
 rm(onecb)
 inDrop.hsap.metadata <- inDrop.hsap.obj@meta.data
+rm(inDrop.hsap.obj)
 #load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/indrop_seu.obj.RData")
 #inDrop.mmus.obj <- indrop
 #rm(indrop)
@@ -133,6 +146,7 @@ load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Hu
 SeqwellV2.hsap.obj <- seqwell
 rm(seqwell)
 SeqwellV2.hsap.metadata <- SeqwellV2.hsap.obj@meta.data
+rm(SeqwellV2.hsap.obj)
 #load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/seqwellV2_seu.obj.RData")
 #SeqwellV2.mmus.obj <- seqwell
 #rm(seqwell)
@@ -140,6 +154,7 @@ SeqwellV2.hsap.metadata <- SeqwellV2.hsap.obj@meta.data
 
 # End ####
 
+print("Seurat reading DONE")
 # Taking out HEK cells of each technique ####
 CELseq2.HEK <- rownames(CELseq2.hsap.metadata)[which(CELseq2.hsap.metadata$clean.id == "HEK")]
 MARSseq.HEK <- rownames(MARSseq.hsap.metadata)[which(MARSseq.hsap.metadata$clean.id == "HEK")]
@@ -195,19 +210,20 @@ SeqwellV2.Bcells <- rownames(SeqwellV2.hsap.metadata[which(SeqwellV2.hsap.metada
 
 # End ####
 
+print("celltype cells DONE")
 # Loding Downsampleded data ####
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/CELseq2.hsap.full.SCE.jointDSmat.Robj")
 CELseq2.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 CELseq2.DS.UMI <- CELseq2.DS$UMI
-CELseq2.DS.Reads <- CELseq2.DS$Reads
+#CELseq2.DS.Reads <- CELseq2.DS$Reads
 rm(CELseq2.DS)
 
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/MARSseq.hsap.full.SCE.jointDSmat.Robj")
 MARSseq.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 MARSseq.DS.UMI <- MARSseq.DS$UMI
-MARSseq.DS.Reads <- MARSseq.DS$Reads
+#MARSseq.DS.Reads <- MARSseq.DS$Reads
 rm(MARSseq.DS)
 
 
@@ -215,76 +231,83 @@ load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/QUART
 QUARTZseq.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 QUARTZseq.DS.UMI <- QUARTZseq.DS$UMI
-QUARTZseq.DS.Reads <- QUARTZseq.DS$Reads
+#QUARTZseq.DS.Reads <- QUARTZseq.DS$Reads
 rm(QUARTZseq.DS)
 
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/SCRBseq.hsap.full.SCE.jointDSmat.Robj")
 SCRBseq.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 SCRBseq.DS.UMI <- SCRBseq.DS$UMI
-SCRBseq.DS.Reads <- SCRBseq.DS$Reads
+#SCRBseq.DS.Reads <- SCRBseq.DS$Reads
 rm(SCRBseq.DS)
 
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/SMARTseqFINAL.hsap.full.SCE.jointDSmat.Robj")
 SMARTseq2.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
-SMARTseq2.DS.UMI <- SMARTseq2.DS$UMI
-SMARTseq2.DS.Reads <- SMARTseq2.DS$Reads
+#SMARTseq2.DS.UMI <- SMARTseq2.DS$UMI ### HERE we dont have UMI, so we put Reads instead of UMIs for the name
+SMARTseq2.DS.UMI <- SMARTseq2.DS$Reads
 rm(SMARTseq2.DS)
 
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/C1HTsmall.hsap.full.SCE.jointDSmat.Robj")
 C1HTsmall.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 C1HTsmall.DS.UMI <- C1HTsmall.DS$UMI
-C1HTsmall.DS.Reads <- C1HTsmall.DS$Reads
+#C1HTsmall.DS.Reads <- C1HTsmall.DS$Reads
+rm(C1HTsmall.DS)
 
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/C1HTmedium.hsap.full.SCE.jointDSmat.Robj")
 C1HTmedium.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 C1HTmedium.DS.UMI <- C1HTmedium.DS$UMI
-C1HTmedium.DS.Reads <- C1HTmedium.DS$Reads
+#C1HTmedium.DS.Reads <- C1HTmedium.DS$Reads
+rm(C1HTmedium.DS)
 
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/10X2x5K.hsap.full.SCE.jointDSmat.Robj")
 Chromium.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 Chromium.DS.UMI <- Chromium.DS$UMI
-Chromium.DS.Reads <- Chromium.DS$Reads
+#Chromium.DS.Reads <- Chromium.DS$Reads
+rm(Chromium.DS)
 
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/Nuclei10X.hsap.full.SCE.jointDSmat.Robj")
 ChromiumNuclei.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 ChromiumNuclei.DS.UMI <- ChromiumNuclei.DS$UMI
-ChromiumNuclei.DS.Reads <- ChromiumNuclei.DS$Reads
+#ChromiumNuclei.DS.Reads <- ChromiumNuclei.DS$Reads
+rm(ChromiumNuclei.DS)
 
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/ddSEQ.hsap.full.SCE.jointDSmat.Robj")
 ddSEQ.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 ddSEQ.DS.UMI <- ddSEQ.DS$UMI
-ddSEQ.DS.Reads <- ddSEQ.DS$Reads
+#ddSEQ.DS.Reads <- ddSEQ.DS$Reads
+rm(ddSEQ.DS)
 
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/Dropseq.hsap.full.SCE.jointDSmat.Robj")
 Dropseq.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 Dropseq.DS.UMI <- Dropseq.DS$UMI
-Dropseq.DS.Reads <- Dropseq.DS$Reads
+#Dropseq.DS.Reads <- Dropseq.DS$Reads
 rm(Dropseq.DS)
 
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/ICELL8.hsap.full.SCE.jointDSmat.Robj")
 ICELL8.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 ICELL8.DS.UMI <- ICELL8.DS$UMI
-ICELL8.DS.Reads <- ICELL8.DS$Reads
+#ICELL8.DS.Reads <- ICELL8.DS$Reads
+rm(ICELL8.DS)
 
 
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Human/1CB.hsap.full.SCE.jointDSmat.Robj")
 inDrop.DS <- output.readcount.umicount.joint.mats
 rm(output.readcount.umicount.joint.mats)
 inDrop.DS.UMI <- inDrop.DS$UMI
-inDrop.DS.Reads <- inDrop.DS$Reads
+#inDrop.DS.Reads <- inDrop.DS$Reads
+rm(inDrop.DS)
 
 # End ####
 
-
+print("Downsampleded reading DONE")
 #Plotting stepwise Downsampling for HEK ####
 
 techniques <- c("CELseq2","MARSseq","QUARTZseq","SCRBseq","SMARTseq2", "C1HTsmall","C1HTmedium","Chromium", "ChromiumNuclei","ddSEQ","Dropseq","ICELL8","inDrop") #"SMARTseq2",
