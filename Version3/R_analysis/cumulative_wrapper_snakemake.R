@@ -158,7 +158,7 @@ main <- function(technology, seuratObj_path, DS_path, output_path) {
 
   output.list <- list(HEK.plot.df, Monocytes.plot.df, Bcells.plot.df)
   
-  save(output.list, file = paste(output_path,"/", technology,".Cumulatives.Robj", sep = ""))
+  save(output.list, file = paste(output_path,"/", technology,"_Cumulatives.Robj", sep = ""))
 
 }
 
