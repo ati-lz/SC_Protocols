@@ -92,7 +92,7 @@ main <- function(technology, seuratObj_path, DS_path, output_path) {
       print(paste(cell," = ", mean(sample.gene.numbers), sep = ""))
       tech.cumul.gene.numbers[cell] <- mean(sample.gene.numbers)
     }
-  HEK.plot.df <- rbind(HEK.plot.df, data.frame(Cumul= tech.cumul.gene.numbers, tech= rep(tech, length(tech.cumul.gene.numbers)), cell.num= seq(1:length(tech.cumul.gene.numbers))))
+  HEK.plot.df <- rbind(HEK.plot.df, data.frame(Cumul= tech.cumul.gene.numbers, tech= rep(technology, length(tech.cumul.gene.numbers)), cell.num= seq(1:length(tech.cumul.gene.numbers))))
   #save(HEK.plot.df, file ="/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Cumulative_gene_final/Cumulative_gene_dist_DS20K_HEK_dataPlot.RData")
   
   
@@ -123,7 +123,7 @@ main <- function(technology, seuratObj_path, DS_path, output_path) {
     print(paste(cell," = ", mean(sample.gene.numbers), sep = ""))
     tech.cumul.gene.numbers[cell] <- mean(sample.gene.numbers)
   }
-  Monocytes.plot.df <- rbind(Monocytes.plot.df, data.frame(Cumul= tech.cumul.gene.numbers, tech= rep(tech, length(tech.cumul.gene.numbers)), cell.num= seq(1:length(tech.cumul.gene.numbers))))
+  Monocytes.plot.df <- rbind(Monocytes.plot.df, data.frame(Cumul= tech.cumul.gene.numbers, tech= rep(technology, length(tech.cumul.gene.numbers)), cell.num= seq(1:length(tech.cumul.gene.numbers))))
   #save(Monocytes.plot.df, file ="/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Cumulative_gene_final/Cumulative_gene_dist_DS20K_Monocytes_dataPlot.RData")
 
   print("calculating the cumulatives For Bcells")
@@ -153,7 +153,7 @@ main <- function(technology, seuratObj_path, DS_path, output_path) {
     print(paste(cell," = ", mean(sample.gene.numbers), sep = ""))
     tech.cumul.gene.numbers[cell] <- mean(sample.gene.numbers)
   }
-  Bcells.plot.df <- rbind(Bcells.plot.df, data.frame(Cumul= tech.cumul.gene.numbers, tech= rep(tech, length(tech.cumul.gene.numbers)), cell.num= seq(1:length(tech.cumul.gene.numbers))))
+  Bcells.plot.df <- rbind(Bcells.plot.df, data.frame(Cumul= tech.cumul.gene.numbers, tech= rep(technology, length(tech.cumul.gene.numbers)), cell.num= seq(1:length(tech.cumul.gene.numbers))))
   #save(Bcells.plot.df, file ="/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Cumulative_gene_final/Cumulative_gene_dist_DS20K_Bcells_dataPlot.RData")
 
   output.list <- list(HEK.plot.df, Monocytes.plot.df, Bcells.plot.df)
