@@ -44,7 +44,9 @@ main <- function(technology, seuratObj_path, DS_path, output_path) {
     load(DS_path)
     techs.DS <- output.readcount.umicount.joint.mats
     rm(output.readcount.umicount.joint.mats)
-    techs.DS.UMI <- techs.DS$UMI
+    if (technology == "SMARTseqFINAL"){
+      techs.DS.UMI <- techs.DS$Reads
+    } else {techs.DS.UMI <- techs.DS$UMI}
     rm(techs.DS)
 
     tech.DS.UMI <- techs.DS.UMI
