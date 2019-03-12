@@ -26,10 +26,10 @@ QUARTZseq.mmus.obj <- quartzseq
 rm(quartzseq)
 QUARTZseq.mmus.metadata <- QUARTZseq.mmus.obj@meta.data
 
-load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/scrbseq_seu.obj.RData")
-SCRBseq.mmus.obj <- scrbseq
-rm(scrbseq)
-SCRBseq.mmus.metadata <- SCRBseq.mmus.obj@meta.data
+#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/scrbseq_seu.obj.RData")
+#SCRBseq.mmus.obj <- scrbseq
+#rm(scrbseq)
+#SCRBseq.mmus.metadata <- SCRBseq.mmus.obj@meta.data
 
 
 load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/smartseq_seu.obj.RData")
@@ -147,12 +147,12 @@ QUARTZseq.DS.UMI <- QUARTZseq.DS$UMI
 #QUARTZseq.DS.Reads <- QUARTZseq.DS$Reads
 rm(QUARTZseq.DS)
 
-load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Mouse/SCRBseq.mmus.full.SCE.jointDSmat.Robj")
-SCRBseq.DS <- output.readcount.umicount.joint.mats
-rm(output.readcount.umicount.joint.mats)
-SCRBseq.DS.UMI <- SCRBseq.DS$UMI
+#load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Mouse/SCRBseq.mmus.full.SCE.jointDSmat.Robj")
+#SCRBseq.DS <- output.readcount.umicount.joint.mats
+#rm(output.readcount.umicount.joint.mats)
+#SCRBseq.DS.UMI <- SCRBseq.DS$UMI
 #SCRBseq.DS.Reads <- SCRBseq.DS$Reads
-rm(SCRBseq.DS)
+#rm(SCRBseq.DS)
 
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Mouse/SMARTseqFINAL.mmus.full.SCE.jointDSmat.Robj")
 SMARTseq2.DS <- output.readcount.umicount.joint.mats
@@ -203,12 +203,12 @@ Dropseq.DS.UMI <- Dropseq.DS$UMI
 #Dropseq.DS.Reads <- Dropseq.DS$Reads
 rm(Dropseq.DS)
 
-load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Mouse/ICELL8.mmus.full.SCE.jointDSmat.Robj")
-ICELL8.DS <- output.readcount.umicount.joint.mats
-rm(output.readcount.umicount.joint.mats)
-ICELL8.DS.UMI <- ICELL8.DS$UMI
+#load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Mouse/ICELL8.mmus.full.SCE.jointDSmat.Robj")
+#ICELL8.DS <- output.readcount.umicount.joint.mats
+#rm(output.readcount.umicount.joint.mats)
+#ICELL8.DS.UMI <- ICELL8.DS$UMI
 #ICELL8.DS.Reads <- ICELL8.DS$Reads
-rm(ICELL8.DS)
+#rm(ICELL8.DS)
 
 
 load("/project/devel/alafzi/SC_Protocols/Downsampling/DS_secondRound/Mouse/1CB.mmus.full.SCE.jointDSmat.Robj")
@@ -223,7 +223,7 @@ rm(inDrop.DS)
 print("Downsampleded reading DONE")
 #Plotting stepwise Downsampling for Secretory ####
 
-techniques <- c("CELseq2","MARSseq","QUARTZseq","SCRBseq","SMARTseq2", "C1HTsmall","C1HTmedium","Chromium", "ChromiumNuclei","ddSEQ","Dropseq","ICELL8","inDrop") #"SMARTseq2",
+techniques <- c("CELseq2","MARSseq","QUARTZseq","SMARTseq2", "C1HTsmall","C1HTmedium","Chromium", "ChromiumNuclei","ddSEQ","Dropseq","inDrop") #,"SCRBseq","ICELL8"
 DSth.df.Secretory <- data.frame()
 techs.Secretory.20K.list <- list()
 for (tech in techniques){
