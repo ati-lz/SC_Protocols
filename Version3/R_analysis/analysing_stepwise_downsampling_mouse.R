@@ -73,10 +73,10 @@ rm(dropseq)
 Dropseq.mmus.metadata <- Dropseq.mmus.obj@meta.data
 
 
-load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/icell8_seu.obj.RData")
-ICELL8.mmus.obj <- icell8
-rm(icell8)
-ICELL8.mmus.metadata <- ICELL8.mmus.obj@meta.data
+#load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/icell8_seu.obj.RData")
+#ICELL8.mmus.obj <- icell8
+#rm(icell8)
+#ICELL8.mmus.metadata <- ICELL8.mmus.obj@meta.data
 
 
 load("/project/devel/alafzi/SC_Protocols/Version3/Seurat_objects_final_rename/Mouse/indrop_seu.obj.RData")
