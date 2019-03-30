@@ -160,7 +160,9 @@ main <- function(technology, seuratObj_path, DS_path, output_path) {
   Bcells.plot.df <- rbind(Bcells.plot.df, data.frame(Cumul= tech.cumul.gene.numbers, tech= rep(technology, length(tech.cumul.gene.numbers)), cell.num= seq(1:length(tech.cumul.gene.numbers))))
   #save(Bcells.plot.df, file ="/project/devel/alafzi/SC_Protocols/Version3/R_analysis/Cumulative_gene_final/Cumulative_gene_dist_DS20K_Bcells_dataPlot.RData")
 
-  output.list <- list(HEK.plot.df, Monocytes.plot.df, Bcells.plot.df, CELseq2.monocytes.total.genenames,QUARTZseq.monocytes.total.genenames,CELseq2.Bcells.total.genenames,QUARTZseq.Bcells.total.genenames)
+  if (technology=="CELseq2"){output.list <- list(HEK.plot.df, Monocytes.plot.df, Bcells.plot.df, CELseq2.monocytes.total.genenames,CELseq2.Bcells.total.genenames)}
+  else if (technology=="QUARTZseq"){output.list <- list(HEK.plot.df, Monocytes.plot.df, Bcells.plot.df,QUARTZseq.monocytes.total.genenames,QUARTZseq.Bcells.total.genenames)}
+  else {output.list <- list(HEK.plot.df, Monocytes.plot.df, Bcells.plot.df)}
   
   save(output.list, file = paste(output_path,"/", technology,"_Cumulatives_V2.Robj", sep = ""))
 
