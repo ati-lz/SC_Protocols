@@ -116,8 +116,8 @@ main <- function(technology, seuratObj_path, DS_path, output_path) {
         #sample.gene.names <- c(sample.gene.names,detected.genes)
         }
       sample.gene.names <- na.omit(sample.gene.names)
-      if (cell== ncol(DS.mat.Monocytes) & tech=="CELseq2"){CELseq2.monocytes.total.genenames <- sample.gene.names}
-      if (cell== ncol(DS.mat.Monocytes) & tech=="QUARTZseq"){QUARTZseq.monocytes.total.genenames <- sample.gene.names}
+      if (cell== ncol(DS.mat.Monocytes) & technology=="CELseq2"){CELseq2.monocytes.total.genenames <- sample.gene.names}
+      if (cell== ncol(DS.mat.Monocytes) & technology=="QUARTZseq"){QUARTZseq.monocytes.total.genenames <- sample.gene.names}
       num.uniq.genes <- length(unique(sample.gene.names))
       sample.gene.numbers[i] <- num.uniq.genes
     }
@@ -148,8 +148,8 @@ main <- function(technology, seuratObj_path, DS_path, output_path) {
         #sample.gene.names <- c(sample.gene.names,detected.genes)
         }
       sample.gene.names <- na.omit(sample.gene.names)
-      if (cell== ncol(DS.mat.Bcells) & tech=="CELseq2"){CELseq2.Bcells.total.genenames <- sample.gene.names}
-      if (cell== ncol(DS.mat.Bcells) & tech=="QUARTZseq"){QUARTZseq.Bcells.total.genenames <- sample.gene.names}
+      if (cell== ncol(DS.mat.Bcells) & technology=="CELseq2"){CELseq2.Bcells.total.genenames <- sample.gene.names}
+      if (cell== ncol(DS.mat.Bcells) & technology=="QUARTZseq"){QUARTZseq.Bcells.total.genenames <- sample.gene.names}
       num.uniq.genes <- length(unique(sample.gene.names))
       sample.gene.numbers[i] <- num.uniq.genes
     }
