@@ -8,7 +8,7 @@ TECHS = ["MARSseq", "QUARTZseq", "CELseq2", "Dropseq", "SCRBseq", "SMARTseqFINAL
 
 rule all:
     input:
-        expand("Cumulative_gene_final/{tech}_Cumulatives.Robj", tech=TECHS)
+        expand("Cumulative_gene_final/{tech}_Cumulatives_V2.Robj", tech=TECHS)
 
 rule cumulative_run:
     input:
