@@ -1,0 +1,19 @@
+{
+    
+    "__default__" :
+    {
+        "cpus_per_task" : 4,
+        "job_name" : "CNAG10X.{wildcards}",
+        "output" : "CNAG10X_{wildcards}.out",
+        "error" : "CNAG10X_{wildcards}.err"
+    },
+
+    "zUMI_run" :
+    {
+        "cpus_per_task" : 15,
+        "job_name" : "CNAG10X.{wildcards}",
+        "output" : "CNAG10X_{wildcards}.out",
+        "error" : "CNAG10X_{wildcards}.err"
+    }
+}
+
