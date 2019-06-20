@@ -82,7 +82,7 @@ rule zUMI_run:
     shell:
         """
         cd CNAG10X_zUMI/{wildcards.sample}_human
-        bash {zUMI_path}/zUMIs-master.sh -y ../../{input.yaml_hsap}
+        bash {zUMI_path}/zUMIs-master.sh -y {input.yaml_hsap}
 
        """
 
