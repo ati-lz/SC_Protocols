@@ -31,7 +31,7 @@ rule create_yaml:
     input:
          yaml = "/project/devel/alafzi/SC_Protocols/Version3/pipeline_general.yaml"
     output:
-        yamlOut_hsap="/home/devel/alafzi/10X_cellRanger/SERRANO/zUMI/"+protocol+"_hsap_{sample}.yaml"
+        yamlOut_hsap="/home/devel/alafzi/10X_cellRanger/SERRANO/zUMI/YAMLs/"+protocol+"_hsap_{sample}.yaml"
     run:
 
         stream = open(input.yaml, 'r')
@@ -57,9 +57,9 @@ rule create_yaml:
 
 rule fix_yaml:
     input: 
-        yamlin_hsap="/home/devel/alafzi/10X_cellRanger/SERRANO/zUMI/"+protocol+"_hsap_{sample}.yaml"
+        yamlin_hsap="/home/devel/alafzi/10X_cellRanger/SERRANO/zUMI/YAMLs/"+protocol+"_hsap_{sample}.yaml"
     output:
-        yamlOutFix_hsap="/home/devel/alafzi/10X_cellRanger/SERRANO/zUMI/"+protocol+"_hsap_{sample}_fixed.yaml"
+        yamlOutFix_hsap="/home/devel/alafzi/10X_cellRanger/SERRANO/zUMI/YAMLs_fixed/"+protocol+"_hsap_{sample}_fixed.yaml"
     shell:
         """
        sed 's/make_stats: true/make_stats: yes/g' {input.yamlin_hsap} > {output.yamlOutFix_hsap}
@@ -69,7 +69,7 @@ rule fix_yaml:
 
 rule zUMI_run:
     input:
-        yaml_hsap="/home/devel/alafzi/10X_cellRanger/SERRANO/zUMI/"+protocol+"_hsap_{sample}_fixed.yaml"
+        yaml_hsap="/home/devel/alafzi/10X_cellRanger/SERRANO/zUMI/YAMLs_fixed/"+protocol+"_hsap_{sample}_fixed.yaml"
 
     output:
         dir='CNAG10X_zUMI/{sample}_human/'+protocol+'.filtered.tagged.Aligned.out.bam',
