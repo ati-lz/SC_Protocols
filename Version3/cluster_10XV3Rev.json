@@ -10,7 +10,7 @@
 
     "zUMI_run" :
     {
-        "cpus_per_task" : 24,
+        "cpus_per_task" : 16,
         "job_name" : "10XV3Rev.{wildcards}",
         "output" : "mnout/10XV3Rev_{wildcards}.out",
         "error" : "mnout/10XV3Rev_{wildcards}.err"
@@ -18,7 +18,7 @@
 
     "demux_cells" :
     {
-        "cpus_per_task" : 24,
+        "cpus_per_task" : 16,
         "job_name" : "10XV3Rev.{wildcards}",
         "output" : "mnout/10XV3Rev_{wildcards}.out",
         "error" : "mnout/10XV3Rev_{wildcards}.err"
@@ -26,7 +26,7 @@
 
     "R_wrapper" :
     {
-        "cpus_per_task" : 24,
+        "cpus_per_task" : 16,
         "job_name" : "10XV3Rev.{wildcards}",
         "output" : "mnout/10XV3Rev_{wildcards}.out",
         "error" : "mnout/10XV3Rev_{wildcards}.err"
