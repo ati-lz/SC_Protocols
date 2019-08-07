@@ -1,0 +1,117 @@
+from os import listdir
+import yaml
+
+#Path to sample fastq files
+fastq_path = '/project/devel/HCA/10XGenomics/fastqs_all_final/10X_2x5Kcells_250Kreads/'
+human_gtf = '/project/devel/alafzi/ref_genomes/human/hsa_gencode.v28.annotation.gtf'
+human_STAR_genome= '/project/devel/alafzi/ref_genomes/human/STARgenome'
+mouse_gtf = '/project/devel/alafzi/ref_genomes/mouse/mmu_gencode.vM17.primary_assembly.annotation.gtf'
+mouse_STAR_genome= '/project/devel/alafzi/ref_genomes/mouse/STARgenome'
+mixed_gtf = '/project/devel/alafzi/ref_genomes/mixed/hsap_mmus_can_combined_gtf.gtf'
+mixed_STAR_genome= '/project/devel/alafzi/ref_genomes/mixed/STARgenome'
+
+zUMI_path='/apps/ZUMIS/2.2'
+bc_list2= '/project/devel/HCA/10XGenomics/10X_cellBCs_737K-august-2016.txt'
+protocol= '10X2x5K'
+
+#Loading modules
+#shell.executable("!/usr/bin/env bash")
+shell.prefix("module unload gcc/latest; module load gcc/6.3.0; module load XZ/5.2.2; module load COREUTILS/8.21; module load CONDA/4.3.11_PYTHON3; module load java/latest; module load SAMTOOLS/1.9; module load BAMTOOLS/2.3.0 ; module load STAR/2.6.0c; module load R/3.5.0; module load hdf5/1.10.1; module load PIGZ/2.3.3; module load ZUMIS/2.2; ")
+
+#Samples
+sample_files = listdir(fastq_path)
+SAMPLES = list(set(i.split("_")[0] for i in sample_files))
+#SAMPLES = ["64221"]
+
+SPECIES = ["human", "mouse", "mixed"]
+
+
+rule all:
+    input:
+        "multigenome_10X2x5KCorrected_DS_YAML/"+protocol+".hsap.full.SCE.jointDSmat.Robj"
+        #expand("YAMLs/"+protocol+"_hsap_{sample}.yaml",sample=SAMPLES),
+        #expand("YAMLs/"+protocol+"_DS_{sample}.yaml",sample=SAMPLES)
+        #expand('multigenome_10X2x5KCorrected_DS_YAML/{sample}_human/'+protocol+'.aligned.sorted.bam', sample=SAMPLES)
+
+rule create_yaml:
+    input:
+         yaml = "pipeline_general.yaml"
+    output:
+        #yamlOut_hsap="YAMLs/"+protocol+"_hsap_{sample}.yaml",
+        yamlOut_DS="YAMLs/"+protocol+"_DS_{sample}.yaml"
+    run:
+        #fname = input
+
+        stream = open(input.yaml, 'r')
+        data_DS = yaml.load(stream)
+
+        data_DS['project'] = protocol
+        data_DS['sequence_files']['file1']['name'] = fastq_path+ wildcards.sample +'_R1.fastq.gz'
+        data_DS['sequence_files']['file1']['base_definition'][0] = 'BC(1-16)'
+        data_DS['sequence_files']['file1']['base_definition'][1] = 'UMI(17-26)'
+        data_DS['sequence_files']['file2']['name'] = fastq_path+ wildcards.sample +'_R2.fastq.gz'
+        data_DS['sequence_files']['file2']['base_definition'][0] = 'cDNA(1-91)'
+        data_DS['num_threads'] = 24
+        #data_DS['make_stats'] = "yes"
+        #data_DS['which_Stage'] = 'Counting'
+        #data_DS['barcodes']['barcode_file'] = bc_list2
+        data_DS['barcodes']['barcode_num'] = 5000
+        data_DS['counting_opts']['downsampling'] = '5000,10000,15000,20000,50000'
+        data_DS['reference']['STAR_index'] = '/project/devel/alafzi/ref_genomes/human/STARgenome'
+        data_DS['reference']['GTF_file'] = '/project/devel/alafzi/ref_genomes/human/hsa_gencode.v28.annotation.gtf'
+        data_DS['reference']['additional_STAR_params'] = '--limitOutSJcollapsed 4000000 --limitSjdbInsertNsj 4000000'
+        data_DS['out_dir'] = "/project/devel/alafzi/SC_Protocols/Downsampling/multigenome_10X2x5KCorrected_DS_YAML/"+wildcards.sample+"_human"
+        with open(output.yamlOut_DS, 'w') as out_DS:
+            yaml.dump(data_DS, out_DS, default_flow_style=False)
+
+
+rule fix_yaml:
+    input: 
+        #yamlin_hsap= "YAMLs/"+protocol+"_hsap_{sample}.yaml",
+        yamlin_DS= "YAMLs/"+protocol+"_DS_{sample}.yaml"
+    output:
+        #yamlOutFix_hsap="YAMLs_fixed/"+protocol+"_hsap_{sample}_fixed.yaml",
+        yamlOutFix_DS="YAMLs_fixed/"+protocol+"_DS_{sample}_fixed.yaml"
+    shell:
+        """
+       sed 's/make_stats: true/make_stats: yes/g' {input.yamlin_DS} > {output.yamlOutFix_DS}
+       sed 's/downsampling: 5000,10000,15000,20000,50000/downsampling: "5000,10000,15000,20000,50000"/g' {input.yamlin_DS} > {output.yamlOutFix_DS}
+       """
+       
+
+rule zUMI_run:
+    input:
+        #yaml_hsap="YAMLs_fixed/"+protocol+"_hsap_{sample}_fixed.yaml",
+        yaml_DS="YAMLs_fixed/"+protocol + "_DS_{sample}_fixed.yaml"
+
+    output:
+        dir='multigenome_10X2x5KCorrected_DS_YAML/{sample}_human/'+protocol+'.filtered.tagged.Aligned.out.bam',
+        dir_file11='multigenome_10X2x5KCorrected_DS_YAML/{sample}_human/'+protocol+'.BCstats.txt',
+        dir_exp='multigenome_10X2x5KCorrected_DS_YAML/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds'
+
+    shell:
+        """
+        cd multigenome_10X2x5KCorrected_DS_YAML/{wildcards.sample}_human
+        bash {zUMI_path}/zUMIs-master.sh -y ../../{input.yaml_DS}
+        cd ../..
+       """
+ 
+        
+rule prepare_R_inputs:
+    input:
+        hsap_Exprs= expand('multigenome_10X2x5KCorrected_DS_YAML/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES)
+    
+    output:
+        hsapExp_list="multigenome_10X2x5KCorrected_DS_YAML/"+protocol+'_Hsap_expression_DS_list.txt'
+
+    shell:
+        """
+        echo -e "{input.hsap_Exprs}" >> {output.hsapExp_list}
+        """
+rule R_wrapper:
+    input:
+        hE_list="multigenome_10X2x5KCorrected_DS_YAML/"+protocol+"_Hsap_expression_DS_list.txt"
+    output:
+        hsap_Robj= "multigenome_10X2x5KCorrected_DS_YAML/"+protocol+".hsap.full.SCE.jointDSmat.Robj"
+    shell:
+        "Rscript wrapper_Downsampled_Robj.R --hsapExp {input.hE_list} --output_SCEobj ./multigenome_10X2x5KCorrected_DS_YAML --technology 10X2x5K"
