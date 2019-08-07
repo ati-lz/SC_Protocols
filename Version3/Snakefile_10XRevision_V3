@@ -86,8 +86,11 @@ rule fix_yaml:
     shell:
         """
        sed 's/make_stats: true/make_stats: yes/g' {input.yamlin_hsap} > {output.yamlOutFix_hsap}
+       sed 's/downsampling: 5000,10000,15000,20000,50000/downsampling: "5000,10000,15000,20000,50000"/g' {input.yamlin_hsap} > {output.yamlOutFix_hsap}
        sed 's/make_stats: true/make_stats: yes/g' {input.yamlin_mmus} > {output.yamlOutFix_mmus}
+       sed 's/downsampling: 5000,10000,15000,20000,50000/downsampling: "5000,10000,15000,20000,50000"/g' {input.yamlin_mmus} > {output.yamlOutFix_mmus}
        sed 's/make_stats: true/make_stats: yes/g' {input.yamlin_mixed} > {output.yamlOutFix_mixed}
+       sed 's/downsampling: 5000,10000,15000,20000,50000/downsampling: "5000,10000,15000,20000,50000"/g' {input.yamlin_mixed} > {output.yamlOutFix_mixed}
        """
        
 
