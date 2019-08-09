@@ -42,7 +42,7 @@ rule create_yaml:
         stream = open(input.yaml, 'r')
         data_hsap = yaml.load(stream)
 
-         data_hsap['project'] = protocol
+        data_hsap['project'] = protocol
         data_hsap['sequence_files']['file1']['name'] = fastq_path+ wildcards.sample +'_AllLanes_1.fastq.gz'
         data_hsap['sequence_files']['file1']['base_definition'][0] = 'BC(1-16)'
         data_hsap['sequence_files']['file1']['base_definition'][1] = 'UMI(17-28)'
