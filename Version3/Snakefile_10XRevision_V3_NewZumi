@@ -102,10 +102,13 @@ rule zUMI_run:
     output:
         dir='multigenome_10XV3Rev_V3/{sample}_human/'+protocol+'.filtered.tagged.Aligned.out.bam',
         dir_file11='multigenome_10XV3Rev_V3/{sample}_human/zUMIs_output/'+protocol+'kept_barcodes.txt',
+        dir_file111='multigenome_10XV3Rev_V3/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
         dir2='multigenome_10XV3Rev_V3/{sample}_mouse/'+protocol+'.filtered.tagged.Aligned.out.bam',
         dir_file22='multigenome_10XV3Rev_V3/{sample}_mouse/zUMIs_output/'+protocol+'kept_barcodes.txt',
+        dir_file222='multigenome_10XV3Rev_V3/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
         dir3='multigenome_10XV3Rev_V3/{sample}_mixed/'+protocol+'.filtered.tagged.Aligned.out.bam',
-        dir_file33='multigenome_10XV3Rev_V3/{sample}_mixed/zUMIs_output/'+protocol+'kept_barcodes.txt'
+        dir_file33='multigenome_10XV3Rev_V3/{sample}_mixed/zUMIs_output/'+protocol+'kept_barcodes.txt',
+        dir_file333='multigenome_10XV3Rev_V3/{sample}_mixed/zUMIs_output/expression/'+protocol+'.dgecounts.rds'
         
     shell:
         """
