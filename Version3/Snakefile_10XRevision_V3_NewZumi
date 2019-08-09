@@ -101,8 +101,11 @@ rule zUMI_run:
 
     output:
         dir='multigenome_10XV3Rev_V3/{sample}_human/'+protocol+'.filtered.tagged.Aligned.out.bam',
+        dir_file11='multigenome_10XV3Rev_V3/{sample}_human/zUMIs_output/'+protocol+'kept_barcodes.txt',
         dir2='multigenome_10XV3Rev_V3/{sample}_mouse/'+protocol+'.filtered.tagged.Aligned.out.bam',
+        dir_file22='multigenome_10XV3Rev_V3/{sample}_mouse/zUMIs_output/'+protocol+'kept_barcodes.txt',
         dir3='multigenome_10XV3Rev_V3/{sample}_mixed/'+protocol+'.filtered.tagged.Aligned.out.bam',
+        dir_file33='multigenome_10XV3Rev_V3/{sample}_mixed/zUMIs_output/'+protocol+'kept_barcodes.txt'
         
     shell:
         """
