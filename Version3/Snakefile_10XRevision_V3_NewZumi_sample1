@@ -35,9 +35,9 @@ rule create_yaml:
     input:
          yaml = "pipeline_general.yaml"
     output:
-        yamlOut_hsap="YAMLs/"+protocol+"_hsap_{sample}.yaml",
-        yamlOut_mmus="YAMLs/"+protocol+"_mmus_{sample}.yaml",
-        yamlOut_mixed="YAMLs/"+protocol+"_mixed_{sample}.yaml"
+        yamlOut_hsap="YAMLs/"+protocol+"_hsap_{sample}_s1.yaml",
+        yamlOut_mmus="YAMLs/"+protocol+"_mmus_{sample}_s1.yaml",
+        yamlOut_mixed="YAMLs/"+protocol+"_mixed_{sample}_s1.yaml"
     run:
        #fname = input
         stream = open(input.yaml, 'r')
@@ -76,13 +76,13 @@ rule create_yaml:
 
 rule fix_yaml:
     input: 
-        yamlin_hsap="YAMLs/"+protocol+"_hsap_{sample}.yaml",
-        yamlin_mmus="YAMLs/"+protocol+"_mmus_{sample}.yaml",
-        yamlin_mixed="YAMLs/"+protocol+"_mixed_{sample}.yaml"
+        yamlin_hsap="YAMLs/"+protocol+"_hsap_{sample}_s1.yaml",
+        yamlin_mmus="YAMLs/"+protocol+"_mmus_{sample}_s1.yaml",
+        yamlin_mixed="YAMLs/"+protocol+"_mixed_{sample}_s1.yaml"
     output:
-        yamlOutFix_hsap="YAMLs_fixed/"+protocol+"_hsap_{sample}_fixed.yaml",
-        yamlOutFix_mmus="YAMLs_fixed/"+protocol+"_mmus_{sample}_fixed.yaml",
-        yamlOutFix_mixed="YAMLs_fixed/"+protocol+"_mixed_{sample}_fixed.yaml"
+        yamlOutFix_hsap="YAMLs_fixed/"+protocol+"_hsap_{sample}_fixed_s1.yaml",
+        yamlOutFix_mmus="YAMLs_fixed/"+protocol+"_mmus_{sample}_fixed_s1.yaml",
+        yamlOutFix_mixed="YAMLs_fixed/"+protocol+"_mixed_{sample}_fixed_s1.yaml"
     shell:
         """
        sed 's/make_stats: true/make_stats: yes/g' {input.yamlin_hsap} > {output.yamlOutFix_hsap}
@@ -96,9 +96,9 @@ rule fix_yaml:
 
 rule zUMI_run:
     input:
-        yaml_hsap="YAMLs_fixed/"+protocol+"_hsap_{sample}_fixed.yaml",
-        yaml_mmus="YAMLs_fixed/"+protocol + "_mmus_{sample}_fixed.yaml",
-        yaml_mixed="YAMLs_fixed/"+protocol + "_mixed_{sample}_fixed.yaml"
+        yaml_hsap="YAMLs_fixed/"+protocol+"_hsap_{sample}_fixed_s1.yaml",
+        yaml_mmus="YAMLs_fixed/"+protocol + "_mmus_{sample}_fixed_s1.yaml",
+        yaml_mixed="YAMLs_fixed/"+protocol + "_mixed_{sample}_fixed_s1.yaml"
 
     output:
         dir='multigenome_10XV3Rev_V3_sample1/{sample}_human/'+protocol+'.filtered.tagged.Aligned.out.bam',
