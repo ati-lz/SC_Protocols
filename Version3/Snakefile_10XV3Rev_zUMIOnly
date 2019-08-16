@@ -1,0 +1,72 @@
+from os import listdir
+import yaml
+
+#Path to sample fastq files
+fastq_path = '/project/devel/HCA/Revision/10X_V3_final/'
+human_gtf = '/project/devel/alafzi/ref_genomes/human/hsa_gencode.v28.annotation.gtf'
+human_STAR_genome= '/project/devel/alafzi/ref_genomes/human/STARgenome'
+mouse_gtf = '/project/devel/alafzi/ref_genomes/mouse/mmu_gencode.vM17.primary_assembly.annotation.gtf'
+mouse_STAR_genome= '/project/devel/alafzi/ref_genomes/mouse/STARgenome'
+mixed_gtf = '/project/devel/alafzi/ref_genomes/mixed/hsap_mmus_can_combined_gtf.gtf'
+mixed_STAR_genome= '/project/devel/alafzi/ref_genomes/mixed/STARgenome'
+
+zUMI_path='/apps/ZUMIS/2.2'
+bc_list2= '/project/devel/HCA/10XGenomics/10X_cellBCs_737K-august-2016.txt'
+protocol= '10XV3Rev'
+
+#Loading modules
+#shell.executable("!/usr/bin/env bash")
+shell.prefix("module unload gcc/latest; module load gcc/6.3.0; module load XZ/5.2.2; module load COREUTILS/8.21; module load CONDA/4.3.11_PYTHON3; module load java/latest; module load SAMTOOLS/1.6; module load BAMTOOLS/2.3.0 ; module load STAR/2.6.0c; module load R/3.5.0; module load hdf5/1.10.1; module load PIGZ/2.3.3; module load ZUMIS/2.2; ")
+
+#Samples
+sample_files = listdir(fastq_path)
+SAMPLES = list(set(i.split("_")[0] for i in sample_files))
+#SAMPLES = ["64220","64221"]
+
+SPECIES = ["human", "mouse", "mixed"]
+
+rule all:
+    input:
+        expand('multigenome_10XV3Rev_V3/{sample}_human/'+protocol+'.filtered.tagged.Aligned.out.bam',sample=SAMPLES),
+        expand('multigenome_10XV3Rev_V3/{sample}_mouse/'+protocol+'.filtered.tagged.Aligned.out.bam',sample=SAMPLES),
+        expand('multigenome_10XV3Rev_V3/{sample}_mixed/'+protocol+'.filtered.tagged.Aligned.out.bam',sample=SAMPLES)
+        #"multigenome_10XV3Rev_V3/"+protocol+".hsap.full.SCE.Robj",
+        #"multigenome_10XV3Rev_V3/"+protocol+".mmus.full.SCE.Robj"
+
+       
+
+rule zUMI_run:
+    input:
+        yaml_hsap="YAMLs_fixed/"+protocol+"_hsap_{sample}_fixed.yaml",
+        yaml_mmus="YAMLs_fixed/"+protocol + "_mmus_{sample}_fixed.yaml",
+        yaml_mixed="YAMLs_fixed/"+protocol + "_mixed_{sample}_fixed.yaml"
+
+    output:
+        dir='multigenome_10XV3Rev_V3/{sample}_human/'+protocol+'.filtered.tagged.Aligned.out.bam',
+        #dir_file11='multigenome_10XV3Rev_V3/{sample}_human/zUMIs_output/'+protocol+'kept_barcodes.txt',
+        dir_file111='multigenome_10XV3Rev_V3/{sample}_human/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
+        #dir_file1111='multigenome_10XV3Rev_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.genecounts.txt',
+        #dir_file11111='multigenome_10XV3Rev_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
+        #dir_file111111='multigenome_10XV3Rev_V3/{sample}_human/zUMIs_output/stats/'+protocol+'.bc.READcounts.rds',
+        dir2='multigenome_10XV3Rev_V3/{sample}_mouse/'+protocol+'.filtered.tagged.Aligned.out.bam',
+        #dir_file22='multigenome_10XV3Rev_V3/{sample}_mouse/zUMIs_output/'+protocol+'kept_barcodes.txt',
+        dir_file222='multigenome_10XV3Rev_V3/{sample}_mouse/zUMIs_output/expression/'+protocol+'.dgecounts.rds',
+        #dir_file2222='multigenome_10XV3Rev_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.genecounts.txt',
+        #dir_file22222='multigenome_10XV3Rev_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.UMIcounts.txt',
+        #dir_file222222='multigenome_10XV3Rev_V3/{sample}_mouse/zUMIs_output/stats/'+protocol+'.bc.READcounts.rds',
+        dir3='multigenome_10XV3Rev_V3/{sample}_mixed/'+protocol+'.filtered.tagged.Aligned.out.bam',
+        #dir_file33='multigenome_10XV3Rev_V3/{sample}_mixed/zUMIs_output/'+protocol+'kept_barcodes.txt',
+        dir_file333='multigenome_10XV3Rev_V3/{sample}_mixed/zUMIs_output/expression/'+protocol+'.dgecounts.rds'
+        
+
+    shell:
+        """
+        cd multigenome_10XV3Rev_V3/{wildcards.sample}_human
+        bash {zUMI_path}/zUMIs-master.sh -y ../../{input.yaml_hsap}
+        cd ../{wildcards.sample}_mouse
+        bash {zUMI_path}/zUMIs-master.sh -y ../../{input.yaml_mmus}
+        cd ../{wildcards.sample}_mixed
+        bash {zUMI_path}/zUMIs-master.sh -y ../../{input.yaml_mixed}
+        cd ../..
+       """
+
