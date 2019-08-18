@@ -10,13 +10,13 @@ mouse_STAR_genome= '/project/devel/alafzi/ref_genomes/mouse/STARgenome'
 mixed_gtf = '/project/devel/alafzi/ref_genomes/mixed/hsap_mmus_can_combined_gtf.gtf'
 mixed_STAR_genome= '/project/devel/alafzi/ref_genomes/mixed/STARgenome'
 
-zUMI_path='/apps/ZUMIS/2.2'
+zUMI_path='/apps/ZUMIS/2.5.4'
 bc_list2= '/project/devel/HCA/10XGenomics/10X_cellBCs_737K-august-2016.txt'
 protocol= '10XV3Rev'
 
 #Loading modules
 #shell.executable("!/usr/bin/env bash")
-shell.prefix("module unload gcc/latest; module load gcc/6.3.0; module load XZ/5.2.2; module load COREUTILS/8.21; module load CONDA/4.3.11_PYTHON3; module load java/latest; module load SAMTOOLS/1.6; module load BAMTOOLS/2.3.0 ; module load STAR/2.6.0c; module load R/3.5.0; module load hdf5/1.10.1; module load PIGZ/2.3.3; module load ZUMIS/2.2; ")
+shell.prefix("module unload gcc/latest; module load gcc/6.3.0; module load XZ/5.2.2; module load COREUTILS/8.21; module load CONDA/4.3.11_PYTHON3; module load java/latest; module load SAMTOOLS/1.6; module load BAMTOOLS/2.3.0 ; module load STAR/2.6.0c; module load R/3.5.0; module load hdf5/1.10.1; module load PIGZ/2.3.3; module load ZUMIS/2.5.4; ")
 
 #Samples
 sample_files = listdir(fastq_path)
