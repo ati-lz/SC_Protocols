@@ -34,7 +34,7 @@ rule all:
         #"multigenome_10XV3Rev_V3/"+protocol+".hsap.full.SCE.Robj",
         #"multigenome_10XV3Rev_V3/"+protocol+".mmus.full.SCE.Robj"
 
- rule create_yaml:
+rule create_yaml:
     input:
          yaml = "pipeline_general.yaml"
     output:
