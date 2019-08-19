@@ -28,9 +28,12 @@ SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
     input:
-        expand('multigenome_10XV3Rev_V3/{sample}_human/'+protocol+'.filtered.tagged.Aligned.out.bam',sample=SAMPLES),
-        expand('multigenome_10XV3Rev_V3/{sample}_mouse/'+protocol+'.filtered.tagged.Aligned.out.bam',sample=SAMPLES),
-        expand('multigenome_10XV3Rev_V3/{sample}_mixed/'+protocol+'.filtered.tagged.Aligned.out.bam',sample=SAMPLES)
+        expamd("YAMLs_fixed/"+protocol+"_hsap_{sample}_fixed.yaml",sample=SAMPLES),
+        expamd("YAMLs_fixed/"+protocol+"_mmus_{sample}_fixed.yaml",sample=SAMPLES),
+        expand("YAMLs_fixed/"+protocol+"_mixed_{sample}_fixed.yaml",sample=SAMPLES)
+        #expand('multigenome_10XV3Rev_V3/{sample}_human/'+protocol+'.filtered.tagged.Aligned.out.bam',sample=SAMPLES),
+        #expand('multigenome_10XV3Rev_V3/{sample}_mouse/'+protocol+'.filtered.tagged.Aligned.out.bam',sample=SAMPLES),
+        #expand('multigenome_10XV3Rev_V3/{sample}_mixed/'+protocol+'.filtered.tagged.Aligned.out.bam',sample=SAMPLES)
         #"multigenome_10XV3Rev_V3/"+protocol+".hsap.full.SCE.Robj",
         #"multigenome_10XV3Rev_V3/"+protocol+".mmus.full.SCE.Robj"
 
@@ -97,7 +100,7 @@ rule fix_yaml:
        sed 's/downsampling: 5000,10000,15000,20000,50000/downsampling: "5000,10000,15000,20000,50000"/g' {input.yamlin_mixed} > {output.yamlOutFix_mixed}
        """
         
-
+'''
 rule zUMI_run:
     input:
         yaml_hsap="YAMLs_fixed/"+protocol+"_hsap_{sample}_fixed.yaml",
@@ -133,3 +136,4 @@ rule zUMI_run:
         cd ../..
        """
 
+'''
