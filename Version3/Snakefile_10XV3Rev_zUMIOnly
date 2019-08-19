@@ -28,8 +28,8 @@ SPECIES = ["human", "mouse", "mixed"]
 
 rule all:
     input:
-        expamd("YAMLs_fixed/"+protocol+"_hsap_{sample}_fixed.yaml",sample=SAMPLES),
-        expamd("YAMLs_fixed/"+protocol+"_mmus_{sample}_fixed.yaml",sample=SAMPLES),
+        expand("YAMLs_fixed/"+protocol+"_hsap_{sample}_fixed.yaml",sample=SAMPLES),
+        expand("YAMLs_fixed/"+protocol+"_mmus_{sample}_fixed.yaml",sample=SAMPLES),
         expand("YAMLs_fixed/"+protocol+"_mixed_{sample}_fixed.yaml",sample=SAMPLES)
         #expand('multigenome_10XV3Rev_V3/{sample}_human/'+protocol+'.filtered.tagged.Aligned.out.bam',sample=SAMPLES),
         #expand('multigenome_10XV3Rev_V3/{sample}_mouse/'+protocol+'.filtered.tagged.Aligned.out.bam',sample=SAMPLES),
