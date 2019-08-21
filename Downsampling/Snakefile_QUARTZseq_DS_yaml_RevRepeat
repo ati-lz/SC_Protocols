@@ -79,7 +79,7 @@ rule fix_yaml:
 
 rule zUMI_run:
     input:
-        yaml_DS="YAMLs_fixed/"+protocol + "_DS_{sample}_fixed_RevRepeat.yaml"
+        yaml_DS=expand("YAMLs_fixed/"+protocol + "_DS_{sample}_fixed_RevRepeat.yaml", sample=SAMPLES)
 
     output:
         #dir='multigenome_QUARTZseq_DS_YAML/{sample}_human_{repeat}/'+protocol+'.filtered.tagged.Aligned.out.bam',
@@ -96,7 +96,7 @@ rule zUMI_run:
         
 rule prepare_R_inputs:
     input:
-        hsap_Exprs= expand('multigenome_QUARTZseq_DS_YAML/{sample}_human_{repeat}/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES, repeat=REPEATS)
+        hsap_Exprs= 'multigenome_QUARTZseq_DS_YAML/{sample}_human_{repeat}/zUMIs_output/expression/'+protocol+'.dgecounts.rds'
         #hsap_Exprs= 'multigenome_QUARTZseq_DS_YAML/{sample}_human_{repeat}/zUMIs_output/expression/'+protocol+'.dgecounts.rds'
     
     output:
