@@ -28,7 +28,7 @@ REPEATS = ["1","2","3"]
 
 rule all:
     input:
-        expand("multigenome_QUARTZseq_DS_YAML/"+protocol+".hsap.full.SCE.jointDSmat_{repeat}.Robj", repeat=REPEATS)
+        "multigenome_QUARTZseq_DS_YAML/"+protocol+".hsap.full.SCE.jointDSmat_{repeat}.Robj"
         #expand("YAMLs/"+protocol+"_hsap_{sample}.yaml",sample=SAMPLES),
         #expand("YAMLs/"+protocol+"_DS_{sample}.yaml",sample=SAMPLES)
         #expand('multigenome_QUARTZseq_DS_YAML/{sample}_human/'+protocol+'.aligned.sorted.bam', sample=SAMPLES)
