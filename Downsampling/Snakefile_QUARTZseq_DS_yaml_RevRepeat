@@ -28,7 +28,7 @@ REPEATS = ["1","2","3"]
 
 rule all:
     input:
-        expand("multigenome_QUARTZseq_DS_YAML/"+protocol+".hsap.full.SCE.jointDSmat_{repeat}.Robj", repeat=REPEATS)
+        "multigenome_QUARTZseq_DS_YAML/"+protocol+".hsap.full.SCE.jointDSmat_{repeat}.Robj"
         #expand("YAMLs/"+protocol+"_hsap_{sample}.yaml",sample=SAMPLES),
         #expand("YAMLs/"+protocol+"_DS_{sample}.yaml",sample=SAMPLES)
         #expand('multigenome_QUARTZseq_DS_YAML/{sample}_human/'+protocol+'.aligned.sorted.bam', sample=SAMPLES)
@@ -96,7 +96,7 @@ rule zUMI_run:
         
 rule prepare_R_inputs:
     input:
-        hsap_Exprs= expand('multigenome_QUARTZseq_DS_YAML/{sample}_human_{wildcards.repeat}/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES)
+        hsap_Exprs= expand('multigenome_QUARTZseq_DS_YAML/{sample}_human_{repeat}/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES)
     
     output:
         hsapExp_list="multigenome_QUARTZseq_DS_YAML/"+protocol+'_Hsap_expression_DS_list_{repeat}.txt'
@@ -109,6 +109,6 @@ rule R_wrapper:
     input:
         hE_list="multigenome_QUARTZseq_DS_YAML/"+protocol+"_Hsap_expression_DS_list_{repeat}.txt"
     output:
-        hsap_Robj= "multigenome_QUARTZseq_DS_YAML/"+protocol+".hsap.full.SCE.jointDSmat_{repeat}.Robj"
+        hsap_Robj= expand("multigenome_QUARTZseq_DS_YAML/"+protocol+".hsap.full.SCE.jointDSmat_{repeat}.Robj", repeat=REPEATS)
     shell:
         "Rscript wrapper_Downsampled_Robj.R --hsapExp {input.hE_list} --output_SCEobj ./multigenome_QUARTZseq_DS_YAML --technology QUARTZseq"
