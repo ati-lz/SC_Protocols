@@ -96,7 +96,7 @@ rule zUMI_run:
         
 rule prepare_R_inputs:
     input:
-        hsap_Exprs= expand('multigenome_QUARTZseq_DS_YAML/{sample}_human_{repeat}/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES)
+        hsap_Exprs= expand('multigenome_QUARTZseq_DS_YAML/{sample}_human_{repeat}/zUMIs_output/expression/'+protocol+'.dgecounts.rds',sample=SAMPLES,repeat=REPEATS)
     
     output:
         hsapExp_list="multigenome_QUARTZseq_DS_YAML/"+protocol+'_Hsap_expression_DS_list_{repeat}.txt'
