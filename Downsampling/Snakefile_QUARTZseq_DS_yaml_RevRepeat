@@ -24,7 +24,7 @@ SAMPLES = list(set(i.split("_")[1] for i in sample_files))
 #SAMPLES = ["5568AA", "5571AA"]
 #SAMPLES = SAMPLES[0]
 SPECIES = ["human", "mouse", "mixed"]
-REPEATS = ["1","2","3"]
+REPEATS = ["1","2","3","4","5"]
 
 rule all:
     input:
