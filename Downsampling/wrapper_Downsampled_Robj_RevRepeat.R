@@ -126,4 +126,4 @@ opt <- docopt::docopt(doc, version = "version 0.0.1\n")
 #message("output file: ", opt$output_file, "\n")
 
 ## Run main function
-main(opt$hsapExp, opt$output_SCEobj, opt$technology)
+main(opt$hsapExp, opt$output_SCEobj,opt$RepNumber, opt$technology)
