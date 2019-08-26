@@ -38,7 +38,7 @@ rule create_yaml:
     input:
          yaml = "pipeline_general.yaml"
     output:
-        yamlOut_DS="YAMLs/"+protocol+"_DS_{sample}_RevRepeat.yaml"
+        yamlOut_DS="YAMLs/"+protocol+"_DS_{sample}_RevRepeat_{repeat}.yaml"
     run:
         #fname = input
 
@@ -67,9 +67,9 @@ rule create_yaml:
 
 rule fix_yaml:
     input: 
-        yamlin_DS= "YAMLs/"+protocol+"_DS_{sample}_RevRepeat.yaml"
+        yamlin_DS= "YAMLs/"+protocol+"_DS_{sample}_RevRepeat_{repeat}.yaml"
     output:
-        yamlOutFix_DS="YAMLs_fixed/"+protocol+"_DS_{sample}_fixed_RevRepeat.yaml"
+        yamlOutFix_DS="YAMLs_fixed/"+protocol+"_DS_{sample}_fixed_RevRepeat_{repeat}.yaml"
     shell:
         """
        sed 's/make_stats: true/make_stats: yes/g' {input.yamlin_DS} > {output.yamlOutFix_DS}
@@ -79,7 +79,7 @@ rule fix_yaml:
 
 rule zUMI_run:
     input:
-        yaml_DS="YAMLs_fixed/"+protocol + "_DS_{sample}_fixed_RevRepeat.yaml"
+        yaml_DS="YAMLs_fixed/"+protocol + "_DS_{sample}_fixed_RevRepeat_{repeat}.yaml"
 
     output:
         dir='multigenome_QUARTZseq_DS_YAML/{sample}_human_{repeat}/'+protocol+'.filtered.tagged.Aligned.out.bam',
