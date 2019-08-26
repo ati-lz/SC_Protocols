@@ -46,10 +46,10 @@ rule create_yaml:
         data_DS = yaml.load(stream)
 
         data_DS['project'] = protocol
-        data_DS['sequence_files']['file1']['name'] = fastq_path+ wildcards.sample +'_2.fq.gz'
+        data_DS['sequence_files']['file1']['name'] = fastq_path+ 'MARSseq_' +wildcards.sample +'_2.fq.gz'
         data_DS['sequence_files']['file1']['base_definition'][0] = 'BC(1-6)'
         data_DS['sequence_files']['file1']['base_definition'][1] = 'UMI(7-14)'
-        data_DS['sequence_files']['file2']['name'] = fastq_path+ wildcards.sample +'_1.fq.gz'
+        data_DS['sequence_files']['file2']['name'] = fastq_path+ 'MARSseq_' +wildcards.sample +'_1.fq.gz'
         data_DS['sequence_files']['file2']['base_definition'][0] = 'cDNA(1-52)'
         data_DS['num_threads'] = 8
         #data_DS['make_stats'] = "yes"
