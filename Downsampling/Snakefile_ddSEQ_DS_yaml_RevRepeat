@@ -80,7 +80,6 @@ rule fix_yaml:
        sed 's/downsampling: 5000,10000,15000,20000,50000/downsampling: "5000,10000,15000,20000,50000"/g' {input.yamlin_DS} > {output.yamlOutFix_DS}
        """
        
-
 rule zUMI_run:
     input:
         yaml_DS="YAMLs_fixed/"+protocol + "_DS_{sample}_fixed_RevRepeat_{repeat}.yaml"
