@@ -2,7 +2,7 @@ from os import listdir
 import yaml
 
 #Path to sample fastq files
-fastq_path = '/project/devel/HCA/10XGenomics/fastqs_all_final/10X_2x5Kcells_250Kreads/'
+fastq_path = '/project/devel/HCA/Revision/10X_V3_final/'
 human_gtf = '/project/devel/alafzi/ref_genomes/human/hsa_gencode.v28.annotation.gtf'
 human_STAR_genome= '/project/devel/alafzi/ref_genomes/human/STARgenome'
 mouse_gtf = '/project/devel/alafzi/ref_genomes/mouse/mmu_gencode.vM17.primary_assembly.annotation.gtf'
@@ -12,7 +12,7 @@ mixed_STAR_genome= '/project/devel/alafzi/ref_genomes/mixed/STARgenome'
 
 zUMI_path='/apps/ZUMIS/2.2'
 bc_list2= '/project/devel/HCA/10XGenomics/10X_cellBCs_737K-august-2016.txt'
-protocol= '10X2x5K'
+protocol= '10XV3Rev'
 
 #Loading modules
 #shell.executable("!/usr/bin/env bash")
@@ -20,9 +20,7 @@ shell.prefix("module unload gcc/latest; module load gcc/6.3.0; module load XZ/5.
 
 #Samples
 sample_files = listdir(fastq_path)
-#SAMPLES = list(set(i.split("_")[0] for i in sample_files))
-#SAMPLES = ["64221"]
-SAMPLES = ["64220"]
+SAMPLES = list(set(i.split("_")[0] for i in sample_files))
 
 SPECIES = ["human", "mouse", "mixed"]
 
@@ -47,11 +45,11 @@ rule create_yaml:
         data_DS = yaml.load(stream)
 
         data_DS['project'] = protocol
-        data_DS['sequence_files']['file1']['name'] = fastq_path+'10X2x5Kcell250Kreads_'+ wildcards.sample +'_R1.fastq.gz'
-        data_DS['sequence_files']['file1']['base_definition'][0] = 'BC(1-16)'
-        data_DS['sequence_files']['file1']['base_definition'][1] = 'UMI(17-26)'
-        data_DS['sequence_files']['file2']['name'] = fastq_path+'10X2x5Kcell250Kreads_'+ wildcards.sample +'_R2.fastq.gz'
-        data_DS['sequence_files']['file2']['base_definition'][0] = 'cDNA(1-91)'
+        data_hsap['sequence_files']['file1']['name'] = fastq_path+ wildcards.sample +'_AllLanes_1.fastq.gz'
+        data_hsap['sequence_files']['file1']['base_definition'][0] = 'BC(1-16)'
+        data_hsap['sequence_files']['file1']['base_definition'][1] = 'UMI(17-28)'
+        data_hsap['sequence_files']['file2']['name'] = fastq_path+ wildcards.sample +'_AllLanes_2.fastq.gz'
+        data_hsap['sequence_files']['file2']['base_definition'][0] = 'cDNA(1-89)'
         data_DS['num_threads'] = 24
         #data_DS['make_stats'] = "yes"
         #data_DS['which_Stage'] = 'Counting'
@@ -115,4 +113,4 @@ rule R_wrapper:
     output:
         hsap_Robj= "multigenome_10XV3Rev_V3/"+protocol+".hsap.full.SCE.jointDSmat.Robj"
     shell:
-        "Rscript wrapper_Downsampled_Robj.R --hsapExp {input.hE_list} --output_SCEobj ./multigenome_10XV3Rev_V3 --technology 10X2x5K"
+        "Rscript wrapper_Downsampled_Robj.R --hsapExp {input.hE_list} --output_SCEobj ./multigenome_10XV3Rev_V3 --technology 10XV3Rev"
