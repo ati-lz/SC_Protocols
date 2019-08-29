@@ -113,4 +113,4 @@ rule R_wrapper:
     output:
         hsap_Robj= "multigenome_10XV3Rev_V3/"+protocol+".hsap.full.SCE.jointDSmat.Robj"
     shell:
-        "Rscript wrapper_Downsampled_Robj.R --hsapExp {input.hE_list} --output_SCEobj ./multigenome_10XV3Rev_V3 --technology 10XV3Rev"
+        "Rscript ../Downsampling/wrapper_Downsampled_Robj.R --hsapExp {input.hE_list} --output_SCEobj ./multigenome_10XV3Rev_V3 --technology 10XV3Rev"
