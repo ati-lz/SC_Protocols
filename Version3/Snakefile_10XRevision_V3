@@ -53,7 +53,7 @@ rule create_yaml:
         #data_hsap['make_stats'] = "yes"
         #data_hsap['which_Stage'] = 'Counting'
         #data_hsap['barcodes']['barcode_file'] = bc_list2
-        data_hsap['barcodes']['barcode_num'] = 10000
+        data_hsap['barcodes']['barcode_num'] = 20000
         data_hsap['counting_opts']['downsampling'] = '5000,10000,15000,20000,50000'
         data_hsap['reference']['STAR_index'] = '/project/devel/alafzi/ref_genomes/human/STARgenome'
         data_hsap['reference']['GTF_file'] = '/project/devel/alafzi/ref_genomes/human/hsa_gencode.v28.annotation.gtf'
